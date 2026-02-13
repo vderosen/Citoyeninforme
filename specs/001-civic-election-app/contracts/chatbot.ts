@@ -4,7 +4,7 @@
  * These TypeScript interfaces define the chatbot's internal state
  * and the shape of requests/responses to the LLM proxy.
  *
- * Contract boundary: mobile app → LLM proxy → Anthropic Claude API
+ * Contract boundary: mobile app → LLM proxy → OpenAI GPT API
  */
 
 // === Chatbot Modes ===
@@ -44,7 +44,7 @@ export interface CitedSource {
 /**
  * POST /api/chat
  * Request to the lightweight LLM proxy.
- * The proxy adds the API key and forwards to Claude.
+ * The proxy adds the API key and forwards to OpenAI.
  */
 export interface ChatRequest {
   mode: ChatbotMode;

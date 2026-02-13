@@ -10,7 +10,7 @@ Build a cross-platform mobile civic election app using React Native (Expo) that 
 ## Technical Context
 
 **Language/Version**: TypeScript 5.x on React Native 0.80+ (Expo SDK 54+)
-**Primary Dependencies**: Expo (managed workflow), Expo Router, Zustand, react-i18next, gluestack-ui v3, NativeWind v4, react-native-mmkv, expo-sqlite
+**Primary Dependencies**: Expo (managed workflow), Expo Router, Zustand, react-i18next, gluestack-ui v3, NativeWind v4, react-native-mmkv, expo-sqlite, openai (Node SDK)
 **Storage**: MMKV for key-value (user profile, preferences); SQLite for structured election dataset; bundled JSON for initial data seeding
 **Testing**: Jest (unit), React Native Testing Library (component), Detox (E2E)
 **Target Platform**: iOS 15+ and Android 10+ (cross-platform via Expo)
@@ -132,7 +132,7 @@ tests/
     └── chatbot-learn.test.ts
 ```
 
-**Structure Decision**: Single mobile project using Expo managed workflow with file-based routing (Expo Router). All election data is bundled as JSON in `src/data/elections/{city-year}/`, making it trivially swappable for new elections. No backend server — LLM calls go directly to the provider API via a thin proxy (API key security). This keeps the architecture simple per Principle VI.
+**Structure Decision**: Single mobile project using Expo managed workflow with file-based routing (Expo Router). All election data is bundled as JSON in `src/data/elections/{city-year}/`, making it trivially swappable for new elections. Minimal backend — a stateless proxy for OpenAI API key security (no database, no user data). This keeps the architecture simple per Principle VI.
 
 ## Complexity Tracking
 

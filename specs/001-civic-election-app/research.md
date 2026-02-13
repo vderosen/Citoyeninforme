@@ -103,16 +103,16 @@ French is the default and fallback language. Translation files live in `src/i18n
 
 ## Decision 7: LLM Integration
 
-**Decision**: Anthropic Claude API via a lightweight backend proxy
+**Decision**: OpenAI GPT API via a lightweight backend proxy
 
 **Rationale**: The chatbot requires an LLM for three modes (Learn, Candidate, Debate). Key design:
-- **Provider**: Anthropic Claude — strong conversational French, excellent at following system prompts (critical for neutrality constraints), supports long context for the election dataset.
-- **Architecture**: API keys must NOT be embedded in the mobile app. A minimal backend proxy (serverless function on Cloudflare Workers or AWS Lambda) forwards requests to the Claude API. The proxy adds the API key, enforces rate limiting, and strips sensitive headers.
-- **Streaming**: Server-Sent Events for real-time token streaming to the mobile client — essential for chatbot UX.
+- **Provider**: OpenAI GPT (GPT-4o or latest available model) — strong conversational French, excellent instruction-following for system prompts (critical for neutrality constraints), supports long context for the election dataset. The user has free OpenAI credits, making this the pragmatic choice.
+- **Architecture**: API keys must NOT be embedded in the mobile app. A minimal backend proxy (serverless function on Cloudflare Workers or AWS Lambda) forwards requests to the OpenAI API. The proxy adds the API key, enforces rate limiting, and strips sensitive headers.
+- **Streaming**: Server-Sent Events for real-time token streaming to the mobile client — essential for chatbot UX. OpenAI's streaming API returns SSE-compatible chunks natively.
 - **Context management**: Each chatbot mode has a dedicated system prompt. The election dataset relevant context is injected into the system prompt. Conversation history is maintained per-session in the Zustand chatbot store.
 
 **Alternatives considered**:
-- OpenAI GPT-4.5: Strong alternative. Claude was chosen for its instruction-following reliability (critical for the neutrality and source-grounding constraints).
+- Anthropic Claude: Strong instruction-following and French. Viable alternative if switching providers later, since the proxy architecture is provider-agnostic.
 - Direct API calls from mobile: Security risk — API key would be extractable from the app binary. The proxy is a necessary architectural addition.
 - On-device LLM: Not feasible for the quality required by the Socratic debate mode. On-device models lack the reasoning capability needed.
 

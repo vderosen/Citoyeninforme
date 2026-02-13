@@ -130,6 +130,6 @@ To deploy for a different city/election:
               └──────┬──────┘
                      │
               ┌──────┴──────┐
-              │ Claude API  │
+              │ OpenAI API  │
               └─────────────┘
 ```
