@@ -1,0 +1,10 @@
+{
+  "title": "{{city}} {{year}}",
+  "subtitle": "Élections municipales",
+  "purpose": "Découvrez les programmes des candidats, comparez leurs positions et formez votre propre opinion.",
+  "startSurvey": "Commencer le questionnaire",
+  "exploreCandidates": "Explorer les candidats",
+  "openChatbot": "Poser une question",
+  "electionInfo": "Informations pratiques",
+  "dataSource": "Données issues des programmes officiels des candidats"
+}

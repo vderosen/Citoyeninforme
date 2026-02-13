@@ -1,0 +1,16 @@
+node_modules/
+.expo/
+dist/
+build/
+*.log
+.env*
+.env.local
+coverage/
+*.tsbuildinfo
+web-build/
+ios/
+android/
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp

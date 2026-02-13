@@ -1,0 +1,20 @@
+{
+  "title": "Assistant",
+  "selectMode": "Choisissez un mode",
+  "learnMode": "Apprendre",
+  "learnModeDescription": "Posez des questions sur les candidats et les programmes",
+  "candidateMode": "Candidat",
+  "candidateModeDescription": "Discutez avec un candidat virtuel",
+  "debateMode": "Débat",
+  "debateModeDescription": "Mettez vos convictions à l'épreuve",
+  "debateLocked": "Complétez d'abord le questionnaire",
+  "selectCandidate": "Choisissez un candidat",
+  "placeholder": "Écrivez votre message...",
+  "send": "Envoyer",
+  "thinking": "Réflexion en cours...",
+  "sourcesCited": "Sources citées",
+  "offTopicRedirect": "Je suis spécialisé dans les questions relatives aux élections municipales. Puis-je vous aider sur un sujet lié à l'élection ?",
+  "infoUnavailable": "Cette information n'est pas disponible dans notre base de données. Je préfère vous le signaler plutôt que de risquer une approximation.",
+  "openChat": "Ouvrir l'assistant",
+  "closeChat": "Fermer l'assistant"
+}

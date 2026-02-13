@@ -1,0 +1,20 @@
+{
+  "title": "Candidats",
+  "filterByTheme": "Filtrer par thème",
+  "allThemes": "Tous les thèmes",
+  "positions": "Positions",
+  "details": "Voir les détails",
+  "hideDetails": "Masquer les détails",
+  "compare": "Comparer",
+  "compareTitle": "Comparaison",
+  "selectCandidates": "Sélectionnez les candidats à comparer",
+  "selectTheme": "Choisissez un thème",
+  "askInChat": "Poser une question au chatbot",
+  "logistics": "Informations pratiques",
+  "keyDates": "Dates clés",
+  "eligibility": "Conditions de vote",
+  "votingMethods": "Modalités de vote",
+  "votingLocations": "Bureaux de vote",
+  "candidateCount": "{{count}} candidat",
+  "candidateCount_plural": "{{count}} candidats"
+}

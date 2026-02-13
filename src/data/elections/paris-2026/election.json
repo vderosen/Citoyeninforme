@@ -1,0 +1,17 @@
+{
+  "id": "paris-municipales-2026",
+  "city": "Paris",
+  "type": "Élections municipales",
+  "year": 2026,
+  "votingRules": {
+    "rounds": 2,
+    "description": "Scrutin de liste à deux tours avec prime majoritaire. La liste arrivée en tête au second tour obtient la moitié des sièges, l'autre moitié est répartie proportionnellement entre les listes ayant obtenu au moins 5% des suffrages."
+  },
+  "timeline": {
+    "registrationDeadline": "2026-03-06",
+    "firstRound": "2026-03-15",
+    "secondRound": "2026-03-22"
+  },
+  "dataVersion": "0.1.0",
+  "lastUpdated": "2026-02-13"
+}

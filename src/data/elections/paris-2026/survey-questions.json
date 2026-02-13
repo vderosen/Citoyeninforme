@@ -1,0 +1,242 @@
+[
+  {
+    "id": "q01",
+    "electionId": "paris-municipales-2026",
+    "text": "Quelle devrait être la priorité pour les déplacements dans Paris ?",
+    "themeIds": ["transport"],
+    "options": [
+      {
+        "id": "q01-a",
+        "text": "Développer massivement le vélo et les transports en commun, même en réduisant la place de la voiture",
+        "themeScores": { "transport": 2, "ecologie": 1 }
+      },
+      {
+        "id": "q01-b",
+        "text": "Maintenir un équilibre entre tous les modes de transport",
+        "themeScores": { "transport": 0 }
+      },
+      {
+        "id": "q01-c",
+        "text": "Préserver l'accès automobile et créer plus de stationnement",
+        "themeScores": { "transport": -2 }
+      }
+    ],
+    "order": 1
+  },
+  {
+    "id": "q02",
+    "electionId": "paris-municipales-2026",
+    "text": "En matière de logement à Paris, que considérez-vous comme le plus important ?",
+    "themeIds": ["logement"],
+    "options": [
+      {
+        "id": "q02-a",
+        "text": "Construire davantage de logements sociaux, même si cela augmente les dépenses publiques",
+        "themeScores": { "logement": 2, "budget": -1 }
+      },
+      {
+        "id": "q02-b",
+        "text": "Encadrer strictement les loyers pour limiter les hausses",
+        "themeScores": { "logement": 1 }
+      },
+      {
+        "id": "q02-c",
+        "text": "Favoriser l'accession à la propriété et laisser le marché s'autoréguler",
+        "themeScores": { "logement": -2 }
+      }
+    ],
+    "order": 2
+  },
+  {
+    "id": "q03",
+    "electionId": "paris-municipales-2026",
+    "text": "Quel rôle la municipalité devrait-elle jouer en matière de sécurité ?",
+    "themeIds": ["securite"],
+    "options": [
+      {
+        "id": "q03-a",
+        "text": "Renforcer la police municipale et la vidéosurveillance",
+        "themeScores": { "securite": 2 }
+      },
+      {
+        "id": "q03-b",
+        "text": "Privilégier la prévention et la médiation sociale",
+        "themeScores": { "securite": -1, "social": 1 }
+      },
+      {
+        "id": "q03-c",
+        "text": "Combiner répression et prévention de manière équilibrée",
+        "themeScores": { "securite": 0 }
+      }
+    ],
+    "order": 3
+  },
+  {
+    "id": "q04",
+    "electionId": "paris-municipales-2026",
+    "text": "Quelle place devrait avoir l'écologie dans les politiques municipales ?",
+    "themeIds": ["ecologie"],
+    "options": [
+      {
+        "id": "q04-a",
+        "text": "L'écologie doit être la priorité absolue, même si cela implique des contraintes fortes",
+        "themeScores": { "ecologie": 2 }
+      },
+      {
+        "id": "q04-b",
+        "text": "L'écologie est importante mais doit être conciliée avec le développement économique",
+        "themeScores": { "ecologie": 0 }
+      },
+      {
+        "id": "q04-c",
+        "text": "Les enjeux économiques et sociaux doivent primer sur les contraintes environnementales",
+        "themeScores": { "ecologie": -2 }
+      }
+    ],
+    "order": 4
+  },
+  {
+    "id": "q05",
+    "electionId": "paris-municipales-2026",
+    "text": "Comment la ville devrait-elle gérer ses finances ?",
+    "themeIds": ["budget"],
+    "options": [
+      {
+        "id": "q05-a",
+        "text": "Investir massivement dans les services publics, quitte à augmenter la dette",
+        "themeScores": { "budget": -2, "social": 1 }
+      },
+      {
+        "id": "q05-b",
+        "text": "Maintenir un budget équilibré avec des investissements ciblés",
+        "themeScores": { "budget": 0 }
+      },
+      {
+        "id": "q05-c",
+        "text": "Réduire les dépenses et baisser les impôts locaux",
+        "themeScores": { "budget": 2 }
+      }
+    ],
+    "order": 5
+  },
+  {
+    "id": "q06",
+    "electionId": "paris-municipales-2026",
+    "text": "Quelle vision de la culture municipale vous correspond le mieux ?",
+    "themeIds": ["culture"],
+    "options": [
+      {
+        "id": "q06-a",
+        "text": "Augmenter le budget culturel et rendre la culture accessible à tous gratuitement",
+        "themeScores": { "culture": 2, "budget": -1 }
+      },
+      {
+        "id": "q06-b",
+        "text": "Soutenir les initiatives culturelles locales et les associations",
+        "themeScores": { "culture": 1 }
+      },
+      {
+        "id": "q06-c",
+        "text": "Laisser le secteur privé porter l'essentiel de l'offre culturelle",
+        "themeScores": { "culture": -1 }
+      }
+    ],
+    "order": 6
+  },
+  {
+    "id": "q07",
+    "electionId": "paris-municipales-2026",
+    "text": "Que devrait faire la municipalité pour l'éducation ?",
+    "themeIds": ["education"],
+    "options": [
+      {
+        "id": "q07-a",
+        "text": "Investir massivement dans les écoles et crèches publiques",
+        "themeScores": { "education": 2, "budget": -1 }
+      },
+      {
+        "id": "q07-b",
+        "text": "Améliorer la qualité des équipements scolaires existants",
+        "themeScores": { "education": 1 }
+      },
+      {
+        "id": "q07-c",
+        "text": "Encourager les partenariats avec le secteur privé pour l'éducation",
+        "themeScores": { "education": -1 }
+      }
+    ],
+    "order": 7
+  },
+  {
+    "id": "q08",
+    "electionId": "paris-municipales-2026",
+    "text": "Comment Paris devrait-elle gérer la solidarité sociale ?",
+    "themeIds": ["social"],
+    "options": [
+      {
+        "id": "q08-a",
+        "text": "Créer un filet de sécurité municipal fort : revenu minimum, hébergement garanti",
+        "themeScores": { "social": 2, "budget": -1 }
+      },
+      {
+        "id": "q08-b",
+        "text": "Cibler l'aide sur les publics les plus fragiles",
+        "themeScores": { "social": 1 }
+      },
+      {
+        "id": "q08-c",
+        "text": "Favoriser l'insertion par l'emploi plutôt que l'aide directe",
+        "themeScores": { "social": -1 }
+      }
+    ],
+    "order": 8
+  },
+  {
+    "id": "q09",
+    "electionId": "paris-municipales-2026",
+    "text": "Seriez-vous favorable à l'interdiction des véhicules thermiques dans Paris ?",
+    "themeIds": ["transport", "ecologie"],
+    "options": [
+      {
+        "id": "q09-a",
+        "text": "Oui, le plus rapidement possible",
+        "themeScores": { "transport": 2, "ecologie": 2 }
+      },
+      {
+        "id": "q09-b",
+        "text": "Oui, mais progressivement et avec des aides pour les automobilistes",
+        "themeScores": { "transport": 1, "ecologie": 1 }
+      },
+      {
+        "id": "q09-c",
+        "text": "Non, il faut laisser le choix aux citoyens",
+        "themeScores": { "transport": -2, "ecologie": -1 }
+      }
+    ],
+    "order": 9
+  },
+  {
+    "id": "q10",
+    "electionId": "paris-municipales-2026",
+    "text": "Si la ville devait choisir entre baisser les impôts locaux et augmenter les services publics, que préféreriez-vous ?",
+    "themeIds": ["budget", "social"],
+    "options": [
+      {
+        "id": "q10-a",
+        "text": "Augmenter les services publics, même si cela coûte plus cher",
+        "themeScores": { "budget": -2, "social": 2 }
+      },
+      {
+        "id": "q10-b",
+        "text": "Chercher un équilibre entre les deux",
+        "themeScores": { "budget": 0, "social": 0 }
+      },
+      {
+        "id": "q10-c",
+        "text": "Baisser les impôts, même si certains services sont réduits",
+        "themeScores": { "budget": 2, "social": -2 }
+      }
+    ],
+    "order": 10
+  }
+]

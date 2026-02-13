@@ -1,0 +1,66 @@
+[
+  {
+    "id": "transport",
+    "electionId": "paris-municipales-2026",
+    "name": "Transport & Mobilité",
+    "icon": "train",
+    "description": "Transports en commun, vélo, piétons, circulation automobile, stationnement",
+    "displayOrder": 1
+  },
+  {
+    "id": "logement",
+    "electionId": "paris-municipales-2026",
+    "name": "Logement",
+    "icon": "home",
+    "description": "Logement social, encadrement des loyers, rénovation, accès à la propriété",
+    "displayOrder": 2
+  },
+  {
+    "id": "securite",
+    "electionId": "paris-municipales-2026",
+    "name": "Sécurité",
+    "icon": "shield",
+    "description": "Police municipale, vidéosurveillance, prévention, tranquillité publique",
+    "displayOrder": 3
+  },
+  {
+    "id": "ecologie",
+    "electionId": "paris-municipales-2026",
+    "name": "Écologie & Environnement",
+    "icon": "leaf",
+    "description": "Espaces verts, qualité de l'air, gestion des déchets, transition énergétique",
+    "displayOrder": 4
+  },
+  {
+    "id": "budget",
+    "electionId": "paris-municipales-2026",
+    "name": "Budget & Finances",
+    "icon": "wallet",
+    "description": "Fiscalité locale, dette, investissements, transparence budgétaire",
+    "displayOrder": 5
+  },
+  {
+    "id": "culture",
+    "electionId": "paris-municipales-2026",
+    "name": "Culture & Patrimoine",
+    "icon": "palette",
+    "description": "Musées, événements culturels, patrimoine architectural, vie nocturne",
+    "displayOrder": 6
+  },
+  {
+    "id": "education",
+    "electionId": "paris-municipales-2026",
+    "name": "Éducation & Jeunesse",
+    "icon": "book",
+    "description": "Écoles, crèches, activités périscolaires, universités, formation",
+    "displayOrder": 7
+  },
+  {
+    "id": "social",
+    "electionId": "paris-municipales-2026",
+    "name": "Social & Solidarité",
+    "icon": "heart",
+    "description": "Aide aux personnes âgées, handicap, inclusion, lutte contre la pauvreté",
+    "displayOrder": 8
+  }
+]

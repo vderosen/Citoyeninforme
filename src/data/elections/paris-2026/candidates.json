@@ -1,0 +1,42 @@
+[
+  {
+    "id": "candidate-a",
+    "electionId": "paris-municipales-2026",
+    "name": "Alice Dupont",
+    "party": "Paris en Commun",
+    "bio": "Adjointe au maire sortante en charge de l'urbanisme depuis 2020. Architecte de formation, elle défend une ville plus verte et inclusive.",
+    "communicationStyle": "Ton pédagogique et structuré, utilise des données chiffrées pour appuyer ses arguments.",
+    "programSourceUrl": "https://example.com/programme-dupont-2026",
+    "photoUrl": null
+  },
+  {
+    "id": "candidate-b",
+    "electionId": "paris-municipales-2026",
+    "name": "Bernard Martin",
+    "party": "Renouveau Paris",
+    "bio": "Chef d'entreprise et ancien conseiller régional. Il prône une gestion pragmatique de la ville et la relance économique.",
+    "communicationStyle": "Direct et concis, privilégie les solutions concrètes et les résultats mesurables.",
+    "programSourceUrl": "https://example.com/programme-martin-2026",
+    "photoUrl": null
+  },
+  {
+    "id": "candidate-c",
+    "electionId": "paris-municipales-2026",
+    "name": "Claire Leroy",
+    "party": "Paris Écologie",
+    "bio": "Militante écologiste et conseillère municipale depuis 2014. Elle porte un projet de transformation écologique radicale de la capitale.",
+    "communicationStyle": "Engagée et passionnée, s'appuie sur des études scientifiques et des comparaisons internationales.",
+    "programSourceUrl": "https://example.com/programme-leroy-2026",
+    "photoUrl": null
+  },
+  {
+    "id": "candidate-d",
+    "electionId": "paris-municipales-2026",
+    "name": "David Petit",
+    "party": "Paris pour Tous",
+    "bio": "Professeur d'université et spécialiste des politiques sociales. Il défend un Paris solidaire et accessible à tous les revenus.",
+    "communicationStyle": "Académique mais accessible, illustre ses propos par des exemples concrets et des témoignages.",
+    "programSourceUrl": "https://example.com/programme-petit-2026",
+    "photoUrl": null
+  }
+]

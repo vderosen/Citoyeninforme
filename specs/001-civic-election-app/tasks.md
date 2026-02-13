@@ -19,12 +19,12 @@
 
 **Purpose**: Initialize the Expo project, install all dependencies, and establish the base project structure.
 
-- [ ] T001 Initialize Expo project with `npx create-expo-app lucide --template tabs` and configure TypeScript
-- [ ] T002 Install all dependencies: expo-router, expo-linking, expo-constants, zustand, react-native-mmkv, expo-sqlite, react-i18next, i18next, react-native-localize, @gluestack-ui/themed, nativewind, tailwindcss, @testing-library/react-native, detox
-- [ ] T003 Create full directory structure per plan.md: `src/app/`, `src/app/survey/`, `src/components/chatbot/`, `src/components/candidates/`, `src/components/survey/`, `src/components/ui/`, `src/data/`, `src/data/elections/paris-2026/`, `src/services/`, `src/services/prompts/`, `src/stores/`, `src/i18n/locales/fr/`, `src/utils/`, `tests/unit/`, `tests/component/`, `tests/e2e/`
-- [ ] T004 [P] Configure NativeWind v4 with Tailwind: create `tailwind.config.js`, update `babel.config.js`, add NativeWind setup in `metro.config.js`
-- [ ] T005 [P] Configure Jest for unit and component testing in `jest.config.js`
-- [ ] T006 [P] Configure ESLint with `eslint-plugin-jsx-a11y` for accessibility linting
+- [x] T001 Initialize Expo project with `npx create-expo-app lucide --template tabs` and configure TypeScript
+- [x] T002 Install all dependencies: expo-router, expo-linking, expo-constants, zustand, react-native-mmkv, expo-sqlite, react-i18next, i18next, react-native-localize, @gluestack-ui/themed, nativewind, tailwindcss, @testing-library/react-native, detox
+- [x] T003 Create full directory structure per plan.md: `src/app/`, `src/app/survey/`, `src/components/chatbot/`, `src/components/candidates/`, `src/components/survey/`, `src/components/ui/`, `src/data/`, `src/data/elections/paris-2026/`, `src/services/`, `src/services/prompts/`, `src/stores/`, `src/i18n/locales/fr/`, `src/utils/`, `tests/unit/`, `tests/component/`, `tests/e2e/`
+- [x] T004 [P] Configure NativeWind v4 with Tailwind: create `tailwind.config.js`, update `babel.config.js`, add NativeWind setup in `metro.config.js`
+- [x] T005 [P] Configure Jest for unit and component testing in `jest.config.js`
+- [x] T006 [P] Configure ESLint with `eslint-plugin-jsx-a11y` for accessibility linting
 
 ---
 
@@ -34,22 +34,22 @@
 
 **CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T007 Create election dataset TypeScript types in `src/data/schema.ts` matching all interfaces from `contracts/election-data.ts` (Election, Candidate, Theme, Position, SurveyQuestion, SurveyOption, CivicFact, ElectionLogistics, SourceReference, ElectionDataset)
-- [ ] T008 [P] Create Paris 2026 election metadata in `src/data/elections/paris-2026/election.json` (election ID, city, year, voting rules, timeline, data version)
-- [ ] T009 [P] Create Paris 2026 themes dataset in `src/data/elections/paris-2026/themes.json` (~8 themes: transport, housing, security, ecology, budget, culture, education, social)
-- [ ] T010 [P] Create Paris 2026 candidates dataset in `src/data/elections/paris-2026/candidates.json` (placeholder data for ~3-5 candidates with realistic structure)
-- [ ] T011 [P] Create Paris 2026 positions dataset in `src/data/elections/paris-2026/positions.json` (placeholder positions linking candidates to themes, each with at least one source reference per Principle II)
-- [ ] T012 [P] Create Paris 2026 civic facts dataset in `src/data/elections/paris-2026/civic-facts.json` (5-8 facts about Paris governance and municipal elections)
-- [ ] T013 [P] Create Paris 2026 logistics dataset in `src/data/elections/paris-2026/logistics.json` (key dates, eligibility, voting methods, locations)
-- [ ] T014 [P] Create Paris 2026 survey questions dataset in `src/data/elections/paris-2026/survey-questions.json` (~10-15 survey questions mapped to themes with balanced scoring)
-- [ ] T015 Implement dataset loader and validator in `src/data/loader.ts` — loads bundled JSON files, validates against schema.ts types, inserts into SQLite on first launch, handles version checking for OTA updates
-- [ ] T016 Write unit tests for dataset loader in `tests/unit/loader.test.ts` — test JSON parsing, schema validation, SQLite insertion, and error handling for malformed data
-- [ ] T017 [P] Configure react-i18next in `src/i18n/index.ts` — initialize i18next with react-native-localize for device locale detection, French as default and fallback language, namespace-based loading
-- [ ] T018 [P] Create French translation files: `src/i18n/locales/fr/common.json` (shared labels: navigation, buttons, errors), `src/i18n/locales/fr/home.json`, `src/i18n/locales/fr/learn.json`, `src/i18n/locales/fr/survey.json`, `src/i18n/locales/fr/chatbot.json`
-- [ ] T019 Create election data Zustand store in `src/stores/election.ts` — manages loaded election dataset (candidates, themes, positions, facts, logistics), exposes selectors for filtering by theme and candidate, loads data from SQLite via loader.ts
-- [ ] T020 [P] Create accessibility helpers in `src/utils/accessibility.ts` — semantic roles, screen reader announcements, focus management utilities for WCAG 2.1 AA
-- [ ] T021 [P] Create deterministic shuffle utility in `src/utils/shuffle.ts` — seeded random shuffle for candidate ordering (FR-005: alphabetical or randomized, never editorial)
-- [ ] T022 Create root layout in `src/app/_layout.tsx` — wrap app with providers (Zustand, i18n, gluestack-ui theme provider, NativeWind), initialize data loader on first mount, configure navigation structure with Expo Router
+- [x] T007 Create election dataset TypeScript types in `src/data/schema.ts` matching all interfaces from `contracts/election-data.ts` (Election, Candidate, Theme, Position, SurveyQuestion, SurveyOption, CivicFact, ElectionLogistics, SourceReference, ElectionDataset)
+- [x] T008 [P] Create Paris 2026 election metadata in `src/data/elections/paris-2026/election.json` (election ID, city, year, voting rules, timeline, data version)
+- [x] T009 [P] Create Paris 2026 themes dataset in `src/data/elections/paris-2026/themes.json` (~8 themes: transport, housing, security, ecology, budget, culture, education, social)
+- [x] T010 [P] Create Paris 2026 candidates dataset in `src/data/elections/paris-2026/candidates.json` (placeholder data for ~3-5 candidates with realistic structure)
+- [x] T011 [P] Create Paris 2026 positions dataset in `src/data/elections/paris-2026/positions.json` (placeholder positions linking candidates to themes, each with at least one source reference per Principle II)
+- [x] T012 [P] Create Paris 2026 civic facts dataset in `src/data/elections/paris-2026/civic-facts.json` (5-8 facts about Paris governance and municipal elections)
+- [x] T013 [P] Create Paris 2026 logistics dataset in `src/data/elections/paris-2026/logistics.json` (key dates, eligibility, voting methods, locations)
+- [x] T014 [P] Create Paris 2026 survey questions dataset in `src/data/elections/paris-2026/survey-questions.json` (~10-15 survey questions mapped to themes with balanced scoring)
+- [x] T015 Implement dataset loader and validator in `src/data/loader.ts` — loads bundled JSON files, validates against schema.ts types, inserts into SQLite on first launch, handles version checking for OTA updates
+- [x] T016 Write unit tests for dataset loader in `tests/unit/loader.test.ts` — test JSON parsing, schema validation, SQLite insertion, and error handling for malformed data
+- [x] T017 [P] Configure react-i18next in `src/i18n/index.ts` — initialize i18next with react-native-localize for device locale detection, French as default and fallback language, namespace-based loading
+- [x] T018 [P] Create French translation files: `src/i18n/locales/fr/common.json` (shared labels: navigation, buttons, errors), `src/i18n/locales/fr/home.json`, `src/i18n/locales/fr/learn.json`, `src/i18n/locales/fr/survey.json`, `src/i18n/locales/fr/chatbot.json`
+- [x] T019 Create election data Zustand store in `src/stores/election.ts` — manages loaded election dataset (candidates, themes, positions, facts, logistics), exposes selectors for filtering by theme and candidate, loads data from SQLite via loader.ts
+- [x] T020 [P] Create accessibility helpers in `src/utils/accessibility.ts` — semantic roles, screen reader announcements, focus management utilities for WCAG 2.1 AA
+- [x] T021 [P] Create deterministic shuffle utility in `src/utils/shuffle.ts` — seeded random shuffle for candidate ordering (FR-005: alphabetical or randomized, never editorial)
+- [x] T022 Create root layout in `src/app/_layout.tsx` — wrap app with providers (Zustand, i18n, gluestack-ui theme provider, NativeWind), initialize data loader on first mount, configure navigation structure with Expo Router
 
 **Checkpoint**: Foundation ready — election data loads into SQLite, i18n works, navigation structure is in place, stores are initialized. User story implementation can begin.
 
@@ -63,19 +63,19 @@
 
 ### Tests for User Story 1
 
-- [ ] T023 [P] [US1] Write component tests for CandidateList and CandidateCard in `tests/component/CandidateList.test.tsx` — test rendering all candidates, alphabetical/randomized ordering, theme filtering, empty state
+- [x] T023 [P] [US1] Write component tests for CandidateList and CandidateCard in `tests/component/CandidateList.test.tsx` — test rendering all candidates, alphabetical/randomized ordering, theme filtering, empty state
 - [ ] T024 [P] [US1] Write E2E test for browsing candidates in `tests/e2e/browse-candidates.test.ts` — test Home → Learn navigation, theme filter interaction, position expansion, source display
 
 ### Implementation for User Story 1
 
-- [ ] T025 [P] [US1] Create SourceReference component in `src/components/ui/SourceReference.tsx` — renders a source citation (title, link, type, access date) with proper accessibility labels and external link handling
-- [ ] T026 [P] [US1] Create ThemeFilter component in `src/components/ui/ThemeFilter.tsx` — horizontal scrollable list of theme chips, supports single/multi-select, uses theme icons and i18n labels
-- [ ] T027 [P] [US1] Create CandidateCard component in `src/components/candidates/CandidateCard.tsx` — displays candidate name, party, photo, bio summary; tappable to expand positions
-- [ ] T028 [US1] Create PositionCard component in `src/components/candidates/PositionCard.tsx` — displays position summary, expandable details section, renders source references using SourceReference component (FR-002)
-- [ ] T029 [US1] Create CandidateList component in `src/components/candidates/CandidateList.tsx` — renders candidates from election store, applies deterministic shuffle (FR-005), filters by selected theme, handles "no position documented" state (Edge Case 1)
-- [ ] T030 [US1] Create ComparisonView component in `src/components/candidates/ComparisonView.tsx` — side-by-side display of 2+ candidates on a selected theme with equal visual weight (FR-004), shows "Pas de position documentee" when missing
-- [ ] T031 [US1] Create Home screen in `src/app/index.tsx` — election header (city + year from dataset), purpose explanation, "Start the survey" CTA, navigation links to Learn and Chatbot, neutrality statement (FR-001)
-- [ ] T032 [US1] Create Learn screen in `src/app/learn.tsx` — integrates ThemeFilter, CandidateList, PositionCard; supports candidate comparison mode; displays election logistics section with key dates, eligibility, voting methods (FR-002, FR-003, FR-006)
+- [x] T025 [P] [US1] Create SourceReference component in `src/components/ui/SourceReference.tsx` — renders a source citation (title, link, type, access date) with proper accessibility labels and external link handling
+- [x] T026 [P] [US1] Create ThemeFilter component in `src/components/ui/ThemeFilter.tsx` — horizontal scrollable list of theme chips, supports single/multi-select, uses theme icons and i18n labels
+- [x] T027 [P] [US1] Create CandidateCard component in `src/components/candidates/CandidateCard.tsx` — displays candidate name, party, photo, bio summary; tappable to expand positions
+- [x] T028 [US1] Create PositionCard component in `src/components/candidates/PositionCard.tsx` — displays position summary, expandable details section, renders source references using SourceReference component (FR-002)
+- [x] T029 [US1] Create CandidateList component in `src/components/candidates/CandidateList.tsx` — renders candidates from election store, applies deterministic shuffle (FR-005), filters by selected theme, handles "no position documented" state (Edge Case 1)
+- [x] T030 [US1] Create ComparisonView component in `src/components/candidates/ComparisonView.tsx` — side-by-side display of 2+ candidates on a selected theme with equal visual weight (FR-004), shows "Pas de position documentee" when missing
+- [x] T031 [US1] Create Home screen in `src/app/index.tsx` — election header (city + year from dataset), purpose explanation, "Start the survey" CTA, navigation links to Learn and Chatbot, neutrality statement (FR-001)
+- [x] T032 [US1] Create Learn screen in `src/app/learn.tsx` — integrates ThemeFilter, CandidateList, PositionCard; supports candidate comparison mode; displays election logistics section with key dates, eligibility, voting methods (FR-002, FR-003, FR-006)
 
 **Checkpoint**: User Story 1 fully functional — users can browse, filter, read, and compare candidate positions with sourced information. App is a useful standalone election guide.
 
@@ -91,23 +91,23 @@
 
 ### Tests for User Story 2
 
-- [ ] T033 [P] [US2] Write unit tests for matching algorithm in `tests/unit/matching.test.ts` — test determinism (identical inputs → identical outputs per FR-009), score computation, candidate ranking, edge cases (tied scores, all-neutral answers)
-- [ ] T034 [P] [US2] Write unit tests for contradiction detection in `tests/unit/contradiction.test.ts` — test detecting inconsistent preferences across themes, severity classification, edge cases (no contradictions, all contradictions)
+- [x] T033 [P] [US2] Write unit tests for matching algorithm in `tests/unit/matching.test.ts` — test determinism (identical inputs → identical outputs per FR-009), score computation, candidate ranking, edge cases (tied scores, all-neutral answers)
+- [x] T034 [P] [US2] Write unit tests for contradiction detection in `tests/unit/contradiction.test.ts` — test detecting inconsistent preferences across themes, severity classification, edge cases (no contradictions, all contradictions)
 - [ ] T035 [P] [US2] Write component tests for QuestionCard in `tests/component/QuestionCard.test.tsx` — test rendering question text, options, selection state, accessibility
 - [ ] T036 [P] [US2] Write E2E test for survey completion in `tests/e2e/complete-survey.test.ts` — test full flow: civic context → questionnaire → computing → results display
 
 ### Implementation for User Story 2
 
-- [ ] T037 [P] [US2] Implement deterministic matching algorithm in `src/services/matching.ts` — pure function per `contracts/matching.ts` interface: computes user theme scores from answers, calculates candidate alignment via weighted distance, produces ranked results with theme breakdown (FR-009)
-- [ ] T038 [P] [US2] Implement contradiction detection in `src/services/contradiction.ts` — analyzes user answers across themes to identify inconsistent preferences, produces severity-rated contradiction results with evidence
-- [ ] T039 [US2] Create survey Zustand store in `src/stores/survey.ts` — manages survey state (per `contracts/user-profile.ts`: SurveyState, SurveyStatus), persists to MMKV, tracks current question index, stores computed UserProfile on completion (FR-015)
-- [ ] T040 [P] [US2] Create QuestionCard component in `src/components/survey/QuestionCard.tsx` — renders survey question text, answer options as selectable cards, importance weight slider per theme, progress indicator
-- [ ] T041 [P] [US2] Create ResultsChart component in `src/components/survey/ResultsChart.tsx` — visualizes user theme preference profile, candidate alignment scores as bar/radar chart, theme breakdown per candidate
-- [ ] T042 [P] [US2] Create ContradictionCard component in `src/components/survey/ContradictionCard.tsx` — displays detected contradictions with severity indicator, explains the conflicting themes and evidence questions
-- [ ] T043 [US2] Create survey flow layout in `src/app/survey/_layout.tsx` — manages survey navigation (context → questions → results), prevents back-navigation during computing, handles abandon/resume
-- [ ] T044 [US2] Create civic context screen in `src/app/survey/context.tsx` — displays civic facts from dataset as swipeable cards, educational mini-module about Paris governance (FR-007)
-- [ ] T045 [US2] Create questionnaire screen in `src/app/survey/questions.tsx` — renders questions sequentially using QuestionCard, tracks answers in survey store, supports importance weighting, shows progress bar
-- [ ] T046 [US2] Create results screen in `src/app/survey/results.tsx` — displays preference profile (ResultsChart), candidate ranking with alignment scores, justification breakdown per theme (ThemeJustification), contradiction snapshot (ContradictionCard), option to retake survey (FR-008); handles tied scores by showing equal alignment with explanation (Edge Case 3)
+- [x] T037 [P] [US2] Implement deterministic matching algorithm in `src/services/matching.ts` — pure function per `contracts/matching.ts` interface: computes user theme scores from answers, calculates candidate alignment via weighted distance, produces ranked results with theme breakdown (FR-009)
+- [x] T038 [P] [US2] Implement contradiction detection in `src/services/contradiction.ts` — analyzes user answers across themes to identify inconsistent preferences, produces severity-rated contradiction results with evidence
+- [x] T039 [US2] Create survey Zustand store in `src/stores/survey.ts` — manages survey state (per `contracts/user-profile.ts`: SurveyState, SurveyStatus), persists to MMKV, tracks current question index, stores computed UserProfile on completion (FR-015)
+- [x] T040 [P] [US2] Create QuestionCard component in `src/components/survey/QuestionCard.tsx` — renders survey question text, answer options as selectable cards, importance weight slider per theme, progress indicator
+- [x] T041 [P] [US2] Create ResultsChart component in `src/components/survey/ResultsChart.tsx` — visualizes user theme preference profile, candidate alignment scores as bar/radar chart, theme breakdown per candidate
+- [x] T042 [P] [US2] Create ContradictionCard component in `src/components/survey/ContradictionCard.tsx` — displays detected contradictions with severity indicator, explains the conflicting themes and evidence questions
+- [x] T043 [US2] Create survey flow layout in `src/app/survey/_layout.tsx` — manages survey navigation (context → questions → results), prevents back-navigation during computing, handles abandon/resume
+- [x] T044 [US2] Create civic context screen in `src/app/survey/context.tsx` — displays civic facts from dataset as swipeable cards, educational mini-module about Paris governance (FR-007)
+- [x] T045 [US2] Create questionnaire screen in `src/app/survey/questions.tsx` — renders questions sequentially using QuestionCard, tracks answers in survey store, supports importance weighting, shows progress bar
+- [x] T046 [US2] Create results screen in `src/app/survey/results.tsx` — displays preference profile (ResultsChart), candidate ranking with alignment scores, justification breakdown per theme (ThemeJustification), contradiction snapshot (ContradictionCard), option to retake survey (FR-008); handles tied scores by showing equal alignment with explanation (Edge Case 3)
 
 **Checkpoint**: User Story 2 fully functional — users can complete the full survey flow and receive transparent, deterministic matching results stored locally on device.
 
@@ -126,17 +126,18 @@
 - [ ] T047 [P] [US3] Write component tests for ChatbotPanel in `tests/component/ChatbotPanel.test.tsx` — test message rendering, mode selection, streaming state, source citation display
 - [ ] T048 [P] [US3] Write E2E test for chatbot learn mode in `tests/e2e/chatbot-learn.test.ts` — test opening chatbot, selecting learn mode, asking question, receiving sourced response
 
+
 ### Implementation for User Story 3
 
-- [ ] T049 [US3] Create chatbot Zustand store in `src/stores/chatbot.ts` — manages chatbot state per `contracts/chatbot.ts` (ChatbotState, ChatbotStatus, ChatbotMode), conversation history, streaming state, preloaded context
-- [ ] T050 [US3] Create Learn mode system prompt in `src/services/prompts/learn-mode.ts` — system prompt template that injects relevant election context, enforces source citation, handles "information unavailable" responses (FR-012, FR-016), ensures neutral assistant behavior; includes off-topic query redirect per Edge Case 4
-- [ ] T051 [US3] Implement chatbot service in `src/services/chatbot.ts` — handles LLM proxy API calls per `contracts/chatbot.ts` (ChatRequest → ChatStreamEvent SSE), builds ElectionContext from election store, manages streaming response parsing, extracts cited sources
-- [ ] T052 [P] [US3] Create ChatbotFAB component in `src/components/chatbot/ChatbotFAB.tsx` — floating action button visible on all screens, opens chatbot panel, shows unread indicator, accessible label
-- [ ] T053 [P] [US3] Create MessageBubble component in `src/components/chatbot/MessageBubble.tsx` — renders user and assistant messages, displays inline source citations using SourceReference component, handles streaming text with cursor
-- [ ] T054 [US3] Create ModeSelector component in `src/components/chatbot/ModeSelector.tsx` — displays Learn/Candidate/Debate mode options, shows lock icon on Debate mode if survey not completed, handles mode switching
-- [ ] T055 [US3] Create ChatbotPanel component in `src/components/chatbot/ChatbotPanel.tsx` — full chat interface: ModeSelector, message list with MessageBubble, text input, send button, streaming indicator; handles "Ask about this in chat" preloaded context (FR-010)
-- [ ] T056 [US3] Integrate chatbot overlay into root layout in `src/app/_layout.tsx` — add ChatbotFAB and ChatbotPanel as persistent overlay rendered above all screens, manage open/close state
-- [ ] T057 [US3] Add "Ask about this in chat" integration on Learn page — tappable action on PositionCard in `src/components/candidates/PositionCard.tsx` that opens chatbot with preloaded context (FR-010, spec US3 scenario 6)
+- [x] T049 [US3] Create chatbot Zustand store in `src/stores/chatbot.ts` — manages chatbot state per `contracts/chatbot.ts` (ChatbotState, ChatbotStatus, ChatbotMode), conversation history, streaming state, preloaded context
+- [x] T050 [US3] Create Learn mode system prompt in `src/services/prompts/learn-mode.ts` — system prompt template that injects relevant election context, enforces source citation, handles "information unavailable" responses (FR-012, FR-016), ensures neutral assistant behavior; includes off-topic query redirect per Edge Case 4
+- [x] T051 [US3] Implement chatbot service in `src/services/chatbot.ts` — handles LLM proxy API calls per `contracts/chatbot.ts` (ChatRequest → ChatStreamEvent SSE), builds ElectionContext from election store, manages streaming response parsing, extracts cited sources
+- [x] T052 [P] [US3] Create ChatbotFAB component in `src/components/chatbot/ChatbotFAB.tsx` — floating action button visible on all screens, opens chatbot panel, shows unread indicator, accessible label
+- [x] T053 [P] [US3] Create MessageBubble component in `src/components/chatbot/MessageBubble.tsx` — renders user and assistant messages, displays inline source citations using SourceReference component, handles streaming text with cursor
+- [x] T054 [US3] Create ModeSelector component in `src/components/chatbot/ModeSelector.tsx` — displays Learn/Candidate/Debate mode options, shows lock icon on Debate mode if survey not completed, handles mode switching
+- [x] T055 [US3] Create ChatbotPanel component in `src/components/chatbot/ChatbotPanel.tsx` — full chat interface: ModeSelector, message list with MessageBubble, text input, send button, streaming indicator; handles "Ask about this in chat" preloaded context (FR-010)
+- [x] T056 [US3] Integrate chatbot overlay into root layout in `src/app/_layout.tsx` — add ChatbotFAB and ChatbotPanel as persistent overlay rendered above all screens, manage open/close state
+- [x] T057 [US3] Add "Ask about this in chat" integration on Learn page — tappable action on PositionCard in `src/components/candidates/PositionCard.tsx` that opens chatbot with preloaded context (FR-010, spec US3 scenario 6)
 
 **Checkpoint**: User Story 3 fully functional — users can access the chatbot from any screen, ask questions in Learn mode, and receive source-grounded responses.
 
@@ -152,9 +153,9 @@
 
 ### Implementation for User Story 4
 
-- [ ] T058 [US4] Create Candidate mode system prompt in `src/services/prompts/candidate-mode.ts` — system prompt template that constrains responses to selected candidate's positions only, uses candidate's communicationStyle for tone, enforces "no documented position" for missing topics (FR-013), declines cross-candidate comparisons; includes off-topic query redirect per Edge Case 4
-- [ ] T059 [US4] Add candidate selection UI to ModeSelector in `src/components/chatbot/ModeSelector.tsx` — when Candidate mode is selected, show candidate picker list from election store, set selectedCandidateId in chatbot store
-- [ ] T060 [US4] Extend chatbot service for Candidate mode in `src/services/chatbot.ts` — filter ElectionContext to include only the selected candidate's positions, pass candidateId in ChatRequest, handle mode-specific system prompt selection
+- [x] T058 [US4] Create Candidate mode system prompt in `src/services/prompts/candidate-mode.ts` — system prompt template that constrains responses to selected candidate's positions only, uses candidate's communicationStyle for tone, enforces "no documented position" for missing topics (FR-013), declines cross-candidate comparisons; includes off-topic query redirect per Edge Case 4
+- [x] T059 [US4] Add candidate selection UI to ModeSelector in `src/components/chatbot/ModeSelector.tsx` — when Candidate mode is selected, show candidate picker list from election store, set selectedCandidateId in chatbot store
+- [x] T060 [US4] Extend chatbot service for Candidate mode in `src/services/chatbot.ts` — filter ElectionContext to include only the selected candidate's positions, pass candidateId in ChatRequest, handle mode-specific system prompt selection
 
 **Checkpoint**: User Story 4 fully functional — users can talk to individual candidate bots that stay in character and only cite their own documented positions.
 
@@ -170,9 +171,9 @@
 
 ### Implementation for User Story 5
 
-- [ ] T061 [US5] Create Debate mode system prompt in `src/services/prompts/debate-mode.ts` — system prompt template that loads user's themeScores, importanceWeights, and contradictions (per UserProfileSummary in contracts/chatbot.ts); uses Socratic questioning only (FR-014); never steers toward specific candidate; references dataset sources for trade-offs; includes off-topic query redirect per Edge Case 4
-- [ ] T062 [US5] Extend chatbot service for Debate mode in `src/services/chatbot.ts` — build UserProfileSummary from survey store, include in ChatRequest, handle survey-not-completed guard (redirect to survey or offer general debate)
-- [ ] T063 [US5] Update ModeSelector for Debate mode gating in `src/components/chatbot/ModeSelector.tsx` — check survey store status, show "Complete survey first" prompt if status is not "completed", enable Debate mode selection when survey is done
+- [x] T061 [US5] Create Debate mode system prompt in `src/services/prompts/debate-mode.ts` — system prompt template that loads user's themeScores, importanceWeights, and contradictions (per UserProfileSummary in contracts/chatbot.ts); uses Socratic questioning only (FR-014); never steers toward specific candidate; references dataset sources for trade-offs; includes off-topic query redirect per Edge Case 4
+- [x] T062 [US5] Extend chatbot service for Debate mode in `src/services/chatbot.ts` — build UserProfileSummary from survey store, include in ChatRequest, handle survey-not-completed guard (redirect to survey or offer general debate)
+- [x] T063 [US5] Update ModeSelector for Debate mode gating in `src/components/chatbot/ModeSelector.tsx` — check survey store status, show "Complete survey first" prompt if status is not "completed", enable Debate mode selection when survey is done
 
 **Checkpoint**: User Story 5 fully functional — users with survey results can engage in Socratic debate that challenges their thinking without prescribing answers.
 
@@ -185,7 +186,7 @@
 - [ ] T064 [P] Add WCAG 2.1 AA accessibility audit across all screens — verify 4.5:1 contrast ratios, 44x44pt touch targets, screen reader compatibility with VoiceOver/TalkBack, keyboard navigation, focus indicators (FR-020)
 - [ ] T065 [P] Performance optimization — verify <100ms screen transitions, <2s cold start, 60fps scrolling, <3s chatbot first-token response; optimize SQLite queries and list rendering with FlashList if needed
 - [ ] T066 Add OTA dataset update capability in `src/data/loader.ts` — check remote endpoint for dataset version changes, download updated JSON, re-load into SQLite without app store update (Edge Case 2)
-- [ ] T067 [P] Handle partial dataset gracefully — display clear indicators when candidate data is incomplete, disable comparison for missing candidates (Edge Case 5), show "Pas de position documentee" for missing positions (Edge Case 1)
+- [x] T067 [P] Handle partial dataset gracefully — display clear indicators when candidate data is incomplete, disable comparison for missing candidates (Edge Case 5), show "Pas de position documentee" for missing positions (Edge Case 1)
 - [ ] T068 [P] Create chatbot evaluation test set and run against all 3 modes — curated questions per mode (Learn, Candidate, Debate) covering source citation accuracy, off-topic redirect, neutrality, and "information unavailable" responses (Constitution: Development Workflow)
 - [ ] T069 Run full E2E test suite with Detox and validate against quickstart.md setup instructions; verify no hardcoded French strings (all UI text through i18n per FR-019)
 

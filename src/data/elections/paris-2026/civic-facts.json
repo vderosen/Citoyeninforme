@@ -1,0 +1,80 @@
+[
+  {
+    "id": "fact-01",
+    "electionId": "paris-municipales-2026",
+    "text": "Le Conseil de Paris compte 163 conseillers élus dans 17 secteurs. Le maire est élu par les conseillers de Paris, pas directement par les citoyens.",
+    "category": "institutions",
+    "source": {
+      "title": "Organisation du Conseil de Paris",
+      "url": "https://www.paris.fr/pages/le-conseil-de-paris-2",
+      "type": "official",
+      "accessDate": "2026-02-10"
+    },
+    "order": 1
+  },
+  {
+    "id": "fact-02",
+    "electionId": "paris-municipales-2026",
+    "text": "Paris est à la fois une commune et un département. Le maire exerce donc les compétences municipales ET départementales.",
+    "category": "governance",
+    "source": {
+      "title": "Statut de Paris - Loi du 28 février 2017",
+      "url": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034103939",
+      "type": "official",
+      "accessDate": "2026-02-10"
+    },
+    "order": 2
+  },
+  {
+    "id": "fact-03",
+    "electionId": "paris-municipales-2026",
+    "text": "La Préfecture de Police de Paris dépend de l'État, pas de la mairie. Le maire n'a donc qu'un pouvoir limité sur les forces de l'ordre.",
+    "category": "governance",
+    "source": {
+      "title": "Préfecture de Police - Missions",
+      "url": "https://www.prefecturedepolice.interieur.gouv.fr/",
+      "type": "official",
+      "accessDate": "2026-02-10"
+    },
+    "order": 3
+  },
+  {
+    "id": "fact-04",
+    "electionId": "paris-municipales-2026",
+    "text": "Pour voter aux élections municipales à Paris, il faut être inscrit sur les listes électorales avant le 6e vendredi précédant le scrutin.",
+    "category": "voting",
+    "source": {
+      "title": "Inscription sur les listes électorales - Service-public.fr",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F1367",
+      "type": "official",
+      "accessDate": "2026-02-10"
+    },
+    "order": 4
+  },
+  {
+    "id": "fact-05",
+    "electionId": "paris-municipales-2026",
+    "text": "Le budget annuel de la Ville de Paris dépasse 10 milliards d'euros, ce qui en fait le plus important budget municipal de France.",
+    "category": "governance",
+    "source": {
+      "title": "Budget de Paris 2025",
+      "url": "https://www.paris.fr/pages/le-budget-de-paris-225",
+      "type": "official",
+      "accessDate": "2026-02-10"
+    },
+    "order": 5
+  },
+  {
+    "id": "fact-06",
+    "electionId": "paris-municipales-2026",
+    "text": "Les citoyens de l'Union européenne résidant à Paris peuvent voter aux élections municipales, sous réserve d'inscription sur les listes complémentaires.",
+    "category": "voting",
+    "source": {
+      "title": "Droit de vote des citoyens européens - Service-public.fr",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F1937",
+      "type": "official",
+      "accessDate": "2026-02-10"
+    },
+    "order": 6
+  }
+]

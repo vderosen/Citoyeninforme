@@ -1,0 +1,18 @@
+{
+  "appName": "Lucide",
+  "loading": "Chargement...",
+  "error": "Une erreur est survenue",
+  "retry": "Réessayer",
+  "cancel": "Annuler",
+  "confirm": "Confirmer",
+  "back": "Retour",
+  "next": "Suivant",
+  "close": "Fermer",
+  "source": "Source",
+  "sources": "Sources",
+  "noData": "Aucune donnée disponible",
+  "noPositionDocumented": "Pas de position documentée",
+  "noPositionNote": "L'absence de données ne signifie pas l'absence d'opinion.",
+  "accessedOn": "Consulté le {{date}}",
+  "neutralityStatement": "Lucide est un outil neutre et non partisan. Toutes les informations sont sourcées et vérifiables. Aucune recommandation de vote n'est émise."
+}

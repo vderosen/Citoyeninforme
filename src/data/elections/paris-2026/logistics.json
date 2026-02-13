@@ -1,0 +1,78 @@
+{
+  "electionId": "paris-municipales-2026",
+  "keyDates": [
+    {
+      "label": "Date limite d'inscription sur les listes électorales",
+      "date": "2026-03-06",
+      "description": "Dernier jour pour s'inscrire ou vérifier son inscription"
+    },
+    {
+      "label": "Premier tour",
+      "date": "2026-03-15",
+      "description": "Bureaux de vote ouverts de 8h à 20h"
+    },
+    {
+      "label": "Second tour",
+      "date": "2026-03-22",
+      "description": "Si aucune liste n'obtient la majorité absolue au premier tour"
+    }
+  ],
+  "eligibility": [
+    {
+      "order": 1,
+      "text": "Être de nationalité française ou citoyen de l'Union européenne"
+    },
+    {
+      "order": 2,
+      "text": "Avoir au moins 18 ans la veille du scrutin"
+    },
+    {
+      "order": 3,
+      "text": "Être inscrit sur les listes électorales de Paris"
+    },
+    {
+      "order": 4,
+      "text": "Ne pas être privé de son droit de vote par une décision de justice"
+    }
+  ],
+  "votingMethods": [
+    {
+      "type": "in-person",
+      "description": "Se présenter au bureau de vote indiqué sur la carte électorale muni d'une pièce d'identité.",
+      "requirements": "Pièce d'identité obligatoire dans les communes de plus de 1 000 habitants"
+    },
+    {
+      "type": "proxy",
+      "description": "Donner procuration à un électeur inscrit dans la même commune via le formulaire CERFA ou en ligne.",
+      "requirements": "Le mandataire ne peut détenir qu'une seule procuration établie en France"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Mairie du 1er arrondissement",
+      "address": "4 place du Louvre, 75001 Paris",
+      "hours": "8h-20h",
+      "notes": "Bureau de vote central du secteur Paris Centre"
+    },
+    {
+      "name": "Mairie du 11e arrondissement",
+      "address": "Place Léon Blum, 75011 Paris",
+      "hours": "8h-20h",
+      "notes": "Plusieurs bureaux de vote dans l'arrondissement"
+    }
+  ],
+  "officialSources": [
+    {
+      "title": "Élections municipales - Service-public.fr",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F1958",
+      "type": "official",
+      "accessDate": "2026-02-10"
+    },
+    {
+      "title": "Ville de Paris - Élections",
+      "url": "https://www.paris.fr/pages/elections-52",
+      "type": "official",
+      "accessDate": "2026-02-10"
+    }
+  ]
+}
