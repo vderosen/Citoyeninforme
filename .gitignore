@@ -5,6 +5,7 @@ build/
 *.log
 .env*
 .env.local
+!.env.example
 coverage/
 *.tsbuildinfo
 web-build/

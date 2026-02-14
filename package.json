@@ -7,6 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "chat:proxy": "node scripts/llm-proxy.js",
     "test": "jest",
     "lint": "eslint . --ext .ts,.tsx"
   },
