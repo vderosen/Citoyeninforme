@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { MMKV } from "react-native-mmkv";
+import { zustandStorage } from "./storage";
 
 export type SurveyStatus =
   | "not_started"
@@ -57,21 +57,6 @@ interface SurveyState {
   reset: () => void;
 }
 
-const storage = new MMKV({ id: "survey-storage" });
-
-const mmkvStorage = {
-  getItem: (name: string) => {
-    const value = storage.getString(name);
-    return value ?? null;
-  },
-  setItem: (name: string, value: string) => {
-    storage.set(name, value);
-  },
-  removeItem: (name: string) => {
-    storage.delete(name);
-  },
-};
-
 export const useSurveyStore = create<SurveyState>()(
   persist(
     (set) => ({
@@ -118,7 +103,7 @@ export const useSurveyStore = create<SurveyState>()(
     }),
     {
       name: "survey-state",
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => zustandStorage),
     }
   )
 );
