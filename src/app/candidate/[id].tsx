@@ -36,7 +36,7 @@ export default function CandidateProfileScreen() {
         <EmptyState
           title={t("emptyProfile")}
           description={t("emptyProfileDescription")}
-          action={{ label: t("backToCandidates"), onPress: () => router.back() }}
+          action={{ label: t("backToCandidates"), onPress: () => router.replace("/(tabs)/candidates") }}
         />
       </SafeAreaView>
     );

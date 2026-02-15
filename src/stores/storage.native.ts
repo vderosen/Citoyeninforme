@@ -1,42 +1,11 @@
 /**
- * Native storage using MMKV (iOS/Android)
+ * Native storage using AsyncStorage (iOS/Android)
  */
-import { MMKV } from "react-native-mmkv";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { StateStorage } from "zustand/middleware";
 
-const memoryStorage = new Map<string, string>();
-
-let mmkv: MMKV | null = null;
-
-try {
-  mmkv = new MMKV({ id: "survey-storage" });
-} catch (error) {
-  console.warn(
-    "[storage] MMKV unavailable in this runtime. Falling back to in-memory storage.",
-    error
-  );
-}
-
 export const zustandStorage: StateStorage = {
-  getItem: (name: string) => {
-    if (mmkv) {
-      const value = mmkv.getString(name);
-      return value ?? null;
-    }
-    return memoryStorage.get(name) ?? null;
-  },
-  setItem: (name: string, value: string) => {
-    if (mmkv) {
-      mmkv.set(name, value);
-      return;
-    }
-    memoryStorage.set(name, value);
-  },
-  removeItem: (name: string) => {
-    if (mmkv) {
-      mmkv.delete(name);
-      return;
-    }
-    memoryStorage.delete(name);
-  },
+  getItem: (name: string) => AsyncStorage.getItem(name),
+  setItem: (name: string, value: string) => AsyncStorage.setItem(name, value),
+  removeItem: (name: string) => AsyncStorage.removeItem(name),
 };

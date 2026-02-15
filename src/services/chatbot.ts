@@ -91,48 +91,34 @@ export async function sendChatMessage(
       return;
     }
 
-    const reader = response.body?.getReader();
-    if (!reader) {
-      // Fallback for non-streaming response
-      const data = await response.json();
-      onChunk?.(data.content ?? data.message ?? "");
-      onDone?.();
-      return;
-    }
+    // React Native's fetch doesn't support ReadableStream, so read the
+    // full response as text and parse SSE events from it.
+    const text = await response.text();
+    const lines = text.split("\n");
 
-    const decoder = new TextDecoder();
-    let buffer = "";
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split("\n");
-      buffer = lines.pop() ?? "";
-
-      for (const line of lines) {
-        if (line.startsWith("data: ")) {
-          const data = line.slice(6);
-          if (data === "[DONE]") {
-            onDone?.();
-            return;
-          }
-          try {
-            const parsed = JSON.parse(data);
-            if (parsed.type === "text" && parsed.content) {
-              onChunk?.(parsed.content);
-            } else if (parsed.type === "done") {
-              onDone?.();
-              return;
-            } else if (parsed.type === "error") {
-              onError?.(parsed.message);
-              return;
-            }
-          } catch {
-            // Non-JSON SSE data, treat as text
-            onChunk?.(data);
-          }
+      const data = line.slice(6);
+      if (data === "[DONE]") {
+        onDone?.();
+        return;
+      }
+      try {
+        const parsed = JSON.parse(data);
+        if (parsed.type === "text" && parsed.content) {
+          onChunk?.(parsed.content);
+        } else if (parsed.type === "done") {
+          onDone?.();
+          return;
+        } else if (parsed.type === "error") {
+          onError?.(parsed.message);
+          return;
+        }
+      } catch {
+        // Non-JSON SSE data, treat as text
+        if (data.trim()) {
+          onChunk?.(data);
         }
       }
     }

@@ -4,26 +4,62 @@
     "electionId": "paris-municipales-2026",
     "name": "David Belliard",
     "party": "Les Écologistes",
-    "bio": "Conseiller de Paris depuis 2014 et adjoint à la maire de Paris chargé de la transformation de l'espace public, des transports, des mobilités et du code de la rue. Les Écologistes l'ont désigné chef de file pour les municipales 2026 à Paris en mars 2025.",
-    "communicationStyle": "Communication de campagne via un site dédié, une newsletter et des canaux sociaux publics.",
-    "programSourceUrl": "https://www.davidbelliard.paris/"
+    "bio": "Adjoint à la maire de Paris chargé de la transformation de l'espace public, des transports, des mobilités et du code de la rue. Les Écologistes l'ont désigné chef de file pour les municipales 2026 à Paris le 23 mars 2025.",
+    "communicationStyle": "Communication de campagne via site dédié, mobilisation militante et réseaux sociaux.",
+    "programSourceUrl": "https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026"
   },
   {
     "id": "emmanuel-gregoire",
     "electionId": "paris-municipales-2026",
     "name": "Emmanuel Grégoire",
-    "party": "Parti socialiste",
-    "bio": "Député de Paris et conseiller de Paris, ancien premier adjoint à la maire de Paris. Il se présente comme candidat de l'union de la gauche et des écologistes pour les municipales de mars 2026.",
-    "communicationStyle": "Communication de campagne via un site de programme, des événements de terrain, une newsletter et des réseaux sociaux.",
-    "programSourceUrl": "https://parisengrand.fr/manifeste"
+    "party": "Union de la gauche et des écologistes",
+    "bio": "Député et conseiller de Paris, ancien premier adjoint à la maire de Paris. Il est présenté comme candidat de l'union de la gauche et des écologistes pour l'élection municipale de mars 2026.",
+    "communicationStyle": "Communication de campagne via site de programme, réunions publiques et canaux sociaux.",
+    "programSourceUrl": "https://emmanuel-gregoire-2026.fr/"
+  },
+  {
+    "id": "sophia-chikirou",
+    "electionId": "paris-municipales-2026",
+    "name": "Sophia Chikirou",
+    "party": "La France insoumise (Nouveau Paris Populaire)",
+    "bio": "Candidate à la mairie de Paris sur la plateforme Nouveau Paris Populaire, portée et soutenue par La France insoumise.",
+    "communicationStyle": "Communication de campagne via site de programme, meeting, conférence de presse et réseaux sociaux.",
+    "programSourceUrl": "https://sophiapourparis.fr/"
   },
   {
     "id": "rachida-dati",
     "electionId": "paris-municipales-2026",
     "name": "Rachida Dati",
     "party": "Les Républicains",
-    "bio": "Maire du 7e arrondissement de Paris et conseillère de Paris. La commission nationale d'investiture des Républicains l'a investie pour la mairie de Paris le 28 août 2025.",
-    "communicationStyle": "Communication politique diffusée via les canaux officiels du parti et les supports institutionnels de mandat.",
+    "bio": "Les Républicains ont annoncé son investiture officielle pour la mairie de Paris dans leur communiqué du 28 août 2025.",
+    "communicationStyle": "Communication politique relayée via les canaux officiels du parti.",
     "programSourceUrl": "https://republicains.fr/actualites/2025/08/28/la-commission-nationale-dinvestiture-des-republicains-investit-rachida-dati-pour-la-mairie-de-paris/"
+  },
+  {
+    "id": "pierre-yves-bournazel",
+    "electionId": "paris-municipales-2026",
+    "name": "Pierre-Yves Bournazel",
+    "party": "100% Paris",
+    "bio": "Élu parisien depuis 2008, il se présente comme candidat pour être le prochain maire de Paris et publie ses engagements sur son site de campagne.",
+    "communicationStyle": "Communication de campagne via site d'engagements thématiques, actualités terrain et mobilisation militante.",
+    "programSourceUrl": "https://bournazel.paris/"
+  },
+  {
+    "id": "sarah-knafo",
+    "electionId": "paris-municipales-2026",
+    "name": "Sarah Knafo",
+    "party": "Sarah Knafo pour Paris",
+    "bio": "Députée européenne et ancienne magistrate à la Cour des comptes, elle se présente comme candidate pour être la prochaine maire de Paris.",
+    "communicationStyle": "Communication de campagne via plateforme numérique, programme détaillé et actions militantes en ligne.",
+    "programSourceUrl": "https://sarahpourparis.fr/unevilleheureuse"
+  },
+  {
+    "id": "thierry-mariani",
+    "electionId": "paris-municipales-2026",
+    "name": "Thierry Mariani",
+    "party": "Retrouvons Paris (soutien RN/UDR)",
+    "bio": "Ancien ministre et député européen, il se présente comme candidat à la mairie de Paris avec la plateforme Retrouvons Paris.",
+    "communicationStyle": "Communication de campagne via programme publié en ligne, actualités de campagne et espace presse.",
+    "programSourceUrl": "https://www.mariani-2026.fr/"
   }
 ]

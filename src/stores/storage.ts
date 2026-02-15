@@ -2,7 +2,7 @@
  * Default storage adapter (used on web).
  *
  * Metro bundler resolves platform-specific files at build time:
- * - Native (iOS/Android): storage.native.ts (MMKV)
+ * - Native (iOS/Android): storage.native.ts (AsyncStorage)
  * - Web: this file (localStorage)
  *
  * This file doubles as the TypeScript resolution target for

@@ -10,29 +10,29 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 | Ville | Paris |
 | Type | Élections municipales |
 | Année | 2026 |
-| Version des données | 0.1.1 |
+| Version des données | 1.0.0 |
 | Dernière mise à jour | 2026-02-15 |
-| Nombre de candidats | 1 |
+| Nombre de candidats | 3 |
 | Nombre de thèmes | 8 |
-| Nombre de positions | 3 |
+| Nombre de positions | 7 |
 | Nombre de questions | 10 |
-| Nombre de faits civiques | 6 |
+| Nombre de faits civiques | 7 |
 
 ## Fichiers JSON sources
 
 | Fichier | Type |
 | --- | --- |
 | `src/data/elections/paris-2026/election.json` | Object |
-| `src/data/elections/paris-2026/candidates.json` | Array(1) |
+| `src/data/elections/paris-2026/candidates.json` | Array(3) |
 | `src/data/elections/paris-2026/themes.json` | Array(8) |
-| `src/data/elections/paris-2026/positions.json` | Array(3) |
+| `src/data/elections/paris-2026/positions.json` | Array(7) |
 | `src/data/elections/paris-2026/survey-questions.json` | Array(10) |
-| `src/data/elections/paris-2026/civic-facts.json` | Array(6) |
+| `src/data/elections/paris-2026/civic-facts.json` | Array(7) |
 | `src/data/elections/paris-2026/logistics.json` | Object |
 
 ## Élection
 
-- Règles de vote: À Paris, le scrutin municipal 2026 se déroule à deux tours avec deux bulletins distincts (Conseil de Paris et conseils d'arrondissement). Pour le Conseil de Paris, la liste arrivée en tête reçoit une prime majoritaire d'un quart des sièges, le reste étant réparti à la proportionnelle.
+- Règles de vote: À Paris, les municipales 2026 se déroulent avec deux votes distincts le même jour : un pour les conseillers d'arrondissement et un pour les conseillers de Paris. Pour le Conseil de Paris, la liste arrivée en tête obtient une prime majoritaire de 25 % des sièges, le reste étant réparti à la proportionnelle.
 - Nombre de tours: 2
 - Date limite d'inscription: 2026-02-06
 - Premier tour: 2026-03-15
@@ -43,13 +43,31 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 | Id | Nom | Parti | Source programme |
 | --- | --- | --- | --- |
 | `david-belliard` | David Belliard | Les Écologistes | [Lien](https://www.davidbelliard.paris/) |
+| `emmanuel-gregoire` | Emmanuel Grégoire | Parti socialiste | [Lien](https://parisengrand.fr/manifeste) |
+| `rachida-dati` | Rachida Dati | Les Républicains | [Lien](https://republicains.fr/actualites/2025/08/28/la-commission-nationale-dinvestiture-des-republicains-investit-rachida-dati-pour-la-mairie-de-paris/) |
 
 ### David Belliard (`david-belliard`)
 
 - Élection: paris-municipales-2026
-- Bio: Conseiller de Paris depuis 2014 et adjoint à la Maire de Paris chargé de la transformation de l'espace public, des transports, des mobilités et du code de la rue. Le 23 mars 2025, Les Écologistes l'ont désigné chef de file pour les municipales 2026 à Paris.
-- Style de communication: Communication de campagne via un site officiel et des prises de parole publiques relayées sur les réseaux sociaux.
+- Bio: Conseiller de Paris depuis 2014 et adjoint à la maire de Paris chargé de la transformation de l'espace public, des transports, des mobilités et du code de la rue. Les Écologistes l'ont désigné chef de file pour les municipales 2026 à Paris en mars 2025.
+- Style de communication: Communication de campagne via un site dédié, une newsletter et des canaux sociaux publics.
 - URL programme: https://www.davidbelliard.paris/
+- URL photo: —
+
+### Emmanuel Grégoire (`emmanuel-gregoire`)
+
+- Élection: paris-municipales-2026
+- Bio: Député de Paris et conseiller de Paris, ancien premier adjoint à la maire de Paris. Il se présente comme candidat de l'union de la gauche et des écologistes pour les municipales de mars 2026.
+- Style de communication: Communication de campagne via un site de programme, des événements de terrain, une newsletter et des réseaux sociaux.
+- URL programme: https://parisengrand.fr/manifeste
+- URL photo: —
+
+### Rachida Dati (`rachida-dati`)
+
+- Élection: paris-municipales-2026
+- Bio: Maire du 7e arrondissement de Paris et conseillère de Paris. La commission nationale d'investiture des Républicains l'a investie pour la mairie de Paris le 28 août 2025.
+- Style de communication: Communication politique diffusée via les canaux officiels du parti et les supports institutionnels de mandat.
+- URL programme: https://republicains.fr/actualites/2025/08/28/la-commission-nationale-dinvestiture-des-republicains-investit-rachida-dati-pour-la-mairie-de-paris/
 - URL photo: —
 
 ## Thèmes
@@ -71,34 +89,74 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 
 - candidateId: `david-belliard`
 - themeId: `transport`
-- Résumé: Transformation de l'espace public et priorité aux mobilités actives
-- Détails: Le communiqué d'investiture des Écologistes à Paris met en avant la transformation de l'espace public, un Paris cyclable et le développement des rues aux écoles.
+- Résumé: Priorité à la transformation de l'espace public et aux mobilités actives.
+- Détails: Le texte d'investiture des Écologistes met en avant la transformation de l'espace public, les rues aux écoles, un Paris cyclable et la végétalisation urbaine.
 - Dernière vérification: 2026-02-15
 - Sources:
   - [David Belliard - Paris.fr](https://www.paris.fr/pages/david-belliard-21783) | type: official | accessDate: 2026-02-15
-  - [Paris 2026 : l'union ! - Les Écologistes Paris](https://paris.lesecologistes.fr/posts/23c05119-67a8-4ea3-8f20-ff7216f6de22/paris-2026-lunion) | type: statement | accessDate: 2026-02-15
+  - [David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026](https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026) | type: statement | accessDate: 2026-02-15
 
 ### David Belliard - Écologie & Environnement (`david-belliard-ecologie`)
 
 - candidateId: `david-belliard`
 - themeId: `ecologie`
-- Résumé: Projet présenté comme climatiquement résilient
-- Détails: Le lancement de campagne évoque un projet de Paris "climatiquement résilient" et une ville qui se prépare aux changements climatiques.
+- Résumé: Projet présenté comme une écologie sociale et une ville climatiquement résiliente.
+- Détails: Les prises de parole de campagne évoquent un Paris solidaire qui se prépare aux changements climatiques et à la multiplication des crises.
 - Dernière vérification: 2026-02-15
 - Sources:
   - [David Belliard - Site de campagne](https://www.davidbelliard.paris/) | type: program | accessDate: 2026-02-15
-  - [Paris 2026 : l'union ! - Les Écologistes Paris](https://paris.lesecologistes.fr/posts/23c05119-67a8-4ea3-8f20-ff7216f6de22/paris-2026-lunion) | type: statement | accessDate: 2026-02-15
+  - [David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026](https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026) | type: statement | accessDate: 2026-02-15
 
 ### David Belliard - Social & Solidarité (`david-belliard-social`)
 
 - candidateId: `david-belliard`
 - themeId: `social`
-- Résumé: Positionnement de campagne centré sur la solidarité
-- Détails: La campagne est présentée comme un projet de ville solidaire qui accueille et protège les personnes les plus fragiles.
+- Résumé: Positionnement de campagne axé sur la solidarité et la justice sociale.
+- Détails: La campagne présente une ville qui accueille et protège les personnes les plus fragiles, avec un accent sur l'écologie sociale.
 - Dernière vérification: 2026-02-15
 - Sources:
-  - [David Belliard - Site de campagne](https://www.davidbelliard.paris/) | type: statement | accessDate: 2026-02-15
-  - [Paris 2026 : l'union ! - Les Écologistes Paris](https://paris.lesecologistes.fr/posts/23c05119-67a8-4ea3-8f20-ff7216f6de22/paris-2026-lunion) | type: statement | accessDate: 2026-02-15
+  - [David Belliard - Site de campagne](https://www.davidbelliard.paris/) | type: program | accessDate: 2026-02-15
+  - [David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026](https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026) | type: statement | accessDate: 2026-02-15
+
+### Emmanuel Grégoire - Transport & Mobilité (`emmanuel-gregoire-transport`)
+
+- candidateId: `emmanuel-gregoire`
+- themeId: `transport`
+- Résumé: Réduction de la place de la voiture au profit des mobilités collectives et actives.
+- Détails: Le manifeste décrit une ville où la place de la voiture diminue, avec des transports publics renforcés et un appui au vélo et à la marche.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Le Manifeste - Paris en Grand](https://parisengrand.fr/manifeste) | type: program | accessDate: 2026-02-15
+
+### Emmanuel Grégoire - Logement (`emmanuel-gregoire-logement`)
+
+- candidateId: `emmanuel-gregoire`
+- themeId: `logement`
+- Résumé: Le logement abordable est présenté comme une priorité absolue.
+- Détails: Le manifeste indique la volonté de développer le parc social et de réguler les locations de courte durée pour préserver des logements permanents.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Le Manifeste - Paris en Grand](https://parisengrand.fr/manifeste) | type: program | accessDate: 2026-02-15
+
+### Emmanuel Grégoire - Sécurité (`emmanuel-gregoire-securite`)
+
+- candidateId: `emmanuel-gregoire`
+- themeId: `securite`
+- Résumé: Renforcement des moyens de la police municipale.
+- Détails: Le manifeste mentionne explicitement une sécurité appuyée sur une police municipale dotée de moyens renforcés.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Le Manifeste - Paris en Grand](https://parisengrand.fr/manifeste) | type: program | accessDate: 2026-02-15
+
+### Emmanuel Grégoire - Social & Solidarité (`emmanuel-gregoire-social`)
+
+- candidateId: `emmanuel-gregoire`
+- themeId: `social`
+- Résumé: Mise en avant de services publics accessibles et du droit à la santé.
+- Détails: Le manifeste insiste sur des services publics de proximité accessibles et sur l'accès à la santé comme droit pour tous les habitants.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Le Manifeste - Paris en Grand](https://parisengrand.fr/manifeste) | type: program | accessDate: 2026-02-15
 
 ## Questions du sondage
 
@@ -197,48 +255,56 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 ### Fact 1 (`fact-01`)
 
 - Catégorie: institutions
-- Texte: Le Conseil de Paris compte 163 conseillères et conseillers de Paris.
-- Source: [Ministère de l'Intérieur - Municipales 2026 à Paris](https://www.elections.interieur.gouv.fr/municipales-2026/je-suis-electeur-paris)
+- Texte: À Paris, les municipales 2026 comprennent deux scrutins distincts : un pour les conseils d'arrondissement et un pour le Conseil de Paris.
+- Source: [Loi n° 2025-795 du 11 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052075863)
 - Type source: official
 - accessDate: 2026-02-15
 
 ### Fact 2 (`fact-02`)
 
 - Catégorie: voting
-- Texte: Le scrutin municipal à Paris est fixé au 15 mars 2026 (premier tour) et au 22 mars 2026 (second tour).
-- Source: [Décret n° 2025-848 du 30 juillet 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000051948647)
+- Texte: Les électeurs sont convoqués le dimanche 15 mars 2026 pour le premier tour et le dimanche 22 mars 2026 pour le second tour.
+- Source: [Décret n° 2025-948 du 27 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052142190)
 - Type source: official
 - accessDate: 2026-02-15
 
 ### Fact 3 (`fact-03`)
 
 - Catégorie: voting
-- Texte: La date limite d'inscription sur les listes électorales est le 6 février 2026 (5 mars 2026 pour les cas prévus à l'article L.30 du code électoral).
-- Source: [Décret n° 2025-848 du 30 juillet 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000051948647)
+- Texte: Pour ce scrutin, les demandes d'inscription sur les listes électorales sont déposées au plus tard le vendredi 6 février 2026.
+- Source: [Décret n° 2025-948 du 27 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052142190)
 - Type source: official
 - accessDate: 2026-02-15
 
 ### Fact 4 (`fact-04`)
 
-- Catégorie: institutions
-- Texte: La loi du 11 août 2025 instaure à Paris deux scrutins distincts: un pour le Conseil de Paris et un pour les conseils d'arrondissement.
-- Source: [Loi n° 2025-795 du 11 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052075863)
+- Catégorie: voting
+- Texte: Les inscriptions dérogatoires prévues à l'article L.30 du code électoral peuvent être prises en compte jusqu'au 5 mars 2026.
+- Source: [Décret n° 2025-948 du 27 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052142190)
 - Type source: official
 - accessDate: 2026-02-15
 
 ### Fact 5 (`fact-05`)
 
 - Catégorie: institutions
-- Texte: Pour l'élection du Conseil de Paris, la prime majoritaire accordée à la liste arrivée en tête est d'un quart des sièges (arrondi à l'entier supérieur).
-- Source: [Loi n° 2025-795 du 11 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052075863)
+- Texte: Le Conseil de Paris compte 163 conseillers et la prime majoritaire attribuée à la liste arrivée en tête est fixée à 25 % des sièges.
+- Source: [Élections municipales 2026 : ce qui change à Paris - Ville de Paris](https://www.paris.fr/pages/elections-municipales-2026-ce-qui-change-a-paris-30788)
 - Type source: official
 - accessDate: 2026-02-15
 
 ### Fact 6 (`fact-06`)
 
 - Catégorie: voting
-- Texte: Les citoyennes et citoyens de l'Union européenne résidant en France peuvent voter aux élections municipales s'ils sont inscrits sur une liste électorale complémentaire.
-- Source: [Droit de vote des citoyens européens - Service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F1937)
+- Texte: Une procuration établie pour les municipales à Paris vaut pour les deux scrutins organisés le même jour.
+- Source: [Élections municipales 2026 : ce qui change à Paris - Ville de Paris](https://www.paris.fr/pages/elections-municipales-2026-ce-qui-change-a-paris-30788)
+- Type source: official
+- accessDate: 2026-02-15
+
+### Fact 7 (`fact-07`)
+
+- Catégorie: voting
+- Texte: Un citoyen de l'Union européenne (hors France) peut voter en France s'il réside en France, a au moins 18 ans la veille du premier tour et jouit de ses droits civils et politiques.
+- Source: [Élections en France : droit de vote d'un citoyen européen](https://www.service-public.gouv.fr/particuliers/vosdroits/F1937)
 - Type source: official
 - accessDate: 2026-02-15
 
@@ -248,25 +314,28 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 
 | Date | Libellé | Description |
 | --- | --- | --- |
-| 2026-02-04 | Date limite d'inscription en ligne | Fin de l'inscription en ligne sur les listes électorales |
-| 2026-02-06 | Date limite d'inscription en mairie | Date limite générale d'inscription sur les listes électorales |
-| 2026-03-02 | Ouverture de la campagne officielle | Début de la campagne électorale officielle |
-| 2026-03-05 | Date limite d'inscription dérogatoire (L.30) | Dernier jour pour les demandes d'inscription prévues par l'article L.30 du code électoral |
-| 2026-03-15 | Premier tour | Bureaux de vote ouverts de 8h à 20h au plus tard |
-| 2026-03-22 | Second tour | Second tour de scrutin |
+| 2026-02-06 | Date limite d'inscription sur les listes électorales | Date limite de dépôt des demandes d'inscription pour ce scrutin. |
+| 2026-03-05 | Date limite d'inscription dérogatoire (article L.30) | Date maximale de prise en compte des inscriptions prévues à l'article L.30 du code électoral. |
+| 2026-03-15 | Clôture maximale des bureaux (1er tour) | Le scrutin ne peut pas être clos après 20h. |
+| 2026-03-15 | Premier tour | Convocation des électeurs pour le premier tour des municipales. |
+| 2026-03-22 | Clôture maximale des bureaux (2d tour) | Le scrutin ne peut pas être clos après 20h. |
+| 2026-03-22 | Second tour | Convocation des électeurs pour le second tour des municipales. |
 
 ### Conditions d'éligibilité
 
-1. Avoir 18 ans au plus tard la veille du scrutin
-2. Être inscrit sur les listes électorales de la commune
-3. Pour un citoyen de l'Union européenne non français: être inscrit sur la liste électorale complémentaire municipale
-4. Jouir de ses droits civils et politiques dans l'État d'origine et en France
+1. Être inscrit sur les listes électorales de la commune avant la date limite applicable au scrutin.
+2. Se présenter avec un document admis permettant de prouver son identité (présentation de l'original).
+3. Pour un citoyen de l'Union européenne non français : résider en France, avoir au moins 18 ans la veille du premier tour et jouir de ses droits civils et politiques.
 
 ### Modalités de vote
 
 - Type: `in-person`
-- Description: Se présenter au bureau de vote indiqué sur la carte électorale avec une pièce d'identité en cours de validité.
-- Exigences: À Paris (commune de plus de 1 000 habitants), la présentation d'une pièce d'identité est obligatoire pour voter.
+- Description: Vote au bureau de vote de la commune d'inscription, le jour du scrutin.
+- Exigences: Présenter un justificatif d'identité admis pour prouver son identité.
+
+- Type: `proxy`
+- Description: La procuration peut être demandée en ligne puis validée en personne auprès de l'autorité compétente.
+- Exigences: Le mandant doit se déplacer en personne pour faire vérifier son identité.
 
 ### Lieux de vote
 
@@ -276,10 +345,11 @@ Aucun lieu de vote renseigné.
 
 | Titre | URL | Type | accessDate |
 | --- | --- | --- | --- |
-| Carte électorale et pièce d'identité pour voter - Service-public.fr | https://www.service-public.fr/particuliers/vosdroits/F1361 | official | 2026-02-15 |
-| Droit de vote d'un citoyen européen en France - Service-public.fr | https://www.service-public.fr/particuliers/vosdroits/F1937 | official | 2026-02-15 |
-| Décret n° 2025-848 du 30 juillet 2025 | https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000051948647 | official | 2026-02-15 |
-| Inscription sur la liste électorale - Service-public.fr | https://www.service-public.fr/particuliers/vosdroits/F1367 | official | 2026-02-15 |
+| Carte électorale et justificatif d'identité au bureau de vote | https://www.service-public.gouv.fr/particuliers/vosdroits/F1361 | official | 2026-02-15 |
+| Décret n° 2025-948 du 27 août 2025 | https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052142190 | official | 2026-02-15 |
+| Inscription sur la liste électorale d'une commune | https://www.service-public.gouv.fr/particuliers/vosdroits/F1367 | official | 2026-02-15 |
 | Loi n° 2025-795 du 11 août 2025 | https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052075863 | official | 2026-02-15 |
-| Ministère de l'Intérieur - Municipales 2026 à Paris | https://www.elections.interieur.gouv.fr/municipales-2026/je-suis-electeur-paris | official | 2026-02-15 |
+| Vote par procuration | https://www.service-public.gouv.fr/particuliers/vosdroits/F1604 | official | 2026-02-15 |
+| Élections en France : droit de vote d'un citoyen européen | https://www.service-public.gouv.fr/particuliers/vosdroits/F1937 | official | 2026-02-15 |
+| Élections municipales 2026 : ce qui change à Paris - Ville de Paris | https://www.paris.fr/pages/elections-municipales-2026-ce-qui-change-a-paris-30788 | official | 2026-02-15 |
 

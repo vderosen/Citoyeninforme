@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { View } from "react-native";
-import { Stack, Redirect } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
@@ -36,7 +36,7 @@ export default function RootLayout() {
   return (
     <GluestackUIProvider>
       <View style={{ flex: 1 }}>
-        {hasCompletedOnboarding && <ContextBar />}
+        {isLoaded && hasCompletedOnboarding && <ContextBar />}
         <Stack
           screenOptions={{
             headerShown: false,
@@ -44,15 +44,15 @@ export default function RootLayout() {
         >
           <Stack.Screen
             name="(tabs)"
-            redirect={!hasCompletedOnboarding}
+            redirect={isLoaded && !hasCompletedOnboarding}
+          />
+          <Stack.Screen
+            name="onboarding"
+            redirect={!isLoaded || hasCompletedOnboarding}
           />
           <Stack.Screen name="candidate/[id]" />
           <Stack.Screen name="comparison" />
           <Stack.Screen name="survey" />
-          <Stack.Screen
-            name="onboarding"
-            redirect={hasCompletedOnboarding}
-          />
         </Stack>
       </View>
       <StatusBar style="auto" />
