@@ -4,6 +4,7 @@ import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useElectionStore } from "../stores/election";
 import { useAppStore } from "../stores/app";
 import { loadBundledDataset } from "../data/loader";
@@ -52,22 +53,24 @@ export default function RootLayout() {
   }, [isLoaded, hasCompletedOnboarding, segments]);
 
   return (
-    <GluestackUIProvider>
-      <View style={{ flex: 1 }}>
-        {isLoaded && hasCompletedOnboarding && <ContextBar />}
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="onboarding" />
-          <Stack.Screen name="candidate/[id]" />
-          <Stack.Screen name="comparison" />
-          <Stack.Screen name="survey" />
-        </Stack>
-      </View>
-      <StatusBar style="auto" />
-    </GluestackUIProvider>
+    <SafeAreaProvider>
+      <GluestackUIProvider>
+        <View style={{ flex: 1 }}>
+          {isLoaded && hasCompletedOnboarding && <ContextBar />}
+          <Stack
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="onboarding" />
+            <Stack.Screen name="candidate/[id]" />
+            <Stack.Screen name="comparison" />
+            <Stack.Screen name="survey" />
+          </Stack>
+        </View>
+        <StatusBar style="auto" />
+      </GluestackUIProvider>
+    </SafeAreaProvider>
   );
 }
