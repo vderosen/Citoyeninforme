@@ -20,16 +20,16 @@ export default function SurveyIntroScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 bg-warm-white">
       <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 32 }}>
         <View className="px-4 mt-4 mb-6">
           <Text
-            className="text-2xl font-bold text-gray-900 mb-2"
+            className="font-display-bold text-2xl text-civic-navy mb-2"
             accessibilityRole="header"
           >
             {t("civicContextTitle")}
           </Text>
-          <Text className="text-base text-gray-600">
+          <Text className="font-body text-base text-text-body">
             {t("civicContextSubtitle", { city: election?.city ?? "" })}
           </Text>
         </View>

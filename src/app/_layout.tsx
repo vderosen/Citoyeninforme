@@ -3,8 +3,19 @@ import { LogBox, View } from "react-native";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
+import { useReducedMotion } from "react-native-reanimated";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+  useFonts,
+  SpaceGrotesk_500Medium,
+  SpaceGrotesk_600SemiBold,
+  SpaceGrotesk_700Bold,
+} from "@expo-google-fonts/space-grotesk";
+import {
+  Inter_400Regular,
+  Inter_500Medium,
+} from "@expo-google-fonts/inter";
 import { useElectionStore } from "../stores/election";
 import { useAppStore } from "../stores/app";
 import { loadBundledDataset } from "../data/loader";
@@ -27,6 +38,16 @@ export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
 
+  const reduceMotion = useReducedMotion();
+
+  const [fontsLoaded] = useFonts({
+    SpaceGrotesk_500Medium,
+    SpaceGrotesk_600SemiBold,
+    SpaceGrotesk_700Bold,
+    Inter_400Regular,
+    Inter_500Medium,
+  });
+
   useEffect(() => {
     try {
       const dataset = loadBundledDataset();
@@ -37,10 +58,10 @@ export default function RootLayout() {
   }, [loadDataset]);
 
   useEffect(() => {
-    if (isLoaded) {
+    if (isLoaded && fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [isLoaded]);
+  }, [isLoaded, fontsLoaded]);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -54,6 +75,10 @@ export default function RootLayout() {
     }
   }, [isLoaded, hasCompletedOnboarding, segments]);
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <SafeAreaProvider>
       <GluestackUIProvider>
@@ -61,10 +86,15 @@ export default function RootLayout() {
           <Stack
             screenOptions={{
               headerShown: true,
-              headerStyle: { backgroundColor: "#FFFFFF" },
-              headerTintColor: "#2563EB",
-              headerTitleStyle: { fontWeight: "600", fontSize: 17, color: "#111827" },
+              headerStyle: { backgroundColor: "#1B2A4A" },
+              headerTintColor: "#FAFAF8",
+              headerTitleStyle: {
+                fontFamily: "SpaceGrotesk_600SemiBold",
+                fontSize: 17,
+                color: "#FAFAF8",
+              },
               headerShadowVisible: false,
+              animation: reduceMotion ? "none" : "slide_from_bottom",
             }}
           >
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -74,7 +104,7 @@ export default function RootLayout() {
             <Stack.Screen name="survey" options={{ headerShown: false }} />
           </Stack>
         </View>
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
       </GluestackUIProvider>
     </SafeAreaProvider>
   );

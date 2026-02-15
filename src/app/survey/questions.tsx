@@ -42,14 +42,12 @@ export default function QuestionsScreen() {
   };
 
   const computeResults = () => {
-    // Build candidate position scores from actual positions
     const candidatePositions: CandidatePositions[] = candidates.map((c) => {
       const positionScores: Record<string, number> = {};
       for (const theme of themes) {
         const position = positions.find(
           (p) => p.candidateId === c.id && p.themeId === theme.id
         );
-        // Simple heuristic: position exists = positive score, no position = neutral
         positionScores[theme.id] = position ? 1 : 0;
       }
       return { candidateId: c.id, positionScores };
@@ -107,8 +105,8 @@ export default function QuestionsScreen() {
 
   if (!currentQuestion) {
     return (
-      <View className="flex-1 items-center justify-center bg-white">
-        <Text className="text-gray-500">{t("common:loading")}</Text>
+      <View className="flex-1 items-center justify-center bg-warm-white">
+        <Text className="font-body text-text-caption">{t("common:loading")}</Text>
       </View>
     );
   }
@@ -116,7 +114,7 @@ export default function QuestionsScreen() {
   const primaryThemeId = currentQuestion.themeIds[0];
 
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 bg-warm-white">
       <ProgressBar current={currentIndex} total={surveyQuestions.length} />
       <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 32 }}>
         <QuestionCard
@@ -140,10 +138,10 @@ export default function QuestionsScreen() {
             onPress={previousQuestion}
             accessibilityRole="button"
             accessibilityLabel={t("common:back")}
-            className="bg-gray-200 rounded-xl py-3 px-6"
+            className="bg-warm-gray rounded-xl py-3 px-6"
             style={{ minHeight: 44 }}
           >
-            <Text className="text-gray-700 font-medium">
+            <Text className="font-body-medium text-civic-navy">
               {t("common:back")}
             </Text>
           </Pressable>
@@ -156,14 +154,14 @@ export default function QuestionsScreen() {
           accessibilityRole="button"
           accessibilityLabel={isLast ? t("common:confirm") : t("common:next")}
           className={`rounded-xl py-3 px-6 ${
-            currentAnswer ? "bg-blue-600" : "bg-gray-300"
+            currentAnswer ? "bg-accent-coral" : "bg-warm-gray"
           }`}
           disabled={!currentAnswer}
           style={{ minHeight: 44 }}
         >
           <Text
-            className={`font-medium ${
-              currentAnswer ? "text-white" : "text-gray-500"
+            className={`font-display-medium ${
+              currentAnswer ? "text-text-inverse" : "text-text-caption"
             }`}
           >
             {isLast ? t("common:confirm") : t("common:next")}

@@ -17,11 +17,11 @@ export function TieExplanation({ tiedCandidates, candidates }: TieExplanationPro
     .join(", ");
 
   return (
-    <View className="bg-blue-50 rounded-xl p-4 mb-4">
-      <Text className="text-sm font-semibold text-blue-900 mb-1">
+    <View className="bg-civic-navy-light rounded-xl p-4 mb-4">
+      <Text className="font-display-medium text-sm text-civic-navy mb-1">
         {t("tieTitle")}
       </Text>
-      <Text className="text-sm text-blue-800">
+      <Text className="font-body text-sm text-text-body">
         {t("tieExplanation", { candidates: names })}
       </Text>
     </View>

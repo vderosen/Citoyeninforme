@@ -1,4 +1,10 @@
-import { ScrollView, Text } from "react-native";
+import { Text } from "react-native";
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue,
+  useAnimatedStyle,
+  useReducedMotion,
+} from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -12,6 +18,7 @@ import { VotingInfoCard } from "../../components/home/VotingInfoCard";
 import { TrustCard } from "../../components/home/TrustCard";
 import { ResumeCard } from "../../components/home/ResumeCard";
 import { ThemeFeed } from "../../components/home/ThemeFeed";
+import SteppedDivider from "../../components/ui/SteppedDivider";
 
 export default function HomeScreen() {
   const { t } = useTranslation("home");
@@ -23,9 +30,22 @@ export default function HomeScreen() {
   const surveyStatus = useSurveyStore((s) => s.status);
   const messages = useAssistantStore((s) => s.messages);
 
+  const scrollY = useSharedValue(0);
+  const reduceMotion = useReducedMotion();
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      scrollY.value = event.contentOffset.y;
+    },
+  });
+
+  const heroParallaxStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: scrollY.value * 0.5 }],
+  }));
+
   if (!isLoaded || !election) {
     return (
-      <SafeAreaView className="flex-1 bg-white">
+      <SafeAreaView className="flex-1 bg-warm-white">
         <LoadingState />
       </SafeAreaView>
     );
@@ -40,7 +60,6 @@ export default function HomeScreen() {
     ) {
       router.push("/survey/questions");
     } else {
-      // results_ready or completed — retake
       useSurveyStore.getState().reset();
       router.push("/survey/intro");
     }
@@ -67,13 +86,18 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={[]}>
-      <ScrollView
+    <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
+      <Animated.ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingBottom: 24, gap: 16 }}
+        contentContainerStyle={{ paddingBottom: 24 }}
         showsVerticalScrollIndicator={false}
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
       >
-        <HeroBlock election={election} />
+        <Animated.View style={reduceMotion ? undefined : heroParallaxStyle}>
+          <HeroBlock election={election} />
+        </Animated.View>
+        <SteppedDivider className="my-4" />
         <PrimaryShortcuts
           surveyStatus={surveyStatus}
           onStartSurvey={handleStartSurvey}
@@ -86,15 +110,17 @@ export default function HomeScreen() {
           onResumeSurvey={handleResumeSurvey}
           onResumeChat={handleResumeChat}
         />
+        <SteppedDivider className="my-4" />
+        <ThemeFeed themes={themes} onThemePress={handleThemePress} />
+        <SteppedDivider className="my-4" />
         {logistics && <VotingInfoCard logistics={logistics} />}
         <TrustCard />
-        <ThemeFeed themes={themes} onThemePress={handleThemePress} />
         {election.lastUpdated && (
-          <Text className="text-xs text-gray-400 text-center py-4">
+          <Text className="font-body-medium text-xs text-text-caption text-center py-4">
             {t("lastUpdated", { date: election.lastUpdated })}
           </Text>
         )}
-      </ScrollView>
+      </Animated.ScrollView>
     </SafeAreaView>
   );
 }

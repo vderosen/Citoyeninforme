@@ -19,21 +19,21 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
       {icon ? (
         <Text className="text-4xl mb-4">{icon}</Text>
       ) : null}
-      <Text className="text-lg font-semibold text-gray-800 text-center mb-2">
+      <Text className="font-display-medium text-lg text-civic-navy text-center mb-2">
         {title}
       </Text>
-      <Text className="text-sm text-gray-500 text-center mb-6">
+      <Text className="font-body text-sm text-text-caption text-center mb-6">
         {description}
       </Text>
       {action ? (
         <Pressable
           onPress={action.onPress}
-          className="bg-blue-600 rounded-lg px-6 py-3"
+          className="bg-accent-coral rounded-lg px-6 py-3"
           style={{ minHeight: 44 }}
           accessibilityRole="button"
           accessibilityLabel={action.label}
         >
-          <Text className="text-white font-semibold text-center">
+          <Text className="font-body-medium text-text-inverse text-center">
             {action.label}
           </Text>
         </Pressable>

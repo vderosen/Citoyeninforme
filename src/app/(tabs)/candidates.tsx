@@ -24,7 +24,7 @@ export default function CandidatesScreen() {
 
   if (!isLoaded) {
     return (
-      <SafeAreaView className="flex-1 bg-white">
+      <SafeAreaView className="flex-1 bg-warm-white">
         <LoadingState />
       </SafeAreaView>
     );
@@ -47,7 +47,7 @@ export default function CandidatesScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={[]}>
+    <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
       <View className="flex-1">
         <ThemeFilter
           themes={themes}

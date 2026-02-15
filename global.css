@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* T041: Coral focus outlines for web accessibility */
+*:focus-visible {
+  outline: 2px solid #E8553A;
+  outline-offset: 2px;
+}

@@ -49,20 +49,20 @@ export function ChatArea({ messages, isStreaming, onSend }: ChatAreaProps) {
         contentContainerStyle={{ padding: 16, flexGrow: 1 }}
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center">
-            <Text className="text-gray-400 text-sm">{t("placeholder")}</Text>
+            <Text className="font-body text-text-caption text-sm">{t("placeholder")}</Text>
           </View>
         }
       />
 
       {isStreaming && (
         <View className="px-4 pb-1">
-          <Text className="text-xs text-gray-400">{t("thinking")}</Text>
+          <Text className="font-body text-xs text-text-caption">{t("thinking")}</Text>
         </View>
       )}
 
       <View className="flex-row items-end px-4 pb-4 gap-2">
         <TextInput
-          className="flex-1 bg-gray-100 rounded-xl px-4 py-3 text-base text-gray-800"
+          className="flex-1 bg-warm-gray rounded-xl px-4 py-3 font-body text-base text-text-body"
           placeholder={t("placeholder")}
           onChangeText={(text) => { inputRef.current = text; }}
           onSubmitEditing={handleSend}
@@ -75,12 +75,12 @@ export function ChatArea({ messages, isStreaming, onSend }: ChatAreaProps) {
         <Pressable
           onPress={handleSend}
           disabled={isStreaming}
-          className={`rounded-xl px-4 py-3 ${isStreaming ? "bg-gray-300" : "bg-blue-600"}`}
+          className={`rounded-xl px-4 py-3 ${isStreaming ? "bg-warm-gray" : "bg-accent-coral"}`}
           style={{ minHeight: 44 }}
           accessibilityRole="button"
           accessibilityLabel={t("send")}
         >
-          <Text className={`font-semibold ${isStreaming ? "text-gray-500" : "text-white"}`}>
+          <Text className={`font-body-medium ${isStreaming ? "text-text-caption" : "text-text-inverse"}`}>
             {t("send")}
           </Text>
         </Pressable>

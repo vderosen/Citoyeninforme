@@ -14,11 +14,11 @@ export function CivicPrimer({ facts, onContinue }: CivicPrimerProps) {
   return (
     <View className="px-4 pb-8">
       {facts.map((fact) => (
-        <View key={fact.id} className="bg-blue-50 rounded-xl p-4 mb-4">
-          <Text className="text-base text-gray-800 leading-6">
+        <View key={fact.id} className="bg-warm-gray rounded-xl p-4 mb-4">
+          <Text className="font-body text-base text-text-body leading-6">
             {fact.text}
           </Text>
-          <Text className="text-xs text-gray-400 mt-2">
+          <Text className="font-body text-xs text-text-caption mt-2">
             {tCommon("source")}: {fact.source.title}
           </Text>
         </View>
@@ -26,12 +26,12 @@ export function CivicPrimer({ facts, onContinue }: CivicPrimerProps) {
 
       <Pressable
         onPress={onContinue}
-        className="bg-blue-600 rounded-xl py-4 px-6 mt-4 items-center"
+        className="bg-accent-coral rounded-xl py-4 px-6 mt-4 items-center"
         style={{ minHeight: 48 }}
         accessibilityRole="button"
         accessibilityLabel={t("startQuestionnaire")}
       >
-        <Text className="text-white font-semibold text-base">
+        <Text className="font-display-semibold text-text-inverse text-base">
           {t("startQuestionnaire")}
         </Text>
       </Pressable>

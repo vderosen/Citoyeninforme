@@ -17,7 +17,7 @@ export function CandidateSelector({
 
   return (
     <View className="py-2">
-      <Text className="text-xs text-gray-500 px-4 mb-2">
+      <Text className="font-body-medium text-xs text-text-caption px-4 mb-2">
         {t("selectCandidate")}
       </Text>
       <FlatList
@@ -31,8 +31,8 @@ export function CandidateSelector({
             onPress={() => onSelect(item.id)}
             className={`items-center px-3 py-2 rounded-xl border ${
               selectedId === item.id
-                ? "bg-blue-50 border-blue-400"
-                : "bg-white border-gray-200"
+                ? "bg-accent-coral-light border-accent-coral"
+                : "bg-warm-white border-warm-gray"
             }`}
             style={{ minHeight: 44, minWidth: 72 }}
             accessibilityRole="radio"
@@ -42,17 +42,17 @@ export function CandidateSelector({
             {item.photoUrl ? (
               <Image
                 source={{ uri: item.photoUrl }}
-                className="w-10 h-10 rounded-full bg-gray-200 mb-1"
+                className="w-10 h-10 rounded-full bg-warm-gray mb-1"
                 accessibilityIgnoresInvertColors
               />
             ) : (
-              <View className="w-10 h-10 rounded-full bg-gray-200 items-center justify-center mb-1">
+              <View className="w-10 h-10 rounded-full bg-warm-gray items-center justify-center mb-1">
                 <Text className="text-lg">👤</Text>
               </View>
             )}
             <Text
-              className={`text-xs font-medium text-center ${
-                selectedId === item.id ? "text-blue-700" : "text-gray-700"
+              className={`text-xs font-body-medium text-center ${
+                selectedId === item.id ? "text-civic-navy" : "text-text-body"
               }`}
               numberOfLines={1}
             >

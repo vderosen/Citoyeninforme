@@ -1,5 +1,8 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
+import DistrictBlockCard from "../ui/DistrictBlockCard";
+import { PressableScale } from "../ui/PressableScale";
 import type { SurveyStatus } from "../../stores/survey";
 
 interface PrimaryShortcutsProps {
@@ -24,67 +27,54 @@ export function PrimaryShortcuts({
         ? t("resumeSurvey")
         : t("retakeSurvey");
 
-  const shortcuts = [
-    {
-      label: surveyLabel,
-      onPress: onStartSurvey,
-      color: "bg-blue-600",
-      textColor: "text-white",
-      accessibilityHint: t("startSurveyHint"),
-    },
-    {
-      label: t("exploreCandidates"),
-      onPress: onViewCandidates,
-      color: "bg-gray-100",
-      textColor: "text-gray-900",
-      accessibilityHint: t("exploreCandidatesHint"),
-    },
-    {
-      label: t("askQuestion"),
-      onPress: onAskQuestion,
-      color: "bg-gray-100",
-      textColor: "text-gray-900",
-      accessibilityHint: t("askQuestionHint"),
-    },
-  ];
-
-  const primaryShortcut = shortcuts[0];
-  const secondaryShortcuts = shortcuts.slice(1);
-
   return (
     <View className="px-4 gap-3">
-      <Pressable
-        onPress={primaryShortcut.onPress}
-        className={`${primaryShortcut.color} rounded-xl px-5 py-5`}
-        style={{ minHeight: 64 }}
-        accessibilityRole="button"
-        accessibilityLabel={primaryShortcut.label}
-        accessibilityHint={primaryShortcut.accessibilityHint}
-      >
-        <Text
-          className={`${primaryShortcut.textColor} text-lg font-semibold text-center`}
+      <DistrictBlockCard clipCorner="top-right" className="bg-accent-coral">
+        <PressableScale
+          onPress={onStartSurvey}
+          className="px-5 py-5 flex-row items-center gap-3"
+          style={{ minHeight: 64 }}
+          accessibilityRole="button"
+          accessibilityLabel={surveyLabel}
+          accessibilityHint={t("startSurveyHint")}
         >
-          {primaryShortcut.label}
-        </Text>
-      </Pressable>
+          <Ionicons name="checkbox-outline" size={22} color="#FAFAF8" />
+          <Text className="font-display-semibold text-lg text-text-inverse flex-1">
+            {surveyLabel}
+          </Text>
+        </PressableScale>
+      </DistrictBlockCard>
       <View className="flex-row gap-3">
-        {secondaryShortcuts.map((shortcut) => (
-          <Pressable
-            key={shortcut.label}
-            onPress={shortcut.onPress}
-            className={`${shortcut.color} rounded-xl px-4 py-3 flex-1`}
+        <DistrictBlockCard clipCorner="top-right" className="flex-1 bg-civic-navy-light">
+          <PressableScale
+            onPress={onViewCandidates}
+            className="px-4 py-4 items-center gap-2"
             style={{ minHeight: 48 }}
             accessibilityRole="button"
-            accessibilityLabel={shortcut.label}
-            accessibilityHint={shortcut.accessibilityHint}
+            accessibilityLabel={t("exploreCandidates")}
+            accessibilityHint={t("exploreCandidatesHint")}
           >
-            <Text
-              className={`${shortcut.textColor} text-sm font-semibold text-center`}
-            >
-              {shortcut.label}
+            <Ionicons name="people-outline" size={22} color="#1B2A4A" />
+            <Text className="font-display-medium text-sm text-civic-navy text-center">
+              {t("exploreCandidates")}
             </Text>
-          </Pressable>
-        ))}
+          </PressableScale>
+        </DistrictBlockCard>
+        <DistrictBlockCard clipCorner="top-right" className="flex-1 bg-civic-navy-light">
+          <PressableScale
+            onPress={onAskQuestion}
+            className="px-4 py-4 items-center gap-2"
+            style={{ minHeight: 48 }}
+            accessibilityRole="button"
+            accessibilityLabel={t("askQuestion")}
+            accessibilityHint={t("askQuestionHint")}
+          >
+            <Ionicons name="chatbubble-outline" size={22} color="#1B2A4A" />
+            <Text className="font-display-medium text-sm text-civic-navy text-center">
+              {t("askQuestion")}
+            </Text>
+          </PressableScale>
+        </DistrictBlockCard>
       </View>
     </View>
   );

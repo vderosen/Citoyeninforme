@@ -24,20 +24,20 @@ export function ResumeCard({
   if (!showSurveyResume && !showChatResume) return null;
 
   return (
-    <View className="mx-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
-      <Text className="text-sm font-semibold text-gray-900 mb-2">
+    <View className="mx-4 bg-warm-gray rounded-xl p-4 shadow-card">
+      <Text className="font-display-medium text-sm text-civic-navy mb-2">
         {t("resumeTitle")}
       </Text>
       <View className="gap-2">
         {showSurveyResume && (
           <Pressable
             onPress={onResumeSurvey}
-            className="bg-white rounded-lg px-4 py-3 border border-amber-200"
+            className="bg-warm-white rounded-lg px-4 py-3 border border-accent-coral"
             style={{ minHeight: 44 }}
             accessibilityRole="button"
             accessibilityLabel={t("resumeSurvey")}
           >
-            <Text className="text-sm font-medium text-gray-800">
+            <Text className="font-body-medium text-sm text-civic-navy">
               {t("resumeSurvey")}
             </Text>
           </Pressable>
@@ -45,12 +45,12 @@ export function ResumeCard({
         {showChatResume && (
           <Pressable
             onPress={onResumeChat}
-            className="bg-white rounded-lg px-4 py-3 border border-amber-200"
+            className="bg-warm-white rounded-lg px-4 py-3 border border-accent-coral"
             style={{ minHeight: 44 }}
             accessibilityRole="button"
             accessibilityLabel={t("resumeChat")}
           >
-            <Text className="text-sm font-medium text-gray-800">
+            <Text className="font-body-medium text-sm text-civic-navy">
               {t("resumeChat")}
             </Text>
           </Pressable>

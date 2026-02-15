@@ -9,15 +9,15 @@ interface TrustBadgeProps {
 }
 
 const variantStyles = {
-  source: "bg-green-100 border-green-300",
-  non_documente: "bg-gray-100 border-gray-300",
-  incertain: "bg-amber-100 border-amber-300",
+  source: "bg-civic-navy-light border-civic-navy",
+  non_documente: "bg-warm-gray border-warm-gray",
+  incertain: "bg-accent-coral-light border-accent-coral",
 } as const;
 
 const variantTextStyles = {
-  source: "text-green-800",
-  non_documente: "text-gray-600",
-  incertain: "text-amber-800",
+  source: "text-civic-navy",
+  non_documente: "text-text-caption",
+  incertain: "text-accent-coral-dark",
 } as const;
 
 export function TrustBadge({ variant, source, onPress }: TrustBadgeProps) {
@@ -36,7 +36,7 @@ export function TrustBadge({ variant, source, onPress }: TrustBadgeProps) {
 
   const badge = (
     <Text
-      className={`text-xs font-medium px-2 py-0.5 rounded-full border ${variantStyles[variant]} ${variantTextStyles[variant]}`}
+      className={`text-xs font-body-medium px-2 py-0.5 rounded-full border ${variantStyles[variant]} ${variantTextStyles[variant]}`}
       accessibilityRole={isInteractive ? "link" : "text"}
       accessibilityLabel={label}
     >

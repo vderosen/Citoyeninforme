@@ -1,5 +1,6 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { useTranslation } from "react-i18next";
+import { PressableScale } from "../ui/PressableScale";
 import type { SurveyQuestion } from "../../data/schema";
 
 interface Props {
@@ -25,65 +26,52 @@ export function QuestionCard({
 
   return (
     <View className="px-4">
-      <Text className="text-sm text-gray-500 mb-2">
-        {t("questionProgress", {
-          current: currentIndex + 1,
-          total: totalQuestions,
-        })}
-      </Text>
-
-      <View className="w-full h-1 bg-gray-200 rounded-full mb-6">
-        <View
-          className="h-1 bg-blue-600 rounded-full"
-          style={{
-            width: `${((currentIndex + 1) / totalQuestions) * 100}%`,
-          }}
-        />
-      </View>
-
       <Text
-        className="text-xl font-semibold text-gray-900 mb-6"
+        className="font-display-bold text-xl text-civic-navy mb-6 leading-snug"
         accessibilityRole="header"
       >
         {question.text}
       </Text>
 
-      {question.options.map((option) => (
-        <Pressable
-          key={option.id}
-          onPress={() => onSelectOption(option.id)}
-          accessibilityRole="radio"
-          accessibilityState={{ selected: selectedOptionId === option.id }}
-          className={`p-4 mb-3 rounded-xl border-2 ${
-            selectedOptionId === option.id
-              ? "border-blue-600 bg-blue-50"
-              : "border-gray-200 bg-white"
-          }`}
-          style={{ minHeight: 44 }}
-        >
-          <Text
-            className={`text-base ${
-              selectedOptionId === option.id
-                ? "text-blue-800 font-medium"
-                : "text-gray-700"
+      {question.options.map((option) => {
+        const isSelected = selectedOptionId === option.id;
+        return (
+          <PressableScale
+            key={option.id}
+            onPress={() => onSelectOption(option.id)}
+            accessibilityRole="radio"
+            accessibilityState={{ selected: isSelected }}
+            className={`p-4 mb-3 rounded-xl border-2 ${
+              isSelected
+                ? "border-accent-coral bg-accent-coral-light"
+                : "border-warm-gray bg-warm-white"
             }`}
+            style={{ minHeight: 48 }}
           >
-            {option.text}
-          </Text>
-        </Pressable>
-      ))}
+            <Text
+              className={`font-body text-base ${
+                isSelected
+                  ? "text-civic-navy font-body-medium"
+                  : "text-text-body"
+              }`}
+            >
+              {option.text}
+            </Text>
+          </PressableScale>
+        );
+      })}
 
-      <View className="mt-6 bg-gray-50 rounded-xl p-4">
-        <Text className="text-sm font-medium text-gray-700 mb-2">
+      <View className="mt-6 bg-warm-gray rounded-xl p-4">
+        <Text className="font-body-medium text-sm text-civic-navy mb-2">
           {t("importanceLabel")}
         </Text>
         <View className="flex-row justify-between mb-1">
-          <Text className="text-xs text-gray-400">{t("importanceLow")}</Text>
-          <Text className="text-xs text-gray-400">{t("importanceHigh")}</Text>
+          <Text className="font-body text-xs text-text-caption">{t("importanceLow")}</Text>
+          <Text className="font-body text-xs text-text-caption">{t("importanceHigh")}</Text>
         </View>
         <View className="h-10 justify-center">
           <View
-            className="w-full h-2 bg-gray-300 rounded-full"
+            className="w-full h-2 bg-warm-white rounded-full"
             accessibilityRole="adjustable"
             accessibilityLabel={t("importanceLabel")}
             accessibilityValue={{
@@ -93,7 +81,7 @@ export function QuestionCard({
             }}
           >
             <View
-              className="h-2 bg-blue-600 rounded-full"
+              className="h-2 bg-accent-coral rounded-full"
               style={{ width: `${importance * 100}%` }}
             />
           </View>

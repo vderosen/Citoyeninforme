@@ -29,6 +29,8 @@
   "feedbackPlaceholder": "Décrivez le problème (optionnel)...",
   "feedbackSubmit": "Envoyer",
   "feedbackThanks": "Merci pour votre retour !",
+  "languageFr": "FR",
+  "languageEn": "EN",
   "headers": {
     "lucide": "Lucide",
     "assistant": "Assistant",

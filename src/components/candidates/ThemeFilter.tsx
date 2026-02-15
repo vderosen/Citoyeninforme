@@ -24,13 +24,13 @@ export function ThemeFilter({ themes, selectedThemeId, onSelectTheme }: Props) {
         accessibilityRole="tab"
         accessibilityState={{ selected: selectedThemeId === null }}
         className={`px-4 py-2 rounded-full ${
-          selectedThemeId === null ? "bg-blue-600" : "bg-gray-200"
+          selectedThemeId === null ? "bg-civic-navy" : "bg-warm-gray"
         }`}
         style={{ minHeight: 40, justifyContent: "center" }}
       >
         <Text
-          className={`text-sm font-medium ${
-            selectedThemeId === null ? "text-white" : "text-gray-700"
+          className={`font-body-medium text-sm ${
+            selectedThemeId === null ? "text-text-inverse" : "text-civic-navy"
           }`}
         >
           {t("allThemes")}
@@ -43,13 +43,13 @@ export function ThemeFilter({ themes, selectedThemeId, onSelectTheme }: Props) {
           accessibilityRole="tab"
           accessibilityState={{ selected: selectedThemeId === theme.id }}
           className={`px-4 py-2 rounded-full ${
-            selectedThemeId === theme.id ? "bg-blue-600" : "bg-gray-200"
+            selectedThemeId === theme.id ? "bg-civic-navy" : "bg-warm-gray"
           }`}
           style={{ minHeight: 40, justifyContent: "center" }}
         >
           <Text
-            className={`text-sm font-medium ${
-              selectedThemeId === theme.id ? "text-white" : "text-gray-700"
+            className={`font-body-medium text-sm ${
+              selectedThemeId === theme.id ? "text-text-inverse" : "text-civic-navy"
             }`}
           >
             {theme.icon} {theme.name}

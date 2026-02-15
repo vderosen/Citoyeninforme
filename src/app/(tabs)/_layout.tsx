@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
+import { LanguageSwitcher } from "../../components/shell/LanguageSwitcher";
 
 export default function TabLayout() {
   const { t } = useTranslation("common");
@@ -9,20 +10,26 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: true,
-        headerStyle: { backgroundColor: "#FFFFFF" },
-        headerTintColor: "#2563EB",
-        headerTitleStyle: { fontWeight: "600", fontSize: 17, color: "#111827" },
+        headerStyle: { backgroundColor: "#1B2A4A" },
+        headerTintColor: "#FAFAF8",
+        headerTitleStyle: {
+          fontFamily: "SpaceGrotesk_600SemiBold",
+          fontSize: 17,
+          color: "#FAFAF8",
+        },
         headerShadowVisible: false,
+        headerRight: () => <LanguageSwitcher />,
         lazy: true,
-        tabBarActiveTintColor: "#2563EB",
+        tabBarActiveTintColor: "#1B2A4A",
         tabBarInactiveTintColor: "#6B7280",
         tabBarLabelStyle: {
           fontSize: 12,
-          fontWeight: "600",
+          fontFamily: "Inter_500Medium",
         },
         tabBarStyle: {
+          backgroundColor: "#FAFAF8",
           borderTopWidth: 1,
-          borderTopColor: "#E5E7EB",
+          borderTopColor: "#1B2A4A",
         },
       }}
     >

@@ -43,6 +43,7 @@ export interface Candidate {
   communicationStyle: string;
   programSourceUrl: string;
   photoUrl?: string;
+  partyColor?: string;
 }
 
 export interface Theme {

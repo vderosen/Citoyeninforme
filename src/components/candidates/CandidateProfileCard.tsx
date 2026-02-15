@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
 import type { Candidate, Position, Theme } from "../../data/schema";
 import type { AssistantContext } from "../../stores/assistant";
 import { PositionCard } from "./PositionCard";
@@ -47,36 +48,42 @@ export function CandidateProfileCard({
 
   return (
     <View className="pb-6">
-      {/* Header */}
+      {/* Header with party color bar */}
+      <View
+        style={{
+          height: 6,
+          backgroundColor: candidate.partyColor || "#9CA3AF",
+        }}
+      />
       <View className="items-center px-4 pt-6 pb-4">
         {candidate.photoUrl ? (
           <Image
             source={{ uri: candidate.photoUrl }}
-            className="w-24 h-24 rounded-full bg-gray-200"
+            className="w-24 h-24 rounded-xl bg-warm-gray"
             accessibilityIgnoresInvertColors
           />
         ) : (
-          <View className="w-24 h-24 rounded-full bg-gray-200 items-center justify-center">
+          <View className="w-24 h-24 rounded-xl bg-warm-gray items-center justify-center">
             <Text className="text-4xl">👤</Text>
           </View>
         )}
-        <Text className="text-xl font-bold text-gray-900 mt-3">
+        <Text className="font-display-bold text-xl text-civic-navy mt-3">
           {candidate.name}
         </Text>
-        <Text className="text-sm text-gray-500">{candidate.party}</Text>
+        <Text className="font-body text-sm text-text-caption">{candidate.party}</Text>
       </View>
 
       {/* En bref */}
       <View className="px-4 pb-4">
-        <Text className="text-base font-semibold text-gray-900 mb-1">
+        <Text className="font-display-semibold text-base text-civic-navy mb-1">
           {t("enBref")}
         </Text>
-        <Text className="text-sm text-gray-700">{candidate.bio}</Text>
+        <Text className="font-body text-sm text-text-body leading-relaxed">{candidate.bio}</Text>
       </View>
 
       {/* Positions by theme */}
       <View className="px-4 pb-4">
-        <Text className="text-base font-semibold text-gray-900 mb-2">
+        <Text className="font-display-semibold text-base text-civic-navy mb-2">
           {t("positionsByTheme")}
         </Text>
         {positionsByTheme.map(({ theme, position }) => (
@@ -89,22 +96,24 @@ export function CandidateProfileCard({
               accessibilityState={{ expanded: expandedThemes.has(theme.id) }}
               accessibilityLabel={theme.name}
             >
-              <Text className="text-sm font-medium text-gray-800 flex-1">
+              <Text className="font-body-medium text-sm text-civic-navy flex-1">
                 {theme.icon} {theme.name}
               </Text>
-              <Text className="text-gray-400">
-                {expandedThemes.has(theme.id) ? "▲" : "▼"}
-              </Text>
+              <Ionicons
+                name={expandedThemes.has(theme.id) ? "chevron-up" : "chevron-down"}
+                size={16}
+                color="#1B2A4A"
+              />
             </Pressable>
             {expandedThemes.has(theme.id) && (
               position ? (
                 <PositionCard position={position} />
               ) : (
-                <View className="bg-gray-50 rounded-lg p-3 mb-2">
-                  <Text className="text-sm text-gray-500 italic">
+                <View className="bg-warm-gray rounded-lg p-3 mb-2">
+                  <Text className="font-body text-sm text-text-caption italic">
                     {t("noPositionDocumented")}
                   </Text>
-                  <Text className="text-xs text-gray-400 mt-1">
+                  <Text className="font-body text-xs text-text-caption mt-1">
                     {t("noPositionNote")}
                   </Text>
                 </View>
@@ -118,23 +127,23 @@ export function CandidateProfileCard({
       <View className="px-4 flex-row gap-3 pb-4">
         <Pressable
           onPress={onCompare}
-          className="flex-1 bg-gray-100 rounded-xl py-3"
+          className="flex-1 bg-warm-gray rounded-xl py-3"
           style={{ minHeight: 48 }}
           accessibilityRole="button"
           accessibilityLabel={t("compare")}
         >
-          <Text className="text-sm font-semibold text-gray-800 text-center">
+          <Text className="font-display-medium text-sm text-civic-navy text-center">
             {t("compare")}
           </Text>
         </Pressable>
         <Pressable
           onPress={onDebate}
-          className="flex-1 bg-gray-100 rounded-xl py-3"
+          className="flex-1 bg-warm-gray rounded-xl py-3"
           style={{ minHeight: 48 }}
           accessibilityRole="button"
           accessibilityLabel={t("debate")}
         >
-          <Text className="text-sm font-semibold text-gray-800 text-center">
+          <Text className="font-display-medium text-sm text-civic-navy text-center">
             {t("debate")}
           </Text>
         </Pressable>
@@ -151,12 +160,12 @@ export function CandidateProfileCard({
               promptText: null,
             })
           }
-          className="bg-blue-50 rounded-xl py-3"
+          className="bg-accent-coral-light border border-accent-coral rounded-xl py-3"
           style={{ minHeight: 48 }}
           accessibilityRole="button"
           accessibilityLabel={t("askAbout")}
         >
-          <Text className="text-sm font-semibold text-blue-700 text-center">
+          <Text className="font-display-medium text-sm text-accent-coral-dark text-center">
             {t("askAbout")}
           </Text>
         </Pressable>

@@ -22,7 +22,7 @@ export function SourceReference({ source, compact = false }: SourceReferenceProp
         accessibilityLabel={`${t("source")}: ${source.title}`}
         hitSlop={8}
       >
-        <Text className="text-blue-600 text-xs underline" numberOfLines={1}>
+        <Text className="font-body text-civic-navy text-xs underline" numberOfLines={1}>
           {source.title}
         </Text>
       </Pressable>
@@ -36,10 +36,10 @@ export function SourceReference({ source, compact = false }: SourceReferenceProp
       accessibilityLabel={`${t("source")}: ${source.title}`}
       className="flex-row items-center py-1"
     >
-      <Text className="text-blue-600 text-sm underline flex-1">
+      <Text className="font-body text-civic-navy text-sm underline flex-1">
         {source.title}
       </Text>
-      <Text className="text-gray-400 text-xs ml-2">
+      <Text className="font-body text-text-caption text-xs ml-2">
         {t("accessedOn", { date: source.accessDate })}
       </Text>
     </Pressable>

@@ -7,11 +7,11 @@ export function TrustCard() {
   const { t: tHome } = useTranslation("home");
 
   return (
-    <View className="mx-4 bg-blue-50 rounded-xl p-4">
-      <Text className="text-base font-semibold text-gray-900 mb-2">
+    <View className="mx-4 bg-warm-gray rounded-xl p-4">
+      <Text className="font-display-semibold text-base text-civic-navy mb-2">
         {tHome("trustTitle")}
       </Text>
-      <Text className="text-sm text-gray-600 mb-3">
+      <Text className="font-body text-sm text-text-body mb-3 leading-relaxed">
         {t("neutralityStatement")}
       </Text>
       <View className="flex-row flex-wrap gap-2">

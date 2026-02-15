@@ -35,7 +35,7 @@ export default function ComparisonScreen() {
 
   if (!isLoaded) {
     return (
-      <View className="flex-1 bg-white">
+      <View className="flex-1 bg-warm-white">
         <LoadingState />
       </View>
     );
@@ -50,8 +50,8 @@ export default function ComparisonScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white">
-      <Text className="text-xl font-bold text-gray-900 px-4 pt-4 pb-2">
+    <View className="flex-1 bg-warm-white">
+      <Text className="font-display-bold text-xl text-civic-navy px-4 pt-4 pb-2">
         {t("title")}
       </Text>
 
@@ -68,8 +68,8 @@ export default function ComparisonScreen() {
             onPress={() => toggleCandidate(candidate.id)}
             className={`px-3 py-2 rounded-full border ${
               selectedIds.includes(candidate.id)
-                ? "bg-blue-100 border-blue-400"
-                : "bg-white border-gray-300"
+                ? "bg-accent-coral-light border-accent-coral"
+                : "bg-warm-white border-warm-gray"
             }`}
             style={{ minHeight: 40 }}
             accessibilityRole="checkbox"
@@ -77,10 +77,10 @@ export default function ComparisonScreen() {
             accessibilityLabel={candidate.name}
           >
             <Text
-              className={`text-sm font-medium ${
+              className={`text-sm font-body-medium ${
                 selectedIds.includes(candidate.id)
-                  ? "text-blue-700"
-                  : "text-gray-600"
+                  ? "text-civic-navy"
+                  : "text-text-body"
               }`}
             >
               {candidate.name}

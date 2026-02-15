@@ -22,7 +22,7 @@ export function ResultsProfile({ themeScores }: ResultsProfileProps) {
   return (
     <View className="mb-6">
       <Text
-        className="text-lg font-semibold text-gray-900 mb-3"
+        className="font-display-semibold text-lg text-civic-navy mb-3"
         accessibilityRole="header"
       >
         {t("profileTitle")}
@@ -35,16 +35,16 @@ export function ResultsProfile({ themeScores }: ResultsProfileProps) {
         return (
           <View key={themeId} className="mb-3">
             <View className="flex-row justify-between mb-1">
-              <Text className="text-sm font-medium text-gray-700">
+              <Text className="font-body-medium text-sm text-civic-navy">
                 {theme!.icon} {theme!.name}
               </Text>
-              <Text className="text-xs text-gray-500">
+              <Text className="font-display-bold text-xs text-text-caption">
                 {score > 0 ? "+" : ""}{score.toFixed(1)}
               </Text>
             </View>
-            <View className="w-full h-2 bg-gray-200 rounded-full">
+            <View className="w-full h-2 bg-warm-gray rounded-full">
               <View
-                className={`h-2 rounded-full ${isPositive ? "bg-blue-500" : "bg-amber-500"}`}
+                className={`h-2 rounded-full ${isPositive ? "bg-civic-navy" : "bg-signal-amber"}`}
                 style={{ width: `${barWidth}%` }}
               />
             </View>

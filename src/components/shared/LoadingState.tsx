@@ -10,8 +10,8 @@ export function LoadingState({ message }: LoadingStateProps) {
 
   return (
     <View className="flex-1 items-center justify-center px-8 py-12">
-      <ActivityIndicator size="large" color="#2563EB" />
-      <Text className="text-sm text-gray-500 mt-4 text-center">
+      <ActivityIndicator size="large" color="#E8553A" />
+      <Text className="font-body text-sm text-text-caption mt-4 text-center">
         {message ?? t("loadingDefault")}
       </Text>
     </View>

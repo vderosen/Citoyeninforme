@@ -55,12 +55,12 @@ export function ContextPrompts({ context, mode, onPromptSelect }: ContextPrompts
         <Pressable
           key={prompt}
           onPress={() => onPromptSelect(prompt)}
-          className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3"
+          className="bg-warm-gray border border-warm-gray rounded-xl px-4 py-3"
           style={{ minHeight: 44 }}
           accessibilityRole="button"
           accessibilityLabel={prompt}
         >
-          <Text className="text-sm text-gray-700">{prompt}</Text>
+          <Text className="font-body text-sm text-text-body">{prompt}</Text>
         </Pressable>
       ))}
     </View>

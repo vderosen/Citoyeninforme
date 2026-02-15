@@ -10,14 +10,17 @@ export function HeroBlock({ election }: HeroBlockProps) {
   const { t } = useTranslation("home");
 
   return (
-    <View className="px-4 pt-6 pb-4">
+    <View className="bg-civic-navy px-5 pt-8 pb-6">
       <Text
-        className="text-xl font-bold text-gray-900"
+        className="font-display-bold text-[28px] leading-tight text-text-inverse"
         accessibilityRole="header"
       >
-        {t("heroHeading", { type: election.type, city: election.city, year: election.year })}
+        {election.city} {election.year}
       </Text>
-      <Text className="text-base text-gray-600 mt-2">
+      <Text className="font-display-semibold text-lg text-accent-coral mt-1">
+        {t("subtitle")}
+      </Text>
+      <Text className="font-body text-[15px] text-text-inverse mt-3 opacity-80 leading-relaxed">
         {t("purpose")}
       </Text>
     </View>

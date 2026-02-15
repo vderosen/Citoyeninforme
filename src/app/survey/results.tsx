@@ -19,13 +19,12 @@ export default function ResultsScreen() {
 
   if (!profile) {
     return (
-      <View className="flex-1 items-center justify-center bg-white">
-        <Text className="text-gray-500">{t("computing")}</Text>
+      <View className="flex-1 items-center justify-center bg-warm-white">
+        <Text className="font-body text-text-caption">{t("computing")}</Text>
       </View>
     );
   }
 
-  // Detect ties (Edge Case 3)
   const tiedCandidates = profile.candidateRanking.filter(
     (match, _, arr) => arr[0] && match.alignmentScore === arr[0].alignmentScore
   );
@@ -46,26 +45,23 @@ export default function ResultsScreen() {
   };
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-warm-white">
       <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingBottom: 32 }}>
         <Text
-          className="text-2xl font-bold text-gray-900 mt-6 mb-6"
+          className="font-display-bold text-2xl text-civic-navy mt-6 mb-6"
           accessibilityRole="header"
         >
           {t("resultsTitle")}
         </Text>
 
-        {/* Personal profile by theme */}
         <ResultsProfile themeScores={profile.themeScores} />
 
-        {/* Alignment ranking */}
         <AlignmentRanking
           ranking={profile.candidateRanking}
           candidates={candidates}
           onCandidatePress={handleCandidatePress}
         />
 
-        {/* Tie explanation */}
         {hasTie && (
           <TieExplanation
             tiedCandidates={tiedCandidates}
@@ -73,26 +69,24 @@ export default function ResultsScreen() {
           />
         )}
 
-        {/* Why this result */}
-        <View className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
-          <Text className="text-sm font-semibold text-gray-900 mb-2">
+        <View className="bg-warm-gray rounded-xl p-4 mb-4">
+          <Text className="font-display-medium text-sm text-civic-navy mb-2">
             {t("whyThisResult")}
           </Text>
-          <Text className="text-sm text-gray-600">
+          <Text className="font-body text-sm text-text-body">
             {t("whyThisResultExplanation")}
           </Text>
         </View>
 
-        {/* Contradictions */}
         {profile.contradictions.length > 0 && (
           <View className="mb-4">
             <Text
-              className="text-lg font-semibold text-gray-900 mb-2"
+              className="font-display-semibold text-lg text-civic-navy mb-2"
               accessibilityRole="header"
             >
               {t("contradictions")}
             </Text>
-            <Text className="text-sm text-gray-600 mb-3">
+            <Text className="font-body text-sm text-text-body mb-3">
               {t("contradictionExplanation")}
             </Text>
             {profile.contradictions.map((contradiction, index) => (
@@ -104,16 +98,15 @@ export default function ResultsScreen() {
           </View>
         )}
 
-        {/* Actions */}
         <View className="flex-row gap-3 mt-4 mb-4">
           <Pressable
             onPress={handleRetake}
             accessibilityRole="button"
             accessibilityLabel={t("retakeSurvey")}
-            className="bg-gray-200 rounded-xl py-3 px-6 flex-1 items-center"
+            className="bg-warm-gray rounded-xl py-3 px-6 flex-1 items-center"
             style={{ minHeight: 48 }}
           >
-            <Text className="text-gray-700 font-semibold">
+            <Text className="font-display-medium text-civic-navy">
               {t("retakeSurvey")}
             </Text>
           </Pressable>
@@ -121,10 +114,10 @@ export default function ResultsScreen() {
             onPress={handleDone}
             accessibilityRole="button"
             accessibilityLabel={t("common:confirm")}
-            className="bg-blue-600 rounded-xl py-3 px-6 flex-1 items-center"
+            className="bg-accent-coral rounded-xl py-3 px-6 flex-1 items-center"
             style={{ minHeight: 48 }}
           >
-            <Text className="text-white font-semibold">
+            <Text className="font-display-medium text-text-inverse">
               {t("common:confirm")}
             </Text>
           </Pressable>

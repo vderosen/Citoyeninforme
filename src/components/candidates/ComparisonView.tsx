@@ -34,7 +34,7 @@ export function ComparisonView({
   if (selectedCandidates.length < 2) {
     return (
       <View className="flex-1 items-center justify-center px-8 py-12">
-        <Text className="text-base text-gray-500 text-center">
+        <Text className="font-body text-base text-text-caption text-center">
           {t("minimumCandidates")}
         </Text>
       </View>
@@ -48,7 +48,7 @@ export function ComparisonView({
     <View className="flex-1">
       {activeTheme && (
         <Text
-          className="text-lg font-semibold text-gray-900 px-4 py-3"
+          className="font-display-semibold text-lg text-civic-navy px-4 py-3"
           accessibilityRole="header"
         >
           {activeTheme.icon} {activeTheme.name}
@@ -73,25 +73,33 @@ export function ComparisonView({
           return (
             <View
               key={candidate.id}
-              className={`bg-white rounded-xl border border-gray-200 p-4 ${columnWidth}`}
+              className={`bg-warm-gray rounded-xl p-4 ${columnWidth}`}
               style={columnStyle}
             >
-              <Text className="text-base font-semibold text-gray-900">
+              <View
+                style={{
+                  height: 4,
+                  backgroundColor: candidate.partyColor || "#9CA3AF",
+                  borderRadius: 2,
+                  marginBottom: 12,
+                }}
+              />
+              <Text className="font-display-medium text-base text-civic-navy">
                 {candidate.name}
               </Text>
-              <Text className="text-xs text-gray-500 mb-3">
+              <Text className="font-body text-xs text-text-caption mb-3">
                 {candidate.party}
               </Text>
 
               {position ? (
                 <View>
-                  <Text className="text-sm text-gray-800 mb-2">
+                  <Text className="font-body text-sm text-text-body mb-2">
                     {position.summary}
                   </Text>
-                  <Text className="text-sm text-gray-600 mb-3">
+                  <Text className="font-body text-sm text-text-caption mb-3">
                     {position.details}
                   </Text>
-                  <View className="border-t border-gray-200 pt-2 gap-1">
+                  <View className="border-t border-warm-white pt-2 gap-1">
                     {position.sources.map((source, index) => (
                       <SourceReference key={index} source={source} compact />
                     ))}
@@ -100,10 +108,10 @@ export function ComparisonView({
               ) : (
                 <View>
                   <TrustBadge variant="non_documente" />
-                  <Text className="text-sm text-gray-500 italic mt-2">
+                  <Text className="font-body text-sm text-text-caption italic mt-2">
                     {t("positionNotDocumented")}
                   </Text>
-                  <Text className="text-xs text-gray-400 mt-1">
+                  <Text className="font-body text-xs text-text-caption mt-1">
                     {tCommon("noPositionNote")}
                   </Text>
                 </View>

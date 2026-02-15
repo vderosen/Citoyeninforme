@@ -22,7 +22,7 @@ export default function CandidateProfileScreen() {
 
   if (!isLoaded) {
     return (
-      <View className="flex-1 bg-white">
+      <View className="flex-1 bg-warm-white">
         <LoadingState />
       </View>
     );
@@ -31,7 +31,7 @@ export default function CandidateProfileScreen() {
   const candidate = id ? getCandidateById(id) : undefined;
   if (!candidate) {
     return (
-      <View className="flex-1 bg-white">
+      <View className="flex-1 bg-warm-white">
         <EmptyState
           title={t("emptyProfile")}
           description={t("emptyProfileDescription")}
@@ -59,7 +59,7 @@ export default function CandidateProfileScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 bg-warm-white">
       <Stack.Screen options={{ title: candidate.name }} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <CandidateProfileCard

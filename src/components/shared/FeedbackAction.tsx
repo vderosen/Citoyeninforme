@@ -37,7 +37,7 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
   if (submitted) {
     return (
       <View className="py-3 px-4">
-        <Text className="text-sm text-green-700 text-center">
+        <Text className="font-body text-sm text-signal-green text-center">
           {t("feedbackThanks")}
         </Text>
       </View>
@@ -53,7 +53,7 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
         accessibilityRole="button"
         accessibilityLabel={t("feedbackSignal")}
       >
-        <Text className="text-sm text-blue-600 text-center">
+        <Text className="font-body-medium text-sm text-accent-coral-dark text-center">
           {t("feedbackSignal")}
         </Text>
       </Pressable>
@@ -67,7 +67,7 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
   ];
 
   return (
-    <View className="py-3 px-4 bg-gray-50 rounded-lg">
+    <View className="py-3 px-4 bg-warm-gray rounded-lg">
       <View className="flex-row flex-wrap gap-2 mb-3">
         {feedbackTypes.map(({ type, label }) => (
           <Pressable
@@ -75,8 +75,8 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
             onPress={() => setSelectedType(type)}
             className={`px-3 py-1.5 rounded-full border ${
               selectedType === type
-                ? "bg-blue-100 border-blue-400"
-                : "bg-white border-gray-300"
+                ? "bg-accent-coral-light border-accent-coral"
+                : "bg-warm-white border-warm-gray"
             }`}
             style={{ minHeight: 36 }}
             accessibilityRole="button"
@@ -84,8 +84,8 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
             accessibilityLabel={label}
           >
             <Text
-              className={`text-sm ${
-                selectedType === type ? "text-blue-700" : "text-gray-600"
+              className={`font-body text-sm ${
+                selectedType === type ? "text-civic-navy" : "text-text-body"
               }`}
             >
               {label}
@@ -94,7 +94,7 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
         ))}
       </View>
       <TextInput
-        className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 mb-3"
+        className="bg-warm-white border border-warm-gray rounded-lg px-3 py-2 font-body text-sm text-text-body mb-3"
         placeholder={t("feedbackPlaceholder")}
         value={text}
         onChangeText={setText}
@@ -114,12 +114,12 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
           accessibilityRole="button"
           accessibilityLabel={t("cancel")}
         >
-          <Text className="text-sm text-gray-500">{t("cancel")}</Text>
+          <Text className="font-body text-sm text-text-caption">{t("cancel")}</Text>
         </Pressable>
         <Pressable
           onPress={handleSubmit}
           className={`px-4 py-2 rounded-lg ${
-            selectedType ? "bg-blue-600" : "bg-gray-300"
+            selectedType ? "bg-accent-coral" : "bg-warm-gray"
           }`}
           style={{ minHeight: 44 }}
           disabled={!selectedType}
@@ -127,8 +127,8 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
           accessibilityLabel={t("feedbackSubmit")}
         >
           <Text
-            className={`text-sm font-semibold ${
-              selectedType ? "text-white" : "text-gray-500"
+            className={`font-body-medium text-sm ${
+              selectedType ? "text-text-inverse" : "text-text-caption"
             }`}
           >
             {t("feedbackSubmit")}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
 import type { Position, Theme } from "../../data/schema";
 import { TrustBadge } from "../shared/TrustBadge";
 import { SourceReference } from "../shared/SourceReference";
@@ -16,13 +17,13 @@ export function PositionCard({ position, theme, onAskInChat }: Props) {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <View className="bg-gray-50 rounded-lg p-3 mb-2">
+    <View className="bg-warm-gray rounded-lg p-3 mb-2">
       {theme && (
-        <Text className="text-xs font-medium text-blue-600 mb-1">
+        <Text className="font-body-medium text-xs text-accent-coral-dark mb-1">
           {theme.name}
         </Text>
       )}
-      <Text className="text-sm text-gray-800">{position.summary}</Text>
+      <Text className="font-body text-sm text-text-body">{position.summary}</Text>
 
       <View className="flex-row flex-wrap gap-1 mt-2">
         {position.sources.map((source, index) => (
@@ -39,20 +40,25 @@ export function PositionCard({ position, theme, onAskInChat }: Props) {
         onPress={() => setShowDetails(!showDetails)}
         accessibilityRole="button"
         accessibilityLabel={showDetails ? t("hideDetails") : t("details")}
-        className="mt-2"
+        className="mt-2 flex-row items-center gap-1"
         style={{ minHeight: 44, justifyContent: "center" }}
       >
-        <Text className="text-sm text-blue-600 font-medium">
-          {showDetails ? "▲ Masquer" : "▼ Détails"}
+        <Ionicons
+          name={showDetails ? "chevron-up" : "chevron-down"}
+          size={14}
+          color="#1B2A4A"
+        />
+        <Text className="font-body-medium text-sm text-civic-navy">
+          {showDetails ? "Masquer" : "Détails"}
         </Text>
       </Pressable>
 
       {showDetails && (
         <View className="mt-2">
-          <Text className="text-sm text-gray-700 mb-2">
+          <Text className="font-body text-sm text-text-body mb-2">
             {position.details}
           </Text>
-          <View className="border-t border-gray-200 pt-2">
+          <View className="border-t border-warm-white pt-2">
             {position.sources.map((source, index) => (
               <SourceReference key={index} source={source} />
             ))}
@@ -68,7 +74,7 @@ export function PositionCard({ position, theme, onAskInChat }: Props) {
           className="mt-2"
           style={{ minHeight: 44, justifyContent: "center" }}
         >
-          <Text className="text-sm text-purple-600 font-medium">
+          <Text className="font-body-medium text-sm text-accent-coral-dark">
             {t("askAbout")}
           </Text>
         </Pressable>
