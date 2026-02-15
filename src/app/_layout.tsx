@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { LogBox, View } from "react-native";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import * as Sentry from "@sentry/react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useReducedMotion } from "react-native-reanimated";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
@@ -38,7 +39,7 @@ export const unstable_settings = {
   initialRouteName: "(tabs)",
 };
 
-export default function RootLayout() {
+function RootLayout() {
   const loadDataset = useElectionStore((s) => s.loadDataset);
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
@@ -162,3 +163,5 @@ export default function RootLayout() {
     </SafeAreaProvider>
   );
 }
+
+export default Sentry.wrap(RootLayout);

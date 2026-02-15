@@ -6,13 +6,21 @@ let isInitialized = false;
 export function initCrashReporting(optIn: boolean): void {
   if (!optIn) return;
 
-  const dsn = process.env.SENTRY_DSN;
+  const dsn = process.env.EXPO_PUBLIC_SENTRY_DSN;
   if (!dsn) return;
 
   Sentry.init({
     dsn,
     release: Constants.expoConfig?.version ?? "unknown",
     dist: Constants.expoConfig?.ios?.buildNumber ?? "1",
+    sendDefaultPii: true,
+    enableLogs: true,
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1,
+    integrations: [
+      Sentry.mobileReplayIntegration(),
+      Sentry.feedbackIntegration(),
+    ],
     beforeSend(event) {
       if (event.breadcrumbs) {
         event.breadcrumbs = event.breadcrumbs.filter((breadcrumb) => {

@@ -38,7 +38,14 @@
     "plugins": [
       ["expo-router", { "root": "./src/app" }],
       "expo-localization",
-      "@sentry/react-native"
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "organization": "lucide",
+          "project": "react-native"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
