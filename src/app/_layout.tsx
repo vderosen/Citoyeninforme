@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View } from "react-native";
+import { LogBox, View } from "react-native";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
@@ -12,6 +12,9 @@ import "../i18n";
 import "../../global.css";
 
 SplashScreen.preventAutoHideAsync();
+LogBox.ignoreLogs([
+  "SafeAreaView has been deprecated and will be removed in a future release.",
+]);
 
 export const unstable_settings = {
   initialRouteName: "(tabs)",

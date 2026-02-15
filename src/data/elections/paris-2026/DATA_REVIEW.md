@@ -12,9 +12,9 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 | Année | 2026 |
 | Version des données | 1.0.0 |
 | Dernière mise à jour | 2026-02-15 |
-| Nombre de candidats | 3 |
+| Nombre de candidats | 7 |
 | Nombre de thèmes | 8 |
-| Nombre de positions | 7 |
+| Nombre de positions | 15 |
 | Nombre de questions | 10 |
 | Nombre de faits civiques | 7 |
 
@@ -23,9 +23,9 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 | Fichier | Type |
 | --- | --- |
 | `src/data/elections/paris-2026/election.json` | Object |
-| `src/data/elections/paris-2026/candidates.json` | Array(3) |
+| `src/data/elections/paris-2026/candidates.json` | Array(7) |
 | `src/data/elections/paris-2026/themes.json` | Array(8) |
-| `src/data/elections/paris-2026/positions.json` | Array(7) |
+| `src/data/elections/paris-2026/positions.json` | Array(15) |
 | `src/data/elections/paris-2026/survey-questions.json` | Array(10) |
 | `src/data/elections/paris-2026/civic-facts.json` | Array(7) |
 | `src/data/elections/paris-2026/logistics.json` | Object |
@@ -42,32 +42,68 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 
 | Id | Nom | Parti | Source programme |
 | --- | --- | --- | --- |
-| `david-belliard` | David Belliard | Les Écologistes | [Lien](https://www.davidbelliard.paris/) |
-| `emmanuel-gregoire` | Emmanuel Grégoire | Parti socialiste | [Lien](https://parisengrand.fr/manifeste) |
+| `david-belliard` | David Belliard | Les Écologistes | [Lien](https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026) |
+| `emmanuel-gregoire` | Emmanuel Grégoire | Union de la gauche et des écologistes | [Lien](https://emmanuel-gregoire-2026.fr/) |
+| `pierre-yves-bournazel` | Pierre-Yves Bournazel | 100% Paris | [Lien](https://bournazel.paris/) |
 | `rachida-dati` | Rachida Dati | Les Républicains | [Lien](https://republicains.fr/actualites/2025/08/28/la-commission-nationale-dinvestiture-des-republicains-investit-rachida-dati-pour-la-mairie-de-paris/) |
+| `sarah-knafo` | Sarah Knafo | Sarah Knafo pour Paris | [Lien](https://sarahpourparis.fr/unevilleheureuse) |
+| `sophia-chikirou` | Sophia Chikirou | La France insoumise (Nouveau Paris Populaire) | [Lien](https://sophiapourparis.fr/) |
+| `thierry-mariani` | Thierry Mariani | Retrouvons Paris (soutien RN/UDR) | [Lien](https://www.mariani-2026.fr/) |
 
 ### David Belliard (`david-belliard`)
 
 - Élection: paris-municipales-2026
-- Bio: Conseiller de Paris depuis 2014 et adjoint à la maire de Paris chargé de la transformation de l'espace public, des transports, des mobilités et du code de la rue. Les Écologistes l'ont désigné chef de file pour les municipales 2026 à Paris en mars 2025.
-- Style de communication: Communication de campagne via un site dédié, une newsletter et des canaux sociaux publics.
-- URL programme: https://www.davidbelliard.paris/
+- Bio: Adjoint à la maire de Paris chargé de la transformation de l'espace public, des transports, des mobilités et du code de la rue. Les Écologistes l'ont désigné chef de file pour les municipales 2026 à Paris le 23 mars 2025.
+- Style de communication: Communication de campagne via site dédié, mobilisation militante et réseaux sociaux.
+- URL programme: https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026
 - URL photo: —
 
 ### Emmanuel Grégoire (`emmanuel-gregoire`)
 
 - Élection: paris-municipales-2026
-- Bio: Député de Paris et conseiller de Paris, ancien premier adjoint à la maire de Paris. Il se présente comme candidat de l'union de la gauche et des écologistes pour les municipales de mars 2026.
-- Style de communication: Communication de campagne via un site de programme, des événements de terrain, une newsletter et des réseaux sociaux.
-- URL programme: https://parisengrand.fr/manifeste
+- Bio: Député et conseiller de Paris, ancien premier adjoint à la maire de Paris. Il est présenté comme candidat de l'union de la gauche et des écologistes pour l'élection municipale de mars 2026.
+- Style de communication: Communication de campagne via site de programme, réunions publiques et canaux sociaux.
+- URL programme: https://emmanuel-gregoire-2026.fr/
+- URL photo: —
+
+### Pierre-Yves Bournazel (`pierre-yves-bournazel`)
+
+- Élection: paris-municipales-2026
+- Bio: Élu parisien depuis 2008, il se présente comme candidat pour être le prochain maire de Paris et publie ses engagements sur son site de campagne.
+- Style de communication: Communication de campagne via site d'engagements thématiques, actualités terrain et mobilisation militante.
+- URL programme: https://bournazel.paris/
 - URL photo: —
 
 ### Rachida Dati (`rachida-dati`)
 
 - Élection: paris-municipales-2026
-- Bio: Maire du 7e arrondissement de Paris et conseillère de Paris. La commission nationale d'investiture des Républicains l'a investie pour la mairie de Paris le 28 août 2025.
-- Style de communication: Communication politique diffusée via les canaux officiels du parti et les supports institutionnels de mandat.
+- Bio: Les Républicains ont annoncé son investiture officielle pour la mairie de Paris dans leur communiqué du 28 août 2025.
+- Style de communication: Communication politique relayée via les canaux officiels du parti.
 - URL programme: https://republicains.fr/actualites/2025/08/28/la-commission-nationale-dinvestiture-des-republicains-investit-rachida-dati-pour-la-mairie-de-paris/
+- URL photo: —
+
+### Sarah Knafo (`sarah-knafo`)
+
+- Élection: paris-municipales-2026
+- Bio: Députée européenne et ancienne magistrate à la Cour des comptes, elle se présente comme candidate pour être la prochaine maire de Paris.
+- Style de communication: Communication de campagne via plateforme numérique, programme détaillé et actions militantes en ligne.
+- URL programme: https://sarahpourparis.fr/unevilleheureuse
+- URL photo: —
+
+### Sophia Chikirou (`sophia-chikirou`)
+
+- Élection: paris-municipales-2026
+- Bio: Candidate à la mairie de Paris sur la plateforme Nouveau Paris Populaire, portée et soutenue par La France insoumise.
+- Style de communication: Communication de campagne via site de programme, meeting, conférence de presse et réseaux sociaux.
+- URL programme: https://sophiapourparis.fr/
+- URL photo: —
+
+### Thierry Mariani (`thierry-mariani`)
+
+- Élection: paris-municipales-2026
+- Bio: Ancien ministre et député européen, il se présente comme candidat à la mairie de Paris avec la plateforme Retrouvons Paris.
+- Style de communication: Communication de campagne via programme publié en ligne, actualités de campagne et espace presse.
+- URL programme: https://www.mariani-2026.fr/
 - URL photo: —
 
 ## Thèmes
@@ -101,10 +137,9 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 - candidateId: `david-belliard`
 - themeId: `ecologie`
 - Résumé: Projet présenté comme une écologie sociale et une ville climatiquement résiliente.
-- Détails: Les prises de parole de campagne évoquent un Paris solidaire qui se prépare aux changements climatiques et à la multiplication des crises.
+- Détails: Les prises de parole de campagne évoquent un Paris qui se prépare aux changements climatiques et articule justice sociale et transition écologique.
 - Dernière vérification: 2026-02-15
 - Sources:
-  - [David Belliard - Site de campagne](https://www.davidbelliard.paris/) | type: program | accessDate: 2026-02-15
   - [David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026](https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026) | type: statement | accessDate: 2026-02-15
 
 ### David Belliard - Social & Solidarité (`david-belliard-social`)
@@ -112,51 +147,130 @@ _Fichier généré automatiquement par `scripts/generate-election-review-md.js`.
 - candidateId: `david-belliard`
 - themeId: `social`
 - Résumé: Positionnement de campagne axé sur la solidarité et la justice sociale.
-- Détails: La campagne présente une ville qui accueille et protège les personnes les plus fragiles, avec un accent sur l'écologie sociale.
+- Détails: La campagne met en avant l'écologie sociale et la protection des personnes les plus vulnérables.
 - Dernière vérification: 2026-02-15
 - Sources:
-  - [David Belliard - Site de campagne](https://www.davidbelliard.paris/) | type: program | accessDate: 2026-02-15
   - [David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026](https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026) | type: statement | accessDate: 2026-02-15
 
 ### Emmanuel Grégoire - Transport & Mobilité (`emmanuel-gregoire-transport`)
 
 - candidateId: `emmanuel-gregoire`
 - themeId: `transport`
-- Résumé: Réduction de la place de la voiture au profit des mobilités collectives et actives.
-- Détails: Le manifeste décrit une ville où la place de la voiture diminue, avec des transports publics renforcés et un appui au vélo et à la marche.
+- Résumé: Réduction de la place de la voiture au profit des mobilités actives et collectives.
+- Détails: Le programme décrit une ville avec moins de place pour l'automobile et un renforcement du vélo, de la marche et des transports en commun.
 - Dernière vérification: 2026-02-15
 - Sources:
-  - [Le Manifeste - Paris en Grand](https://parisengrand.fr/manifeste) | type: program | accessDate: 2026-02-15
+  - [Le programme - Emmanuel Grégoire 2026](https://emmanuel-gregoire-2026.fr/) | type: program | accessDate: 2026-02-15
 
 ### Emmanuel Grégoire - Logement (`emmanuel-gregoire-logement`)
 
 - candidateId: `emmanuel-gregoire`
 - themeId: `logement`
-- Résumé: Le logement abordable est présenté comme une priorité absolue.
-- Détails: Le manifeste indique la volonté de développer le parc social et de réguler les locations de courte durée pour préserver des logements permanents.
+- Résumé: Le logement est présenté comme la priorité absolue de la campagne.
+- Détails: Le programme annonce un engagement central sur le logement abordable et la régulation des locations de courte durée.
 - Dernière vérification: 2026-02-15
 - Sources:
-  - [Le Manifeste - Paris en Grand](https://parisengrand.fr/manifeste) | type: program | accessDate: 2026-02-15
+  - [Le programme - Emmanuel Grégoire 2026](https://emmanuel-gregoire-2026.fr/) | type: program | accessDate: 2026-02-15
 
 ### Emmanuel Grégoire - Sécurité (`emmanuel-gregoire-securite`)
 
 - candidateId: `emmanuel-gregoire`
 - themeId: `securite`
-- Résumé: Renforcement des moyens de la police municipale.
-- Détails: Le manifeste mentionne explicitement une sécurité appuyée sur une police municipale dotée de moyens renforcés.
+- Résumé: Renforcement annoncé de la police municipale.
+- Détails: Le programme mentionne explicitement des moyens renforcés pour la police municipale.
 - Dernière vérification: 2026-02-15
 - Sources:
-  - [Le Manifeste - Paris en Grand](https://parisengrand.fr/manifeste) | type: program | accessDate: 2026-02-15
+  - [Le programme - Emmanuel Grégoire 2026](https://emmanuel-gregoire-2026.fr/) | type: program | accessDate: 2026-02-15
 
 ### Emmanuel Grégoire - Social & Solidarité (`emmanuel-gregoire-social`)
 
 - candidateId: `emmanuel-gregoire`
 - themeId: `social`
-- Résumé: Mise en avant de services publics accessibles et du droit à la santé.
-- Détails: Le manifeste insiste sur des services publics de proximité accessibles et sur l'accès à la santé comme droit pour tous les habitants.
+- Résumé: Accent sur les services publics de proximité et l'accès à la santé.
+- Détails: Le programme insiste sur les services publics accessibles et le droit à la santé pour tous les habitants.
 - Dernière vérification: 2026-02-15
 - Sources:
-  - [Le Manifeste - Paris en Grand](https://parisengrand.fr/manifeste) | type: program | accessDate: 2026-02-15
+  - [Le programme - Emmanuel Grégoire 2026](https://emmanuel-gregoire-2026.fr/) | type: program | accessDate: 2026-02-15
+
+### Pierre-Yves Bournazel - Sécurité (`pierre-yves-bournazel-securite`)
+
+- candidateId: `pierre-yves-bournazel`
+- themeId: `securite`
+- Résumé: Objectif affiché de doubler les effectifs de police municipale à 6 000 agents.
+- Détails: L'engagement sécurité mentionne un renforcement substantiel des effectifs et l'ambition de faire de Paris la capitale la plus sûre d'Europe.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Un Paris sûr pour tous - Pierre-Yves Bournazel](https://bournazel.paris/engagement/un-paris-sur-pour-tous/) | type: program | accessDate: 2026-02-15
+
+### Pierre-Yves Bournazel - Budget & Finances (`pierre-yves-bournazel-budget`)
+
+- candidateId: `pierre-yves-bournazel`
+- themeId: `budget`
+- Résumé: Objectif déclaré de division par deux de la dette de la Ville de Paris en six ans.
+- Détails: Le volet financier annonce un plan d'économies et une réduction progressive de la dette municipale.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Un Paris ambitieux et responsable - Pierre-Yves Bournazel](https://bournazel.paris/engagement/un-paris-ambitieux-et-responsable/) | type: program | accessDate: 2026-02-15
+
+### Sarah Knafo - Sécurité (`sarah-knafo-securite`)
+
+- candidateId: `sarah-knafo`
+- themeId: `securite`
+- Résumé: Le programme place la sécurité au premier rang des priorités municipales.
+- Détails: Le programme annonce le renforcement de la police municipale, l'extension de la vidéosurveillance et des dispositifs de réponse rapide aux incidents.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Programme Une ville heureuse - Sarah Knafo pour Paris](https://sarahpourparis.fr/unevilleheureuse) | type: program | accessDate: 2026-02-15
+
+### Sarah Knafo - Éducation & Jeunesse (`sarah-knafo-education`)
+
+- candidateId: `sarah-knafo`
+- themeId: `education`
+- Résumé: Annonce d'un plan de création de places en crèche et de revalorisation de l'attractivité des métiers de la petite enfance.
+- Détails: Le programme indique la création de 7 000 places en crèche et des mesures d'organisation et de rémunération pour améliorer le recrutement.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Programme Une ville heureuse - Sarah Knafo pour Paris](https://sarahpourparis.fr/unevilleheureuse) | type: program | accessDate: 2026-02-15
+
+### Sophia Chikirou - Logement (`sophia-chikirou-logement`)
+
+- candidateId: `sophia-chikirou`
+- themeId: `logement`
+- Résumé: Annonce d'un plan logement axé sur la baisse des loyers et la régulation des locations de courte durée.
+- Détails: Le programme évoque un encadrement renforcé des loyers, des mesures contre les locations touristiques et un développement de l'offre de logements publics.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Le programme - Sophia pour Paris](https://sophiapourparis.fr/) | type: program | accessDate: 2026-02-15
+
+### Sophia Chikirou - Éducation & Jeunesse (`sophia-chikirou-education`)
+
+- candidateId: `sophia-chikirou`
+- themeId: `education`
+- Résumé: Annonce d'un plan d'éducation communale comme priorité budgétaire.
+- Détails: La candidate présente l'éducation communale comme priorité budgétaire et annonce des mesures sur le temps de classe, la restauration et les activités des enfants.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Le programme - Sophia pour Paris](https://sophiapourparis.fr/) | type: program | accessDate: 2026-02-15
+
+### Thierry Mariani - Sécurité (`thierry-mariani-securite`)
+
+- candidateId: `thierry-mariani`
+- themeId: `securite`
+- Résumé: Annonce d'un renforcement et d'un armement de la police municipale avec présence continue.
+- Détails: Le programme mentionne explicitement une police municipale armée, des patrouilles renforcées et un dispositif continu de surveillance.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Retrouvons Paris - Programme](https://www.mariani-2026.fr/) | type: program | accessDate: 2026-02-15
+
+### Thierry Mariani - Budget & Finances (`thierry-mariani-budget`)
+
+- candidateId: `thierry-mariani`
+- themeId: `budget`
+- Résumé: Engagement de baisse de la taxe foncière dans un cadre de réduction des dépenses et de la dette.
+- Détails: Le programme présente un plan d'économies, de désendettement et de baisse de la pression fiscale locale.
+- Dernière vérification: 2026-02-15
+- Sources:
+  - [Retrouvons Paris - Programme](https://www.mariani-2026.fr/) | type: program | accessDate: 2026-02-15
 
 ## Questions du sondage
 
