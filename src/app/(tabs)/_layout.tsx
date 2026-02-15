@@ -1,10 +1,12 @@
-import { Tabs } from "expo-router";
+import { Pressable, View } from "react-native";
+import { Tabs, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import { LanguageSwitcher } from "../../components/shell/LanguageSwitcher";
 
 export default function TabLayout() {
   const { t } = useTranslation("common");
+  const router = useRouter();
 
   return (
     <Tabs
@@ -41,6 +43,19 @@ export default function TabLayout() {
           tabBarAccessibilityLabel: "Accueil",
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons name={focused ? "home" : "home-outline"} size={size} color={color} />
+          ),
+          headerRight: () => (
+            <View className="flex-row items-center">
+              <Pressable
+                onPress={() => router.push("/settings")}
+                className="mr-2 p-2"
+                accessibilityRole="button"
+                accessibilityLabel="Paramètres"
+              >
+                <Ionicons name="settings-outline" size={22} color="#FAFAF8" />
+              </Pressable>
+              <LanguageSwitcher />
+            </View>
           ),
         }}
       />

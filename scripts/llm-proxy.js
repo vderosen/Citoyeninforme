@@ -6,6 +6,50 @@ const path = require("path");
 
 const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 
+// ---------------------------------------------------------------------------
+// Rate limiter (in-memory fixed-window)
+// ---------------------------------------------------------------------------
+const RATE_LIMIT_WINDOW_MS = 60000;
+const RATE_LIMIT_MAX_REQUESTS = 20;
+const RATE_LIMIT_CLEANUP_INTERVAL_MS = 300000;
+
+/** @type {Map<string, { count: number, windowStart: number }>} */
+const rateLimitMap = new Map();
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  let entry = rateLimitMap.get(ip);
+
+  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    entry = { count: 0, windowStart: now };
+    rateLimitMap.set(ip, entry);
+  }
+
+  entry.count++;
+
+  if (entry.count > RATE_LIMIT_MAX_REQUESTS) {
+    const retryAfter = Math.ceil(
+      (entry.windowStart + RATE_LIMIT_WINDOW_MS - now) / 1000
+    );
+    return { allowed: false, retryAfter };
+  }
+
+  return { allowed: true, retryAfter: 0 };
+}
+
+// Periodic cleanup of expired entries
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitMap) {
+    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+      rateLimitMap.delete(ip);
+    }
+  }
+}, RATE_LIMIT_CLEANUP_INTERVAL_MS);
+
+// ---------------------------------------------------------------------------
+// .env loader
+// ---------------------------------------------------------------------------
 function loadDotEnvFile() {
   const envPath = path.join(process.cwd(), ".env");
   if (!fs.existsSync(envPath)) return;
@@ -36,14 +80,49 @@ function loadDotEnvFile() {
   }
 }
 
-function setCorsHeaders(res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+// ---------------------------------------------------------------------------
+// CORS
+// ---------------------------------------------------------------------------
+function setCorsHeaders(req, res) {
+  const origin = req.headers.origin;
+
+  if (process.env.NODE_ENV === "production") {
+    // In production, do not set Access-Control-Allow-Origin
+    // Native mobile apps don't use CORS; browser requests are blocked
+  } else {
+    // In development, allow localhost origins only
+    if (origin && /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+    }
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type,X-API-Key"
+  );
 }
 
-function sendJson(res, statusCode, payload) {
-  setCorsHeaders(res);
+// ---------------------------------------------------------------------------
+// Authentication
+// ---------------------------------------------------------------------------
+function checkAuth(req) {
+  const expectedKey = process.env.LLM_PROXY_API_KEY;
+
+  if (!expectedKey) {
+    // No key configured — development convenience, allow requests
+    return true;
+  }
+
+  const providedKey = req.headers["x-api-key"];
+  return providedKey === expectedKey;
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+function sendJson(req, res, statusCode, payload) {
+  setCorsHeaders(req, res);
   res.statusCode = statusCode;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.end(JSON.stringify(payload));
@@ -87,12 +166,15 @@ function sseDone(res) {
   res.end();
 }
 
+// ---------------------------------------------------------------------------
+// Chat handler
+// ---------------------------------------------------------------------------
 async function handleChat(req, res) {
   const apiKey = process.env.OPENAI_API_KEY;
   const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
 
   if (!apiKey) {
-    sendJson(res, 500, {
+    sendJson(req, res, 500, {
       error: "OPENAI_API_KEY is missing. Add it to your .env file.",
     });
     return;
@@ -102,19 +184,19 @@ async function handleChat(req, res) {
   try {
     body = await parseJsonBody(req);
   } catch (error) {
-    sendJson(res, 400, { error: error.message });
+    sendJson(req, res, 400, { error: error.message });
     return;
   }
 
   const messages = Array.isArray(body.messages) ? body.messages : null;
   if (!messages || messages.length === 0) {
-    sendJson(res, 400, {
+    sendJson(req, res, 400, {
       error: "Invalid payload: 'messages' must be a non-empty array.",
     });
     return;
   }
 
-  setCorsHeaders(res);
+  setCorsHeaders(req, res);
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
   res.setHeader("Cache-Control", "no-cache, no-transform");
@@ -198,6 +280,9 @@ async function handleChat(req, res) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Server
+// ---------------------------------------------------------------------------
 loadDotEnvFile();
 
 const host = process.env.LLM_PROXY_HOST || "0.0.0.0";
@@ -205,32 +290,52 @@ const port = Number(process.env.LLM_PROXY_PORT || "3001");
 
 const server = http.createServer(async (req, res) => {
   if (!req.url || !req.method) {
-    sendJson(res, 400, { error: "Invalid request." });
+    sendJson(req, res, 400, { error: "Invalid request." });
     return;
   }
 
+  // Handle CORS preflight
   if (req.method === "OPTIONS") {
-    setCorsHeaders(res);
+    setCorsHeaders(req, res);
     res.statusCode = 204;
     res.end();
     return;
   }
 
+  // Health endpoint — no auth required
   if (req.method === "GET" && req.url === "/health") {
-    sendJson(res, 200, {
-      ok: true,
-      model: process.env.OPENAI_MODEL || "gpt-4o-mini",
-      hasApiKey: Boolean(process.env.OPENAI_API_KEY),
-    });
+    sendJson(req, res, 200, { ok: true });
     return;
   }
 
+  // Chat endpoint — requires auth + rate limiting
   if (req.method === "POST" && req.url === "/api/chat") {
+    // Authentication check
+    if (!checkAuth(req)) {
+      sendJson(req, res, 401, { error: "Unauthorized" });
+      return;
+    }
+
+    // Rate limiting
+    const clientIp =
+      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      req.socket.remoteAddress ||
+      "unknown";
+    const { allowed, retryAfter } = checkRateLimit(clientIp);
+
+    if (!allowed) {
+      res.setHeader("Retry-After", String(retryAfter));
+      sendJson(req, res, 429, {
+        error: `Rate limit exceeded. Try again in ${retryAfter}s.`,
+      });
+      return;
+    }
+
     await handleChat(req, res);
     return;
   }
 
-  sendJson(res, 404, { error: "Not found." });
+  sendJson(req, res, 404, { error: "Not found." });
 });
 
 server.on("error", (error) => {

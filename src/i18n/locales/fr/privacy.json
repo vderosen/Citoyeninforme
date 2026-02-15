@@ -1,0 +1,11 @@
+{
+  "title": "Confidentialité",
+  "description": "Lucide collecte les données suivantes, stockées uniquement sur votre appareil : vos réponses au questionnaire, vos conversations avec l'assistant, et vos préférences d'utilisation.",
+  "dataStorage": "Vos données sont stockées uniquement sur votre appareil",
+  "crashReports": "Des rapports de crash anonymes peuvent être envoyés si vous l'acceptez",
+  "policyLink": "Lire la politique de confidentialité complète",
+  "accept": "J'accepte",
+  "decline": "Refuser",
+  "declineMessage": "L'acceptation de la politique de confidentialité est nécessaire pour utiliser l'application",
+  "updatedPolicy": "Notre politique de confidentialité a été mise à jour. Veuillez la relire et accepter pour continuer."
+}

@@ -1,0 +1,34 @@
+{
+  "title": "Paramètres",
+  "privacy": {
+    "title": "Confidentialité",
+    "policy": "Politique de confidentialité",
+    "consentStatus": "Consentement accepté",
+    "consentDate": "Accepté le {{date}}",
+    "policyVersion": "Version {{version}}"
+  },
+  "data": {
+    "title": "Données",
+    "export": "Exporter mes données",
+    "exportDescription": "Télécharger toutes vos données au format JSON",
+    "delete": "Supprimer toutes mes données",
+    "deleteDescription": "Efface définitivement toutes vos données de l'appareil",
+    "deleteConfirmTitle": "Supprimer toutes les données ?",
+    "deleteConfirmMessage": "Cette action est irréversible. Toutes vos réponses au questionnaire, conversations et préférences seront supprimées.",
+    "deleteConfirmButton": "Supprimer",
+    "deleteCancel": "Annuler",
+    "exportSuccess": "Export généré avec succès",
+    "exportError": "Erreur lors de l'export"
+  },
+  "crashReporting": {
+    "title": "Rapports de crash",
+    "toggle": "Envoyer les rapports de crash",
+    "description": "Aidez à améliorer Lucide en envoyant des rapports de crash anonymes. Aucune donnée personnelle n'est incluse."
+  },
+  "about": {
+    "title": "À propos",
+    "version": "Version",
+    "build": "Build",
+    "credits": "Conçu pour l'engagement civique"
+  }
+}

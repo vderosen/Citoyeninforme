@@ -1,0 +1,9 @@
+{
+  "title": "Quelque chose s'est mal passé",
+  "description": "Une erreur inattendue s'est produite",
+  "retry": "Réessayer",
+  "goHome": "Retour à l'accueil",
+  "offlineTitle": "Pas de connexion internet",
+  "offlineDescription": "Certaines fonctionnalités nécessitent une connexion internet",
+  "chatOffline": "L'assistant a besoin d'une connexion internet pour fonctionner"
+}

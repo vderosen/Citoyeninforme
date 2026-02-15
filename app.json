@@ -15,7 +15,11 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lucide.app"
+      "bundleIdentifier": "com.lucide.app",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -23,7 +27,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.lucide.app"
+      "package": "com.lucide.app",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
@@ -32,10 +37,16 @@
     },
     "plugins": [
       ["expo-router", { "root": "./src/app" }],
-      "expo-localization"
+      "expo-localization",
+      "@sentry/react-native"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "privacyPolicyUrl": "https://lucide.app/privacy-policy",
+      "supportUrl": "https://lucide.app/support",
+      "tosUrl": "https://lucide.app/terms"
     }
   }
 }

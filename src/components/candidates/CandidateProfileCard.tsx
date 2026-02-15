@@ -6,6 +6,7 @@ import type { Candidate, Position, Theme } from "../../data/schema";
 import type { AssistantContext } from "../../stores/assistant";
 import { PositionCard } from "./PositionCard";
 import { FeedbackAction } from "../shared/FeedbackAction";
+import { getCandidateImageSource } from "../../utils/candidateImageSource";
 
 interface CandidateProfileCardProps {
   candidate: Candidate;
@@ -26,6 +27,7 @@ export function CandidateProfileCard({
 }: CandidateProfileCardProps) {
   const { t } = useTranslation("candidates");
   const [expandedThemes, setExpandedThemes] = useState<Set<string>>(new Set());
+  const imageSource = getCandidateImageSource(candidate);
 
   const positionsByTheme = themes
     .map((theme) => ({
@@ -56,9 +58,9 @@ export function CandidateProfileCard({
         }}
       />
       <View className="items-center px-4 pt-6 pb-4">
-        {candidate.photoUrl ? (
+        {imageSource ? (
           <Image
-            source={{ uri: candidate.photoUrl }}
+            source={imageSource}
             className="w-24 h-24 rounded-xl bg-warm-gray"
             accessibilityIgnoresInvertColors
           />

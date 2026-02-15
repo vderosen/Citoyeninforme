@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import DistrictBlockCard from "../ui/DistrictBlockCard";
 import type { Candidate } from "../../data/schema";
 import { deterministicShuffle, dailySeed } from "../../utils/shuffle";
+import { getCandidateImageSource } from "../../utils/candidateImageSource";
 
 interface CandidateGalleryProps {
   candidates: Candidate[];
@@ -38,6 +39,7 @@ function CandidateCardItem({
   const pressStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
+  const imageSource = getCandidateImageSource(item);
 
   return (
     <Animated.View
@@ -64,9 +66,9 @@ function CandidateCardItem({
             accessibilityRole="button"
             accessibilityLabel={`${item.name}, ${item.party}`}
           >
-            {item.photoUrl ? (
+            {imageSource ? (
               <Image
-                source={{ uri: item.photoUrl }}
+                source={imageSource}
                 className="w-full aspect-square bg-warm-gray"
                 accessibilityIgnoresInvertColors
               />

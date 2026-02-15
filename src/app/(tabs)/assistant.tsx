@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
 import { useAssistantStore, createMessageId } from "../../stores/assistant";
 import { useSurveyStore } from "../../stores/survey";
@@ -10,8 +12,12 @@ import { CandidateSelector } from "../../components/assistant/CandidateSelector"
 import { ChatArea } from "../../components/assistant/ChatArea";
 import { ContextPrompts } from "../../components/assistant/ContextPrompts";
 import { FeedbackAction } from "../../components/shared/FeedbackAction";
+import { useNetworkStatus } from "../../hooks/useNetworkStatus";
 
 export default function AssistantScreen() {
+  const { t } = useTranslation("errors");
+  const { isConnected } = useNetworkStatus();
+
   const election = useElectionStore((s) => s.election);
   const candidates = useElectionStore((s) => s.candidates);
   const positions = useElectionStore((s) => s.positions);
@@ -40,7 +46,7 @@ export default function AssistantScreen() {
   }, []);
 
   const handleSend = (text: string) => {
-    if (!election || isStreaming) return;
+    if (!election || isStreaming || !isConnected) return;
     if (mode === "parler" && !selectedCandidateId) return;
 
     const userMessage = {
@@ -80,6 +86,23 @@ export default function AssistantScreen() {
   const handlePromptSelect = (text: string) => {
     handleSend(text);
   };
+
+  // Offline guard
+  if (!isConnected) {
+    return (
+      <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
+        <View className="flex-1 items-center justify-center px-8">
+          <Ionicons name="cloud-offline-outline" size={48} color="#6B7280" />
+          <Text className="font-display-medium text-lg text-civic-navy text-center mt-4 mb-2">
+            {t("offlineTitle")}
+          </Text>
+          <Text className="font-body text-sm text-text-caption text-center">
+            {t("chatOffline")}
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>

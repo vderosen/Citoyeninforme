@@ -19,8 +19,10 @@ import type { UserProfile } from "../stores/survey";
 import { buildLearnModePrompt } from "./prompts/comprendre-mode";
 import { buildCandidateModePrompt } from "./prompts/parler-mode";
 import { buildDebateModePrompt } from "./prompts/debattre-mode";
+import { sanitizeUserInput } from "../utils/input-sanitizer";
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_LLM_PROXY_URL ?? "http://localhost:3001";
+const API_KEY = process.env.EXPO_PUBLIC_LLM_PROXY_API_KEY ?? "";
 
 interface ChatContext {
   election: Election;
@@ -67,15 +69,20 @@ export async function sendChatMessage(
 
   const chatMessages = messages.map((m) => ({
     role: m.role,
-    content: m.content,
+    content: m.role === "user" ? sanitizeUserInput(m.content) : m.content,
   }));
 
   try {
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (API_KEY) {
+      headers["X-API-Key"] = API_KEY;
+    }
+
     const response = await fetch(`${API_BASE_URL}/api/chat`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify({
         mode,
         candidateId: options?.candidateId,
@@ -85,6 +92,16 @@ export async function sendChatMessage(
         ],
       }),
     });
+
+    if (response.status === 401) {
+      onError?.("Authentication failed. Check proxy configuration.");
+      return;
+    }
+
+    if (response.status === 429) {
+      onError?.("Too many requests. Please wait a moment.");
+      return;
+    }
 
     if (!response.ok) {
       onError?.(`API error: ${response.status}`);

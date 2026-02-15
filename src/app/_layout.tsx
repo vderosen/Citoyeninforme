@@ -19,6 +19,13 @@ import {
 import { useElectionStore } from "../stores/election";
 import { useAppStore } from "../stores/app";
 import { loadBundledDataset } from "../data/loader";
+import { ErrorBoundary } from "../components/shared/ErrorBoundary";
+import { OfflineBanner } from "../components/shared/OfflineBanner";
+import {
+  initCrashReporting,
+  captureException,
+} from "../services/crash-reporting";
+import { PRIVACY_POLICY_VERSION } from "./privacy-consent";
 import "../i18n";
 import "../../global.css";
 
@@ -35,6 +42,8 @@ export default function RootLayout() {
   const loadDataset = useElectionStore((s) => s.loadDataset);
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
+  const privacyConsentVersion = useAppStore((s) => s.privacyConsentVersion);
+  const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
   const router = useRouter();
   const segments = useSegments();
 
@@ -47,6 +56,22 @@ export default function RootLayout() {
     Inter_400Regular,
     Inter_500Medium,
   });
+
+  // Initialize crash reporting
+  useEffect(() => {
+    initCrashReporting(crashReportingOptIn);
+  }, []);
+
+  // Set up global error handler
+  useEffect(() => {
+    const defaultHandler = ErrorUtils.getGlobalHandler();
+    ErrorUtils.setGlobalHandler((error: Error, isFatal?: boolean) => {
+      captureException(error, { fatal: String(isFatal ?? false) });
+      if (isFatal) {
+        defaultHandler(error, isFatal);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     try {
@@ -63,17 +88,28 @@ export default function RootLayout() {
     }
   }, [isLoaded, fontsLoaded]);
 
+  // Navigation gate: privacy consent → onboarding → tabs
   useEffect(() => {
     if (!isLoaded) return;
 
+    const inConsent = segments[0] === "privacy-consent";
     const inOnboarding = segments[0] === "onboarding";
 
+    // Check privacy consent first
+    if (privacyConsentVersion !== PRIVACY_POLICY_VERSION) {
+      if (!inConsent) {
+        router.replace("/privacy-consent");
+      }
+      return;
+    }
+
+    // Then check onboarding
     if (!hasCompletedOnboarding && !inOnboarding) {
       router.replace("/onboarding");
     } else if (hasCompletedOnboarding && inOnboarding) {
       router.replace("/(tabs)");
     }
-  }, [isLoaded, hasCompletedOnboarding, segments]);
+  }, [isLoaded, hasCompletedOnboarding, privacyConsentVersion, segments]);
 
   if (!fontsLoaded) {
     return null;
@@ -82,29 +118,46 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <GluestackUIProvider>
-        <View style={{ flex: 1 }}>
-          <Stack
-            screenOptions={{
-              headerShown: true,
-              headerStyle: { backgroundColor: "#1B2A4A" },
-              headerTintColor: "#FAFAF8",
-              headerTitleStyle: {
-                fontFamily: "SpaceGrotesk_600SemiBold",
-                fontSize: 17,
-                color: "#FAFAF8",
-              },
-              headerShadowVisible: false,
-              animation: reduceMotion ? "none" : "slide_from_bottom",
-            }}
-          >
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-            <Stack.Screen name="candidate/[id]" />
-            <Stack.Screen name="comparison" options={{ title: "Comparaison" }} />
-            <Stack.Screen name="survey" options={{ headerShown: false }} />
-          </Stack>
-        </View>
-        <StatusBar style="light" />
+        <ErrorBoundary>
+          <View style={{ flex: 1 }}>
+            <OfflineBanner />
+            <Stack
+              screenOptions={{
+                headerShown: true,
+                headerStyle: { backgroundColor: "#1B2A4A" },
+                headerTintColor: "#FAFAF8",
+                headerTitleStyle: {
+                  fontFamily: "SpaceGrotesk_600SemiBold",
+                  fontSize: 17,
+                  color: "#FAFAF8",
+                },
+                headerShadowVisible: false,
+                animation: reduceMotion ? "none" : "slide_from_bottom",
+              }}
+            >
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="onboarding"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="privacy-consent"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen name="candidate/[id]" />
+              <Stack.Screen
+                name="comparison"
+                options={{ title: "Comparaison" }}
+              />
+              <Stack.Screen name="survey" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="settings"
+                options={{ title: "Paramètres" }}
+              />
+            </Stack>
+          </View>
+          <StatusBar style="light" />
+        </ErrorBoundary>
       </GluestackUIProvider>
     </SafeAreaProvider>
   );

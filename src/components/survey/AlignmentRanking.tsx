@@ -3,6 +3,7 @@ import Animated, { FadeInDown, useReducedMotion } from "react-native-reanimated"
 import { useTranslation } from "react-i18next";
 import type { Candidate } from "../../data/schema";
 import type { CandidateMatch } from "../../stores/survey";
+import { getCandidateImageSource } from "../../utils/candidateImageSource";
 
 interface AlignmentRankingProps {
   ranking: CandidateMatch[];
@@ -30,6 +31,7 @@ export function AlignmentRanking({
       {ranking.map((match, index) => {
         const candidate = candidates.find((c) => c.id === match.candidateId);
         if (!candidate) return null;
+        const imageSource = getCandidateImageSource(candidate);
         const isTop = index === 0;
         const barWidth = topScore > 0 ? (match.alignmentScore / topScore) * 100 : 0;
 
@@ -46,9 +48,9 @@ export function AlignmentRanking({
               accessibilityLabel={`${candidate.name}, ${Math.round(match.alignmentScore)}% d'alignement`}
             >
               <View className="flex-row items-center mb-1">
-                {candidate.photoUrl ? (
+                {imageSource ? (
                   <Image
-                    source={{ uri: candidate.photoUrl }}
+                    source={imageSource}
                     className="w-8 h-8 rounded-lg bg-warm-gray mr-3"
                     accessibilityIgnoresInvertColors
                   />
