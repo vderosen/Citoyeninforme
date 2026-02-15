@@ -28,5 +28,14 @@
   "feedbackGeneral": "Commentaire général",
   "feedbackPlaceholder": "Décrivez le problème (optionnel)...",
   "feedbackSubmit": "Envoyer",
-  "feedbackThanks": "Merci pour votre retour !"
+  "feedbackThanks": "Merci pour votre retour !",
+  "headers": {
+    "lucide": "Lucide",
+    "assistant": "Assistant",
+    "candidats": "Candidats",
+    "comparaison": "Comparaison",
+    "survey": "Questionnaire civique",
+    "surveyQuestions": "Questions",
+    "surveyResults": "Résultats"
+  }
 }

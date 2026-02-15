@@ -12,13 +12,10 @@ export function HeroBlock({ election }: HeroBlockProps) {
   return (
     <View className="px-4 pt-6 pb-4">
       <Text
-        className="text-3xl font-bold text-gray-900"
+        className="text-xl font-bold text-gray-900"
         accessibilityRole="header"
       >
-        {election.city}
-      </Text>
-      <Text className="text-lg text-blue-600 font-medium mt-1">
-        {election.type} {election.year}
+        {t("heroHeading", { type: election.type, city: election.city, year: election.year })}
       </Text>
       <Text className="text-base text-gray-600 mt-2">
         {t("purpose")}

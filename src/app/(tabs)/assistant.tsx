@@ -82,7 +82,7 @@ export default function AssistantScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["bottom"]}>
+    <SafeAreaView className="flex-1 bg-white" edges={[]}>
       <View className="pt-2">
         <ModeSelector activeMode={mode} onModeChange={selectMode} />
       </View>

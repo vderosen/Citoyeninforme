@@ -1,7 +1,6 @@
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
 import { QuestionCard } from "../../components/survey/QuestionCard";
@@ -108,16 +107,16 @@ export default function QuestionsScreen() {
 
   if (!currentQuestion) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-white">
+      <View className="flex-1 items-center justify-center bg-white">
         <Text className="text-gray-500">{t("common:loading")}</Text>
-      </SafeAreaView>
+      </View>
     );
   }
 
   const primaryThemeId = currentQuestion.themeIds[0];
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
       <ProgressBar current={currentIndex} total={surveyQuestions.length} />
       <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 32 }}>
         <QuestionCard
@@ -171,6 +170,6 @@ export default function QuestionsScreen() {
           </Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

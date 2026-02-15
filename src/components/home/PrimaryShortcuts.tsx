@@ -48,25 +48,44 @@ export function PrimaryShortcuts({
     },
   ];
 
+  const primaryShortcut = shortcuts[0];
+  const secondaryShortcuts = shortcuts.slice(1);
+
   return (
     <View className="px-4 gap-3">
-      {shortcuts.map((shortcut) => (
-        <Pressable
-          key={shortcut.label}
-          onPress={shortcut.onPress}
-          className={`${shortcut.color} rounded-xl px-5 py-4`}
-          style={{ minHeight: 56 }}
-          accessibilityRole="button"
-          accessibilityLabel={shortcut.label}
-          accessibilityHint={shortcut.accessibilityHint}
+      <Pressable
+        onPress={primaryShortcut.onPress}
+        className={`${primaryShortcut.color} rounded-xl px-5 py-5`}
+        style={{ minHeight: 64 }}
+        accessibilityRole="button"
+        accessibilityLabel={primaryShortcut.label}
+        accessibilityHint={primaryShortcut.accessibilityHint}
+      >
+        <Text
+          className={`${primaryShortcut.textColor} text-lg font-semibold text-center`}
         >
-          <Text
-            className={`${shortcut.textColor} text-base font-semibold text-center`}
+          {primaryShortcut.label}
+        </Text>
+      </Pressable>
+      <View className="flex-row gap-3">
+        {secondaryShortcuts.map((shortcut) => (
+          <Pressable
+            key={shortcut.label}
+            onPress={shortcut.onPress}
+            className={`${shortcut.color} rounded-xl px-4 py-3 flex-1`}
+            style={{ minHeight: 48 }}
+            accessibilityRole="button"
+            accessibilityLabel={shortcut.label}
+            accessibilityHint={shortcut.accessibilityHint}
           >
-            {shortcut.label}
-          </Text>
-        </Pressable>
-      ))}
+            <Text
+              className={`${shortcut.textColor} text-sm font-semibold text-center`}
+            >
+              {shortcut.label}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
     </View>
   );
 }

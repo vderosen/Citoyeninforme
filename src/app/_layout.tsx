@@ -8,7 +8,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useElectionStore } from "../stores/election";
 import { useAppStore } from "../stores/app";
 import { loadBundledDataset } from "../data/loader";
-import { ContextBar } from "../components/shell/ContextBar";
 import "../i18n";
 import "../../global.css";
 
@@ -56,17 +55,20 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <GluestackUIProvider>
         <View style={{ flex: 1 }}>
-          {isLoaded && hasCompletedOnboarding && <ContextBar />}
           <Stack
             screenOptions={{
-              headerShown: false,
+              headerShown: true,
+              headerStyle: { backgroundColor: "#FFFFFF" },
+              headerTintColor: "#2563EB",
+              headerTitleStyle: { fontWeight: "600", fontSize: 17, color: "#111827" },
+              headerShadowVisible: false,
             }}
           >
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="onboarding" />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
             <Stack.Screen name="candidate/[id]" />
-            <Stack.Screen name="comparison" />
-            <Stack.Screen name="survey" />
+            <Stack.Screen name="comparison" options={{ title: "Comparaison" }} />
+            <Stack.Screen name="survey" options={{ headerShown: false }} />
           </Stack>
         </View>
         <StatusBar style="auto" />
