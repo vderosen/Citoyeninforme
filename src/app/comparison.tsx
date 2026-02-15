@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { View, Text, ScrollView, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../stores/election";
@@ -36,9 +35,9 @@ export default function ComparisonScreen() {
 
   if (!isLoaded) {
     return (
-      <SafeAreaView className="flex-1 bg-white">
+      <View className="flex-1 bg-white">
         <LoadingState />
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -51,19 +50,8 @@ export default function ComparisonScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <View className="px-4 pt-4 pb-2 flex-row items-center">
-        <Pressable
-          onPress={() => router.back()}
-          style={{ minHeight: 44, justifyContent: "center" }}
-          accessibilityRole="button"
-          accessibilityLabel={t("backToCandidates")}
-        >
-          <Text className="text-blue-600 font-medium">← {t("backToCandidates")}</Text>
-        </Pressable>
-      </View>
-
-      <Text className="text-xl font-bold text-gray-900 px-4 pb-2">
+    <View className="flex-1 bg-white">
+      <Text className="text-xl font-bold text-gray-900 px-4 pt-4 pb-2">
         {t("title")}
       </Text>
 
@@ -124,6 +112,6 @@ export default function ComparisonScreen() {
           onCandidateToggle={toggleCandidate}
         />
       )}
-    </SafeAreaView>
+    </View>
   );
 }

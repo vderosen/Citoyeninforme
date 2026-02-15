@@ -47,7 +47,7 @@ export default function CandidatesScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["bottom"]}>
+    <SafeAreaView className="flex-1 bg-white" edges={[]}>
       <View className="flex-1">
         <ThemeFilter
           themes={themes}

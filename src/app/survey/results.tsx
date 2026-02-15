@@ -1,7 +1,6 @@
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
 import { ResultsProfile } from "../../components/survey/ResultsProfile";
@@ -20,9 +19,9 @@ export default function ResultsScreen() {
 
   if (!profile) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-white">
+      <View className="flex-1 items-center justify-center bg-white">
         <Text className="text-gray-500">{t("computing")}</Text>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -47,7 +46,7 @@ export default function ResultsScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-gray-50">
       <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingBottom: 32 }}>
         <Text
           className="text-2xl font-bold text-gray-900 mt-6 mb-6"
@@ -133,6 +132,6 @@ export default function ResultsScreen() {
 
         <FeedbackAction screen="survey" />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

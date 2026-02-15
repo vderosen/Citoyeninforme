@@ -1,6 +1,7 @@
-import { ScrollView } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
 import { useAssistantStore } from "../../stores/assistant";
@@ -13,6 +14,7 @@ import { ResumeCard } from "../../components/home/ResumeCard";
 import { ThemeFeed } from "../../components/home/ThemeFeed";
 
 export default function HomeScreen() {
+  const { t } = useTranslation("home");
   const router = useRouter();
   const election = useElectionStore((s) => s.election);
   const isLoaded = useElectionStore((s) => s.isLoaded);
@@ -65,7 +67,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["bottom"]}>
+    <SafeAreaView className="flex-1 bg-white" edges={[]}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 24, gap: 16 }}
@@ -87,6 +89,11 @@ export default function HomeScreen() {
         {logistics && <VotingInfoCard logistics={logistics} />}
         <TrustCard />
         <ThemeFeed themes={themes} onThemePress={handleThemePress} />
+        {election.lastUpdated && (
+          <Text className="text-xs text-gray-400 text-center py-4">
+            {t("lastUpdated", { date: election.lastUpdated })}
+          </Text>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

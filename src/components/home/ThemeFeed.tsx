@@ -1,4 +1,5 @@
-import { FlatList, Text, Pressable } from "react-native";
+import { View, FlatList, Text, Pressable } from "react-native";
+import { useTranslation } from "react-i18next";
 import type { Theme } from "../../data/schema";
 
 interface ThemeFeedProps {
@@ -7,10 +8,16 @@ interface ThemeFeedProps {
 }
 
 export function ThemeFeed({ themes, onThemePress }: ThemeFeedProps) {
+  const { t } = useTranslation("home");
+
   if (themes.length === 0) return null;
 
   return (
-    <FlatList
+    <View>
+      <Text className="text-base font-semibold text-gray-900 px-4 mb-2">
+        {t("themeSectionTitle")}
+      </Text>
+      <FlatList
       data={themes}
       keyExtractor={(item) => item.id}
       horizontal
@@ -30,5 +37,6 @@ export function ThemeFeed({ themes, onThemePress }: ThemeFeedProps) {
         </Pressable>
       )}
     />
+    </View>
   );
 }

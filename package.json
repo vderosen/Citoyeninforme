@@ -7,6 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "postinstall": "node scripts/patch-safe-area-warning.js",
     "chat:proxy": "node scripts/llm-proxy.js",
     "data:review:paris-2026": "node scripts/generate-election-review-md.js paris-2026",
     "test": "jest",

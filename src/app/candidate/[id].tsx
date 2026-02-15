@@ -1,6 +1,5 @@
-import { ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { ScrollView, View } from "react-native";
+import { useLocalSearchParams, useRouter, Stack } from "expo-router";
 import { useElectionStore } from "../../stores/election";
 import { useAssistantStore } from "../../stores/assistant";
 import type { AssistantContext } from "../../stores/assistant";
@@ -23,22 +22,22 @@ export default function CandidateProfileScreen() {
 
   if (!isLoaded) {
     return (
-      <SafeAreaView className="flex-1 bg-white">
+      <View className="flex-1 bg-white">
         <LoadingState />
-      </SafeAreaView>
+      </View>
     );
   }
 
   const candidate = id ? getCandidateById(id) : undefined;
   if (!candidate) {
     return (
-      <SafeAreaView className="flex-1 bg-white">
+      <View className="flex-1 bg-white">
         <EmptyState
           title={t("emptyProfile")}
           description={t("emptyProfileDescription")}
           action={{ label: t("backToCandidates"), onPress: () => router.replace("/(tabs)/candidates") }}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -60,7 +59,8 @@ export default function CandidateProfileScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
+      <Stack.Screen options={{ title: candidate.name }} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <CandidateProfileCard
           candidate={candidate}
@@ -71,6 +71,6 @@ export default function CandidateProfileScreen() {
           onAskAbout={handleAskAbout}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
