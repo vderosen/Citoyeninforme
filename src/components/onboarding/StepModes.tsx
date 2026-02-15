@@ -35,14 +35,7 @@ export function StepModes({
         {CARDS.map((card) => (
           <View
             key={card.titleKey}
-            className="bg-warm-gray rounded-xl p-4 flex-row items-center gap-4"
-            style={{
-              shadowColor: "rgba(27,42,74,0.08)",
-              shadowOffset: { width: 0, height: 1 },
-              shadowOpacity: 1,
-              shadowRadius: 3,
-              elevation: 1,
-            }}
+            className="bg-warm-gray rounded-xl p-4 flex-row items-center gap-4 shadow-card"
           >
             <Ionicons name={card.icon} size={28} color="#1B2A4A" />
             <View className="flex-1">

@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback, ComponentType } from "react";
 import {
   FlatList,
+  Platform,
   useWindowDimensions,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -47,18 +48,26 @@ const STEPS: StepConfig[] = [
 export function OnboardingPager() {
   const flatListRef = useRef<FlatList>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const currentIndexRef = useRef(0);
   const { width } = useWindowDimensions();
   const router = useRouter();
   const completeOnboarding = useAppStore((s) => s.completeOnboarding);
 
+  const goToIndex = useCallback(
+    (index: number) => {
+      currentIndexRef.current = index;
+      setCurrentIndex(index);
+      flatListRef.current?.scrollToIndex({ index, animated: true });
+    },
+    []
+  );
+
   const handleNext = useCallback(() => {
-    if (currentIndex < STEPS.length - 1) {
-      flatListRef.current?.scrollToIndex({
-        index: currentIndex + 1,
-        animated: true,
-      });
+    const next = currentIndexRef.current + 1;
+    if (next < STEPS.length) {
+      goToIndex(next);
     }
-  }, [currentIndex]);
+  }, [goToIndex]);
 
   const handleComplete = useCallback(
     (target: EntryPointTarget) => {
@@ -68,10 +77,13 @@ export function OnboardingPager() {
     [completeOnboarding, router]
   );
 
-  const handleMomentumScrollEnd = useCallback(
+  const handleScrollEnd = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const index = Math.round(e.nativeEvent.contentOffset.x / width);
-      setCurrentIndex(index);
+      if (index !== currentIndexRef.current) {
+        currentIndexRef.current = index;
+        setCurrentIndex(index);
+      }
     },
     [width]
   );
@@ -86,14 +98,13 @@ export function OnboardingPager() {
   );
 
   const renderItem = useCallback(
-    ({ item }: { item: StepConfig }) => {
+    ({ item, index }: { item: StepConfig; index: number }) => {
       const StepComponent = item.component;
-      const stepIndex = STEPS.findIndex((s) => s.key === item.key);
       return (
         <StepComponent
           onNext={handleNext}
           onComplete={handleComplete}
-          currentStep={stepIndex + 1}
+          currentStep={index + 1}
           totalSteps={STEPS.length}
         />
       );
@@ -113,11 +124,11 @@ export function OnboardingPager() {
       showsHorizontalScrollIndicator={false}
       bounces={false}
       scrollEnabled
-      onMomentumScrollEnd={handleMomentumScrollEnd}
+      onMomentumScrollEnd={handleScrollEnd}
+      onScrollEndDrag={Platform.OS === "web" ? handleScrollEnd : undefined}
       getItemLayout={getItemLayout}
-      initialNumToRender={1}
-      maxToRenderPerBatch={2}
-      windowSize={3}
+      initialNumToRender={STEPS.length}
+      windowSize={5}
     />
   );
 }
