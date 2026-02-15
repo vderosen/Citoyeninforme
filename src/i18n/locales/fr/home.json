@@ -1,0 +1,21 @@
+{
+  "title": "{{city}} {{year}}",
+  "subtitle": "Élections municipales",
+  "purpose": "Découvrez les programmes des candidats, comparez leurs positions et formez votre propre opinion.",
+  "startSurvey": "Commencer le sondage",
+  "resumeSurvey": "Reprendre le sondage",
+  "retakeSurvey": "Refaire le sondage",
+  "startSurveyHint": "Accéder au questionnaire civique",
+  "exploreCandidates": "Voir les candidats",
+  "exploreCandidatesHint": "Parcourir la galerie des candidats",
+  "askQuestion": "Poser une question",
+  "askQuestionHint": "Ouvrir l'assistant pour poser une question",
+  "votingInfo": "Informations pratiques",
+  "keyDates": "Dates clés",
+  "eligibility": "Conditions d'éligibilité",
+  "votingMethods": "Modalités de vote",
+  "trustTitle": "Pourquoi faire confiance à cette app ?",
+  "resumeTitle": "Reprendre où vous en étiez",
+  "resumeChat": "Reprendre la conversation",
+  "dataSource": "Données issues des programmes officiels des candidats"
+}

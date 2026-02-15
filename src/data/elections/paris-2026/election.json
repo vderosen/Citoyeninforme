@@ -1,0 +1,17 @@
+{
+  "id": "paris-municipales-2026",
+  "city": "Paris",
+  "type": "Élections municipales",
+  "year": 2026,
+  "votingRules": {
+    "rounds": 2,
+    "description": "À Paris, les municipales 2026 se déroulent avec deux votes distincts le même jour : un pour les conseillers d'arrondissement et un pour les conseillers de Paris. Pour le Conseil de Paris, la liste arrivée en tête obtient une prime majoritaire de 25 % des sièges, le reste étant réparti à la proportionnelle."
+  },
+  "timeline": {
+    "registrationDeadline": "2026-02-06",
+    "firstRound": "2026-03-15",
+    "secondRound": "2026-03-22"
+  },
+  "dataVersion": "1.0.0",
+  "lastUpdated": "2026-02-15"
+}

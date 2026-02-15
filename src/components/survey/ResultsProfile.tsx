@@ -1,0 +1,56 @@
+import { View, Text } from "react-native";
+import { useTranslation } from "react-i18next";
+import { useElectionStore } from "../../stores/election";
+
+interface ResultsProfileProps {
+  themeScores: Record<string, number>;
+}
+
+export function ResultsProfile({ themeScores }: ResultsProfileProps) {
+  const { t } = useTranslation("survey");
+  const themes = useElectionStore((s) => s.themes);
+
+  const sortedScores = Object.entries(themeScores)
+    .map(([themeId, score]) => ({
+      themeId,
+      score,
+      theme: themes.find((th) => th.id === themeId),
+    }))
+    .filter((entry) => entry.theme)
+    .sort((a, b) => Math.abs(b.score) - Math.abs(a.score));
+
+  return (
+    <View className="mb-6">
+      <Text
+        className="text-lg font-semibold text-gray-900 mb-3"
+        accessibilityRole="header"
+      >
+        {t("profileTitle")}
+      </Text>
+      {sortedScores.map(({ themeId, score, theme }) => {
+        const normalizedScore = Math.min(Math.max(score, -1), 1);
+        const barWidth = Math.abs(normalizedScore) * 100;
+        const isPositive = normalizedScore >= 0;
+
+        return (
+          <View key={themeId} className="mb-3">
+            <View className="flex-row justify-between mb-1">
+              <Text className="text-sm font-medium text-gray-700">
+                {theme!.icon} {theme!.name}
+              </Text>
+              <Text className="text-xs text-gray-500">
+                {score > 0 ? "+" : ""}{score.toFixed(1)}
+              </Text>
+            </View>
+            <View className="w-full h-2 bg-gray-200 rounded-full">
+              <View
+                className={`h-2 rounded-full ${isPositive ? "bg-blue-500" : "bg-amber-500"}`}
+                style={{ width: `${barWidth}%` }}
+              />
+            </View>
+          </View>
+        );
+      })}
+    </View>
+  );
+}

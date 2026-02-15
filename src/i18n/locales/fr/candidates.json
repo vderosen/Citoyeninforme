@@ -1,0 +1,23 @@
+{
+  "title": "Candidats",
+  "gallery": "Galerie des candidats",
+  "profile": "Profil",
+  "enBref": "En bref",
+  "positions": "Positions",
+  "positionsByTheme": "Positions par thème",
+  "sources": "Sources",
+  "noPositionDocumented": "Position non documentée",
+  "noPositionNote": "L'absence de position documentée ne signifie pas l'absence d'opinion.",
+  "compare": "Comparer",
+  "debate": "Débattre",
+  "askAbout": "Poser une question",
+  "filterByTheme": "Filtrer par thème",
+  "allThemes": "Tous les thèmes",
+  "emptyGallery": "Aucun candidat disponible",
+  "emptyGalleryDescription": "Les données des candidats ne sont pas encore chargées.",
+  "emptyProfile": "Profil non disponible",
+  "emptyProfileDescription": "Les informations de ce candidat ne sont pas disponibles.",
+  "backToCandidates": "Retour aux candidats",
+  "details": "Détails",
+  "hideDetails": "Masquer les détails"
+}
