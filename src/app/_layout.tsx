@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { View } from "react-native";
-import { Stack } from "expo-router";
+import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
@@ -13,10 +13,16 @@ import "../../global.css";
 
 SplashScreen.preventAutoHideAsync();
 
+export const unstable_settings = {
+  initialRouteName: "(tabs)",
+};
+
 export default function RootLayout() {
   const loadDataset = useElectionStore((s) => s.loadDataset);
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
+  const router = useRouter();
+  const segments = useSegments();
 
   useEffect(() => {
     try {
@@ -33,6 +39,18 @@ export default function RootLayout() {
     }
   }, [isLoaded]);
 
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const inOnboarding = segments[0] === "onboarding";
+
+    if (!hasCompletedOnboarding && !inOnboarding) {
+      router.replace("/onboarding");
+    } else if (hasCompletedOnboarding && inOnboarding) {
+      router.replace("/(tabs)");
+    }
+  }, [isLoaded, hasCompletedOnboarding, segments]);
+
   return (
     <GluestackUIProvider>
       <View style={{ flex: 1 }}>
@@ -42,14 +60,8 @@ export default function RootLayout() {
             headerShown: false,
           }}
         >
-          <Stack.Screen
-            name="(tabs)"
-            redirect={isLoaded && !hasCompletedOnboarding}
-          />
-          <Stack.Screen
-            name="onboarding"
-            redirect={!isLoaded || hasCompletedOnboarding}
-          />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="onboarding" />
           <Stack.Screen name="candidate/[id]" />
           <Stack.Screen name="comparison" />
           <Stack.Screen name="survey" />
