@@ -2,6 +2,8 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "types": ["jest"],
+    "moduleSuffixes": [".native", ".ios", ".android", ".web", ""],
     "paths": {
       "@/*": ["./*"],
       "@src/*": ["./src/*"]

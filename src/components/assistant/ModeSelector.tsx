@@ -26,7 +26,7 @@ export function ModeSelector({ activeMode, onModeChange }: ModeSelectorProps) {
           key={mode.id}
           onPress={() => onModeChange(mode.id)}
           className={`flex-1 py-2 px-2 rounded-lg items-center ${
-            activeMode === mode.id ? "bg-white shadow-sm" : ""
+            activeMode === mode.id ? "bg-white border border-blue-100" : ""
           }`}
           style={{ minHeight: 40 }}
           accessibilityRole="tab"

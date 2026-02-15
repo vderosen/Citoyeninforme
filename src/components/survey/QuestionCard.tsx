@@ -1,7 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import type { SurveyQuestion } from "../../data/schema";
-import Slider from "@react-native-community/slider";
 
 interface Props {
   question: SurveyQuestion;

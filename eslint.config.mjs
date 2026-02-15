@@ -1,3 +1,4 @@
+import tsEslintParser from "@typescript-eslint/parser";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 
 export default [
@@ -6,6 +7,16 @@ export default [
   },
   {
     files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parser: tsEslintParser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
     plugins: {
       "jsx-a11y": jsxA11y,
     },
