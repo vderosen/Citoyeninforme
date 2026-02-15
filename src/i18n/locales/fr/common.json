@@ -14,5 +14,19 @@
   "noPositionDocumented": "Pas de position documentée",
   "noPositionNote": "L'absence de données ne signifie pas l'absence d'opinion.",
   "accessedOn": "Consulté le {{date}}",
-  "neutralityStatement": "Lucide est un outil neutre et non partisan. Toutes les informations sont sourcées et vérifiables. Aucune recommandation de vote n'est émise."
+  "neutralityStatement": "Lucide est un outil neutre et non partisan. Toutes les informations sont sourcées et vérifiables. Aucune recommandation de vote n'est émise.",
+  "badgeSource": "Source",
+  "badgeNonDocumente": "Non documenté",
+  "badgeIncertain": "Incertain",
+  "emptyStateDefault": "Aucun contenu disponible",
+  "loadingDefault": "Chargement en cours...",
+  "errorDefault": "Une erreur est survenue",
+  "errorRetry": "Réessayer",
+  "feedbackSignal": "Signaler",
+  "feedbackUnclear": "Information peu claire",
+  "feedbackMissing": "Information manquante",
+  "feedbackGeneral": "Commentaire général",
+  "feedbackPlaceholder": "Décrivez le problème (optionnel)...",
+  "feedbackSubmit": "Envoyer",
+  "feedbackThanks": "Merci pour votre retour !"
 }

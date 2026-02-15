@@ -1,0 +1,12 @@
+{
+  "title": "Comparaison",
+  "selectCandidates": "Sélectionnez les candidats à comparer",
+  "selectTheme": "Choisissez un thème",
+  "minimumCandidates": "Sélectionnez au moins 2 candidats pour comparer",
+  "noPositionAvailable": "Aucune position documentée pour ce thème",
+  "noDataExplanation": "Les données nécessaires à la comparaison ne sont pas disponibles pour ce thème.",
+  "positionNotDocumented": "Position non documentée",
+  "source": "Source",
+  "sources": "Sources",
+  "backToCandidates": "Retour aux candidats"
+}

@@ -3,76 +3,104 @@
   "keyDates": [
     {
       "label": "Date limite d'inscription sur les listes électorales",
-      "date": "2026-03-06",
-      "description": "Dernier jour pour s'inscrire ou vérifier son inscription"
+      "date": "2026-02-06",
+      "description": "Date limite de dépôt des demandes d'inscription pour ce scrutin."
+    },
+    {
+      "label": "Date limite d'inscription dérogatoire (article L.30)",
+      "date": "2026-03-05",
+      "description": "Date maximale de prise en compte des inscriptions prévues à l'article L.30 du code électoral."
     },
     {
       "label": "Premier tour",
       "date": "2026-03-15",
-      "description": "Bureaux de vote ouverts de 8h à 20h"
+      "description": "Convocation des électeurs pour le premier tour des municipales."
+    },
+    {
+      "label": "Clôture maximale des bureaux (1er tour)",
+      "date": "2026-03-15",
+      "description": "Le scrutin ne peut pas être clos après 20h."
     },
     {
       "label": "Second tour",
       "date": "2026-03-22",
-      "description": "Si aucune liste n'obtient la majorité absolue au premier tour"
+      "description": "Convocation des électeurs pour le second tour des municipales."
+    },
+    {
+      "label": "Clôture maximale des bureaux (2d tour)",
+      "date": "2026-03-22",
+      "description": "Le scrutin ne peut pas être clos après 20h."
     }
   ],
   "eligibility": [
     {
       "order": 1,
-      "text": "Être de nationalité française ou citoyen de l'Union européenne"
+      "text": "Être inscrit sur les listes électorales de la commune avant la date limite applicable au scrutin."
     },
     {
       "order": 2,
-      "text": "Avoir au moins 18 ans la veille du scrutin"
+      "text": "Se présenter avec un document admis permettant de prouver son identité (présentation de l'original)."
     },
     {
       "order": 3,
-      "text": "Être inscrit sur les listes électorales de Paris"
-    },
-    {
-      "order": 4,
-      "text": "Ne pas être privé de son droit de vote par une décision de justice"
+      "text": "Pour un citoyen de l'Union européenne non français : résider en France, avoir au moins 18 ans la veille du premier tour et jouir de ses droits civils et politiques."
     }
   ],
   "votingMethods": [
     {
       "type": "in-person",
-      "description": "Se présenter au bureau de vote indiqué sur la carte électorale muni d'une pièce d'identité.",
-      "requirements": "Pièce d'identité obligatoire dans les communes de plus de 1 000 habitants"
+      "description": "Vote au bureau de vote de la commune d'inscription, le jour du scrutin.",
+      "requirements": "Présenter un justificatif d'identité admis pour prouver son identité."
     },
     {
       "type": "proxy",
-      "description": "Donner procuration à un électeur inscrit dans la même commune via le formulaire CERFA ou en ligne.",
-      "requirements": "Le mandataire ne peut détenir qu'une seule procuration établie en France"
+      "description": "La procuration peut être demandée en ligne puis validée en personne auprès de l'autorité compétente.",
+      "requirements": "Le mandant doit se déplacer en personne pour faire vérifier son identité."
     }
   ],
-  "locations": [
-    {
-      "name": "Mairie du 1er arrondissement",
-      "address": "4 place du Louvre, 75001 Paris",
-      "hours": "8h-20h",
-      "notes": "Bureau de vote central du secteur Paris Centre"
-    },
-    {
-      "name": "Mairie du 11e arrondissement",
-      "address": "Place Léon Blum, 75011 Paris",
-      "hours": "8h-20h",
-      "notes": "Plusieurs bureaux de vote dans l'arrondissement"
-    }
-  ],
+  "locations": [],
   "officialSources": [
     {
-      "title": "Élections municipales - Service-public.fr",
-      "url": "https://www.service-public.fr/particuliers/vosdroits/F1958",
+      "title": "Décret n° 2025-948 du 27 août 2025",
+      "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052142190",
       "type": "official",
-      "accessDate": "2026-02-10"
+      "accessDate": "2026-02-15"
     },
     {
-      "title": "Ville de Paris - Élections",
-      "url": "https://www.paris.fr/pages/elections-52",
+      "title": "Loi n° 2025-795 du 11 août 2025",
+      "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052075863",
       "type": "official",
-      "accessDate": "2026-02-10"
+      "accessDate": "2026-02-15"
+    },
+    {
+      "title": "Élections municipales 2026 : ce qui change à Paris - Ville de Paris",
+      "url": "https://www.paris.fr/pages/elections-municipales-2026-ce-qui-change-a-paris-30788",
+      "type": "official",
+      "accessDate": "2026-02-15"
+    },
+    {
+      "title": "Inscription sur la liste électorale d'une commune",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F1367",
+      "type": "official",
+      "accessDate": "2026-02-15"
+    },
+    {
+      "title": "Carte électorale et justificatif d'identité au bureau de vote",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F1361",
+      "type": "official",
+      "accessDate": "2026-02-15"
+    },
+    {
+      "title": "Vote par procuration",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F1604",
+      "type": "official",
+      "accessDate": "2026-02-15"
+    },
+    {
+      "title": "Élections en France : droit de vote d'un citoyen européen",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F1937",
+      "type": "official",
+      "accessDate": "2026-02-15"
     }
   ]
 }

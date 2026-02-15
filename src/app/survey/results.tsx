@@ -2,13 +2,18 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
-import { ResultsChart } from "../../components/survey/ResultsChart";
+import { ResultsProfile } from "../../components/survey/ResultsProfile";
+import { AlignmentRanking } from "../../components/survey/AlignmentRanking";
+import { TieExplanation } from "../../components/survey/TieExplanation";
 import { ContradictionCard } from "../../components/survey/ContradictionCard";
+import { FeedbackAction } from "../../components/shared/FeedbackAction";
 
 export default function ResultsScreen() {
   const { t } = useTranslation(["survey", "common"]);
   const router = useRouter();
+  const candidates = useElectionStore((s) => s.candidates);
   const profile = useSurveyStore((s) => s.profile);
   const complete = useSurveyStore((s) => s.complete);
   const reset = useSurveyStore((s) => s.reset);
@@ -21,11 +26,11 @@ export default function ResultsScreen() {
     );
   }
 
-  // Check for tied scores (Edge Case 3)
-  const hasTiedScores =
-    profile.candidateRanking.length >= 2 &&
-    profile.candidateRanking[0].alignmentScore ===
-      profile.candidateRanking[1].alignmentScore;
+  // Detect ties (Edge Case 3)
+  const tiedCandidates = profile.candidateRanking.filter(
+    (match, _, arr) => arr[0] && match.alignmentScore === arr[0].alignmentScore
+  );
+  const hasTie = tiedCandidates.length > 1;
 
   const handleDone = () => {
     complete();
@@ -34,7 +39,11 @@ export default function ResultsScreen() {
 
   const handleRetake = () => {
     reset();
-    router.replace("/survey/context");
+    router.replace("/survey/intro");
+  };
+
+  const handleCandidatePress = (candidateId: string) => {
+    router.push(`/candidate/${candidateId}`);
   };
 
   return (
@@ -47,28 +56,44 @@ export default function ResultsScreen() {
           {t("resultsTitle")}
         </Text>
 
-        <ResultsChart
-          themeScores={profile.themeScores}
-          candidateRanking={profile.candidateRanking}
+        {/* Personal profile by theme */}
+        <ResultsProfile themeScores={profile.themeScores} />
+
+        {/* Alignment ranking */}
+        <AlignmentRanking
+          ranking={profile.candidateRanking}
+          candidates={candidates}
+          onCandidatePress={handleCandidatePress}
         />
 
-        {hasTiedScores && (
-          <View className="bg-blue-50 rounded-xl p-4 mt-4">
-            <Text className="text-sm text-blue-800">
-              {t("tiedScoreExplanation")}
-            </Text>
-          </View>
+        {/* Tie explanation */}
+        {hasTie && (
+          <TieExplanation
+            tiedCandidates={tiedCandidates}
+            candidates={candidates}
+          />
         )}
 
+        {/* Why this result */}
+        <View className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
+          <Text className="text-sm font-semibold text-gray-900 mb-2">
+            {t("whyThisResult")}
+          </Text>
+          <Text className="text-sm text-gray-600">
+            {t("whyThisResultExplanation")}
+          </Text>
+        </View>
+
+        {/* Contradictions */}
         {profile.contradictions.length > 0 && (
-          <View className="mt-6">
+          <View className="mb-4">
             <Text
               className="text-lg font-semibold text-gray-900 mb-2"
               accessibilityRole="header"
             >
               {t("contradictions")}
             </Text>
-            <Text className="text-sm text-gray-600 mb-4">
+            <Text className="text-sm text-gray-600 mb-3">
               {t("contradictionExplanation")}
             </Text>
             {profile.contradictions.map((contradiction, index) => (
@@ -80,15 +105,16 @@ export default function ResultsScreen() {
           </View>
         )}
 
-        <View className="mt-8 flex-row justify-between">
+        {/* Actions */}
+        <View className="flex-row gap-3 mt-4 mb-4">
           <Pressable
             onPress={handleRetake}
             accessibilityRole="button"
             accessibilityLabel={t("retakeSurvey")}
-            className="bg-gray-200 rounded-xl py-3 px-6 flex-1 mr-2 items-center"
-            style={{ minHeight: 44 }}
+            className="bg-gray-200 rounded-xl py-3 px-6 flex-1 items-center"
+            style={{ minHeight: 48 }}
           >
-            <Text className="text-gray-700 font-medium">
+            <Text className="text-gray-700 font-semibold">
               {t("retakeSurvey")}
             </Text>
           </Pressable>
@@ -96,14 +122,16 @@ export default function ResultsScreen() {
             onPress={handleDone}
             accessibilityRole="button"
             accessibilityLabel={t("common:confirm")}
-            className="bg-blue-600 rounded-xl py-3 px-6 flex-1 ml-2 items-center"
-            style={{ minHeight: 44 }}
+            className="bg-blue-600 rounded-xl py-3 px-6 flex-1 items-center"
+            style={{ minHeight: 48 }}
           >
-            <Text className="text-white font-medium">
+            <Text className="text-white font-semibold">
               {t("common:confirm")}
             </Text>
           </Pressable>
         </View>
+
+        <FeedbackAction screen="survey" />
       </ScrollView>
     </SafeAreaView>
   );

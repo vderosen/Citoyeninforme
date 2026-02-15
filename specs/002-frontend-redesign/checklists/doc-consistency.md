@@ -41,7 +41,7 @@
 ## Cross-Document Consistency
 
 - [x] CHK017 - Are references to the old "2-page" design used only in historical/migration context (describing what changed), never as the current standard? [Consistency, Cross-doc]
-- [ ] CHK018 - Is the term "chatbot" used only for the backend service layer (LLM proxy), and "assistant" used for the user-facing tab/feature across all 002 documents? [Consistency, Cross-doc]
+- [x] CHK018 - Is the term "chatbot" used only for the backend service layer (LLM proxy), and "assistant" used for the user-facing tab/feature across all 002 documents? [Consistency, Cross-doc]
 - [x] CHK019 - Does the constitution's 3-tab description match the spec's FR-001 tab names and positions exactly? [Consistency, Constitution §VI vs Spec §FR-001]
 - [x] CHK020 - Are there zero references to "violation" or "deviation" related to the 3-tab design in any current document? [Consistency, Cross-doc]
 
@@ -53,5 +53,5 @@
 ## Notes
 
 - CHK014: Resolved. Research R-010 updated to frame migration as superseding feature 001's routes with the canonical 3-tab structure.
-- CHK018: The service file `chatbot.ts` retains its name (it's the LLM API layer), while the store is renamed to `assistant.ts`. This is a deliberate naming split documented in the quickstart. The plan's Project Structure section lists both `chatbot.ts` (service, unchanged) and `assistant.ts` (store, renamed). Verify during implementation that user-facing copy never says "chatbot."
+- CHK018: Resolved. Audited all 002 documents. Fixed: quickstart heading "Chatbot Proxy" → "LLM Proxy", removed historical rename notes from store-interfaces.md and data-model.md. Remaining "chatbot" references are strictly for backend file paths (`src/services/chatbot.ts`, `src/components/chatbot/ChatbotFAB.tsx`) or historical migration context in plan/research. No user-facing copy uses "chatbot."
 - Feature 001 documents (`specs/001-civic-election-app/plan.md`, `research.md`) correctly describe the 2-page + chatbot overlay design that was the standard at that time. These are historical artifacts and should not be modified.

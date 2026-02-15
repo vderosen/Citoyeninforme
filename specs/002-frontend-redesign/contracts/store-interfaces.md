@@ -27,7 +27,7 @@ interface AppState {
 
 ---
 
-## AssistantStore (renamed from ChatbotStore)
+## AssistantStore
 
 **File**: `src/stores/assistant.ts`
 **Persistence**: MMKV via zustandStorage (messages, mode, selectedCandidateId)

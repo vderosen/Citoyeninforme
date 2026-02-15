@@ -38,9 +38,9 @@ Tracks application-level state that persists across sessions.
 
 ---
 
-### AssistantState (renamed from ChatbotState: `assistant.ts`)
+### AssistantState (`assistant.ts`)
 
-Replaces the current `chatbot.ts` store. Adds conversation persistence and mode-specific state.
+Manages the assistant tab's conversation state and mode-specific behavior. Persisted via MMKV.
 
 | Field | Type | Default | Persisted | Description |
 |-------|------|---------|-----------|-------------|

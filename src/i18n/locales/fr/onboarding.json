@@ -1,0 +1,13 @@
+{
+  "welcome": "Bienvenue sur Lucide",
+  "description": "Votre compagnon civique neutre pour les élections municipales.",
+  "purpose": "Lucide vous aide à comprendre, comparer et réfléchir avant de voter, sans jamais influencer votre choix.",
+  "tabAccueil": "Accueil",
+  "tabAccueilDescription": "Découvrez l'élection, accédez au sondage et aux informations pratiques.",
+  "tabAssistant": "Assistant",
+  "tabAssistantDescription": "Posez des questions neutres, discutez avec un candidat ou débattez de vos convictions.",
+  "tabCandidats": "Candidats",
+  "tabCandidatsDescription": "Parcourez les candidats, consultez leurs positions et comparez leurs programmes.",
+  "neutrality": "Toutes les informations sont sourcées et vérifiables. Aucune recommandation de vote n'est émise.",
+  "getStarted": "Commencer"
+}

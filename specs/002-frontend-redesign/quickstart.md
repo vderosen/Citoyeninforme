@@ -41,7 +41,7 @@ npx jest tests/component/CandidateGallery.test.tsx
 npx jest --watch
 ```
 
-## Chatbot Proxy (for Assistant tab)
+## LLM Proxy (for Assistant tab)
 
 The Assistant tab requires the LLM proxy for chat responses.
 

@@ -22,5 +22,11 @@
   "severityLow": "Légère",
   "severityMedium": "Modérée",
   "severityHigh": "Forte",
-  "tiedScoreExplanation": "Vos priorités ne différencient pas clairement ces candidats. Explorez leurs programmes en détail pour affiner votre choix."
+  "tiedScoreExplanation": "Vos priorités ne différencient pas clairement ces candidats. Explorez leurs programmes en détail pour affiner votre choix.",
+  "profileTitle": "Votre profil par thème",
+  "alignmentTitle": "Classement par alignement",
+  "tieTitle": "Égalité détectée",
+  "tieExplanation": "{{candidates}} obtiennent le même score d'alignement. Cela signifie que vos priorités ne les distinguent pas sur les thèmes évalués.",
+  "whyThisResult": "Pourquoi ce résultat ?",
+  "whyThisResultExplanation": "Le classement est calculé en comparant vos réponses et l'importance que vous accordez à chaque thème avec les positions documentées des candidats. Aucune pondération cachée n'est appliquée."
 }

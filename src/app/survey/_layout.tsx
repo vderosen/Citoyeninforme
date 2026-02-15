@@ -8,7 +8,7 @@ export default function SurveyLayout() {
         gestureEnabled: false,
       }}
     >
-      <Stack.Screen name="context" />
+      <Stack.Screen name="intro" />
       <Stack.Screen name="questions" />
       <Stack.Screen name="results" />
     </Stack>

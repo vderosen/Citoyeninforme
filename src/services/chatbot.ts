@@ -6,9 +6,9 @@
  */
 
 import type {
-  ChatbotMode,
+  AssistantMode,
   ChatMessage,
-} from "../stores/chatbot";
+} from "../stores/assistant";
 import type {
   Election,
   Candidate,
@@ -16,9 +16,9 @@ import type {
   Theme,
 } from "../data/schema";
 import type { UserProfile } from "../stores/survey";
-import { buildLearnModePrompt } from "./prompts/learn-mode";
-import { buildCandidateModePrompt } from "./prompts/candidate-mode";
-import { buildDebateModePrompt } from "./prompts/debate-mode";
+import { buildLearnModePrompt } from "./prompts/comprendre-mode";
+import { buildCandidateModePrompt } from "./prompts/parler-mode";
+import { buildDebateModePrompt } from "./prompts/debattre-mode";
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_LLM_PROXY_URL ?? "http://localhost:3001";
 
@@ -30,7 +30,7 @@ interface ChatContext {
 }
 
 export async function sendChatMessage(
-  mode: ChatbotMode,
+  mode: AssistantMode,
   messages: ChatMessage[],
   context: ChatContext,
   options?: {
@@ -44,12 +44,12 @@ export async function sendChatMessage(
   let systemPrompt: string;
 
   switch (mode) {
-    case "learn":
+    case "comprendre":
       systemPrompt = buildLearnModePrompt(context);
       break;
-    case "candidate":
+    case "parler":
       if (!options?.candidateId) {
-        onError?.("Candidate ID required for candidate mode");
+        onError?.("Candidate ID required for parler mode");
         return;
       }
       systemPrompt = buildCandidateModePrompt({
@@ -57,7 +57,7 @@ export async function sendChatMessage(
         candidateId: options.candidateId,
       });
       break;
-    case "debate":
+    case "debattre":
       systemPrompt = buildDebateModePrompt({
         ...context,
         userProfile: options?.userProfile ?? null,

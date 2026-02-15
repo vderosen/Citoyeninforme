@@ -1,194 +1,132 @@
 [
   {
-    "id": "candidate-a-transport",
-    "candidateId": "candidate-a",
+    "id": "david-belliard-transport",
+    "candidateId": "david-belliard",
     "themeId": "transport",
-    "summary": "Extension du réseau cyclable et piétonnisation du centre de Paris",
-    "details": "Création de 100 km de pistes cyclables supplémentaires d'ici 2030. Piétonnisation complète des quatre premiers arrondissements le week-end. Renforcement des lignes de bus avec passage à 100% électrique.",
+    "summary": "Priorité à la transformation de l'espace public et aux mobilités actives.",
+    "details": "Le texte d'investiture des Écologistes met en avant la transformation de l'espace public, les rues aux écoles, un Paris cyclable et la végétalisation urbaine.",
     "sources": [
       {
-        "title": "Programme Transport - Alice Dupont 2026",
-        "url": "https://example.com/programme-dupont-2026/transport",
-        "type": "program",
-        "accessDate": "2026-02-10"
-      }
-    ],
-    "lastVerified": "2026-02-10"
-  },
-  {
-    "id": "candidate-a-logement",
-    "candidateId": "candidate-a",
-    "themeId": "logement",
-    "summary": "Construction de 10 000 logements sociaux supplémentaires par mandat",
-    "details": "Objectif de 30% de logements sociaux dans chaque arrondissement. Renforcement de l'encadrement des loyers avec un observatoire indépendant. Programme de rénovation thermique pour 50 000 logements.",
-    "sources": [
+        "title": "David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026",
+        "url": "https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026",
+        "type": "statement",
+        "accessDate": "2026-02-15"
+      },
       {
-        "title": "Programme Logement - Alice Dupont 2026",
-        "url": "https://example.com/programme-dupont-2026/logement",
-        "type": "program",
-        "accessDate": "2026-02-10"
+        "title": "David Belliard - Paris.fr",
+        "url": "https://www.paris.fr/pages/david-belliard-21783",
+        "type": "official",
+        "accessDate": "2026-02-15"
       }
     ],
-    "lastVerified": "2026-02-10"
+    "lastVerified": "2026-02-15"
   },
   {
-    "id": "candidate-a-ecologie",
-    "candidateId": "candidate-a",
+    "id": "david-belliard-ecologie",
+    "candidateId": "david-belliard",
     "themeId": "ecologie",
-    "summary": "Paris neutre en carbone d'ici 2035",
-    "details": "Plan de végétalisation de 30 hectares supplémentaires. Installation de 10 000 arbres. Interdiction progressive des véhicules thermiques dans Paris intra-muros. Budget climat de 1 milliard d'euros sur le mandat.",
+    "summary": "Projet présenté comme une écologie sociale et une ville climatiquement résiliente.",
+    "details": "Les prises de parole de campagne évoquent un Paris solidaire qui se prépare aux changements climatiques et à la multiplication des crises.",
     "sources": [
       {
-        "title": "Programme Écologie - Alice Dupont 2026",
-        "url": "https://example.com/programme-dupont-2026/ecologie",
-        "type": "program",
-        "accessDate": "2026-02-10"
-      }
-    ],
-    "lastVerified": "2026-02-10"
-  },
-  {
-    "id": "candidate-b-transport",
-    "candidateId": "candidate-b",
-    "themeId": "transport",
-    "summary": "Équilibre entre mobilités douces et accessibilité automobile",
-    "details": "Maintien des grands axes de circulation pour les véhicules. Création de parkings relais aux portes de Paris. Amélioration de la fréquence du métro aux heures de pointe. Opposition à la piétonnisation systématique.",
-    "sources": [
+        "title": "David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026",
+        "url": "https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026",
+        "type": "statement",
+        "accessDate": "2026-02-15"
+      },
       {
-        "title": "Programme Mobilité - Bernard Martin 2026",
-        "url": "https://example.com/programme-martin-2026/transport",
+        "title": "David Belliard - Site de campagne",
+        "url": "https://www.davidbelliard.paris/",
         "type": "program",
-        "accessDate": "2026-02-10"
+        "accessDate": "2026-02-15"
       }
     ],
-    "lastVerified": "2026-02-10"
+    "lastVerified": "2026-02-15"
   },
   {
-    "id": "candidate-b-securite",
-    "candidateId": "candidate-b",
-    "themeId": "securite",
-    "summary": "Doublement des effectifs de la police municipale",
-    "details": "Recrutement de 3 000 agents de police municipale supplémentaires. Extension du réseau de vidéoprotection à tous les quartiers. Création d'un centre de supervision urbain centralisé. Tolérance zéro sur les incivilités.",
-    "sources": [
-      {
-        "title": "Programme Sécurité - Bernard Martin 2026",
-        "url": "https://example.com/programme-martin-2026/securite",
-        "type": "program",
-        "accessDate": "2026-02-10"
-      }
-    ],
-    "lastVerified": "2026-02-10"
-  },
-  {
-    "id": "candidate-b-budget",
-    "candidateId": "candidate-b",
-    "themeId": "budget",
-    "summary": "Réduction de la dette municipale de 20% en un mandat",
-    "details": "Audit complet des dépenses de la ville. Suppression des doublons administratifs. Gel de la taxe foncière pendant 3 ans. Partenariats public-privé pour les grands projets d'infrastructure.",
-    "sources": [
-      {
-        "title": "Programme Budget - Bernard Martin 2026",
-        "url": "https://example.com/programme-martin-2026/budget",
-        "type": "program",
-        "accessDate": "2026-02-10"
-      }
-    ],
-    "lastVerified": "2026-02-10"
-  },
-  {
-    "id": "candidate-c-ecologie",
-    "candidateId": "candidate-c",
-    "themeId": "ecologie",
-    "summary": "Zéro artificialisation nette et 50% d'espaces verts en plus",
-    "details": "Moratoire sur toute nouvelle construction sur sol naturel. Transformation de parkings en jardins partagés. Obligation de toiture végétalisée pour tout nouveau bâtiment. Création d'une ceinture verte continue autour de Paris.",
-    "sources": [
-      {
-        "title": "Programme Écologie - Claire Leroy 2026",
-        "url": "https://example.com/programme-leroy-2026/ecologie",
-        "type": "program",
-        "accessDate": "2026-02-10"
-      }
-    ],
-    "lastVerified": "2026-02-10"
-  },
-  {
-    "id": "candidate-c-transport",
-    "candidateId": "candidate-c",
-    "themeId": "transport",
-    "summary": "Paris sans voiture d'ici 2032",
-    "details": "Suppression progressive de toutes les places de stationnement en surface. Gratuité des transports en commun pour les moins de 25 ans et les plus de 65 ans. Réseau de tramway sur les boulevards des maréchaux complet.",
-    "sources": [
-      {
-        "title": "Programme Transport - Claire Leroy 2026",
-        "url": "https://example.com/programme-leroy-2026/transport",
-        "type": "program",
-        "accessDate": "2026-02-10"
-      }
-    ],
-    "lastVerified": "2026-02-10"
-  },
-  {
-    "id": "candidate-c-logement",
-    "candidateId": "candidate-c",
-    "themeId": "logement",
-    "summary": "Réquisition des logements vacants et éco-rénovation massive",
-    "details": "Réquisition des logements vacants depuis plus de 2 ans. Programme d'éco-rénovation de 100 000 logements. Création de coopératives d'habitants pour sortir de la spéculation immobilière.",
-    "sources": [
-      {
-        "title": "Programme Logement - Claire Leroy 2026",
-        "url": "https://example.com/programme-leroy-2026/logement",
-        "type": "program",
-        "accessDate": "2026-02-10"
-      }
-    ],
-    "lastVerified": "2026-02-10"
-  },
-  {
-    "id": "candidate-d-social",
-    "candidateId": "candidate-d",
+    "id": "david-belliard-social",
+    "candidateId": "david-belliard",
     "themeId": "social",
-    "summary": "Paris solidaire : garantir un revenu minimum municipal",
-    "details": "Création d'un revenu minimum municipal complémentaire pour les plus précaires. Ouverture de 5 000 places d'hébergement d'urgence supplémentaires. Gratuité des cantines scolaires pour tous. Réseau de maisons de quartier dans les 20 arrondissements.",
+    "summary": "Positionnement de campagne axé sur la solidarité et la justice sociale.",
+    "details": "La campagne présente une ville qui accueille et protège les personnes les plus fragiles, avec un accent sur l'écologie sociale.",
     "sources": [
       {
-        "title": "Programme Social - David Petit 2026",
-        "url": "https://example.com/programme-petit-2026/social",
+        "title": "David Belliard - Site de campagne",
+        "url": "https://www.davidbelliard.paris/",
         "type": "program",
-        "accessDate": "2026-02-10"
-      }
-    ],
-    "lastVerified": "2026-02-10"
-  },
-  {
-    "id": "candidate-d-education",
-    "candidateId": "candidate-d",
-    "themeId": "education",
-    "summary": "Réduction des effectifs scolaires et accès universel aux crèches",
-    "details": "Maximum de 24 élèves par classe dans toutes les écoles publiques parisiennes. Création de 5 000 places de crèche supplémentaires. Programme de tutorat gratuit dans les quartiers prioritaires. Partenariats avec les universités pour l'orientation.",
-    "sources": [
+        "accessDate": "2026-02-15"
+      },
       {
-        "title": "Programme Éducation - David Petit 2026",
-        "url": "https://example.com/programme-petit-2026/education",
-        "type": "program",
-        "accessDate": "2026-02-10"
+        "title": "David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026",
+        "url": "https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026",
+        "type": "statement",
+        "accessDate": "2026-02-15"
       }
     ],
-    "lastVerified": "2026-02-10"
+    "lastVerified": "2026-02-15"
   },
   {
-    "id": "candidate-d-logement",
-    "candidateId": "candidate-d",
+    "id": "emmanuel-gregoire-logement",
+    "candidateId": "emmanuel-gregoire",
     "themeId": "logement",
-    "summary": "Plafonnement strict des loyers et droit au logement opposable renforcé",
-    "details": "Encadrement des loyers renforcé avec des sanctions doublées pour les propriétaires contrevenants. Construction de logements étudiants abordables. Aide à l'accession à la propriété pour les primo-accédants parisiens.",
+    "summary": "Le logement abordable est présenté comme une priorité absolue.",
+    "details": "Le manifeste indique la volonté de développer le parc social et de réguler les locations de courte durée pour préserver des logements permanents.",
     "sources": [
       {
-        "title": "Programme Logement - David Petit 2026",
-        "url": "https://example.com/programme-petit-2026/logement",
+        "title": "Le Manifeste - Paris en Grand",
+        "url": "https://parisengrand.fr/manifeste",
         "type": "program",
-        "accessDate": "2026-02-10"
+        "accessDate": "2026-02-15"
       }
     ],
-    "lastVerified": "2026-02-10"
+    "lastVerified": "2026-02-15"
+  },
+  {
+    "id": "emmanuel-gregoire-transport",
+    "candidateId": "emmanuel-gregoire",
+    "themeId": "transport",
+    "summary": "Réduction de la place de la voiture au profit des mobilités collectives et actives.",
+    "details": "Le manifeste décrit une ville où la place de la voiture diminue, avec des transports publics renforcés et un appui au vélo et à la marche.",
+    "sources": [
+      {
+        "title": "Le Manifeste - Paris en Grand",
+        "url": "https://parisengrand.fr/manifeste",
+        "type": "program",
+        "accessDate": "2026-02-15"
+      }
+    ],
+    "lastVerified": "2026-02-15"
+  },
+  {
+    "id": "emmanuel-gregoire-securite",
+    "candidateId": "emmanuel-gregoire",
+    "themeId": "securite",
+    "summary": "Renforcement des moyens de la police municipale.",
+    "details": "Le manifeste mentionne explicitement une sécurité appuyée sur une police municipale dotée de moyens renforcés.",
+    "sources": [
+      {
+        "title": "Le Manifeste - Paris en Grand",
+        "url": "https://parisengrand.fr/manifeste",
+        "type": "program",
+        "accessDate": "2026-02-15"
+      }
+    ],
+    "lastVerified": "2026-02-15"
+  },
+  {
+    "id": "emmanuel-gregoire-social",
+    "candidateId": "emmanuel-gregoire",
+    "themeId": "social",
+    "summary": "Mise en avant de services publics accessibles et du droit à la santé.",
+    "details": "Le manifeste insiste sur des services publics de proximité accessibles et sur l'accès à la santé comme droit pour tous les habitants.",
+    "sources": [
+      {
+        "title": "Le Manifeste - Paris en Grand",
+        "url": "https://parisengrand.fr/manifeste",
+        "type": "program",
+        "accessDate": "2026-02-15"
+      }
+    ],
+    "lastVerified": "2026-02-15"
   }
 ]

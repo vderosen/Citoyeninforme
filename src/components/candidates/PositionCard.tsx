@@ -2,7 +2,8 @@ import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import type { Position, Theme } from "../../data/schema";
-import { SourceReference } from "../ui/SourceReference";
+import { TrustBadge } from "../shared/TrustBadge";
+import { SourceReference } from "../shared/SourceReference";
 
 interface Props {
   position: Position;
@@ -11,7 +12,7 @@ interface Props {
 }
 
 export function PositionCard({ position, theme, onAskInChat }: Props) {
-  const { t } = useTranslation("learn");
+  const { t } = useTranslation("candidates");
   const [showDetails, setShowDetails] = useState(false);
 
   return (
@@ -23,6 +24,17 @@ export function PositionCard({ position, theme, onAskInChat }: Props) {
       )}
       <Text className="text-sm text-gray-800">{position.summary}</Text>
 
+      <View className="flex-row flex-wrap gap-1 mt-2">
+        {position.sources.map((source, index) => (
+          <TrustBadge
+            key={index}
+            variant="source"
+            source={source}
+            onPress={() => {}}
+          />
+        ))}
+      </View>
+
       <Pressable
         onPress={() => setShowDetails(!showDetails)}
         accessibilityRole="button"
@@ -31,7 +43,7 @@ export function PositionCard({ position, theme, onAskInChat }: Props) {
         style={{ minHeight: 44, justifyContent: "center" }}
       >
         <Text className="text-sm text-blue-600 font-medium">
-          {showDetails ? t("hideDetails") : t("details")}
+          {showDetails ? "▲ Masquer" : "▼ Détails"}
         </Text>
       </Pressable>
 
@@ -52,12 +64,12 @@ export function PositionCard({ position, theme, onAskInChat }: Props) {
         <Pressable
           onPress={() => onAskInChat(position)}
           accessibilityRole="button"
-          accessibilityLabel={t("askInChat")}
+          accessibilityLabel={t("askAbout")}
           className="mt-2"
           style={{ minHeight: 44, justifyContent: "center" }}
         >
           <Text className="text-sm text-purple-600 font-medium">
-            {t("askInChat")}
+            {t("askAbout")}
           </Text>
         </Pressable>
       )}

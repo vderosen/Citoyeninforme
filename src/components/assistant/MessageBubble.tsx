@@ -1,6 +1,7 @@
 import { View, Text } from "react-native";
-import { SourceReference } from "../ui/SourceReference";
-import type { ChatMessage } from "../../stores/chatbot";
+import type { ChatMessage } from "../../stores/assistant";
+import { TrustBadge } from "../shared/TrustBadge";
+import { SourceReference } from "../shared/SourceReference";
 
 interface Props {
   message: ChatMessage;
@@ -28,17 +29,19 @@ export function MessageBubble({ message, isStreaming }: Props) {
       </View>
 
       {message.sources && message.sources.length > 0 && (
-        <View className="mt-1 px-2">
+        <View className="mt-1 px-2 gap-1">
           {message.sources.map((source, index) => (
-            <SourceReference
-              key={index}
-              source={{
-                title: source.title,
-                url: source.url,
-                type: "program",
-                accessDate: "",
-              }}
-            />
+            <View key={index} className="flex-row items-center gap-1">
+              <TrustBadge
+                variant="source"
+                source={{
+                  title: source.title,
+                  url: source.url,
+                  type: "program",
+                  accessDate: "",
+                }}
+              />
+            </View>
           ))}
         </View>
       )}

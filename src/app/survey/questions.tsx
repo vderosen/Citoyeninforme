@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
 import { QuestionCard } from "../../components/survey/QuestionCard";
+import { ProgressBar } from "../../components/survey/ProgressBar";
 import { computeMatching } from "../../services/matching";
 import { detectContradictions } from "../../services/contradiction";
 import type { CandidatePositions } from "../../services/matching";
@@ -12,6 +13,7 @@ import type { CandidatePositions } from "../../services/matching";
 export default function QuestionsScreen() {
   const { t } = useTranslation(["survey", "common"]);
   const router = useRouter();
+  const election = useElectionStore((s) => s.election);
   const surveyQuestions = useElectionStore((s) => s.surveyQuestions);
   const positions = useElectionStore((s) => s.positions);
   const candidates = useElectionStore((s) => s.candidates);
@@ -76,27 +78,30 @@ export default function QuestionsScreen() {
       surveyQuestions
     );
 
-    setResults({
-      surveyAnswers: answers,
-      themeScores: matchingResult.themeScores,
-      importanceWeights,
-      contradictions: contradictions.map((c) => ({
-        themeA: c.themeA,
-        themeB: c.themeB,
-        description: c.description,
-        severity: c.severity,
-      })),
-      candidateRanking: matchingResult.candidateRanking.map((r) => ({
-        candidateId: r.candidateId,
-        alignmentScore: r.alignmentScore,
-        justification: r.themeBreakdown.map((tb) => ({
-          themeId: tb.themeId,
-          alignment: tb.alignment,
-          weight: tb.weightedContribution,
+    setResults(
+      {
+        surveyAnswers: answers,
+        themeScores: matchingResult.themeScores,
+        importanceWeights,
+        contradictions: contradictions.map((c) => ({
+          themeA: c.themeA,
+          themeB: c.themeB,
+          description: c.description,
+          severity: c.severity,
         })),
-      })),
-      completedAt: new Date().toISOString(),
-    });
+        candidateRanking: matchingResult.candidateRanking.map((r) => ({
+          candidateId: r.candidateId,
+          alignmentScore: r.alignmentScore,
+          justification: r.themeBreakdown.map((tb) => ({
+            themeId: tb.themeId,
+            alignment: tb.alignment,
+            weight: tb.weightedContribution,
+          })),
+        })),
+        completedAt: new Date().toISOString(),
+      },
+      election?.dataVersion ?? "unknown"
+    );
 
     router.replace("/survey/results");
   };
@@ -113,6 +118,7 @@ export default function QuestionsScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
+      <ProgressBar current={currentIndex} total={surveyQuestions.length} />
       <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 32 }}>
         <QuestionCard
           question={currentQuestion}

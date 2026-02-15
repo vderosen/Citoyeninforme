@@ -44,6 +44,7 @@ interface SurveyState {
   answers: Record<string, string>;
   importanceWeights: Record<string, number>;
   profile: UserProfile | null;
+  datasetVersion: string | null;
 
   startCivicContext: () => void;
   startQuestionnaire: () => void;
@@ -52,19 +53,21 @@ interface SurveyState {
   nextQuestion: () => void;
   previousQuestion: () => void;
   setComputing: () => void;
-  setResults: (profile: UserProfile) => void;
+  setResults: (profile: UserProfile, datasetVersion: string) => void;
   complete: () => void;
   reset: () => void;
+  isResultsStale: (currentDatasetVersion: string) => boolean;
 }
 
 export const useSurveyStore = create<SurveyState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       status: "not_started",
       currentQuestionIndex: 0,
       answers: {},
       importanceWeights: {},
       profile: null,
+      datasetVersion: null,
 
       startCivicContext: () => set({ status: "civic_context" }),
       startQuestionnaire: () =>
@@ -89,8 +92,8 @@ export const useSurveyStore = create<SurveyState>()(
           currentQuestionIndex: Math.max(0, state.currentQuestionIndex - 1),
         })),
       setComputing: () => set({ status: "computing" }),
-      setResults: (profile) =>
-        set({ status: "results_ready", profile }),
+      setResults: (profile, datasetVersion) =>
+        set({ status: "results_ready", profile, datasetVersion }),
       complete: () => set({ status: "completed" }),
       reset: () =>
         set({
@@ -99,7 +102,12 @@ export const useSurveyStore = create<SurveyState>()(
           answers: {},
           importanceWeights: {},
           profile: null,
+          datasetVersion: null,
         }),
+      isResultsStale: (currentDatasetVersion) => {
+        const state = get();
+        return state.datasetVersion !== null && state.datasetVersion !== currentDatasetVersion;
+      },
     }),
     {
       name: "survey-state",
