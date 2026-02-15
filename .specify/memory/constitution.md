@@ -1,26 +1,17 @@
 <!--
 === Sync Impact Report ===
-Version change: 0.0.0 (template) → 1.0.0
-Modified principles: N/A (initial creation)
-Added sections:
-  - Principle I: Neutrality & Non-Prescription
-  - Principle II: Source-Grounded Truth
-  - Principle III: City-Agnostic Architecture
-  - Principle IV: Critical Thinking Over Persuasion
-  - Principle V: Structured Data as Single Source of Truth
+Version change: 1.0.0 → 1.1.0
+Modified principles:
   - Principle VI: Simplicity & MVP Discipline
-  - Principle VII: Privacy & Trust
-  - Section: Content & Data Standards
-  - Section: Development Workflow
-  - Governance
-Removed sections: N/A (initial creation)
+    Changed: UI structure from "two pages (Home, Learn) and one persistent chatbot layer"
+    to "three tabs (Accueil, Assistant, Candidats)" reflecting the redesigned navigation
+    model from feature 002-frontend-redesign.
+Added sections: N/A
+Removed sections: N/A
 Templates requiring updates:
   - .specify/templates/plan-template.md ✅ no changes needed
-    (Constitution Check section is generic; will be filled per feature)
   - .specify/templates/spec-template.md ✅ no changes needed
-    (Template structure accommodates all principle-driven requirements)
   - .specify/templates/tasks-template.md ✅ no changes needed
-    (Task phases and structure compatible with constitution principles)
 Follow-up TODOs: none
 -->
 
@@ -132,9 +123,12 @@ feature addition MUST justify its presence against the core
 user goals: learn about an election and think critically
 about programs.
 
-- The UI consists of two pages (Home, Learn) and one
-  persistent chatbot layer. New pages require explicit
-  justification against this constraint.
+- The UI consists of three tabs (Accueil, Assistant,
+  Candidats) mapping to the three core user intents:
+  discover, ask, and compare. Additional screens (e.g.,
+  candidate profiles, comparison, survey flow) are
+  presented as stack screens above the tabs. New tabs
+  require explicit justification against this constraint.
 - Features MUST be delivered incrementally: each increment
   MUST be independently testable and deployable.
 - YAGNI applies: do not build for hypothetical future
@@ -216,4 +210,4 @@ implementation decisions MUST comply with these principles.
   feature MUST be redesigned, or a constitution amendment
   MUST be proposed and approved first.
 
-**Version**: 1.0.0 | **Ratified**: 2026-02-13 | **Last Amended**: 2026-02-13
+**Version**: 1.1.0 | **Ratified**: 2026-02-13 | **Last Amended**: 2026-02-15
