@@ -15,7 +15,7 @@ export function HeroBlock({ election }: HeroBlockProps) {
         className="font-display-bold text-[28px] leading-tight text-text-inverse"
         accessibilityRole="header"
       >
-        {election.city} {election.year}
+        {t("heroHeading", { type: election.type, city: election.city, year: election.year })}
       </Text>
       <Text className="font-display-semibold text-lg text-accent-coral mt-1">
         {t("subtitle")}
