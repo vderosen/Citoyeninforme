@@ -10,8 +10,7 @@ import { sendChatMessage } from "../../services/chatbot";
 import { ModeSelector } from "../../components/assistant/ModeSelector";
 import { CandidateSelector } from "../../components/assistant/CandidateSelector";
 import { ChatArea } from "../../components/assistant/ChatArea";
-import { ContextPrompts } from "../../components/assistant/ContextPrompts";
-import { FeedbackAction } from "../../components/shared/FeedbackAction";
+import { ChatToolbar } from "../../components/assistant/ChatToolbar";
 import { useNetworkStatus } from "../../hooks/useNetworkStatus";
 import type { ChatMessage } from "../../stores/assistant";
 
@@ -42,6 +41,7 @@ export default function AssistantScreen() {
   const setStreaming = useAssistantStore((s) => s.setStreaming);
   const consumePreloadedContext = useAssistantStore((s) => s.consumePreloadedContext);
   const selectCandidate = useAssistantStore((s) => s.selectCandidate);
+  const resetConversation = useAssistantStore((s) => s.resetConversation);
 
   const userProfile = useSurveyStore((s) => s.profile);
 
@@ -126,21 +126,20 @@ export default function AssistantScreen() {
         />
       )}
 
-      {messages.length === 0 && (
-        <ContextPrompts
-          context={preloadedContext}
-          mode={mode}
-          onPromptSelect={handlePromptSelect}
-        />
-      )}
+      <ChatToolbar
+        messages={messages}
+        onNewConversation={resetConversation}
+      />
 
       <ChatArea
         messages={messages}
         isStreaming={isStreaming}
         onSend={handleSend}
+        mode={mode}
+        context={preloadedContext}
+        onPromptSelect={handlePromptSelect}
+        selectedCandidateId={selectedCandidateId}
       />
-
-      <FeedbackAction screen="assistant" />
     </SafeAreaView>
   );
 }
