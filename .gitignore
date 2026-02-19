@@ -12,6 +12,7 @@ web-build/
 ios/
 android/
 .DS_Store
+.codex/
 Thumbs.db
 *.tmp
 *.swp

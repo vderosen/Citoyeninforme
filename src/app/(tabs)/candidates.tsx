@@ -71,7 +71,7 @@ export default function CandidatesScreen() {
 
         {/* Compare confirmation bar */}
         {compareMode && (
-          <View className="bg-civic-navy px-4 py-3 flex-row items-center gap-3">
+          <View className="absolute bottom-0 left-0 right-0 bg-civic-navy px-4 py-3 flex-row items-center gap-3">
             <Pressable
               onPress={handleCancelCompare}
               className="p-2"
@@ -112,7 +112,7 @@ export default function CandidatesScreen() {
         {!compareMode && candidates.length >= MIN_COMPARE && (
           <Pressable
             onPress={() => setCompareMode(true)}
-            className="absolute bottom-4 right-4 bg-accent-coral rounded-full px-5 py-3 flex-row items-center gap-2 shadow-lg"
+            className="absolute bottom-4 self-center bg-accent-coral rounded-full px-5 py-3 flex-row items-center gap-2 shadow-lg"
             style={{ minHeight: 48, elevation: 4 }}
             accessibilityRole="button"
             accessibilityLabel={t("compare")}
