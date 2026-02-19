@@ -1,0 +1,313 @@
+{
+  "extractor": "beautifulsoup",
+  "paragraph_count": 50,
+  "paragraphs": [
+    {
+      "para_id": "p1",
+      "tag": "h1",
+      "text": "Rétablir la probité",
+      "char_count": 19
+    },
+    {
+      "para_id": "p2",
+      "tag": "p",
+      "text": "Paris mérite une gouvernance exemplaire. Trop de scandales, trop d’opacité, trop d’avantages indus ont abîmé la confiance entre les Parisiens et leurs élus. Cette défiance est légitime. Il est temps de remettre de la transparence et de la probité au cœur de l’Hôtel de Ville.",
+      "char_count": 275
+    },
+    {
+      "para_id": "p3",
+      "tag": "p",
+      "text": "Aujourd’hui, les frais de représentation ne sont ni limités ni harmonisés: chaque élu applique ses propres pratiques, sans barème commun ni publication centralisée, ce qui rend ces dépenses opaques et inégalitaires. Pour les contribuables parisiens, elles représentent un coût de 1,2 million d’euros sur la mandature.",
+      "char_count": 317
+    },
+    {
+      "para_id": "p4",
+      "tag": "p",
+      "text": "Je propose de réduire drastiquement les frais de représentation, avec un contrôle strict et un plafonnement, en les limitant aux seuls frais de bouche et avec des montants uniformes. Aucun repas ne pourra dépasser 30 € par personne. Toutes les dépenses seront publiées chaque année dans un document unique et accessible aux Parisiens afin d’assurer une transparence totale et d’encourager un usage responsable des deniers publics.",
+      "char_count": 430
+    },
+    {
+      "para_id": "p5",
+      "tag": "p",
+      "text": "Aujourd’hui, la Ville de Paris finance des voitures avec chauffeurspour les adjoints, les maires d’arrondissement et les hauts fonctionnaires, ainsi que des jetons de présence qui constituent des indemnités complémentaires pour les élus siégeant dans les sociétés d’économie mixte de la Ville.",
+      "char_count": 293
+    },
+    {
+      "para_id": "p6",
+      "tag": "p",
+      "text": "Je propose de supprimer la flotte de voitures avec chauffeurs et les jetons de présence: cela permettra d’économiser 22,4 millions d’euros au cours de la prochaine mandature et d’adopter des pratiques plus sobres, modernes et exemplaires. Les élus qui ne siègeront pas dans les sociétés d’économie mixte dans lesquelles ils sont censés siéger recevront des pénalités financières.",
+      "char_count": 379
+    },
+    {
+      "para_id": "p7",
+      "tag": "p",
+      "text": "Depuis 1992, chaque élu au Conseil de Paris peut choisir de verser une partie de sa rémunération, entre 4 % et 8 % sur un compte d’épargne retraite personnelle CAREL. À chaque virement, la collectivité Paris double cette somme par un abondement supplémentaire.Le contribuable parisien finance ainsi la retraite par capitalisation des élus municipaux.",
+      "char_count": 350
+    },
+    {
+      "para_id": "p8",
+      "tag": "p",
+      "text": "Je propose de supprimer ce cofinancement du régime d’épargne retraite. Son principe étant fixé par la loi, il faudra une disposition législative pour l’abroger. D’ici là, je demanderai aux élus de ne plus abonder cette épargne retraite afin d’éviter toute dépense supplémentaire de la Ville de Paris. Nous pourrons ainsi mettre fin à un dispositif injustifiable.",
+      "char_count": 362
+    },
+    {
+      "para_id": "p9",
+      "tag": "p",
+      "text": "Aujourd’hui, même la saisine du déontologue de la Ville de Paris n’est pas automatiquelorsqu’un élu est mis en cause judiciairement, que ce soit en cas d’ouverture d’une information judiciaire ou de mise en examen. Les avis qu’il prononce avec la commission de déontologie ne sont pas non plus rendus publics.",
+      "char_count": 309
+    },
+    {
+      "para_id": "p10",
+      "tag": "p",
+      "text": "Je propose que tout membre de l’exécutif qui fait l’objet d’une information judiciaire ou d’une mise en examen soit suspendu de ses fonctions au sein de cet exécutif, à l’exception des procédures pour diffamation où la mise en examen est automatique. Je propose également que la saisine du déontologue soit obligatoire à chaque mise en cause judiciaire d’un éluet que l’avis soit publié afin de garantir une procédure totalement transparente.",
+      "char_count": 442
+    },
+    {
+      "para_id": "p11",
+      "tag": "p",
+      "text": "Aujourd’hui, les déclarations d’intérêts sont obligatoires mais peuvent ne pas être rendues publiques sur demande de l’élu concerné, tandis que les déclarations de patrimoine sont facultatives pour les élus qui ne sont pas membres de l’exécutif parisien.",
+      "char_count": 254
+    },
+    {
+      "para_id": "p12",
+      "tag": "p",
+      "text": "Je rendrai obligatoire la publication des déclarations d’intérêts pour tous les élus au Conseil de Paris, de même que la production et la publication d’une déclaration de patrimoine pour ces mêmes élus, qu’ils soient membres de l’exécutif parisien ou non. Le cas échéant, des informations confidentielles pourront être floutées, comme c’est déjà le cas lors de la publication des déclarations d’intérêts par la Haute autorité pour la transparence de la vie publique.J’ouvrirai également la possibilité d’une auto-saisine de la commission de déontologie afin de prémunir la collectivité parisienne contre tout conflit d’intérêt et tout risque d’ingérence de puissances étrangères dans ses décisions.",
+      "char_count": 698
+    },
+    {
+      "para_id": "p13",
+      "tag": "p",
+      "text": "Aujourd’hui, les cabinets de la Maire et de ses 32 adjoints – contre seulement 9 adjoints à Londres et New-York ou 12 à Rome – sont très fournis, avec au total 145 collaborateurs. Quant aux maires d’arrondissement, ils en emploient 208. Sur toute une mandature, cela représente un coût de 110 millions d’euros pour les contribuables parisiens.",
+      "char_count": 343
+    },
+    {
+      "para_id": "p14",
+      "tag": "p",
+      "text": "Je diviserai par deux le nombre de collaborateurs afin d’économiser aux contribuables parisiens 55 millions d’euros sur la prochaine mandatureet m’appuierai davantage sur l’expertise des directions de la Ville de Paris.",
+      "char_count": 219
+    },
+    {
+      "para_id": "p15",
+      "tag": "p",
+      "text": "Près de 300 millions d’euros de subventions sont aujourd’hui attribués sans planification pluriannuelle ni évaluation systématique. Pour le contribuable parisien, cela représente 1,8 milliard d’euros sur la durée d’une mandature municipale. Or les contrôles restent limités et même les plus grosses subventions ne sont pas auditées chaque année.",
+      "char_count": 345
+    },
+    {
+      "para_id": "p16",
+      "tag": "p",
+      "text": "Je mettrai en place un plan pluriannuel définissant les priorités de la Ville de Paris et réduisant ces dépenses pour une économie de 300 millions d’euros sur la durée de la prochaine mandature. Les 100 plus grosses subventions seront auditées chaque année afin de vérifier leur pertinence, garantir leur transparence et mesurer l’efficacité comme le bon usage des deniers publics. Des contrats pluriannuels d’objectifs et de performance seront systématiquement conclus avec les associations récipiendaires de ces 100 plus grosses subventions.",
+      "char_count": 543
+    },
+    {
+      "para_id": "p17",
+      "tag": "p",
+      "text": "Chacun le sait, les procédures d’attribution des logements sociaux, dont environ 4 000 par an par la Ville de Paris, continuent de souffrir d’un manque de transparence, alimentant la suspicion de passe-droits.",
+      "char_count": 209
+    },
+    {
+      "para_id": "p18",
+      "tag": "p",
+      "text": "Je commanderai un audit annuel indépendant afin d’examiner les modalités d’attribution de logements sociauxet garantir leur gestion impartiale et transparente, à l’abri de toute pression exercée par des élus. Pour chaque nouvelle demande acceptée, il sera exigé une déclaration sur l’honneur signalant tout lien avec une personne politiquement exposée (élus municipaux, députés, ministres, etc.). Le cas échéant, l’inspection générale de la Ville procèdera à une investigation renforcée sur les modalités d'attribution pour garantir qu'aucun passe-droit n'a été octroyé.",
+      "char_count": 570
+    },
+    {
+      "para_id": "p19",
+      "tag": "p",
+      "text": "Aujourd’hui, la quasi-totalité des politiques publiques parisiennes et des dépenses de la collectivité ne sont pas évaluéesde manière continue. Cela obère les marges d’amélioration de l’efficacité comme de l’efficience de ces politiques et empêche la tenue d’un débat public serein et éclairé sur ces questions.",
+      "char_count": 311
+    },
+    {
+      "para_id": "p20",
+      "tag": "p",
+      "text": "J’installerai dès les premières semaines après mon élection un comité indépendant de contrôle et d’évaluation des politiques publiques de la Ville de Paris associant chercheurs et usagers. Il s’appuiera sur les effectifs de l’inspection générale de la Ville et du secrétariat général afin d’éviter tout surcoût budgétaire. Il permettra de garantir que chaque dépense financée par le contribuable démontre un impact réel et mesurable pour les Parisiens et renforcera la culture de l’efficacité et de la bonne gestion des deniers publics à la Ville de Paris.",
+      "char_count": 556
+    },
+    {
+      "para_id": "p21",
+      "tag": "p",
+      "text": "Aucun audit indépendant global n’a été lancé à l’initiative de la collectivité sous les deux mandats d’Anne Hidalgo. Il a fallu que la Chambre régionale des comptes s’auto-saisisse pour publier un rapport alarmant sur la dérive financière des comptes de la Ville de Paris.",
+      "char_count": 272
+    },
+    {
+      "para_id": "p22",
+      "tag": "p",
+      "text": "Je demanderai dès mon élection un audit indépendant des finances de la Ville de Paris par la Chambre régionale des comptes. Le résultat de cet audit sera rendu public afin d’apporter aux Parisiens une photographie précise et sincère de la situation financière de leur capitale, de sa dette et des marges d’économies possibles. J’en tirerai toutes les conséquences dans un budget rectificatif pour l’année 2026 et dans le budget primitif pour l’année 2027.",
+      "char_count": 455
+    },
+    {
+      "para_id": "p23",
+      "tag": "p",
+      "text": "La Ville de Paris n’appartient pas à ses élus mais à ses habitants.",
+      "char_count": 67
+    },
+    {
+      "para_id": "p24",
+      "tag": "p",
+      "text": "Or depuis trop d’années, de scandale en scandale, la confiance entre les Parisiens et leurs élus s’est abîmée. Médusés, les contribuables parisiens observent avec écœurement la gestion erratique de l’argent issu de leurs impôts locaux, avec des pratiques opaques et des avantages indus.",
+      "char_count": 286
+    },
+    {
+      "para_id": "p25",
+      "tag": "p",
+      "text": "Massivement, les Parisiens ont pourtant soif de s’engager et de participer activement à la vie de la Cité. Ils attendent légitimement de leur Municipalité exemplarité, moralité et probité. Mais ils sont en colère quand ils découvrent que leurs impôts financent des frais de mandat abusifs, des avantages en nature d’un autre temps ou des régimes de retraite injustifiés.",
+      "char_count": 370
+    },
+    {
+      "para_id": "p26",
+      "tag": "p",
+      "text": "Je prends cette indignation légitime des Parisiens comme un appel à transformer en profondeur la manière de gouverner Paris.",
+      "char_count": 124
+    },
+    {
+      "para_id": "p27",
+      "tag": "p",
+      "text": "Je veux répondre à cette attente. Sans demi-mesure. Et sans attendre.",
+      "char_count": 69
+    },
+    {
+      "para_id": "p28",
+      "tag": "p",
+      "text": "Les dix mesures que je présente aujourd’hui seront mises en œuvre dès mon élection comme Maire de Paris. Elles formeront le socle de la majorité nouvelle que j’animerai au service des Parisiens.",
+      "char_count": 194
+    },
+    {
+      "para_id": "p29",
+      "tag": "p",
+      "text": "Ces mesures s’inscrivent dans la continuité du travail que je mène inlassablement et depuis des années au Conseil de Paris pour défendre, au nom des Parisiens, une certaine idée de la probité, de la morale et de l’efficacité dans la gestion des deniers que nous confient les contribuables.",
+      "char_count": 289
+    },
+    {
+      "para_id": "p30",
+      "tag": "p",
+      "text": "Voilà depuis 2013 que je demande un audit complet des finances de la Ville, la suppression des voitures avec chauffeurs pour les adjoints de la Maire et les hauts fonctionnaires de la Mairie, ainsi que la fin des jetons de présence pour les élus qui siègent dans les sociétés d’économie mixte de la Ville.",
+      "char_count": 305
+    },
+    {
+      "para_id": "p31",
+      "tag": "p",
+      "text": "Fidèle à ces combats pour une nouvelle éthique en politique, je propose aujourd’hui de conduire une opération « mains propres » dès le lendemain de mon élection, pour refonder durablement la gouvernance de la Mairie de Paris.",
+      "char_count": 225
+    },
+    {
+      "para_id": "p32",
+      "tag": "p",
+      "text": "Ce plan repose sur deux grands objectifs:",
+      "char_count": 41
+    },
+    {
+      "para_id": "p33",
+      "tag": "li",
+      "text": "Garantir la probité et l’éthique des élus municipauxdans l’exercice de leurs fonctions pour prévenir toute forme de privilège, d’abus ou de favoritisme et rétablir la confiance des Parisiens envers leurs élus ;",
+      "char_count": 210
+    },
+    {
+      "para_id": "p34",
+      "tag": "li",
+      "text": "Instaurer une gouvernance citoyenne, transparente et contrôléeafin que les Parisiens sachent exactement comment l’argent de leurs impôts locaux est utilisé, pour mettre fin à l’opacité administrative et garantir une transparence complète sur la gestion de la Ville de Paris.",
+      "char_count": 274
+    },
+    {
+      "para_id": "p36",
+      "tag": "p",
+      "text": "Ces réformes structurelles permettront de réaliser près de 400 millions d’euros d’économies sur la mandature et renforceront la confiance des Parisiens dans leurs élus.",
+      "char_count": 168
+    },
+    {
+      "para_id": "p37",
+      "tag": "p",
+      "text": "Certains diront que je vais trop loin et que le seul fait de parler de ces sujets jetterait le soupçon sur l’ensemble des élus parisiens et alimenterait les populistes. Au contraire, je crois profondément que les populistes d’extrême droite comme d’extrême gauche se nourrissent de toutes nos erreurs, de tous nos manquements et de toutes nos incohérences.",
+      "char_count": 356
+    },
+    {
+      "para_id": "p38",
+      "tag": "p",
+      "text": "Je le dis : Paris est notre capitale et elle doit être gérée de manière exemplaire. Il en va de l’honneur de Paris.",
+      "char_count": 115
+    },
+    {
+      "para_id": "p39",
+      "tag": "p",
+      "text": "Nous devons mettre un terme au sentiment d’impunité et les élus doivent rendre des comptes aux Parisiens. C’est un principe démocratique.",
+      "char_count": 137
+    },
+    {
+      "para_id": "p40",
+      "tag": "p",
+      "text": "Alors reprenons le contrôle sur la Mairie de Paris.",
+      "char_count": 51
+    },
+    {
+      "para_id": "p41",
+      "tag": "p",
+      "text": "Remettons de l’éthique et de la morale dans la gestion de la Municipalité. Et remettons la Mairie de Paris au service des Parisiens.",
+      "char_count": 132
+    },
+    {
+      "para_id": "p42",
+      "tag": "p",
+      "text": "Paris, c’est chez nous !",
+      "char_count": 24
+    },
+    {
+      "para_id": "p43",
+      "tag": "h2",
+      "text": "Découvrez mes autres engagements",
+      "char_count": 32
+    },
+    {
+      "para_id": "p44",
+      "tag": "h3",
+      "text": "Pour une meilleure gestion de Paris",
+      "char_count": 35
+    },
+    {
+      "para_id": "p45",
+      "tag": "h3",
+      "text": "Un Paris sûr",
+      "char_count": 12
+    },
+    {
+      "para_id": "p46",
+      "tag": "h3",
+      "text": "Un Paris propre",
+      "char_count": 15
+    },
+    {
+      "para_id": "p47",
+      "tag": "h3",
+      "text": "Loger les Parisiens",
+      "char_count": 19
+    },
+    {
+      "para_id": "p48",
+      "tag": "h3",
+      "text": "Désendetter Paris",
+      "char_count": 17
+    },
+    {
+      "para_id": "p49",
+      "tag": "h3",
+      "text": "Circuler à Paris",
+      "char_count": 16
+    },
+    {
+      "para_id": "p50",
+      "tag": "h3",
+      "text": "Apaiser Paris",
+      "char_count": 13
+    },
+    {
+      "para_id": "p51",
+      "tag": "h3",
+      "text": "Redevenir une ville pour les familles",
+      "char_count": 37
+    }
+  ],
+  "full_text": "Rétablir la probité\nParis mérite une gouvernance exemplaire. Trop de scandales, trop d’opacité, trop d’avantages indus ont abîmé la confiance entre les Parisiens et leurs élus. Cette défiance est légitime. Il est temps de remettre de la transparence et de la probité au cœur de l’Hôtel de Ville.\nAujourd’hui, les frais de représentation ne sont ni limités ni harmonisés: chaque élu applique ses propres pratiques, sans barème commun ni publication centralisée, ce qui rend ces dépenses opaques et inégalitaires. Pour les contribuables parisiens, elles représentent un coût de 1,2 million d’euros sur la mandature.\nJe propose de réduire drastiquement les frais de représentation, avec un contrôle strict et un plafonnement, en les limitant aux seuls frais de bouche et avec des montants uniformes. Aucun repas ne pourra dépasser 30 € par personne. Toutes les dépenses seront publiées chaque année dans un document unique et accessible aux Parisiens afin d’assurer une transparence totale et d’encourager un usage responsable des deniers publics.\nAujourd’hui, la Ville de Paris finance des voitures avec chauffeurspour les adjoints, les maires d’arrondissement et les hauts fonctionnaires, ainsi que des jetons de présence qui constituent des indemnités complémentaires pour les élus siégeant dans les sociétés d’économie mixte de la Ville.\nJe propose de supprimer la flotte de voitures avec chauffeurs et les jetons de présence: cela permettra d’économiser 22,4 millions d’euros au cours de la prochaine mandature et d’adopter des pratiques plus sobres, modernes et exemplaires. Les élus qui ne siègeront pas dans les sociétés d’économie mixte dans lesquelles ils sont censés siéger recevront des pénalités financières.\nDepuis 1992, chaque élu au Conseil de Paris peut choisir de verser une partie de sa rémunération, entre 4 % et 8 % sur un compte d’épargne retraite personnelle CAREL. À chaque virement, la collectivité Paris double cette somme par un abondement supplémentaire.Le contribuable parisien finance ainsi la retraite par capitalisation des élus municipaux.\nJe propose de supprimer ce cofinancement du régime d’épargne retraite. Son principe étant fixé par la loi, il faudra une disposition législative pour l’abroger. D’ici là, je demanderai aux élus de ne plus abonder cette épargne retraite afin d’éviter toute dépense supplémentaire de la Ville de Paris. Nous pourrons ainsi mettre fin à un dispositif injustifiable.\nAujourd’hui, même la saisine du déontologue de la Ville de Paris n’est pas automatiquelorsqu’un élu est mis en cause judiciairement, que ce soit en cas d’ouverture d’une information judiciaire ou de mise en examen. Les avis qu’il prononce avec la commission de déontologie ne sont pas non plus rendus publics.\nJe propose que tout membre de l’exécutif qui fait l’objet d’une information judiciaire ou d’une mise en examen soit suspendu de ses fonctions au sein de cet exécutif, à l’exception des procédures pour diffamation où la mise en examen est automatique. Je propose également que la saisine du déontologue soit obligatoire à chaque mise en cause judiciaire d’un éluet que l’avis soit publié afin de garantir une procédure totalement transparente.\nAujourd’hui, les déclarations d’intérêts sont obligatoires mais peuvent ne pas être rendues publiques sur demande de l’élu concerné, tandis que les déclarations de patrimoine sont facultatives pour les élus qui ne sont pas membres de l’exécutif parisien.\nJe rendrai obligatoire la publication des déclarations d’intérêts pour tous les élus au Conseil de Paris, de même que la production et la publication d’une déclaration de patrimoine pour ces mêmes élus, qu’ils soient membres de l’exécutif parisien ou non. Le cas échéant, des informations confidentielles pourront être floutées, comme c’est déjà le cas lors de la publication des déclarations d’intérêts par la Haute autorité pour la transparence de la vie publique.J’ouvrirai également la possibilité d’une auto-saisine de la commission de déontologie afin de prémunir la collectivité parisienne contre tout conflit d’intérêt et tout risque d’ingérence de puissances étrangères dans ses décisions.\nAujourd’hui, les cabinets de la Maire et de ses 32 adjoints – contre seulement 9 adjoints à Londres et New-York ou 12 à Rome – sont très fournis, avec au total 145 collaborateurs. Quant aux maires d’arrondissement, ils en emploient 208. Sur toute une mandature, cela représente un coût de 110 millions d’euros pour les contribuables parisiens.\nJe diviserai par deux le nombre de collaborateurs afin d’économiser aux contribuables parisiens 55 millions d’euros sur la prochaine mandatureet m’appuierai davantage sur l’expertise des directions de la Ville de Paris.\nPrès de 300 millions d’euros de subventions sont aujourd’hui attribués sans planification pluriannuelle ni évaluation systématique. Pour le contribuable parisien, cela représente 1,8 milliard d’euros sur la durée d’une mandature municipale. Or les contrôles restent limités et même les plus grosses subventions ne sont pas auditées chaque année.\nJe mettrai en place un plan pluriannuel définissant les priorités de la Ville de Paris et réduisant ces dépenses pour une économie de 300 millions d’euros sur la durée de la prochaine mandature. Les 100 plus grosses subventions seront auditées chaque année afin de vérifier leur pertinence, garantir leur transparence et mesurer l’efficacité comme le bon usage des deniers publics. Des contrats pluriannuels d’objectifs et de performance seront systématiquement conclus avec les associations récipiendaires de ces 100 plus grosses subventions.\nChacun le sait, les procédures d’attribution des logements sociaux, dont environ 4 000 par an par la Ville de Paris, continuent de souffrir d’un manque de transparence, alimentant la suspicion de passe-droits.\nJe commanderai un audit annuel indépendant afin d’examiner les modalités d’attribution de logements sociauxet garantir leur gestion impartiale et transparente, à l’abri de toute pression exercée par des élus. Pour chaque nouvelle demande acceptée, il sera exigé une déclaration sur l’honneur signalant tout lien avec une personne politiquement exposée (élus municipaux, députés, ministres, etc.). Le cas échéant, l’inspection générale de la Ville procèdera à une investigation renforcée sur les modalités d'attribution pour garantir qu'aucun passe-droit n'a été octroyé.\nAujourd’hui, la quasi-totalité des politiques publiques parisiennes et des dépenses de la collectivité ne sont pas évaluéesde manière continue. Cela obère les marges d’amélioration de l’efficacité comme de l’efficience de ces politiques et empêche la tenue d’un débat public serein et éclairé sur ces questions.\nJ’installerai dès les premières semaines après mon élection un comité indépendant de contrôle et d’évaluation des politiques publiques de la Ville de Paris associant chercheurs et usagers. Il s’appuiera sur les effectifs de l’inspection générale de la Ville et du secrétariat général afin d’éviter tout surcoût budgétaire. Il permettra de garantir que chaque dépense financée par le contribuable démontre un impact réel et mesurable pour les Parisiens et renforcera la culture de l’efficacité et de la bonne gestion des deniers publics à la Ville de Paris.\nAucun audit indépendant global n’a été lancé à l’initiative de la collectivité sous les deux mandats d’Anne Hidalgo. Il a fallu que la Chambre régionale des comptes s’auto-saisisse pour publier un rapport alarmant sur la dérive financière des comptes de la Ville de Paris.\nJe demanderai dès mon élection un audit indépendant des finances de la Ville de Paris par la Chambre régionale des comptes. Le résultat de cet audit sera rendu public afin d’apporter aux Parisiens une photographie précise et sincère de la situation financière de leur capitale, de sa dette et des marges d’économies possibles. J’en tirerai toutes les conséquences dans un budget rectificatif pour l’année 2026 et dans le budget primitif pour l’année 2027.\nLa Ville de Paris n’appartient pas à ses élus mais à ses habitants.\nOr depuis trop d’années, de scandale en scandale, la confiance entre les Parisiens et leurs élus s’est abîmée. Médusés, les contribuables parisiens observent avec écœurement la gestion erratique de l’argent issu de leurs impôts locaux, avec des pratiques opaques et des avantages indus.\nMassivement, les Parisiens ont pourtant soif de s’engager et de participer activement à la vie de la Cité. Ils attendent légitimement de leur Municipalité exemplarité, moralité et probité. Mais ils sont en colère quand ils découvrent que leurs impôts financent des frais de mandat abusifs, des avantages en nature d’un autre temps ou des régimes de retraite injustifiés.\nJe prends cette indignation légitime des Parisiens comme un appel à transformer en profondeur la manière de gouverner Paris.\nJe veux répondre à cette attente. Sans demi-mesure. Et sans attendre.\nLes dix mesures que je présente aujourd’hui seront mises en œuvre dès mon élection comme Maire de Paris. Elles formeront le socle de la majorité nouvelle que j’animerai au service des Parisiens.\nCes mesures s’inscrivent dans la continuité du travail que je mène inlassablement et depuis des années au Conseil de Paris pour défendre, au nom des Parisiens, une certaine idée de la probité, de la morale et de l’efficacité dans la gestion des deniers que nous confient les contribuables.\nVoilà depuis 2013 que je demande un audit complet des finances de la Ville, la suppression des voitures avec chauffeurs pour les adjoints de la Maire et les hauts fonctionnaires de la Mairie, ainsi que la fin des jetons de présence pour les élus qui siègent dans les sociétés d’économie mixte de la Ville.\nFidèle à ces combats pour une nouvelle éthique en politique, je propose aujourd’hui de conduire une opération « mains propres » dès le lendemain de mon élection, pour refonder durablement la gouvernance de la Mairie de Paris.\nCe plan repose sur deux grands objectifs:\nGarantir la probité et l’éthique des élus municipauxdans l’exercice de leurs fonctions pour prévenir toute forme de privilège, d’abus ou de favoritisme et rétablir la confiance des Parisiens envers leurs élus ;\nInstaurer une gouvernance citoyenne, transparente et contrôléeafin que les Parisiens sachent exactement comment l’argent de leurs impôts locaux est utilisé, pour mettre fin à l’opacité administrative et garantir une transparence complète sur la gestion de la Ville de Paris.\nCes réformes structurelles permettront de réaliser près de 400 millions d’euros d’économies sur la mandature et renforceront la confiance des Parisiens dans leurs élus.\nCertains diront que je vais trop loin et que le seul fait de parler de ces sujets jetterait le soupçon sur l’ensemble des élus parisiens et alimenterait les populistes. Au contraire, je crois profondément que les populistes d’extrême droite comme d’extrême gauche se nourrissent de toutes nos erreurs, de tous nos manquements et de toutes nos incohérences.\nJe le dis : Paris est notre capitale et elle doit être gérée de manière exemplaire. Il en va de l’honneur de Paris.\nNous devons mettre un terme au sentiment d’impunité et les élus doivent rendre des comptes aux Parisiens. C’est un principe démocratique.\nAlors reprenons le contrôle sur la Mairie de Paris.\nRemettons de l’éthique et de la morale dans la gestion de la Municipalité. Et remettons la Mairie de Paris au service des Parisiens.\nParis, c’est chez nous !\nDécouvrez mes autres engagements\nPour une meilleure gestion de Paris\nUn Paris sûr\nUn Paris propre\nLoger les Parisiens\nDésendetter Paris\nCirculer à Paris\nApaiser Paris\nRedevenir une ville pour les familles",
+  "source_id": "bournazel_retablir-la-probite-ethique_94adf924",
+  "source_type": "html",
+  "_clean_stats": {
+    "paras_removed": 1,
+    "chars_removed": 1
+  }
+}

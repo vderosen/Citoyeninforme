@@ -1,0 +1,433 @@
+{
+  "extractor": "beautifulsoup",
+  "paragraph_count": 70,
+  "paragraphs": [
+    {
+      "para_id": "p1",
+      "tag": "h1",
+      "text": "Redevenir une ville pour les familles",
+      "char_count": 37
+    },
+    {
+      "para_id": "p2",
+      "tag": "p",
+      "text": "Paris est à un tournant décisif. Derrière son attractivité internationale et son image de carte postale, une réalité plus brutale s’impose : la capitale se vide de ses habitants, en particulier de ceux qui en font le cœur vivant, les familles et les classes moyennes. Cette dynamique n’est ni naturelle ni inéluctable. Elle est le résultat de choix politiques qui ont rendu la vie quotidienne toujours plus difficile pour celles et ceux qui veulent simplement vivre, travailler et élever leurs enfants à Paris. Refuser ce déclassement démographique et social, c’est refuser un Paris qui se fige. C’est faire le choix d’une capitale vivante, populaire et tournée vers l’avenir.",
+      "char_count": 676
+    },
+    {
+      "para_id": "p3",
+      "tag": "p",
+      "text": "A Paris, une école sur deux a été construite avant 1970 et près d’un tiers nécessite une rénovation urgente. Les dégradations relevées dans de nombreux établissements sont devenus la norme. Plusieurs incidents graves en ont témoigné récemment : l’effondrement d’un plafond dans une école du 19ᵉ arrondissement en 2019, la présence de moisissures dans une école du 18ᵉ, ou encore des températures intérieures indignes comme les 11,5° C mesurés en janvier 2024 dans une maternelle du 20ᵉ. Ces situations mettent en danger la sécurité, la santé – alors que le temps scolaire représente un tiers du temps disponible des enfants sur l’année – et la qualité d’apprentissage de dizaines de milliers d’élèves et de leurs enseignants.",
+      "char_count": 725
+    },
+    {
+      "para_id": "p4",
+      "tag": "p",
+      "text": "Face à ce besoin criant de rénovation, les investissements de la Mairie de Paris dans l’Ecole publique ont été divisés par deux en dix ans, passant de 153 M€ en 2014 à 74 M€ en 2024. Le budget dédié aux rénovations lourdes et à la modernisation des bâtiments scolaires recule en proportion des besoins. Cette baisse du budget d’investissement pour l’Ecole publique est une honte. Voilà une Mairie qui se dit de gauche, qui se dit pour l’égalité des chances mais qui sacrifie l’avenir de nos enfants et favorise, indirectement, l’éviction scolaire vers le privé !",
+      "char_count": 562
+    },
+    {
+      "para_id": "p5",
+      "tag": "p",
+      "text": "Je rappelle pourtant que l’entretien et la rénovation des écoles et collèges relèvent d’une compétence obligatoire de la Ville de Paris. Il lui revient d’assurer la salubrité, la sécurité et la modernisation des établissements. Or force est de constater que cette responsabilité n’est pas assumée par la Mairie sortante.",
+      "char_count": 320
+    },
+    {
+      "para_id": "p6",
+      "tag": "p",
+      "text": "C’est pourquoi j’engagerai dès mon élection un Plan 100 % écoles rénovéeset accessibles pour garantir, d’ici 2032 et la fin de mon mandat, un cadre d’apprentissage sûr, sain et serein à tous les élèves parisiens. Je ne veux plus qu’il y ait à Paris des écoles où les élèves ont trop froid l’hiver ou trop chaud l’été. Ce plan reposera sur un audit flash indépendant permettant d’évaluer l’état réel des bâtiments scolaires et de hiérarchiser les urgences. Dès l’été 2026, je ferai adopter un budget rectificatif pour 2026 pour doubler les investissements annuels dans l’Ecole publique, ainsi qu’un fonds d’urgence de 200 millions d’euros pour les rénovations les plus prioritairesfinancépar la réallocation de crédits existants et des économies. Je complèterai ce fonds par les prêts à long terme de la Caisse des Dépôts afin de résorber durablement le retard accumulé.",
+      "char_count": 869
+    },
+    {
+      "para_id": "p7",
+      "tag": "p",
+      "text": "Mon plan prévoit aussi une amélioration immédiate du quotidien des enfants grâce à l’installation généralisée de capteurs de CO₂ et de purificateurs d’air, garantissant la qualité de l’air dans chaque classe. La maintenance et la dératisation seront confiées à des opérateurs spécialisés pour assurer un niveau d’intervention professionnel, rapide et continu.",
+      "char_count": 359
+    },
+    {
+      "para_id": "p8",
+      "tag": "p",
+      "text": "Enfin, chaque rénovation s’accompagnera d’une renaturation complète de la cour d’école, avec retrait du bitume, sols perméables et arbres plantés en pleine terre. Une école rénovée, ce sera aussi une cour renaturée. Ces rénovations contribueront à rafraîchir notre capitale et à offrir aux élèves parisiens ainsi qu’à leurs enseignants les meilleures conditions d’apprentissage et d’enseignement.",
+      "char_count": 396
+    },
+    {
+      "para_id": "p9",
+      "tag": "p",
+      "text": "Avec ce plan, je donnerai enfin les moyens à Paris de remettre l’ensemble de ses écoles à niveau et de préparer l’éducation aux défis climatiques et sanitaires du 21ᵉ siècle.",
+      "char_count": 174
+    },
+    {
+      "para_id": "p10",
+      "tag": "p",
+      "text": "La Mairie de Paris affiche, depuis 2020, l’ambition de proposer une restauration collective municipale 100 % bio et durable dans les cantines scolaires. Pourtant, les résultats restent loin de cette promesse. Les cantines parisiennes reposent encore trop souvent sur la liaison froide et sur des aliments transformés. La qualité varie d’un arrondissement à l’autre et ne répond pas toujours aux attentes des familles.",
+      "char_count": 417
+    },
+    {
+      "para_id": "p11",
+      "tag": "p",
+      "text": "La Mairie sortante reconnaît elle-même qu’en 2023, seulement 42 % des denrées servies étaient bio et 56 % durables – des chiffres globaux qui ne permettent pas d’évaluer la réalité dans chaque école. Le système reste en grande partie fondé sur de grandes cuisines centrales, au nombre insuffisant et dont les modes de production et de livraison limitent l’usage de produits frais, locaux et de saison.Dans un rapport de 2023, laChambre régionale des comptes d’Île-de-France a d’ailleurs souligné des dysfonctionnements persistants dans la gouvernance de la restauration scolaire, unpilotage insuffisamment structuré et defortes disparités entre arrondissements.",
+      "char_count": 661
+    },
+    {
+      "para_id": "p12",
+      "tag": "p",
+      "text": "En 2020, j’avais déjà alerté : dans le 18earrondissement, les écoliers se voyaient parfois servir de simples sandwichs triangles et des chips, bien loin des apports nutritifs requis et des objectifs de qualité que nous voulons tous pour nos enfants. Député entre 2017 et 2022, j’avais également œuvré pour que soit interdit le recours au plastique dans les cantines scolaires.",
+      "char_count": 376
+    },
+    {
+      "para_id": "p13",
+      "tag": "p",
+      "text": "Maire de Paris, je proposerai un changement complet de modèle pour les cantines scolaires dès la rentrée 2026. Je permettrai à près d’un tiers des écoles (325) de disposer de leur propre cuisine sur place. J’investirai pour cela 200 millions d’euros sur la mandature, financés par l’arrêt des préemptions de logements diffus. Pour les autres écoles, je favoriserai les liaisons chaudes depuis des cuisines centrales au sein des arrondissements pour servir quotidiennement des produits frais, bio, locaux et de saison et d’atteindre l’objectif de 100 % d’aliments durables d’ici la fin de mon mandat. Je mettrai fin aux plats ultra-transformés en mettant en place un cahier des charges unique et exigeant dans tous les arrondissements. Des alternatives seront systématiquement proposées aux élèves pour les principaux allergènes connus.",
+      "char_count": 835
+    },
+    {
+      "para_id": "p14",
+      "tag": "p",
+      "text": "J’instaurerai enfin une véritable politique d’éveil au goût dès l’école maternelle, en associant commerçants de bouche, équipes éducatives et acteurs du périscolaire. Je suis convaincu du rôle de l’éveil des sens dans le développement des enfants et de la nécessité de les sensibiliser aux enjeux nutritifs et au rôle d’une alimentation de qualité dans leur bien-être. C’est l’une des conditions pour qu’ils développent le goût de la cuisine plutôt que des plats préparés industriels et qu’ils deviennent progressivement de jeunes adultes autonomes.",
+      "char_count": 549
+    },
+    {
+      "para_id": "p15",
+      "tag": "p",
+      "text": "Maire de Paris, je participerai à l’expérimentation « Educalim » promue par la proposition de loi d’Olivia Grégoire examinée le 16 février 2026 à l’Assemblée nationale. Elle prévoit que l’éducation à l’alimentation devienne un enseignement obligatoire (ateliers sensoriels, découverte de produits, visite de producteurs locaux, animations pédagogiques) pour que chaque élève puisse relier son alimentation à sa santé et à son environnement. C’est un enjeu majeur si nous voulons notamment faire reculer le fléau de l’obésité infantile qui a augmenté de près de 50 % en une génération.",
+      "char_count": 584
+    },
+    {
+      "para_id": "p16",
+      "tag": "p",
+      "text": "Depuis des mois, les scandales de violences sexuelles faites aux enfants se sont multipliés dans le périscolaire parisien. Ils heurtent chacun d’entre nous et rompent légitimement la confiance que chaque parent place en l’école lorsqu’elle ou il lui confie son enfant. J’ai rencontré les parents d’élèves qui ont fondé le collectif MeTooEcole. Je leur ai dit partager non seulement leur colère mais aussi leur combat pour un périscolaire sûr et de qualité.",
+      "char_count": 456
+    },
+    {
+      "para_id": "p17",
+      "tag": "p",
+      "text": "Maire de Paris, j’instaurerai un screening systématique et obligatoire des références et du casier judiciaire avant tout recrutement d’un nouvel animateur périscolaire.Je ferai également scanner l’intégralité des 12 000 personnels en poste et renverrai sur le champ les agents concernés par toute irrégularité.",
+      "char_count": 310
+    },
+    {
+      "para_id": "p18",
+      "tag": "p",
+      "text": "Deuxième priorité : la formation. Le nouveau périscolaire parisien sera irréprochable : l’ensemble des animateurs sera formé durant deux ans jusqu’au niveau BAFA ou équivalent, ce qui représentera un investissement de 8 millions d’euros par an. Cette formation préparera également à la détection et à la prévention des violences faites aux enfants.",
+      "char_count": 348
+    },
+    {
+      "para_id": "p19",
+      "tag": "p",
+      "text": "Troisième priorité : le contrôle.Je créerai une inspection municipale du périscolaire, chargée de contrôler chaque année 100 % des structures, soit environ 650 sites, afin d’assurer un niveau homogène de sécurité et de qualité dans tout Paris. Ce sera un contrôle continu, organisé de manière inopinée et dont les résultats seront rendus publics après avoir été anonymisés. Toutes les irrégularités, les manquements hiérarchiques, les défaillances de signalement donneront lieu à des sanctions et des actions correctives. Tout fait pénalement qualifiable sera transmis sans filtre au procureur de la République. Les mêmes règles de screening et de contrôle s’appliqueront aux agents de l’Aide sociale à l’enfance.",
+      "char_count": 713
+    },
+    {
+      "para_id": "p20",
+      "tag": "p",
+      "text": "Quatrième priorité : le recrutement.J’aurai prioritairement recours à des personnels titulaires, adaptés à des missions aussi importantes pour nos enfants.Le recours actuellement massif aux vacataires, qui représentent aujourd’hui trois quarts des effectifs d’animateurs, fragilise la continuité éducative, limite la formation des équipes et dégrade la qualité comme la sécurité du service public. Les organisations professionnelles ont elles-mêmes dénoncé un déficit de formation et d’accompagnement des animateurs. Pour rompre avec cette logique et recruter des personnels titulaires, je revaloriserai ces métiers avec des primes de reconnaissance de l’engagement professionnel pouvant s’élever jusqu’à 500 € et je créerai une véritable filière de l’animation à la Mairie de Paris, qui leur offrira des perspectives d’évolution de carrière et de progression. En outre, je prioriserai les agents municipaux dans l’accès au logement social à Paris avec une clause de fonction, ce qui aidera aussi à résoudre les difficultés de recrutement. Comme l’ensemble des personnels de la Mairie de Paris, ils seront recrutés pour produire du service public et non de l’administration, ils seront formés, reconnus, motivés et valorisés pour leurs missions essentielles aux Parisiens.",
+      "char_count": 1272
+    },
+    {
+      "para_id": "p21",
+      "tag": "p",
+      "text": "Une fois la sécurité garantie et la confiance rétablie, je remettrai à plat les activités périscolaires pour favoriser la qualité plutôt que la quantité. Je réduirai les disparités aujourd’hui considérables d’un arrondissement à l’autre, tant dans la nature que dans la qualité des activités proposées. Je proposerai un nouveau véritable service d’accueil tout-en-un après l’école, partout dans Paris, proposé de 16h30 à 19h. Je généraliserai la distribution d’un goûter de qualité pour tous les enfants, suivi d’un temps d’aide aux devoirs et de soutien scolaire individualisé, puis d’ateliers d’éveil culturel, sportif et artistique. J’y favoriserai en particulier l’éveil aux sciences et au langage, y compris à l’anglais.",
+      "char_count": 725
+    },
+    {
+      "para_id": "p22",
+      "tag": "p",
+      "text": "Je m’appuierai pour cela sur les professeurs de la Ville de Paris, qui interviennent déjà en arts plastiques, musique ou sport, pour renforcer les ateliers de qualité au sein du périscolaire. Je ferai aussi appel aux étudiants parisiens pour accompagner l’aide aux devoirs et le soutien scolaire. C’est ainsi que nous recréerons un périscolaire exigeant, sûr, qui élève le niveau de tous les élèves et contribue à l’égalité des chances.",
+      "char_count": 436
+    },
+    {
+      "para_id": "p23",
+      "tag": "p",
+      "text": "En cas de grève dans les écoles, les familles parisiennes sont trop souvent laissées dans une situation intenable, sans solution. Lors des mouvements de grève de ces dernières années, un tiers des écoles parisiennes étaient parfois fermées, obligeant les parents d’élèves à s’organiser en catastrophe, souvent en posant des jours de congés pour garder leurs enfants.",
+      "char_count": 366
+    },
+    {
+      "para_id": "p24",
+      "tag": "p",
+      "text": "De même, les grèves dans les cantines ou le périscolaire sont à chaque fois une galère supplémentaire pour les parents, qui alimente la colère et le ressentiment à l’égard du fonctionnement des services publics. Ces difficultés sont encore décuplées pour les familles monoparentales ou les parents séparés, qui font face à des contraintes particulières.",
+      "char_count": 353
+    },
+    {
+      "para_id": "p25",
+      "tag": "p",
+      "text": "Si je ne souhaite bien évidemment pas remettre en cause le droit de grève des agents publics,je prendrai mes responsabilités en tant que Maire de Paris afin d’assurer, comme dans les autres grandes villes de France, un service minimum dans les écolesles jours de grèveafin que les élèves y soient accueillis dans de bonnes conditions, puissent s’y restaurer et bénéficier d’activités périscolaires de qualité.",
+      "char_count": 409
+    },
+    {
+      "para_id": "p26",
+      "tag": "p",
+      "text": "Pour ce faire, je mobiliserai une brigade municipale capable d’assurer ce service minimum, avec des équipes dédiées et spécialement formées, afin que les parents ne soient plus mis en difficulté. C’est ce que font déjà des mairies de droite, à Argenteuil par exemple, comme de gauche, à Montpellier. C’est une question de bonne organisation du service public et de respect de ses usagers-contribuables.",
+      "char_count": 402
+    },
+    {
+      "para_id": "p27",
+      "tag": "p",
+      "text": "Parmi les nombreux obstacles sur le parcours de combattants que doivent traverser les parents à Paris figure l’obtention d’une place en crèche. Aujourd’hui, plus d’une demande sur deux n’est pas satisfaite et les solutions alternatives restent trop limitées ou trop coûteuses. C’est la lutte des places ! Or la Mairie de Paris devrait au contraire offrir la palette la plus large de modes de garde, aider les parents à concilier vie familiale et vie professionnelle et éviter les situations de garde parentale subie.",
+      "char_count": 516
+    },
+    {
+      "para_id": "p28",
+      "tag": "p",
+      "text": "Pour aider les familles parisiennes, je créerai 10 000 solutions supplémentaires de modes de garde, notamment de nouvelles places en crèche mais aussi de garde à domicile. Cela représentera une augmentation de près de 25 % par rapport aux capacités actuelles d’accueil des jeunes enfants. Pour y parvenir, j’aurai une priorité claire : former, former, former. Je lancerai avec le rectorat de Paris un plan ambitieux d'ouverture de places en CAP petite enfance et en diplômes d’auxiliaires de puériculture, permettant de débloquer 5 000 places en crèche supplémentaires d’ici 2030 et 10 000 places d’ici 2035. Je quintuplerai également les capacités du CFA Paris Petite Enfance de la Mairie de Paris afin d’y former 1 000 apprentis qui deviendront auxiliaires de puériculture au cours des dix prochaines années. Je favoriserai les passerelles entre les différents métiers de la filière enfance à Paris – de l’accueil du jeune enfant à l’animation périscolaire – pour ouvrir de nouvelles perspectives d’évolution et de progression de carrière. Nous pourrons ainsi en finir avec les pénuries de personnels qui empêchent l’ouverture de places en crèche supplémentaires alors que les structures existent et que les locaux sont disponibles.",
+      "char_count": 1234
+    },
+    {
+      "para_id": "p29",
+      "tag": "p",
+      "text": "Par ailleurs, je rendrai le système d’attribution des places en crèche totalement transparent dans tout Paris. Chaque arrondissement disposera d’une grille unique de critères avec des points tenant notamment compte de la situation professionnelle et familiale des parents, ainsi que de leurs revenus. Ces critères d’attribution seront beaucoup plus justes, alors que chaque arrondissement peut aujourd’hui fixer des critères différents, et rendus publics et accessibles en ligne aux Parisiens. Les travailleurs indépendants, qui ne peuvent pas bénéficier aujourd’hui de berceaux réservés par un employeur, bénéficieront dans chaque arrondissement d’un quota minimum de places en crèche pour leur offrir des solutions de mode de garde.",
+      "char_count": 734
+    },
+    {
+      "para_id": "p30",
+      "tag": "p",
+      "text": "Chaque mairie d’arrondissement devra répondre dans un délai raisonnable aux parents qui s’interrogent sur l’état de traitement de leur dossier de demande de place en crèche. Nous pourrons ainsi lutter contre le non-recours de parents qui jugent le processus actuel d’attribution opaque et obscur alors qu’ils auraient besoin d’une place en crèche.",
+      "char_count": 347
+    },
+    {
+      "para_id": "p31",
+      "tag": "p",
+      "text": "Enfin, j’adapterai l’offre à la diversité des rythmes de vie des familles parisiennes en développant les micro-crèches et les haltes-garderies souples, avec des horaires d’ouverture jusqu’à 19h30. Avec moi, il y aura une solution de garde pour chaque enfant parisien, adaptée à ses besoins et aux besoins des parents.",
+      "char_count": 317
+    },
+    {
+      "para_id": "p32",
+      "tag": "p",
+      "text": "À Paris, des milliers de familles peinent à concilier vie professionnelle, vie familiale et vie de couple. Les rythmes de travail ont évolué, les horaires sont parfois allongés mais l’offre publique de garde des jeunes enfants est restée largement figée. La majorité des structures ferment entre 17h et 19h, 18h30 en moyenne pour les crèches municipales, parfois jusqu’à 19h pour les assistantes maternelles agréées. Quant à la garde d’enfants à domicile, elle constitue une solution souvent inaccessible financièrement, avec un coût moyen compris entre 20 et 30 euros de l’heure à Paris.",
+      "char_count": 588
+    },
+    {
+      "para_id": "p33",
+      "tag": "p",
+      "text": "Passée 18h30 ou 19h, trop de parents se retrouvent sans solution. Ce décalage entre le besoin et l’offre de service public pèse lourdement sur le quotidien des familles parisiennes, en particulier sur les familles monoparentales et sur les femmes, qui supportent encore une charge plus importante de l’organisation familiale.",
+      "char_count": 325
+    },
+    {
+      "para_id": "p34",
+      "tag": "p",
+      "text": "Faute d’alternative, de nombreux parents renoncent à des activités professionnelles, à des sorties, sacrifient parfois leur vie de couple ou doivent recourir à des solutions informelles, pas toujours déclarées, qui ne sont ni sécurisées ni satisfaisantes. Le temps est devenu un luxe. Un luxe que beaucoup n’ont plus.",
+      "char_count": 317
+    },
+    {
+      "para_id": "p35",
+      "tag": "p",
+      "text": "Ce constat est d’autant plus frappant que Paris consacre chaque année plus de 135 millions d’euros au fonctionnement de la politique de la petite enfance et plus de 166 millions d’euros en incluant l’investissement. Malgré ce budget conséquent, aucune solution municipale structurée n’existe en soirée et trop peu le week-end. Le besoin est pourtant réel, identifié et vécu par de très nombreuses familles.",
+      "char_count": 406
+    },
+    {
+      "para_id": "p36",
+      "tag": "p",
+      "text": "C’est pour soulager les familles que je développerai un réseau de « Maisons des Nounous » (sur la base des maisons d’assistantes maternelles), une nouvelle solution municipale de garde en soirée la semaine mais aussi le week-end, pensée pour s’adapter aux rythmes de vie des familles à Paris.Ces Maisons des Nounous offriront un accueil collectif, sécurisé et bienveillant pour les jeunes enfants, dans un cadre familier et rassurant. Au total, elles pourront accueillir un millier d’enfants sur Paris. Les parents pourront s’inscrire sur une plateforme dédiée, y compris le jour-même, pour réserver une plage horaire.",
+      "char_count": 618
+    },
+    {
+      "para_id": "p37",
+      "tag": "p",
+      "text": "L’encadrement de ces Maisons des Nounous sera assuré par des professionnels qualifiés : assistants maternels agréés, auxiliaires de puériculture et baby-sitters formés, dans le respect des obligations légales de taux d’encadrement des jeunes enfants. Elles offriront ainsi une qualité d’accueil irréprochable et une souplesse d’organisation aux parents. Elles seront implantées dans des écoles, des crèches ou des locaux municipaux aujourd’hui inutilisés en soirée. Leur fonctionnement respectera des normes strictes de sécurité et d’hygiène. La tarification sera calculée selon le quotient familial, avec la participation de la CAF, afin de garantir l’accessibilité à toutes les familles, quels que soient leurs revenus.",
+      "char_count": 721
+    },
+    {
+      "para_id": "p38",
+      "tag": "p",
+      "text": "Le coût net de ces structures pour la Ville s’élèvera au total à 1 million d’euros par an, en tenant compte de la participation des familles et de la CAF, soit un coût très faible compte tenu de l’impact social attendu.",
+      "char_count": 219
+    },
+    {
+      "para_id": "p39",
+      "tag": "p",
+      "text": "Après des années, la Mairie sortante a enfin consenti à créer en 2024 un statut pour simplifier les démarches des 75 000 familles monoparentales vivant à Paris et leur ouvrir de nouveaux droits. Il ne s’agit pas d’un enjeu anecdotique : à Paris, près d’un tiers des foyers est constitué d'un parent vivant seul avec ses enfants. Pour ces familles, les difficultés sont décuplées et les besoins sont spécifiques. Dans leur écrasante majorité, ce sont des mamans solo qui assument la charge d’élever un ou plusieurs enfants seule.",
+      "char_count": 528
+    },
+    {
+      "para_id": "p40",
+      "tag": "p",
+      "text": "Je souhaite que la spécificité des parents solo soit systématiquement prise en compte dans la tarification des crèches, des cantines et des activités périscolaires, mais aussi pour l’accès aux activités culturelles et sportiveset notamment aux musées de la Ville de Paris, y compris pour des visites guidées et les ateliers ouverts aux enfants. Trouver une place en crèche, visiter un musée, inscrire son enfant au périscolaire ou aux bébés nageurs : toutes les démarches des parents solo seront accélérées et allégées financièrement pour soutenir ces familles.",
+      "char_count": 561
+    },
+    {
+      "para_id": "p41",
+      "tag": "p",
+      "text": "Au-delà, je faciliterai aussi les mobilités, en prenant en charge directement le Pass Navigo des enfants et en proposant une offre à tarif réduit pour les Vélib. Je proposerai enfin à la RATP et à la SNCF que des tarifs réduits soient appliqués pour les familles monoparentales comme l’a recommandé le Haut-commissariat à l’enfance.",
+      "char_count": 332
+    },
+    {
+      "para_id": "p42",
+      "tag": "p",
+      "text": "Dans le monde de demain, les compétences scientifiques et numériques seront clé pour maîtriser son destin. Appréhender ces technologies, en comprendre les conséquences économiques, sociales et sociétales, être capable d’en tirer le meilleur seront autant d’atouts pour nos enfants. La fracture ne fera que grandir entre les sociétés qui comprennent et maîtrisent ces technologies et celles qui les utilisent sans comprendre, sans recul et sans citoyenneté.",
+      "char_count": 456
+    },
+    {
+      "para_id": "p43",
+      "tag": "p",
+      "text": "Aujourd’hui, 90 % des ados et des jeunes adultes ont déjà utilisé un outil d’intelligence artificielle générative. Plus d’un quart sont même des utilisateurs quotidiens. Pourtant, beaucoup regrettent de ne pas être formés aux enjeux technologiques mais aussi éthiques et sociaux de ces outils.",
+      "char_count": 293
+    },
+    {
+      "para_id": "p44",
+      "tag": "p",
+      "text": "L’Education nationale a bien sûr un rôle fondamental à jouer dans cet apprentissage. Mais la Mairie de Paris en a aussi les moyens et le devoir.Dès l’école primaire, j’instaurerai une heure par semaine de codage et d’initiation à l’intelligence artificielledans le cadre des activités complémentaires à la main de la Municipalité.",
+      "char_count": 330
+    },
+    {
+      "para_id": "p45",
+      "tag": "p",
+      "text": "Je transformerai les bibliothèques municipales et les écoles en lieux d’apprentissage de l’intelligence artificielle, afin que Paris devienne une ville où chaque citoyen en devenir acquiert les compétences pour comprendre le monde de demain et maîtriser son destin.",
+      "char_count": 265
+    },
+    {
+      "para_id": "p46",
+      "tag": "p",
+      "text": "Chaque année, environ 40 % des familles ne partent pas en vacances, souvent pour des raisons financières. Être bloqué dans son quartier sans pouvoir découvrir d’autres paysages, d’autres cultures mais aussi d’autres langues est un vrai moteur de la fracture sociale dans notre pays ainsi qu’à Paris. Or les expériences vécues durant l’enfance participent de la construction des adultes. Découvrir la montagne, la mer, la forêt, partir en colonies thématiques sur le sport, l’histoire ou la musique ne devrait pas être l’apanage des seules familles qui en ont les moyens.",
+      "char_count": 570
+    },
+    {
+      "para_id": "p47",
+      "tag": "p",
+      "text": "Face à cette inégalité, les séjours « vacances Arc-en-ciel » proposées par la Mairie de Paris restent largement conditionnées à un tirage au sort, faute de places suffisantes. Beaucoup de parents renoncent et trop d’enfants restent à l’écart de ces expériences essentielles pour l’autonomie et l’ouverture, simplement parce que leur famille n’en a pas les moyens ou parce qu’ils ne sont pas « tirés au sort ».",
+      "char_count": 409
+    },
+    {
+      "para_id": "p48",
+      "tag": "p",
+      "text": "Je veux mettre fin à cette loterie des vacances.Je lancerai un programme municipal de « Colos pour tous » avec une offre large et diversifiée pour répondre aux demandes. Il sera simple et regroupera l’offre actuellement dispersée entre les « vacances Arc-en-ciel » de la Mairie, les « vacances apprenantes » organisées par l’Etat et les mini-séjours des centres de loisirs. Au total, avec les classes découverte organisées par les enseignants, je souhaite que 30 000 jeunes Parisiens, de la maternelle au lycée, bénéficient chaque année de ces séjours.",
+      "char_count": 552
+    },
+    {
+      "para_id": "p49",
+      "tag": "p",
+      "text": "Ces « Colos pour tous » valoriseront les régions françaises, y compris ultra-marines, et prévoiront également des séjours à l’étranger pour de courtes ou longues durées, selon l’âge des enfants et tout au long de l’année. Les séjours seront particulièrement adaptés pour les enfants en situation de handicap. Une tarification progressive s’adaptera aux revenus des familles : elle ira de quelques dizaines à quelques centaines d’euros selon les séjours. Cela représentera un budget supplémentaire de 15 millions d’euros par an pour la Municipalité au service des familles.",
+      "char_count": 572
+    },
+    {
+      "para_id": "p50",
+      "tag": "p",
+      "text": "Comme l’a montré la convention citoyenne sur les rythmes de l’enfant, les rythmes scolaires au collège ne respectent pas les besoins biologiques des adolescents. En particulier, de nombreuses études montrent que les collégiens manquent de sommeil lorsqu’ils commencent les cours trop tôt, ce qui induit des conséquences directes sur leur attention, leur comportement, leur santé et leurs résultats scolaires.",
+      "char_count": 408
+    },
+    {
+      "para_id": "p51",
+      "tag": "p",
+      "text": "Maire de Paris, en charge de la gestion des collèges,je ferai débuter les cours à 9h dans les collèges parisiens, afin de respecter le sommeil des ados et leur permettre de débuter le travail en classe plus reposés, plus attentifs et plus disponibles pour apprendre. Le Conseil scientifique de l’Education nationale a démontré, sur la base d’expérimentations en Seine-et-Marne, que débuter les cours à 9h au collège offrait en moyenne 25 minutes de sommeil en plus aux ados et permettait de réduire leur anxiété, leur impulsivité et d’améliorer leurs résultats. C’est donc une mesure de bon sens pour la santé et la réussite scolaire des collégiens.",
+      "char_count": 649
+    },
+    {
+      "para_id": "p52",
+      "tag": "p",
+      "text": "Par ailleurs, je ferai pleinement respecter l’interdiction des smartphones au sein des collèges.Pour cela, j’installerai des casiers sécurisés à l’entrée des collèges ou des mallettes à l’entrée des classes, permettant aux élèves de déposer leur smartphone en début de journée. Cette « pause numérique » contribuera à restaurer un climat scolaire apaisé, favorisera la concentration des élèves et les protègera des usages excessifs des écrans. Elle représentera un investissement de 500 000 euros au maximum pour la Mairie de Paris.",
+      "char_count": 532
+    },
+    {
+      "para_id": "p53",
+      "tag": "p",
+      "text": "Depuis 12 ans, Paris a perdu 180 000 habitants. Près d’un Parisien sur dix a quitté notre capitale, c’est une véritable saignée ! C’est une perte de dynamisme et de vitalité pour Paris. C’est 25 milliards d’euros de richesses annuelles en moins : combien de places en crèche supplémentaires aurions-nous pu financer avec ces moyens ? combien d’équipements supplémentaires pour la sécurité et la propreté de nos rues ? combien de rénovations de logements pour en finir avec les passoires thermiques et baisser les loyers des Parisiens ?",
+      "char_count": 535
+    },
+    {
+      "para_id": "p54",
+      "tag": "p",
+      "text": "Cet exode massif concerne principalement les familles et les classes moyennes. Soyons lucides : élever des enfants à Paris relève aujourd’hui du parcours du combattant. La faute à des logements trop chers. La faute à un manque de places en crèches et d’espaces où l’on puisse respirer dans la ville. La faute à des transports et notamment un métro encore trop peu accessible avec des enfants en bas âge. La faute à une ville où beaucoup de parents ou de futurs parents ont le sentiment qu’ils ne pourront pas élever leurs enfants sereinement. A Paris, tout devient une lutte.",
+      "char_count": 575
+    },
+    {
+      "para_id": "p55",
+      "tag": "p",
+      "text": "Or dans cette élection, nous pouvons faire un choix clair : voulons-nous que Paris continue de se recroqueviller sur elle-même, jusqu’à devenir un musée à ciel ouvert, où seuls des cadres supérieurs et des touristes auront encore droit de cité ? Ou voulons-nous que Paris redevienne ce qu’elle n’aurait jamais dû cesser d’être : une promesse de liberté, la ville de tous les possibles, où l’on peut vivre, travailler, fonder une famille et élever ses enfants ?",
+      "char_count": 460
+    },
+    {
+      "para_id": "p56",
+      "tag": "p",
+      "text": "Je ne veux pas d’un Paris-musée. Ce serait une perte de vitalité pour la capitale, une perte de dynamisme économique et de diversité sociale. Ce serait la fin du Paris qui bouillonne, du Paris qui rayonne, du Paris dont je suis tombé amoureux il y a trente ans quand j’ai quitté ma Corrèze pour monter à la capitale.",
+      "char_count": 316
+    },
+    {
+      "para_id": "p57",
+      "tag": "p",
+      "text": "Je veux au contraire un Paris où il fait bon vivre, un Paris où les familles peuvent grandir et s’épanouir, un Paris réconcilié avec ses classes moyennes.",
+      "char_count": 154
+    },
+    {
+      "para_id": "p58",
+      "tag": "p",
+      "text": "C’est pourquoi je présente un « plan familles » avec 10 mesures fortes pour répondre aux attentes légitimes des familles dans leur diversité et aux besoins essentiels de leurs enfants. Rénovation des écoles, cantines de qualité, périscolaire sécurisé, places en crèche… demain, ces 10 propositions deviendront 10 engagements au service des familles parisiennes.",
+      "char_count": 361
+    },
+    {
+      "para_id": "p59",
+      "tag": "p",
+      "text": "Dans ce plan, je ne reviens pas sur les propositions que j’ai déjà faites pour remettre 60 000 logements sur le marché pour les Parisiens. Pacte de confiance pour inciter les propriétaires à louer et simplifier leurs démarches, accélération massive de la rénovation des passoires thermiques pour les remettre en location ou à la vente, retour à l’esprit initial d’Airbnb, priorité aux travailleurs pour l’accès au logement social, nouveaux quartiers étudiants et bail étudiant adapté à l’année universitaire : ces propositions pour rendre le logement abordable sont décisives pour que les familles puissent vivre et rester à Paris.",
+      "char_count": 631
+    },
+    {
+      "para_id": "p60",
+      "tag": "p",
+      "text": "Combinées aux 10 mesures qui suivent, elles forment un « plan familles » complet et efficace.",
+      "char_count": 93
+    },
+    {
+      "para_id": "p61",
+      "tag": "p",
+      "text": "Avec ces mesures, je fais un choix clair : celui de la santé de nos jeunes, notamment de leur santé mentale, et de leur réussite scolaire.",
+      "char_count": 138
+    },
+    {
+      "para_id": "p62",
+      "tag": "h2",
+      "text": "Découvrez mes autres engagements",
+      "char_count": 32
+    },
+    {
+      "para_id": "p63",
+      "tag": "h3",
+      "text": "Pour une meilleure gestion de Paris",
+      "char_count": 35
+    },
+    {
+      "para_id": "p64",
+      "tag": "h3",
+      "text": "Un Paris sûr",
+      "char_count": 12
+    },
+    {
+      "para_id": "p65",
+      "tag": "h3",
+      "text": "Un Paris propre",
+      "char_count": 15
+    },
+    {
+      "para_id": "p66",
+      "tag": "h3",
+      "text": "Rétablir la probité",
+      "char_count": 19
+    },
+    {
+      "para_id": "p67",
+      "tag": "h3",
+      "text": "Loger les Parisiens",
+      "char_count": 19
+    },
+    {
+      "para_id": "p68",
+      "tag": "h3",
+      "text": "Désendetter Paris",
+      "char_count": 17
+    },
+    {
+      "para_id": "p69",
+      "tag": "h3",
+      "text": "Circuler à Paris",
+      "char_count": 16
+    },
+    {
+      "para_id": "p70",
+      "tag": "h3",
+      "text": "Apaiser Paris",
+      "char_count": 13
+    }
+  ],
+  "full_text": "Redevenir une ville pour les familles\nParis est à un tournant décisif. Derrière son attractivité internationale et son image de carte postale, une réalité plus brutale s’impose : la capitale se vide de ses habitants, en particulier de ceux qui en font le cœur vivant, les familles et les classes moyennes. Cette dynamique n’est ni naturelle ni inéluctable. Elle est le résultat de choix politiques qui ont rendu la vie quotidienne toujours plus difficile pour celles et ceux qui veulent simplement vivre, travailler et élever leurs enfants à Paris. Refuser ce déclassement démographique et social, c’est refuser un Paris qui se fige. C’est faire le choix d’une capitale vivante, populaire et tournée vers l’avenir.\nA Paris, une école sur deux a été construite avant 1970 et près d’un tiers nécessite une rénovation urgente. Les dégradations relevées dans de nombreux établissements sont devenus la norme. Plusieurs incidents graves en ont témoigné récemment : l’effondrement d’un plafond dans une école du 19ᵉ arrondissement en 2019, la présence de moisissures dans une école du 18ᵉ, ou encore des températures intérieures indignes comme les 11,5° C mesurés en janvier 2024 dans une maternelle du 20ᵉ. Ces situations mettent en danger la sécurité, la santé – alors que le temps scolaire représente un tiers du temps disponible des enfants sur l’année – et la qualité d’apprentissage de dizaines de milliers d’élèves et de leurs enseignants.\nFace à ce besoin criant de rénovation, les investissements de la Mairie de Paris dans l’Ecole publique ont été divisés par deux en dix ans, passant de 153 M€ en 2014 à 74 M€ en 2024. Le budget dédié aux rénovations lourdes et à la modernisation des bâtiments scolaires recule en proportion des besoins. Cette baisse du budget d’investissement pour l’Ecole publique est une honte. Voilà une Mairie qui se dit de gauche, qui se dit pour l’égalité des chances mais qui sacrifie l’avenir de nos enfants et favorise, indirectement, l’éviction scolaire vers le privé !\nJe rappelle pourtant que l’entretien et la rénovation des écoles et collèges relèvent d’une compétence obligatoire de la Ville de Paris. Il lui revient d’assurer la salubrité, la sécurité et la modernisation des établissements. Or force est de constater que cette responsabilité n’est pas assumée par la Mairie sortante.\nC’est pourquoi j’engagerai dès mon élection un Plan 100 % écoles rénovéeset accessibles pour garantir, d’ici 2032 et la fin de mon mandat, un cadre d’apprentissage sûr, sain et serein à tous les élèves parisiens. Je ne veux plus qu’il y ait à Paris des écoles où les élèves ont trop froid l’hiver ou trop chaud l’été. Ce plan reposera sur un audit flash indépendant permettant d’évaluer l’état réel des bâtiments scolaires et de hiérarchiser les urgences. Dès l’été 2026, je ferai adopter un budget rectificatif pour 2026 pour doubler les investissements annuels dans l’Ecole publique, ainsi qu’un fonds d’urgence de 200 millions d’euros pour les rénovations les plus prioritairesfinancépar la réallocation de crédits existants et des économies. Je complèterai ce fonds par les prêts à long terme de la Caisse des Dépôts afin de résorber durablement le retard accumulé.\nMon plan prévoit aussi une amélioration immédiate du quotidien des enfants grâce à l’installation généralisée de capteurs de CO₂ et de purificateurs d’air, garantissant la qualité de l’air dans chaque classe. La maintenance et la dératisation seront confiées à des opérateurs spécialisés pour assurer un niveau d’intervention professionnel, rapide et continu.\nEnfin, chaque rénovation s’accompagnera d’une renaturation complète de la cour d’école, avec retrait du bitume, sols perméables et arbres plantés en pleine terre. Une école rénovée, ce sera aussi une cour renaturée. Ces rénovations contribueront à rafraîchir notre capitale et à offrir aux élèves parisiens ainsi qu’à leurs enseignants les meilleures conditions d’apprentissage et d’enseignement.\nAvec ce plan, je donnerai enfin les moyens à Paris de remettre l’ensemble de ses écoles à niveau et de préparer l’éducation aux défis climatiques et sanitaires du 21ᵉ siècle.\nLa Mairie de Paris affiche, depuis 2020, l’ambition de proposer une restauration collective municipale 100 % bio et durable dans les cantines scolaires. Pourtant, les résultats restent loin de cette promesse. Les cantines parisiennes reposent encore trop souvent sur la liaison froide et sur des aliments transformés. La qualité varie d’un arrondissement à l’autre et ne répond pas toujours aux attentes des familles.\nLa Mairie sortante reconnaît elle-même qu’en 2023, seulement 42 % des denrées servies étaient bio et 56 % durables – des chiffres globaux qui ne permettent pas d’évaluer la réalité dans chaque école. Le système reste en grande partie fondé sur de grandes cuisines centrales, au nombre insuffisant et dont les modes de production et de livraison limitent l’usage de produits frais, locaux et de saison.Dans un rapport de 2023, laChambre régionale des comptes d’Île-de-France a d’ailleurs souligné des dysfonctionnements persistants dans la gouvernance de la restauration scolaire, unpilotage insuffisamment structuré et defortes disparités entre arrondissements.\nEn 2020, j’avais déjà alerté : dans le 18earrondissement, les écoliers se voyaient parfois servir de simples sandwichs triangles et des chips, bien loin des apports nutritifs requis et des objectifs de qualité que nous voulons tous pour nos enfants. Député entre 2017 et 2022, j’avais également œuvré pour que soit interdit le recours au plastique dans les cantines scolaires.\nMaire de Paris, je proposerai un changement complet de modèle pour les cantines scolaires dès la rentrée 2026. Je permettrai à près d’un tiers des écoles (325) de disposer de leur propre cuisine sur place. J’investirai pour cela 200 millions d’euros sur la mandature, financés par l’arrêt des préemptions de logements diffus. Pour les autres écoles, je favoriserai les liaisons chaudes depuis des cuisines centrales au sein des arrondissements pour servir quotidiennement des produits frais, bio, locaux et de saison et d’atteindre l’objectif de 100 % d’aliments durables d’ici la fin de mon mandat. Je mettrai fin aux plats ultra-transformés en mettant en place un cahier des charges unique et exigeant dans tous les arrondissements. Des alternatives seront systématiquement proposées aux élèves pour les principaux allergènes connus.\nJ’instaurerai enfin une véritable politique d’éveil au goût dès l’école maternelle, en associant commerçants de bouche, équipes éducatives et acteurs du périscolaire. Je suis convaincu du rôle de l’éveil des sens dans le développement des enfants et de la nécessité de les sensibiliser aux enjeux nutritifs et au rôle d’une alimentation de qualité dans leur bien-être. C’est l’une des conditions pour qu’ils développent le goût de la cuisine plutôt que des plats préparés industriels et qu’ils deviennent progressivement de jeunes adultes autonomes.\nMaire de Paris, je participerai à l’expérimentation « Educalim » promue par la proposition de loi d’Olivia Grégoire examinée le 16 février 2026 à l’Assemblée nationale. Elle prévoit que l’éducation à l’alimentation devienne un enseignement obligatoire (ateliers sensoriels, découverte de produits, visite de producteurs locaux, animations pédagogiques) pour que chaque élève puisse relier son alimentation à sa santé et à son environnement. C’est un enjeu majeur si nous voulons notamment faire reculer le fléau de l’obésité infantile qui a augmenté de près de 50 % en une génération.\nDepuis des mois, les scandales de violences sexuelles faites aux enfants se sont multipliés dans le périscolaire parisien. Ils heurtent chacun d’entre nous et rompent légitimement la confiance que chaque parent place en l’école lorsqu’elle ou il lui confie son enfant. J’ai rencontré les parents d’élèves qui ont fondé le collectif MeTooEcole. Je leur ai dit partager non seulement leur colère mais aussi leur combat pour un périscolaire sûr et de qualité.\nMaire de Paris, j’instaurerai un screening systématique et obligatoire des références et du casier judiciaire avant tout recrutement d’un nouvel animateur périscolaire.Je ferai également scanner l’intégralité des 12 000 personnels en poste et renverrai sur le champ les agents concernés par toute irrégularité.\nDeuxième priorité : la formation. Le nouveau périscolaire parisien sera irréprochable : l’ensemble des animateurs sera formé durant deux ans jusqu’au niveau BAFA ou équivalent, ce qui représentera un investissement de 8 millions d’euros par an. Cette formation préparera également à la détection et à la prévention des violences faites aux enfants.\nTroisième priorité : le contrôle.Je créerai une inspection municipale du périscolaire, chargée de contrôler chaque année 100 % des structures, soit environ 650 sites, afin d’assurer un niveau homogène de sécurité et de qualité dans tout Paris. Ce sera un contrôle continu, organisé de manière inopinée et dont les résultats seront rendus publics après avoir été anonymisés. Toutes les irrégularités, les manquements hiérarchiques, les défaillances de signalement donneront lieu à des sanctions et des actions correctives. Tout fait pénalement qualifiable sera transmis sans filtre au procureur de la République. Les mêmes règles de screening et de contrôle s’appliqueront aux agents de l’Aide sociale à l’enfance.\nQuatrième priorité : le recrutement.J’aurai prioritairement recours à des personnels titulaires, adaptés à des missions aussi importantes pour nos enfants.Le recours actuellement massif aux vacataires, qui représentent aujourd’hui trois quarts des effectifs d’animateurs, fragilise la continuité éducative, limite la formation des équipes et dégrade la qualité comme la sécurité du service public. Les organisations professionnelles ont elles-mêmes dénoncé un déficit de formation et d’accompagnement des animateurs. Pour rompre avec cette logique et recruter des personnels titulaires, je revaloriserai ces métiers avec des primes de reconnaissance de l’engagement professionnel pouvant s’élever jusqu’à 500 € et je créerai une véritable filière de l’animation à la Mairie de Paris, qui leur offrira des perspectives d’évolution de carrière et de progression. En outre, je prioriserai les agents municipaux dans l’accès au logement social à Paris avec une clause de fonction, ce qui aidera aussi à résoudre les difficultés de recrutement. Comme l’ensemble des personnels de la Mairie de Paris, ils seront recrutés pour produire du service public et non de l’administration, ils seront formés, reconnus, motivés et valorisés pour leurs missions essentielles aux Parisiens.\nUne fois la sécurité garantie et la confiance rétablie, je remettrai à plat les activités périscolaires pour favoriser la qualité plutôt que la quantité. Je réduirai les disparités aujourd’hui considérables d’un arrondissement à l’autre, tant dans la nature que dans la qualité des activités proposées. Je proposerai un nouveau véritable service d’accueil tout-en-un après l’école, partout dans Paris, proposé de 16h30 à 19h. Je généraliserai la distribution d’un goûter de qualité pour tous les enfants, suivi d’un temps d’aide aux devoirs et de soutien scolaire individualisé, puis d’ateliers d’éveil culturel, sportif et artistique. J’y favoriserai en particulier l’éveil aux sciences et au langage, y compris à l’anglais.\nJe m’appuierai pour cela sur les professeurs de la Ville de Paris, qui interviennent déjà en arts plastiques, musique ou sport, pour renforcer les ateliers de qualité au sein du périscolaire. Je ferai aussi appel aux étudiants parisiens pour accompagner l’aide aux devoirs et le soutien scolaire. C’est ainsi que nous recréerons un périscolaire exigeant, sûr, qui élève le niveau de tous les élèves et contribue à l’égalité des chances.\nEn cas de grève dans les écoles, les familles parisiennes sont trop souvent laissées dans une situation intenable, sans solution. Lors des mouvements de grève de ces dernières années, un tiers des écoles parisiennes étaient parfois fermées, obligeant les parents d’élèves à s’organiser en catastrophe, souvent en posant des jours de congés pour garder leurs enfants.\nDe même, les grèves dans les cantines ou le périscolaire sont à chaque fois une galère supplémentaire pour les parents, qui alimente la colère et le ressentiment à l’égard du fonctionnement des services publics. Ces difficultés sont encore décuplées pour les familles monoparentales ou les parents séparés, qui font face à des contraintes particulières.\nSi je ne souhaite bien évidemment pas remettre en cause le droit de grève des agents publics,je prendrai mes responsabilités en tant que Maire de Paris afin d’assurer, comme dans les autres grandes villes de France, un service minimum dans les écolesles jours de grèveafin que les élèves y soient accueillis dans de bonnes conditions, puissent s’y restaurer et bénéficier d’activités périscolaires de qualité.\nPour ce faire, je mobiliserai une brigade municipale capable d’assurer ce service minimum, avec des équipes dédiées et spécialement formées, afin que les parents ne soient plus mis en difficulté. C’est ce que font déjà des mairies de droite, à Argenteuil par exemple, comme de gauche, à Montpellier. C’est une question de bonne organisation du service public et de respect de ses usagers-contribuables.\nParmi les nombreux obstacles sur le parcours de combattants que doivent traverser les parents à Paris figure l’obtention d’une place en crèche. Aujourd’hui, plus d’une demande sur deux n’est pas satisfaite et les solutions alternatives restent trop limitées ou trop coûteuses. C’est la lutte des places ! Or la Mairie de Paris devrait au contraire offrir la palette la plus large de modes de garde, aider les parents à concilier vie familiale et vie professionnelle et éviter les situations de garde parentale subie.\nPour aider les familles parisiennes, je créerai 10 000 solutions supplémentaires de modes de garde, notamment de nouvelles places en crèche mais aussi de garde à domicile. Cela représentera une augmentation de près de 25 % par rapport aux capacités actuelles d’accueil des jeunes enfants. Pour y parvenir, j’aurai une priorité claire : former, former, former. Je lancerai avec le rectorat de Paris un plan ambitieux d'ouverture de places en CAP petite enfance et en diplômes d’auxiliaires de puériculture, permettant de débloquer 5 000 places en crèche supplémentaires d’ici 2030 et 10 000 places d’ici 2035. Je quintuplerai également les capacités du CFA Paris Petite Enfance de la Mairie de Paris afin d’y former 1 000 apprentis qui deviendront auxiliaires de puériculture au cours des dix prochaines années. Je favoriserai les passerelles entre les différents métiers de la filière enfance à Paris – de l’accueil du jeune enfant à l’animation périscolaire – pour ouvrir de nouvelles perspectives d’évolution et de progression de carrière. Nous pourrons ainsi en finir avec les pénuries de personnels qui empêchent l’ouverture de places en crèche supplémentaires alors que les structures existent et que les locaux sont disponibles.\nPar ailleurs, je rendrai le système d’attribution des places en crèche totalement transparent dans tout Paris. Chaque arrondissement disposera d’une grille unique de critères avec des points tenant notamment compte de la situation professionnelle et familiale des parents, ainsi que de leurs revenus. Ces critères d’attribution seront beaucoup plus justes, alors que chaque arrondissement peut aujourd’hui fixer des critères différents, et rendus publics et accessibles en ligne aux Parisiens. Les travailleurs indépendants, qui ne peuvent pas bénéficier aujourd’hui de berceaux réservés par un employeur, bénéficieront dans chaque arrondissement d’un quota minimum de places en crèche pour leur offrir des solutions de mode de garde.\nChaque mairie d’arrondissement devra répondre dans un délai raisonnable aux parents qui s’interrogent sur l’état de traitement de leur dossier de demande de place en crèche. Nous pourrons ainsi lutter contre le non-recours de parents qui jugent le processus actuel d’attribution opaque et obscur alors qu’ils auraient besoin d’une place en crèche.\nEnfin, j’adapterai l’offre à la diversité des rythmes de vie des familles parisiennes en développant les micro-crèches et les haltes-garderies souples, avec des horaires d’ouverture jusqu’à 19h30. Avec moi, il y aura une solution de garde pour chaque enfant parisien, adaptée à ses besoins et aux besoins des parents.\nÀ Paris, des milliers de familles peinent à concilier vie professionnelle, vie familiale et vie de couple. Les rythmes de travail ont évolué, les horaires sont parfois allongés mais l’offre publique de garde des jeunes enfants est restée largement figée. La majorité des structures ferment entre 17h et 19h, 18h30 en moyenne pour les crèches municipales, parfois jusqu’à 19h pour les assistantes maternelles agréées. Quant à la garde d’enfants à domicile, elle constitue une solution souvent inaccessible financièrement, avec un coût moyen compris entre 20 et 30 euros de l’heure à Paris.\nPassée 18h30 ou 19h, trop de parents se retrouvent sans solution. Ce décalage entre le besoin et l’offre de service public pèse lourdement sur le quotidien des familles parisiennes, en particulier sur les familles monoparentales et sur les femmes, qui supportent encore une charge plus importante de l’organisation familiale.\nFaute d’alternative, de nombreux parents renoncent à des activités professionnelles, à des sorties, sacrifient parfois leur vie de couple ou doivent recourir à des solutions informelles, pas toujours déclarées, qui ne sont ni sécurisées ni satisfaisantes. Le temps est devenu un luxe. Un luxe que beaucoup n’ont plus.\nCe constat est d’autant plus frappant que Paris consacre chaque année plus de 135 millions d’euros au fonctionnement de la politique de la petite enfance et plus de 166 millions d’euros en incluant l’investissement. Malgré ce budget conséquent, aucune solution municipale structurée n’existe en soirée et trop peu le week-end. Le besoin est pourtant réel, identifié et vécu par de très nombreuses familles.\nC’est pour soulager les familles que je développerai un réseau de « Maisons des Nounous » (sur la base des maisons d’assistantes maternelles), une nouvelle solution municipale de garde en soirée la semaine mais aussi le week-end, pensée pour s’adapter aux rythmes de vie des familles à Paris.Ces Maisons des Nounous offriront un accueil collectif, sécurisé et bienveillant pour les jeunes enfants, dans un cadre familier et rassurant. Au total, elles pourront accueillir un millier d’enfants sur Paris. Les parents pourront s’inscrire sur une plateforme dédiée, y compris le jour-même, pour réserver une plage horaire.\nL’encadrement de ces Maisons des Nounous sera assuré par des professionnels qualifiés : assistants maternels agréés, auxiliaires de puériculture et baby-sitters formés, dans le respect des obligations légales de taux d’encadrement des jeunes enfants. Elles offriront ainsi une qualité d’accueil irréprochable et une souplesse d’organisation aux parents. Elles seront implantées dans des écoles, des crèches ou des locaux municipaux aujourd’hui inutilisés en soirée. Leur fonctionnement respectera des normes strictes de sécurité et d’hygiène. La tarification sera calculée selon le quotient familial, avec la participation de la CAF, afin de garantir l’accessibilité à toutes les familles, quels que soient leurs revenus.\nLe coût net de ces structures pour la Ville s’élèvera au total à 1 million d’euros par an, en tenant compte de la participation des familles et de la CAF, soit un coût très faible compte tenu de l’impact social attendu.\nAprès des années, la Mairie sortante a enfin consenti à créer en 2024 un statut pour simplifier les démarches des 75 000 familles monoparentales vivant à Paris et leur ouvrir de nouveaux droits. Il ne s’agit pas d’un enjeu anecdotique : à Paris, près d’un tiers des foyers est constitué d'un parent vivant seul avec ses enfants. Pour ces familles, les difficultés sont décuplées et les besoins sont spécifiques. Dans leur écrasante majorité, ce sont des mamans solo qui assument la charge d’élever un ou plusieurs enfants seule.\nJe souhaite que la spécificité des parents solo soit systématiquement prise en compte dans la tarification des crèches, des cantines et des activités périscolaires, mais aussi pour l’accès aux activités culturelles et sportiveset notamment aux musées de la Ville de Paris, y compris pour des visites guidées et les ateliers ouverts aux enfants. Trouver une place en crèche, visiter un musée, inscrire son enfant au périscolaire ou aux bébés nageurs : toutes les démarches des parents solo seront accélérées et allégées financièrement pour soutenir ces familles.\nAu-delà, je faciliterai aussi les mobilités, en prenant en charge directement le Pass Navigo des enfants et en proposant une offre à tarif réduit pour les Vélib. Je proposerai enfin à la RATP et à la SNCF que des tarifs réduits soient appliqués pour les familles monoparentales comme l’a recommandé le Haut-commissariat à l’enfance.\nDans le monde de demain, les compétences scientifiques et numériques seront clé pour maîtriser son destin. Appréhender ces technologies, en comprendre les conséquences économiques, sociales et sociétales, être capable d’en tirer le meilleur seront autant d’atouts pour nos enfants. La fracture ne fera que grandir entre les sociétés qui comprennent et maîtrisent ces technologies et celles qui les utilisent sans comprendre, sans recul et sans citoyenneté.\nAujourd’hui, 90 % des ados et des jeunes adultes ont déjà utilisé un outil d’intelligence artificielle générative. Plus d’un quart sont même des utilisateurs quotidiens. Pourtant, beaucoup regrettent de ne pas être formés aux enjeux technologiques mais aussi éthiques et sociaux de ces outils.\nL’Education nationale a bien sûr un rôle fondamental à jouer dans cet apprentissage. Mais la Mairie de Paris en a aussi les moyens et le devoir.Dès l’école primaire, j’instaurerai une heure par semaine de codage et d’initiation à l’intelligence artificielledans le cadre des activités complémentaires à la main de la Municipalité.\nJe transformerai les bibliothèques municipales et les écoles en lieux d’apprentissage de l’intelligence artificielle, afin que Paris devienne une ville où chaque citoyen en devenir acquiert les compétences pour comprendre le monde de demain et maîtriser son destin.\nChaque année, environ 40 % des familles ne partent pas en vacances, souvent pour des raisons financières. Être bloqué dans son quartier sans pouvoir découvrir d’autres paysages, d’autres cultures mais aussi d’autres langues est un vrai moteur de la fracture sociale dans notre pays ainsi qu’à Paris. Or les expériences vécues durant l’enfance participent de la construction des adultes. Découvrir la montagne, la mer, la forêt, partir en colonies thématiques sur le sport, l’histoire ou la musique ne devrait pas être l’apanage des seules familles qui en ont les moyens.\nFace à cette inégalité, les séjours « vacances Arc-en-ciel » proposées par la Mairie de Paris restent largement conditionnées à un tirage au sort, faute de places suffisantes. Beaucoup de parents renoncent et trop d’enfants restent à l’écart de ces expériences essentielles pour l’autonomie et l’ouverture, simplement parce que leur famille n’en a pas les moyens ou parce qu’ils ne sont pas « tirés au sort ».\nJe veux mettre fin à cette loterie des vacances.Je lancerai un programme municipal de « Colos pour tous » avec une offre large et diversifiée pour répondre aux demandes. Il sera simple et regroupera l’offre actuellement dispersée entre les « vacances Arc-en-ciel » de la Mairie, les « vacances apprenantes » organisées par l’Etat et les mini-séjours des centres de loisirs. Au total, avec les classes découverte organisées par les enseignants, je souhaite que 30 000 jeunes Parisiens, de la maternelle au lycée, bénéficient chaque année de ces séjours.\nCes « Colos pour tous » valoriseront les régions françaises, y compris ultra-marines, et prévoiront également des séjours à l’étranger pour de courtes ou longues durées, selon l’âge des enfants et tout au long de l’année. Les séjours seront particulièrement adaptés pour les enfants en situation de handicap. Une tarification progressive s’adaptera aux revenus des familles : elle ira de quelques dizaines à quelques centaines d’euros selon les séjours. Cela représentera un budget supplémentaire de 15 millions d’euros par an pour la Municipalité au service des familles.\nComme l’a montré la convention citoyenne sur les rythmes de l’enfant, les rythmes scolaires au collège ne respectent pas les besoins biologiques des adolescents. En particulier, de nombreuses études montrent que les collégiens manquent de sommeil lorsqu’ils commencent les cours trop tôt, ce qui induit des conséquences directes sur leur attention, leur comportement, leur santé et leurs résultats scolaires.\nMaire de Paris, en charge de la gestion des collèges,je ferai débuter les cours à 9h dans les collèges parisiens, afin de respecter le sommeil des ados et leur permettre de débuter le travail en classe plus reposés, plus attentifs et plus disponibles pour apprendre. Le Conseil scientifique de l’Education nationale a démontré, sur la base d’expérimentations en Seine-et-Marne, que débuter les cours à 9h au collège offrait en moyenne 25 minutes de sommeil en plus aux ados et permettait de réduire leur anxiété, leur impulsivité et d’améliorer leurs résultats. C’est donc une mesure de bon sens pour la santé et la réussite scolaire des collégiens.\nPar ailleurs, je ferai pleinement respecter l’interdiction des smartphones au sein des collèges.Pour cela, j’installerai des casiers sécurisés à l’entrée des collèges ou des mallettes à l’entrée des classes, permettant aux élèves de déposer leur smartphone en début de journée. Cette « pause numérique » contribuera à restaurer un climat scolaire apaisé, favorisera la concentration des élèves et les protègera des usages excessifs des écrans. Elle représentera un investissement de 500 000 euros au maximum pour la Mairie de Paris.\nDepuis 12 ans, Paris a perdu 180 000 habitants. Près d’un Parisien sur dix a quitté notre capitale, c’est une véritable saignée ! C’est une perte de dynamisme et de vitalité pour Paris. C’est 25 milliards d’euros de richesses annuelles en moins : combien de places en crèche supplémentaires aurions-nous pu financer avec ces moyens ? combien d’équipements supplémentaires pour la sécurité et la propreté de nos rues ? combien de rénovations de logements pour en finir avec les passoires thermiques et baisser les loyers des Parisiens ?\nCet exode massif concerne principalement les familles et les classes moyennes. Soyons lucides : élever des enfants à Paris relève aujourd’hui du parcours du combattant. La faute à des logements trop chers. La faute à un manque de places en crèches et d’espaces où l’on puisse respirer dans la ville. La faute à des transports et notamment un métro encore trop peu accessible avec des enfants en bas âge. La faute à une ville où beaucoup de parents ou de futurs parents ont le sentiment qu’ils ne pourront pas élever leurs enfants sereinement. A Paris, tout devient une lutte.\nOr dans cette élection, nous pouvons faire un choix clair : voulons-nous que Paris continue de se recroqueviller sur elle-même, jusqu’à devenir un musée à ciel ouvert, où seuls des cadres supérieurs et des touristes auront encore droit de cité ? Ou voulons-nous que Paris redevienne ce qu’elle n’aurait jamais dû cesser d’être : une promesse de liberté, la ville de tous les possibles, où l’on peut vivre, travailler, fonder une famille et élever ses enfants ?\nJe ne veux pas d’un Paris-musée. Ce serait une perte de vitalité pour la capitale, une perte de dynamisme économique et de diversité sociale. Ce serait la fin du Paris qui bouillonne, du Paris qui rayonne, du Paris dont je suis tombé amoureux il y a trente ans quand j’ai quitté ma Corrèze pour monter à la capitale.\nJe veux au contraire un Paris où il fait bon vivre, un Paris où les familles peuvent grandir et s’épanouir, un Paris réconcilié avec ses classes moyennes.\nC’est pourquoi je présente un « plan familles » avec 10 mesures fortes pour répondre aux attentes légitimes des familles dans leur diversité et aux besoins essentiels de leurs enfants. Rénovation des écoles, cantines de qualité, périscolaire sécurisé, places en crèche… demain, ces 10 propositions deviendront 10 engagements au service des familles parisiennes.\nDans ce plan, je ne reviens pas sur les propositions que j’ai déjà faites pour remettre 60 000 logements sur le marché pour les Parisiens. Pacte de confiance pour inciter les propriétaires à louer et simplifier leurs démarches, accélération massive de la rénovation des passoires thermiques pour les remettre en location ou à la vente, retour à l’esprit initial d’Airbnb, priorité aux travailleurs pour l’accès au logement social, nouveaux quartiers étudiants et bail étudiant adapté à l’année universitaire : ces propositions pour rendre le logement abordable sont décisives pour que les familles puissent vivre et rester à Paris.\nCombinées aux 10 mesures qui suivent, elles forment un « plan familles » complet et efficace.\nAvec ces mesures, je fais un choix clair : celui de la santé de nos jeunes, notamment de leur santé mentale, et de leur réussite scolaire.\nDécouvrez mes autres engagements\nPour une meilleure gestion de Paris\nUn Paris sûr\nUn Paris propre\nRétablir la probité\nLoger les Parisiens\nDésendetter Paris\nCirculer à Paris\nApaiser Paris",
+  "source_id": "bournazel_redevenir-une-ville-pour-les-f_17d94cd4",
+  "source_type": "html",
+  "_clean_stats": {
+    "paras_removed": 0,
+    "chars_removed": 0
+  }
+}
