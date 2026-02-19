@@ -1,4 +1,5 @@
 import { View, Text, Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { AssistantContext, AssistantMode } from "../../stores/assistant";
 import { useElectionStore } from "../../stores/election";
@@ -50,17 +51,18 @@ export function ContextPrompts({ context, mode, onPromptSelect }: ContextPrompts
   if (prompts.length === 0) return null;
 
   return (
-    <View className="px-4 pb-2 gap-2">
+    <View className="flex-row flex-wrap gap-2 w-full">
       {prompts.map((prompt) => (
         <Pressable
           key={prompt}
           onPress={() => onPromptSelect(prompt)}
-          className="bg-warm-gray border border-warm-gray rounded-xl px-4 py-3"
+          className="flex-row items-center border border-accent-coral bg-warm-white rounded-xl px-4 py-3 gap-2"
           style={{ minHeight: 44 }}
           accessibilityRole="button"
           accessibilityLabel={prompt}
         >
-          <Text className="font-body text-sm text-text-body">{prompt}</Text>
+          <Text className="font-body text-sm text-text-body flex-shrink">{prompt}</Text>
+          <Ionicons name="arrow-forward" size={12} color="#E8553A" />
         </Pressable>
       ))}
     </View>
