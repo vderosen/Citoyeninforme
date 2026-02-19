@@ -34,7 +34,7 @@ export function createMessageId(): string {
 interface AssistantState {
   mode: AssistantMode;
   selectedCandidateId: string | null;
-  messages: ChatMessage[];
+  conversations: Record<string, ChatMessage[]>;
   isStreaming: boolean;
   preloadedContext: AssistantContext | null;
 
@@ -47,6 +47,9 @@ interface AssistantState {
   setPreloadedContext: (context: AssistantContext) => void;
   consumePreloadedContext: () => AssistantContext | null;
   resetConversation: () => void;
+
+  getConversationKey: () => string;
+  getCurrentMessages: () => ChatMessage[];
 }
 
 export const useAssistantStore = create<AssistantState>()(
@@ -54,7 +57,7 @@ export const useAssistantStore = create<AssistantState>()(
     (set, get) => ({
       mode: "comprendre",
       selectedCandidateId: null,
-      messages: [],
+      conversations: {},
       isStreaming: false,
       preloadedContext: null,
 
@@ -65,22 +68,48 @@ export const useAssistantStore = create<AssistantState>()(
 
       clearCandidate: () => set({ selectedCandidateId: null }),
 
+      getConversationKey: () => {
+        const { mode, selectedCandidateId } = get();
+        return mode === "parler" && selectedCandidateId
+          ? `parler:${selectedCandidateId}`
+          : mode;
+      },
+
+      getCurrentMessages: () => {
+        const { conversations } = get();
+        const key = get().getConversationKey();
+        return conversations[key] ?? [];
+      },
+
       addMessage: (message) =>
-        set((state) => ({
-          messages: [...state.messages, message],
-        })),
+        set((state) => {
+          const key = get().getConversationKey();
+          const current = state.conversations[key] ?? [];
+          return {
+            conversations: {
+              ...state.conversations,
+              [key]: [...current, message],
+            },
+          };
+        }),
 
       updateLastAssistantMessage: (content) =>
         set((state) => {
-          const messages = [...state.messages];
-          const lastIndex = messages.length - 1;
-          if (lastIndex >= 0 && messages[lastIndex].role === "assistant") {
-            messages[lastIndex] = {
-              ...messages[lastIndex],
-              content: messages[lastIndex].content + content,
+          const key = get().getConversationKey();
+          const current = [...(state.conversations[key] ?? [])];
+          const lastIndex = current.length - 1;
+          if (lastIndex >= 0 && current[lastIndex].role === "assistant") {
+            current[lastIndex] = {
+              ...current[lastIndex],
+              content: current[lastIndex].content + content,
             };
           }
-          return { messages };
+          return {
+            conversations: {
+              ...state.conversations,
+              [key]: current,
+            },
+          };
         }),
 
       setStreaming: (streaming) => set({ isStreaming: streaming }),
@@ -94,20 +123,37 @@ export const useAssistantStore = create<AssistantState>()(
         return current;
       },
 
-      resetConversation: () =>
-        set({
-          mode: "comprendre",
-          messages: [],
-          selectedCandidateId: null,
-        }),
+      resetConversation: () => {
+        const key = get().getConversationKey();
+        set((state) => ({
+          conversations: {
+            ...state.conversations,
+            [key]: [],
+          },
+        }));
+      },
     }),
     {
       name: "assistant-state",
       storage: createJSONStorage(() => zustandStorage),
+      version: 1,
+      migrate: (persistedState: unknown, version: number) => {
+        const state = persistedState as Record<string, unknown>;
+        if (version === 0 && state.messages) {
+          return {
+            ...state,
+            conversations: {
+              comprendre: state.messages,
+            },
+            messages: undefined,
+          };
+        }
+        return state;
+      },
       partialize: (state) => ({
         mode: state.mode,
         selectedCandidateId: state.selectedCandidateId,
-        messages: state.messages,
+        conversations: state.conversations,
       }),
     }
   )

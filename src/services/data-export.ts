@@ -33,12 +33,17 @@ export async function generateExport(): Promise<string> {
     assistant: {
       mode: assistantState.mode,
       selectedCandidateId: assistantState.selectedCandidateId,
-      messages: assistantState.messages.map((m) => ({
-        id: m.id,
-        role: m.role,
-        content: m.content,
-        timestamp: m.timestamp,
-      })),
+      conversations: Object.fromEntries(
+        Object.entries(assistantState.conversations).map(([key, msgs]) => [
+          key,
+          msgs.map((m) => ({
+            id: m.id,
+            role: m.role,
+            content: m.content,
+            timestamp: m.timestamp,
+          })),
+        ])
+      ),
     },
 
     preferences: {

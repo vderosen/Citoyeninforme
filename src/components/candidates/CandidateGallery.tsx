@@ -8,6 +8,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
 import DistrictBlockCard from "../ui/DistrictBlockCard";
 import type { Candidate } from "../../data/schema";
 import { deterministicShuffle, dailySeed } from "../../utils/shuffle";
@@ -16,8 +17,9 @@ import { getCandidateImageSource } from "../../utils/candidateImageSource";
 interface CandidateGalleryProps {
   candidates: Candidate[];
   onCandidatePress: (candidateId: string) => void;
-  activeThemeFilter?: string;
-  positionSnippets?: Record<string, string>;
+  compareMode?: boolean;
+  selectedForCompare?: string[];
+  onToggleCompare?: (candidateId: string) => void;
 }
 
 function CandidateCardItem({
@@ -25,15 +27,17 @@ function CandidateCardItem({
   index,
   reduceMotion,
   onPress,
-  activeThemeFilter,
-  positionSnippets,
+  compareMode,
+  isSelected,
+  onToggleCompare,
 }: {
   item: Candidate;
   index: number;
   reduceMotion: boolean;
   onPress: (id: string) => void;
-  activeThemeFilter?: string;
-  positionSnippets?: Record<string, string>;
+  compareMode?: boolean;
+  isSelected?: boolean;
+  onToggleCompare?: (id: string) => void;
 }) {
   const scale = useSharedValue(1);
   const pressStyle = useAnimatedStyle(() => ({
@@ -41,13 +45,24 @@ function CandidateCardItem({
   }));
   const imageSource = getCandidateImageSource(item);
 
+  const handlePress = () => {
+    if (compareMode && onToggleCompare) {
+      onToggleCompare(item.id);
+    } else {
+      onPress(item.id);
+    }
+  };
+
   return (
     <Animated.View
       entering={reduceMotion ? undefined : FadeInDown.delay(index * 50).duration(400)}
       className="flex-1"
     >
       <Animated.View style={reduceMotion ? undefined : pressStyle} className="flex-1">
-        <DistrictBlockCard clipCorner="top-right" className="flex-1 bg-warm-gray shadow-card">
+        <DistrictBlockCard
+          clipCorner="top-right"
+          className={`flex-1 shadow-card ${isSelected ? "bg-accent-coral-light" : "bg-warm-gray"}`}
+        >
           <View
             style={{
               height: 4,
@@ -55,7 +70,7 @@ function CandidateCardItem({
             }}
           />
           <Pressable
-            onPress={() => onPress(item.id)}
+            onPress={handlePress}
             onPressIn={() => {
               if (!reduceMotion) scale.value = withTiming(0.97, { duration: 100 });
             }}
@@ -65,7 +80,17 @@ function CandidateCardItem({
             style={{ minHeight: 44 }}
             accessibilityRole="button"
             accessibilityLabel={`${item.name}, ${item.party}`}
+            accessibilityState={compareMode ? { selected: isSelected } : undefined}
           >
+            {compareMode && (
+              <View className="absolute top-2 right-2 z-10">
+                <Ionicons
+                  name={isSelected ? "checkmark-circle" : "ellipse-outline"}
+                  size={24}
+                  color={isSelected ? "#E8523F" : "#6B7280"}
+                />
+              </View>
+            )}
             {imageSource ? (
               <Image
                 source={imageSource}
@@ -84,11 +109,6 @@ function CandidateCardItem({
               <Text className="font-body text-xs text-text-caption mt-0.5" numberOfLines={1}>
                 {item.party}
               </Text>
-              {activeThemeFilter && positionSnippets?.[item.id] && (
-                <Text className="font-body text-xs text-text-body mt-1" numberOfLines={2}>
-                  {positionSnippets[item.id]}
-                </Text>
-              )}
             </View>
           </Pressable>
         </DistrictBlockCard>
@@ -100,8 +120,9 @@ function CandidateCardItem({
 export function CandidateGallery({
   candidates,
   onCandidatePress,
-  activeThemeFilter,
-  positionSnippets,
+  compareMode,
+  selectedForCompare,
+  onToggleCompare,
 }: CandidateGalleryProps) {
   const { t } = useTranslation("candidates");
   const reduceMotion = useReducedMotion();
@@ -137,8 +158,9 @@ export function CandidateGallery({
           index={index}
           reduceMotion={reduceMotion}
           onPress={onCandidatePress}
-          activeThemeFilter={activeThemeFilter}
-          positionSnippets={positionSnippets}
+          compareMode={compareMode}
+          isSelected={selectedForCompare?.includes(item.id)}
+          onToggleCompare={onToggleCompare}
         />
       )}
     />
