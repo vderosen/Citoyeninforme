@@ -90,8 +90,8 @@ function setCorsHeaders(req, res) {
     // In production, do not set Access-Control-Allow-Origin
     // Native mobile apps don't use CORS; browser requests are blocked
   } else {
-    // In development, allow localhost origins only
-    if (origin && /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+    // In development, allow any origin (Expo web uses *.exp.direct, LAN IPs, etc.)
+    if (origin) {
       res.setHeader("Access-Control-Allow-Origin", origin);
     }
   }
