@@ -13,6 +13,9 @@ import { ChatArea } from "../../components/assistant/ChatArea";
 import { ContextPrompts } from "../../components/assistant/ContextPrompts";
 import { FeedbackAction } from "../../components/shared/FeedbackAction";
 import { useNetworkStatus } from "../../hooks/useNetworkStatus";
+import type { ChatMessage } from "../../stores/assistant";
+
+const EMPTY_MESSAGES: ChatMessage[] = [];
 
 export default function AssistantScreen() {
   const { t } = useTranslation("errors");
@@ -25,7 +28,12 @@ export default function AssistantScreen() {
 
   const mode = useAssistantStore((s) => s.mode);
   const selectedCandidateId = useAssistantStore((s) => s.selectedCandidateId);
-  const messages = useAssistantStore((s) => s.messages);
+  const messages = useAssistantStore((s) => {
+    const key = s.mode === "parler" && s.selectedCandidateId
+      ? `parler:${s.selectedCandidateId}`
+      : s.mode;
+    return s.conversations[key] ?? EMPTY_MESSAGES;
+  });
   const isStreaming = useAssistantStore((s) => s.isStreaming);
   const preloadedContext = useAssistantStore((s) => s.preloadedContext);
   const selectMode = useAssistantStore((s) => s.selectMode);

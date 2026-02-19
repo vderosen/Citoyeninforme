@@ -8,15 +8,11 @@ import type { SurveyStatus } from "../../stores/survey";
 interface PrimaryShortcutsProps {
   surveyStatus: SurveyStatus;
   onStartSurvey: () => void;
-  onViewCandidates: () => void;
-  onAskQuestion: () => void;
 }
 
 export function PrimaryShortcuts({
   surveyStatus,
   onStartSurvey,
-  onViewCandidates,
-  onAskQuestion,
 }: PrimaryShortcutsProps) {
   const { t } = useTranslation("home");
 
@@ -44,38 +40,6 @@ export function PrimaryShortcuts({
           </Text>
         </PressableScale>
       </DistrictBlockCard>
-      <View className="flex-row gap-3">
-        <DistrictBlockCard clipCorner="top-right" className="flex-1 bg-civic-navy-light">
-          <PressableScale
-            onPress={onViewCandidates}
-            className="px-4 py-4 items-center gap-2"
-            style={{ minHeight: 48 }}
-            accessibilityRole="button"
-            accessibilityLabel={t("exploreCandidates")}
-            accessibilityHint={t("exploreCandidatesHint")}
-          >
-            <Ionicons name="people-outline" size={22} color="#1B2A4A" />
-            <Text className="font-display-medium text-sm text-civic-navy text-center">
-              {t("exploreCandidates")}
-            </Text>
-          </PressableScale>
-        </DistrictBlockCard>
-        <DistrictBlockCard clipCorner="top-right" className="flex-1 bg-civic-navy-light">
-          <PressableScale
-            onPress={onAskQuestion}
-            className="px-4 py-4 items-center gap-2"
-            style={{ minHeight: 48 }}
-            accessibilityRole="button"
-            accessibilityLabel={t("askQuestion")}
-            accessibilityHint={t("askQuestionHint")}
-          >
-            <Ionicons name="chatbubble-outline" size={22} color="#1B2A4A" />
-            <Text className="font-display-medium text-sm text-civic-navy text-center">
-              {t("askQuestion")}
-            </Text>
-          </PressableScale>
-        </DistrictBlockCard>
-      </View>
     </View>
   );
 }

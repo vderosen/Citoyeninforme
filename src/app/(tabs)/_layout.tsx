@@ -1,8 +1,7 @@
-import { Pressable, View } from "react-native";
+import { Pressable } from "react-native";
 import { Tabs, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
-import { LanguageSwitcher } from "../../components/shell/LanguageSwitcher";
 
 export default function TabLayout() {
   const { t } = useTranslation("common");
@@ -20,7 +19,7 @@ export default function TabLayout() {
           color: "#FAFAF8",
         },
         headerShadowVisible: false,
-        headerRight: () => <LanguageSwitcher />,
+        headerRight: undefined,
         lazy: true,
         tabBarActiveTintColor: "#1B2A4A",
         tabBarInactiveTintColor: "#6B7280",
@@ -45,17 +44,14 @@ export default function TabLayout() {
             <Ionicons name={focused ? "home" : "home-outline"} size={size} color={color} />
           ),
           headerRight: () => (
-            <View className="flex-row items-center">
-              <Pressable
-                onPress={() => router.push("/settings")}
-                className="mr-2 p-2"
-                accessibilityRole="button"
-                accessibilityLabel="Paramètres"
-              >
-                <Ionicons name="settings-outline" size={22} color="#FAFAF8" />
-              </Pressable>
-              <LanguageSwitcher />
-            </View>
+            <Pressable
+              onPress={() => router.push("/settings")}
+              className="mr-4 p-2"
+              accessibilityRole="button"
+              accessibilityLabel="Paramètres"
+            >
+              <Ionicons name="settings-outline" size={22} color="#FAFAF8" />
+            </Pressable>
           ),
         }}
       />

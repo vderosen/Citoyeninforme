@@ -3,7 +3,6 @@ import { View, Text, Image, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import type { Candidate, Position, Theme } from "../../data/schema";
-import type { AssistantContext } from "../../stores/assistant";
 import { PositionCard } from "./PositionCard";
 import { FeedbackAction } from "../shared/FeedbackAction";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
@@ -12,18 +11,14 @@ interface CandidateProfileCardProps {
   candidate: Candidate;
   positions: Position[];
   themes: Theme[];
-  onCompare: () => void;
   onDebate: () => void;
-  onAskAbout: (context: AssistantContext) => void;
 }
 
 export function CandidateProfileCard({
   candidate,
   positions,
   themes,
-  onCompare,
   onDebate,
-  onAskAbout,
 }: CandidateProfileCardProps) {
   const { t } = useTranslation("candidates");
   const [expandedThemes, setExpandedThemes] = useState<Set<string>>(new Set());
@@ -125,50 +120,17 @@ export function CandidateProfileCard({
         ))}
       </View>
 
-      {/* Action buttons */}
-      <View className="px-4 flex-row gap-3 pb-4">
-        <Pressable
-          onPress={onCompare}
-          className="flex-1 bg-warm-gray rounded-xl py-3"
-          style={{ minHeight: 48 }}
-          accessibilityRole="button"
-          accessibilityLabel={t("compare")}
-        >
-          <Text className="font-display-medium text-sm text-civic-navy text-center">
-            {t("compare")}
-          </Text>
-        </Pressable>
+      {/* Action button */}
+      <View className="px-4 pb-4">
         <Pressable
           onPress={onDebate}
-          className="flex-1 bg-warm-gray rounded-xl py-3"
+          className="bg-accent-coral rounded-xl py-3"
           style={{ minHeight: 48 }}
           accessibilityRole="button"
           accessibilityLabel={t("debate")}
         >
-          <Text className="font-display-medium text-sm text-civic-navy text-center">
+          <Text className="font-display-medium text-sm text-text-inverse text-center">
             {t("debate")}
-          </Text>
-        </Pressable>
-      </View>
-
-      {/* Ask about this candidate */}
-      <View className="px-4 pb-4">
-        <Pressable
-          onPress={() =>
-            onAskAbout({
-              type: "candidate",
-              candidateId: candidate.id,
-              themeId: null,
-              promptText: null,
-            })
-          }
-          className="bg-accent-coral-light border border-accent-coral rounded-xl py-3"
-          style={{ minHeight: 48 }}
-          accessibilityRole="button"
-          accessibilityLabel={t("askAbout")}
-        >
-          <Text className="font-display-medium text-sm text-accent-coral-dark text-center">
-            {t("askAbout")}
           </Text>
         </Pressable>
       </View>
