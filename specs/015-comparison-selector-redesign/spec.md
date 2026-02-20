@@ -1,133 +1,152 @@
-# Feature Specification: Comparison Selector Page Redesign
+# Feature Specification: Comparison Selector Redesign
 
 **Feature Branch**: `015-comparison-selector-redesign`
 **Created**: 2026-02-20
 **Status**: Draft
-**Input**: User description: "Redesign the comparison selector page to fix UX/UI issues: duplicated title, unclear candidate selection with oversized placeholders, clipped horizontal content, no visible CTA, weak contrast. Replace with clean step-based flow, candidate cards with proper states, compact theme chips, sticky compare button, and accessibility improvements."
+**Input**: User description: "Redesign comparison page from a 5-step redundant flow (candidates selected twice, double validation) into a single live page with three stacked zones: horizontal avatar bar for candidates, horizontal theme chips, and instant position results — zero validation buttons."
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - Clear candidate selection with visual feedback (Priority: P1)
+### User Story 1 - Single-page live comparison (Priority: P1)
 
-A user opens the comparison screen and sees a clean list of candidate cards — each showing an avatar (initials on party color) and the candidate's full name. They tap candidates to select them. Selected cards visually change (tinted background, check icon, primary-colored border) so the user always knows exactly who is selected. A counter label (e.g., "2 sélectionnés") updates in real time above the cards.
+A user navigates to the comparison screen and sees a single unified page with three zones stacked vertically: candidate avatars at the top, theme chips below, and position cards underneath. There are no steps, no "Comparer" button, no validation flow. When the user toggles candidates or taps a different theme, the positions zone updates instantly. The user can freely explore combinations without ever going "back" or "forward."
 
-**Why this priority**: The current candidate selector uses empty oval placeholders with no clear selected/unselected distinction. Users cannot tell which candidates are selected, making the core feature unusable. Fixing selection clarity is the single most impactful improvement.
+**Why this priority**: The entire redesign exists to eliminate the 5-step redundant flow. Without the single-page live layout, the feature delivers no value.
 
-**Independent Test**: Can be fully tested by opening the comparison screen, tapping 2 candidate cards, and verifying each card visually transitions to a selected state with check icon, tinted background, and that the counter updates.
+**Independent Test**: Can be fully tested by opening the comparison screen with 2 pre-selected candidates, verifying positions appear immediately, toggling a candidate off and on, and switching themes — all without any navigation or button tap.
 
 **Acceptance Scenarios**:
 
-1. **Given** the comparison screen is open, **When** the user views the candidate section, **Then** each candidate is shown as a card with avatar (initials + party color) and full name — no empty placeholders.
-2. **Given** no candidates are selected, **When** the user taps a candidate card, **Then** the card transitions to the selected state: primary-colored border, tinted background, and a check icon appears.
-3. **Given** a candidate is selected, **When** the user taps that candidate card again, **Then** the card returns to the default state (white background, light border, no check icon).
-4. **Given** 2 candidates are selected, **When** the user views the selection counter, **Then** it reads "2 sélectionnés" and updates immediately when candidates are added or removed.
-5. **Given** a candidate's name is long (e.g., "Jean-Pierre Dupont-Martin"), **When** displayed on a card, **Then** the name wraps to a second line rather than being truncated.
+1. **Given** the user navigates to comparison with 2+ pre-selected candidates, **When** the screen loads, **Then** the first theme is auto-selected and positions for the selected candidates on that theme are displayed immediately — no intermediate step.
+2. **Given** the comparison screen is showing positions, **When** the user taps a different theme chip, **Then** the positions zone updates instantly to show the selected candidates' stances on the new theme.
+3. **Given** the comparison screen is showing positions, **When** the user deselects a candidate from the avatar bar, **Then** that candidate's position column disappears immediately from the results.
+4. **Given** the comparison screen is showing positions, **When** the user selects an additional candidate (up to 4 max), **Then** that candidate's position column appears immediately in the results.
+5. **Given** the comparison screen is open, **When** the user looks for a "Comparer" button or step indicator, **Then** none exists — the page has no validation step.
 
 ---
 
-### User Story 2 - Compact theme chips replace oversized circles (Priority: P1)
+### User Story 2 - Compact horizontal candidate avatar bar (Priority: P1)
 
-Instead of the current large circular theme buttons that waste screen space and push content out of view, the user sees medium-sized pill-shaped chips arranged in a wrapping layout. "Tous les thèmes" is the first chip and is selected by default. The user can tap any theme chip to filter the comparison.
+At the top of the comparison screen, the user sees a horizontal scrollable bar of candidate avatars. Each item shows a circular photo and the candidate's name below (~60px height total). The user scrolls horizontally to see all ~12 candidates. Tapping a candidate toggles selection: selected candidates have a coral-light background with a coral border on the entire item; unselected candidates have a warm-gray background. The color change covers the full card area for instant scannability.
 
-**Why this priority**: The oversized circles are the second most visible UX problem — they create excessive dead space, cause horizontal clipping, and push the comparison content below the fold. Compact chips fix all three issues simultaneously.
+**Why this priority**: The current large vertical candidate cards waste screen space and duplicate the selection already done on the candidates grid. Compact avatars free vertical space for the position content, which is the actual value of the feature.
 
-**Independent Test**: Can be fully tested by opening the comparison screen and verifying themes appear as compact pills in a wrapping layout, "Tous les thèmes" is pre-selected, and tapping a theme chip selects it with a visual change.
+**Independent Test**: Can be tested by opening the comparison screen, scrolling through the avatar bar to verify all candidates appear, tapping to select/deselect, and confirming the full-card color change.
 
 **Acceptance Scenarios**:
 
-1. **Given** the comparison screen is open, **When** the user views the theme section, **Then** themes are displayed as pill-shaped chips in a wrapping multi-row layout (not large circles).
-2. **Given** the theme chips are displayed, **When** the user counts visible themes, **Then** all themes fit on screen without horizontal scrolling or clipping.
-3. **Given** no theme has been explicitly selected, **When** the screen loads, **Then** "Tous les thèmes" is selected by default (primary-colored background, white text).
-4. **Given** the user taps a theme chip, **When** the chip is selected, **Then** it changes to primary background with white text, and the previously selected chip reverts to default (light surface, dark text).
-5. **Given** multiple themes exist, **When** displayed in the chip area, **Then** they wrap naturally across 2-3 rows without overflow or truncation.
+1. **Given** the comparison screen is open, **When** the user views the top zone, **Then** candidates appear as compact circular avatars with names in a horizontal scrollable bar (~60px height).
+2. **Given** the avatar bar is displayed, **When** the user scrolls horizontally, **Then** all available candidates (~12) are accessible.
+3. **Given** a candidate is not selected, **When** the user taps the candidate item, **Then** the entire item background changes to coral-light with a coral border (selected state).
+4. **Given** a candidate is selected (coral-light background), **When** the user taps the item again, **Then** it reverts to warm-gray background (unselected state).
+5. **Given** candidates arrive pre-selected from the candidates grid, **When** the screen loads, **Then** those candidates show the selected state (coral-light + coral border) immediately.
+6. **Given** 4 candidates are already selected (maximum), **When** the user taps a 5th candidate, **Then** the selection is rejected or the oldest selection is deselected (enforcing the 2-4 limit).
 
 ---
 
-### User Story 3 - Step-guided flow with sticky compare button (Priority: P2)
+### User Story 3 - Theme chips with auto-selection (Priority: P2)
 
-The comparison screen guides the user through a clear 2-step process. A step label below the title reads "Étape 1 sur 2" (select candidates and theme). A sticky bottom bar shows a "Comparer" button that is disabled (greyed out) until at least 2 candidates are selected. Once enabled, the bar also shows a summary (e.g., "2 candidats · Transport & Mobilité"). Tapping "Comparer" opens the comparison results view.
+Below the candidate avatar bar, the user sees a horizontal scrollable row of theme chips. Each chip shows the theme name. One theme is active at a time. The first theme is pre-selected when the screen loads, so the user always sees content immediately. Tapping a different chip switches the active theme and the positions below update instantly.
 
-**Why this priority**: Currently there is no visible action button after selecting candidates — users don't know how to proceed. Adding an explicit CTA with step guidance completes the interaction flow and eliminates confusion.
+**Why this priority**: The theme selector is essential for the live comparison to work, but it reuses the existing chip pattern and requires less redesign than the candidate bar.
 
-**Independent Test**: Can be fully tested by selecting 0, 1, then 2 candidates and verifying the CTA transitions from disabled to enabled, showing the correct summary text.
+**Independent Test**: Can be tested by opening the comparison screen, verifying the first theme is pre-selected, tapping other themes, and confirming only one is active at a time.
 
 **Acceptance Scenarios**:
 
-1. **Given** the comparison screen is open, **When** the user views the area below the title, **Then** a step label reads "Étape 1 sur 2".
-2. **Given** fewer than 2 candidates are selected, **When** the user views the bottom bar, **Then** the "Comparer" button is visually disabled (reduced opacity) and the bar shows "Sélectionnez 2 candidats minimum".
-3. **Given** exactly 2 candidates are selected with the default theme, **When** the user views the bottom bar, **Then** the "Comparer" button is enabled and the summary reads "2 candidats · Tous les thèmes".
-4. **Given** 3 candidates are selected and the theme "Transport & Mobilité" is chosen, **When** the user views the bottom bar, **Then** the summary reads "3 candidats · Transport & Mobilité".
-5. **Given** the CTA is enabled, **When** the user taps "Comparer", **Then** the comparison results view opens with the selected candidates and theme.
-6. **Given** the user scrolls the page content, **When** they reach any scroll position, **Then** the bottom bar remains fixed/sticky at the bottom of the screen.
+1. **Given** the comparison screen loads, **When** the user views the theme zone, **Then** themes appear as horizontal scrollable chips below the candidate bar.
+2. **Given** the screen has just loaded, **When** the user checks the theme chips, **Then** the first theme (by display order) is already selected.
+3. **Given** a theme is selected, **When** the user taps a different theme chip, **Then** the new chip becomes active and the previous one reverts to default state.
+4. **Given** there are more themes than fit on screen, **When** the user scrolls the chip bar horizontally, **Then** all themes are accessible.
 
 ---
 
-### User Story 4 - Deduplicated title and clean visual hierarchy (Priority: P3)
+### User Story 4 - Live positions zone (Priority: P2)
 
-The screen shows only one instance of the title "Comparaison" (in the header bar), not repeated as a section heading. Below the header, the page uses clear section labels ("Candidats", "Thème") with consistent spacing, giving the screen a clean editorial look rather than a cluttered interface.
+Below the theme chips, the user sees position cards for all selected candidates on the active theme. With 2 candidates, cards are displayed side-by-side filling the screen width. With 3-4 candidates, cards scroll horizontally. Each card shows the candidate's name, party, position summary, details, and sources. When the user changes candidates or theme, the content updates instantly with no loading state or navigation.
 
-**Why this priority**: The duplicated title is a minor but noticeable polish issue that makes the screen feel unfinished. Combined with proper section spacing, this improves the overall perception of quality.
+**Why this priority**: This is the core value — seeing candidates' stances compared. But it depends on the candidate bar and theme chips working first.
 
-**Independent Test**: Can be tested by opening the comparison screen and counting the number of times "Comparaison" appears — it should appear exactly once (in the header).
+**Independent Test**: Can be tested by selecting 2 candidates and a theme, verifying positions appear, then adding a 3rd candidate and verifying the layout switches to horizontal scroll.
 
 **Acceptance Scenarios**:
 
-1. **Given** the comparison screen is open, **When** the user scans the screen, **Then** "Comparaison" appears exactly once — in the navigation header bar.
-2. **Given** the comparison screen is open, **When** the user views the candidate section, **Then** it has a clear label (e.g., "Candidats") visually distinct from body content.
-3. **Given** the comparison screen is open, **When** the user views the theme section, **Then** it has a clear label (e.g., "Thème") visually distinct from body content, with adequate spacing from the candidate section above.
+1. **Given** 2 candidates are selected and a theme is active, **When** the user views the positions zone, **Then** 2 position cards are displayed side-by-side (full width).
+2. **Given** 3 or 4 candidates are selected, **When** the user views the positions zone, **Then** position cards are scrollable horizontally.
+3. **Given** positions are displayed, **When** the user toggles a candidate off, **Then** that candidate's position card disappears immediately.
+4. **Given** positions are displayed, **When** the user switches the active theme, **Then** all position cards update to reflect the new theme's stances instantly.
+5. **Given** a candidate has a position on the active theme, **When** displayed, **Then** the card shows: candidate name, party, position summary, details, and sources.
+
+---
+
+### User Story 5 - Empty state guidance (Priority: P3)
+
+When fewer than 2 candidates are selected, the positions zone shows a gentle prompt message ("Sélectionnez au moins 2 candidats pour comparer") instead of blank space. This guides the user without blocking the interface — they can still interact with the candidate bar and theme chips.
+
+**Why this priority**: This is polish — the main flow already works with pre-selected candidates. The empty state only appears if the user deselects everyone.
+
+**Independent Test**: Can be tested by deselecting all candidates and verifying the prompt appears, then selecting 2 and verifying positions replace the prompt.
+
+**Acceptance Scenarios**:
+
+1. **Given** fewer than 2 candidates are selected, **When** the user views the positions zone, **Then** a message reads "Sélectionnez au moins 2 candidats pour comparer."
+2. **Given** the empty state message is shown, **When** the user selects a 2nd candidate, **Then** the message disappears and positions appear immediately.
+3. **Given** the empty state is shown, **When** the user interacts with the candidate bar or theme chips, **Then** they remain fully functional (not disabled).
 
 ---
 
 ### Edge Cases
 
-- What happens when all candidates are selected (max 4)? The cards all show selected state and no additional selection is possible until one is deselected.
-- What happens when a candidate has no party color defined? The avatar uses a neutral default background color (gray).
-- What happens on a very small screen (320px width)? Candidate cards and theme chips reflow gracefully — cards remain full-width, chips wrap to additional rows.
-- What happens when the screen is loaded with pre-selected candidates (from the gallery compare mode)? Pre-selected candidates appear in selected state immediately, and the CTA enables if 2+ are pre-selected.
-- What happens when only 1 candidate exists in the election data? The candidate section shows that single card; the CTA remains disabled since comparison requires at least 2.
+- What happens when a candidate has no position on the active theme? The card shows a "Pas de position connue" placeholder for that candidate on that theme.
+- What happens when all candidates are deselected? The positions zone shows the empty state message; the theme chips remain interactive.
+- What happens when the screen is loaded without pre-selected candidates (direct URL)? All candidates appear unselected; the first theme is auto-selected; the empty state message is displayed.
+- What happens on a narrow screen (320px)? The avatar bar and theme chips scroll horizontally; position cards stack or scroll as needed.
+- What happens when a candidate has no photo? The avatar falls back to initials on the party-colored background.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: The comparison screen MUST display each candidate as a card with avatar (initials on party-colored background) and full name — not as empty oval placeholders.
-- **FR-002**: Candidate cards MUST have three distinct visual states: default (white surface, light border), selected (primary border, tinted background, check icon), and disabled (reduced opacity, if applicable).
-- **FR-003**: A real-time selection counter (e.g., "2 sélectionnés") MUST be visible above the candidate cards, updating immediately when candidates are added or removed.
-- **FR-004**: Theme options MUST be displayed as pill-shaped chips in a wrapping multi-row layout, not as large circles.
-- **FR-005**: "Tous les thèmes" MUST be the first chip and MUST be selected by default when the screen loads.
-- **FR-006**: Theme chips MUST have two visual states: default (light surface, dark text) and selected (primary background, white text). Only one theme may be selected at a time.
-- **FR-007**: A sticky bottom bar MUST be present at all scroll positions, containing a primary "Comparer" button and a text summary of the current selection.
-- **FR-008**: The "Comparer" button MUST be disabled (reduced opacity, non-interactive) when fewer than 2 candidates are selected, showing "Sélectionnez 2 candidats minimum" as helper text.
-- **FR-009**: When the "Comparer" button is enabled (2+ candidates selected), the summary text MUST show the count of selected candidates and the name of the selected theme (e.g., "2 candidats · Transport & Mobilité").
-- **FR-010**: The title "Comparaison" MUST appear only once — in the navigation header bar. Any duplicated section title MUST be removed.
-- **FR-011**: A step indicator (e.g., "Étape 1 sur 2") MUST appear below the header to orient the user in the comparison flow.
-- **FR-012**: All interactive elements (candidate cards, theme chips, CTA button) MUST have a minimum tap target of 44x44 points.
-- **FR-013**: All text MUST meet a contrast ratio of at least 4.5:1 against its background.
-- **FR-014**: Candidate names MUST NOT be truncated — they wrap to multiple lines if needed.
-- **FR-015**: When a candidate has no party color defined, the avatar MUST use a neutral default color.
+- **FR-001**: The comparison screen MUST display a single unified page with three vertically stacked zones: candidate avatar bar, theme chips, and positions.
+- **FR-002**: There MUST be no step indicator, no "Comparer" button, and no validation flow — the page is entirely live.
+- **FR-003**: Candidates MUST be displayed as compact circular avatars (~60px height) with name labels in a horizontal scrollable bar.
+- **FR-004**: Selected candidates MUST show a coral-light background with coral border covering the entire item area. Unselected candidates MUST show a warm-gray background.
+- **FR-005**: Tapping a candidate avatar MUST toggle its selection state immediately.
+- **FR-006**: The candidate selection limit (2-4) MUST be enforced.
+- **FR-007**: Themes MUST be displayed as horizontal scrollable chips below the candidate bar, with single-selection behavior.
+- **FR-008**: The first theme (by display order) MUST be auto-selected when the screen loads.
+- **FR-009**: Positions MUST update instantly when the user toggles a candidate or switches a theme — no explicit refresh or navigation required.
+- **FR-010**: With 2 selected candidates, position cards MUST display side-by-side (full width). With 3-4, they MUST scroll horizontally.
+- **FR-011**: Each position card MUST show: candidate name, party, position summary, details, and sources.
+- **FR-012**: When fewer than 2 candidates are selected, the positions zone MUST show a guidance message instead of blank space.
+- **FR-013**: Pre-selected candidates (passed via navigation params from the candidates grid) MUST appear in selected state on load.
+- **FR-014**: The ComparisonBottomBar (sticky CTA) MUST be removed.
+- **FR-015**: All interactive elements (avatars, chips) MUST have a minimum tap target of 44x44 points.
 
 ### Key Entities
 
-- **Candidate Card**: Represents a selectable candidate with avatar, name, and visual state. Maps to existing Candidate entity.
-- **Theme Chip**: Represents a selectable theme filter option with name and visual state. Maps to existing Theme entity. Includes a virtual "Tous les thèmes" option (null theme ID).
-- **Selection Summary**: Derived display showing the count of selected candidates and the active theme name, used in the sticky bottom bar.
+- **Candidate Avatar Item**: Compact selectable element in the horizontal bar. Shows circular photo (or initials fallback), candidate name, and selected/unselected visual state. Maps to existing Candidate entity.
+- **Theme Chip**: Selectable pill in the horizontal chips bar. Shows theme name and active/inactive visual state. Maps to existing Theme entity.
+- **Position Card**: Content card displaying a candidate's stance on the active theme. Shows name, party, summary, details, sources. Maps to existing Position entity.
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can understand the purpose of the screen and the required steps (select candidates, pick theme, compare) within 5 seconds of viewing.
-- **SC-002**: Users can identify which candidates are selected versus unselected with 100% accuracy based on visual states alone (no guessing).
-- **SC-003**: All theme options are visible without horizontal scrolling or content clipping on a standard mobile screen (375px width).
-- **SC-004**: The "Comparer" call-to-action is visible at all times without scrolling (sticky positioning), reducing missed-action rate to 0%.
-- **SC-005**: The complete flow from opening the comparison screen to viewing comparison results requires no more than 3 taps (select candidate 1, select candidate 2, tap Comparer).
-- **SC-006**: No text on the screen falls below the 4.5:1 contrast ratio threshold.
-- **SC-007**: 90% of first-time users complete a comparison without external guidance or help text beyond what is on screen.
+- **SC-001**: The number of taps to view a comparison result drops from 5 (current) to 0 (positions visible immediately on load with pre-selected candidates).
+- **SC-002**: Users can switch between themes and see updated positions in under 1 second (perceived instant).
+- **SC-003**: All ~12 candidates are accessible via horizontal scroll without vertical space exceeding 60px for the candidate bar.
+- **SC-004**: Users can toggle any candidate on/off and see position changes without any page navigation or modal.
+- **SC-005**: 95% of first-time users can compare 2 candidates on a specific theme without external guidance within 10 seconds.
+- **SC-006**: The comparison screen displays meaningful content (positions) above the fold on a standard mobile screen (375px width) when 2+ candidates are pre-selected.
 
 ## Assumptions
 
-- The existing comparison results view (ComparisonView component) is retained as-is — this redesign only covers the **selector page** (candidate + theme selection and CTA flow).
-- The existing 013-comparison-redesign fixes (candidate pre-selection parsing, theme icon rendering, card polish) are assumed to be merged or will be merged before this feature. This spec builds on top of those fixes.
-- Maximum selectable candidates remains 4 (existing app constraint).
-- The "Étape 2 sur 2" is the comparison results view that already exists — no new step/screen is introduced.
-- The visual direction (color tokens, typography, shape language) follows the app's existing design system established in prior redesign features (004, 008, 010).
+- The existing data model (Candidate, Theme, Position) and Zustand store (useElectionStore) are unchanged.
+- The existing ComparisonView component (position rendering) is reused and adapted for the live layout.
+- The existing ThemeChipSelector pattern is reused for the theme chips zone.
+- The CandidateAvatar component is reused for the compact avatar bar.
+- The maximum selectable candidates remains 2-4 (existing constraint).
+- Sources and confidence badges on position cards remain as-is.
+- Navigation from the candidates grid FAB continues to pass pre-selected candidate IDs via router params.
+- The 013-comparison-redesign fixes are assumed merged or present in the codebase.
