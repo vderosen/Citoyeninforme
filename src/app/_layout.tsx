@@ -129,7 +129,6 @@ function RootLayout() {
               screenOptions={{
                 headerShown: true,
                 headerStyle: { backgroundColor: "#1B2A4A" },
-                headerTintColor: "#FAFAF8",
                 headerTitleStyle: {
                   fontFamily: "SpaceGrotesk_600SemiBold",
                   fontSize: 17,

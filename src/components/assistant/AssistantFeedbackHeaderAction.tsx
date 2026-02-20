@@ -26,7 +26,7 @@ export function AssistantFeedbackHeaderAction() {
         onRequestClose={() => setIsOpen(false)}
       >
         <View
-          className="flex-1 justify-center px-4"
+          className="flex-1 justify-end"
           style={{ backgroundColor: "rgba(27,42,74,0.4)" }}
         >
           <Pressable
@@ -35,10 +35,10 @@ export function AssistantFeedbackHeaderAction() {
             accessibilityRole="button"
             accessibilityLabel={t("close")}
           />
-          <View className="rounded-2xl border border-warm-gray bg-warm-white p-4">
-            <View className="mb-2 flex-row items-center justify-between">
-              <Text className="font-display-medium text-base text-civic-navy">
-                {t("feedbackSignal")}
+          <View className="rounded-t-3xl bg-warm-white px-5 pb-8 pt-5">
+            <View className="mb-4 flex-row items-center justify-between">
+              <Text className="font-display-semibold text-lg text-civic-navy">
+                {t("feedbackTitle")}
               </Text>
               <Pressable
                 onPress={() => setIsOpen(false)}
@@ -50,7 +50,11 @@ export function AssistantFeedbackHeaderAction() {
               </Pressable>
             </View>
 
-            <FeedbackAction screen="assistant" />
+            <FeedbackAction
+              screen="assistant"
+              initiallyOpen
+              onDone={() => setIsOpen(false)}
+            />
           </View>
         </View>
       </Modal>
