@@ -3,6 +3,11 @@
  *
  * Handles LLM proxy API calls per contracts/chatbot.ts.
  * Builds ElectionContext from election store, manages SSE streaming.
+ *
+ * Uses XMLHttpRequest (not fetch) so we can consume the SSE stream
+ * progressively via onprogress — React Native's fetch doesn't expose
+ * ReadableStream.  Chunks are flushed to the UI every FLUSH_INTERVAL_MS
+ * to avoid hammering the Zustand store / Markdown renderer.
  */
 
 import type {
@@ -23,6 +28,7 @@ import { sanitizeUserInput } from "../utils/input-sanitizer";
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_LLM_PROXY_URL ?? "http://localhost:3001";
 const API_KEY = process.env.EXPO_PUBLIC_LLM_PROXY_API_KEY ?? "";
+const FLUSH_INTERVAL_MS = 150;
 
 interface ChatContext {
   election: Election;
@@ -31,7 +37,7 @@ interface ChatContext {
   themes: Theme[];
 }
 
-export async function sendChatMessage(
+export function sendChatMessage(
   mode: AssistantMode,
   messages: ChatMessage[],
   context: ChatContext,
@@ -42,7 +48,7 @@ export async function sendChatMessage(
   onChunk?: (text: string) => void,
   onDone?: () => void,
   onError?: (error: string) => void
-): Promise<void> {
+): void {
   let systemPrompt: string;
 
   switch (mode) {
@@ -72,91 +78,124 @@ export async function sendChatMessage(
     content: m.role === "user" ? sanitizeUserInput(m.content) : m.content,
   }));
 
-  try {
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-      // Bypass ngrok free-tier browser interstitial page
-      "ngrok-skip-browser-warning": "true",
-    };
-    if (API_KEY) {
-      headers["X-API-Key"] = API_KEY;
+  // -- SSE state --
+  let lastParsedIndex = 0;
+  let lineBuffer = "";
+  let pendingText = "";
+  let flushTimer: ReturnType<typeof setTimeout> | null = null;
+  let errorSent = false;
+
+  const flush = () => {
+    flushTimer = null;
+    if (pendingText) {
+      onChunk?.(pendingText);
+      pendingText = "";
     }
+  };
 
-    const response = await fetch(`${API_BASE_URL}/api/chat`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        mode,
-        candidateId: options?.candidateId,
-        messages: [
-          { role: "system", content: systemPrompt },
-          ...chatMessages,
-        ],
-      }),
-    });
-
-    if (response.status === 401) {
-      onError?.("Authentication failed. Check proxy configuration.");
-      return;
+  const scheduleFlush = () => {
+    if (!flushTimer) {
+      flushTimer = setTimeout(flush, FLUSH_INTERVAL_MS);
     }
+  };
 
-    if (response.status === 429) {
-      onError?.("Too many requests. Please wait a moment.");
-      return;
+  const cleanup = () => {
+    if (flushTimer) {
+      clearTimeout(flushTimer);
+      flushTimer = null;
     }
+  };
 
-    if (!response.ok) {
-      const errorBody = await response.text().catch(() => "");
-      console.warn(`[chatbot] API error ${response.status}:`, errorBody.slice(0, 200));
-      onError?.(`API error: ${response.status}`);
-      return;
-    }
-
-    // React Native's fetch doesn't support ReadableStream, so the full
-    // response is read as text.  We accumulate all SSE text chunks into a
-    // single string and emit ONE onChunk call to avoid hundreds of rapid
-    // Zustand state updates that break the Markdown renderer.
-    const text = await response.text();
-    if (__DEV__) {
-      console.log(`[chatbot] Response length: ${text.length}, first 200 chars:`, text.slice(0, 200));
-    }
-    const lines = text.split("\n");
-    let accumulated = "";
-
+  /** Parse complete SSE lines from the buffer. */
+  const processLines = (lines: string[]) => {
     for (const line of lines) {
       const trimmed = line.replace(/\r$/, "");
       if (!trimmed.startsWith("data: ")) continue;
 
       const data = trimmed.slice(6);
-      if (data === "[DONE]") break;
+      if (data === "[DONE]") continue;
 
       try {
         const parsed = JSON.parse(data);
         if (parsed.type === "text" && parsed.content) {
-          accumulated += parsed.content;
+          pendingText += parsed.content;
+          scheduleFlush();
         } else if (parsed.type === "done") {
-          break;
+          // Server signals completion
         } else if (parsed.type === "error") {
+          cleanup();
+          errorSent = true;
           onError?.(parsed.message);
           return;
         }
       } catch {
-        // Non-JSON SSE data, treat as text
         if (data.trim()) {
-          accumulated += data;
+          pendingText += data;
+          scheduleFlush();
         }
       }
     }
+  };
 
-    if (accumulated) {
-      onChunk?.(accumulated);
-    }
-    onDone?.();
-  } catch (error) {
-    const msg = error instanceof Error ? error.message : "Network error";
-    if (__DEV__) {
-      console.warn(`[chatbot] Network/fetch error:`, msg);
-    }
-    onError?.(msg);
+  // -- XHR setup --
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", `${API_BASE_URL}/api/chat`);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("ngrok-skip-browser-warning", "true");
+  if (API_KEY) {
+    xhr.setRequestHeader("X-API-Key", API_KEY);
   }
+
+  xhr.onprogress = () => {
+    const newData = xhr.responseText.slice(lastParsedIndex);
+    lastParsedIndex = xhr.responseText.length;
+
+    // Append to buffer and split into lines; keep the last
+    // (potentially incomplete) fragment for the next onprogress call.
+    lineBuffer += newData;
+    const lines = lineBuffer.split("\n");
+    lineBuffer = lines.pop() ?? "";
+    processLines(lines);
+  };
+
+  xhr.onload = () => {
+    // Process any remaining data in the buffer
+    if (lineBuffer) {
+      processLines([lineBuffer]);
+      lineBuffer = "";
+    }
+
+    cleanup();
+    flush(); // emit any remaining accumulated text
+
+    if (errorSent) return;
+
+    if (xhr.status === 401) {
+      onError?.("Authentication failed. Check proxy configuration.");
+    } else if (xhr.status === 429) {
+      onError?.("Too many requests. Please wait a moment.");
+    } else if (xhr.status >= 400) {
+      onError?.(`API error: ${xhr.status}`);
+    } else {
+      onDone?.();
+    }
+  };
+
+  xhr.onerror = () => {
+    cleanup();
+    if (!errorSent) {
+      onError?.("Network error");
+    }
+  };
+
+  xhr.send(
+    JSON.stringify({
+      mode,
+      candidateId: options?.candidateId,
+      messages: [
+        { role: "system", content: systemPrompt },
+        ...chatMessages,
+      ],
+    })
+  );
 }

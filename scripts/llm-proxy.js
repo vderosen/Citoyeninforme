@@ -171,7 +171,7 @@ function sseDone(res) {
 // ---------------------------------------------------------------------------
 async function handleChat(req, res) {
   const apiKey = process.env.OPENAI_API_KEY;
-  const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+  const model = process.env.OPENAI_MODEL || "gpt-5-nano-2025-08-07";
 
   if (!apiKey) {
     sendJson(req, res, 500, {
@@ -213,6 +213,7 @@ async function handleChat(req, res) {
         model,
         stream: true,
         temperature: 0.3,
+        max_tokens: 400,
         messages,
       }),
     });

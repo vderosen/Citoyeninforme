@@ -130,7 +130,6 @@ export function ChatArea({
             returnKeyType="send"
             multiline
             maxLength={1000}
-            editable={!isStreaming}
             accessibilityLabel={t("placeholder")}
           />
           <Pressable
