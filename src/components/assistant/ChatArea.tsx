@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { View, TextInput, Pressable, Text, FlatList, Keyboard, Platform, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
+import { View, TextInput, Pressable, Text, FlatList, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { ChatMessage, AssistantMode, AssistantContext } from "../../stores/assistant";
@@ -31,6 +31,7 @@ export function ChatArea({
   const flatListRef = useRef<FlatList>(null);
   const [inputText, setInputText] = useState("");
   const [isAtBottom, setIsAtBottom] = useState(true);
+  const listHeightRef = useRef(0);
 
   useEffect(() => {
     if (messages.length > 0 && isAtBottom) {
@@ -40,18 +41,14 @@ export function ChatArea({
     }
   }, [messages.length, messages[messages.length - 1]?.content, isAtBottom]);
 
-  // Auto-scroll to bottom when keyboard opens
-  // iOS: keyboardWillShow fires before the animation → scroll syncs with keyboard
-  // Android: only keyboardDidShow exists → scroll after keyboard is up
-  useEffect(() => {
-    const event = Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
-    const sub = Keyboard.addListener(event, () => {
-      if (messages.length > 0) {
-        flatListRef.current?.scrollToEnd({ animated: true });
-      }
-    });
-    return () => sub.remove();
-  }, [messages.length]);
+  // Scroll to bottom when the FlatList shrinks (keyboard opened) and we were at bottom
+  const handleListLayout = useCallback((event: { nativeEvent: { layout: { height: number } } }) => {
+    const newHeight = event.nativeEvent.layout.height;
+    if (newHeight < listHeightRef.current && isAtBottom && messages.length > 0) {
+      flatListRef.current?.scrollToEnd({ animated: true });
+    }
+    listHeightRef.current = newHeight;
+  }, [isAtBottom, messages.length]);
 
   const handleSend = () => {
     const text = inputText.trim();
@@ -102,6 +99,7 @@ export function ChatArea({
         }
         ListFooterComponent={showTypingIndicator ? <TypingIndicator /> : null}
         onScroll={handleScroll}
+        onLayout={handleListLayout}
         scrollEventThrottle={16}
         keyboardDismissMode="interactive"
         keyboardShouldPersistTaps="handled"
