@@ -61,7 +61,7 @@ function RootLayout() {
     Inter_500Medium,
   });
 
-  // Initialize crash reporting (re-fires on rehydration + runtime toggle)
+  // Sync crash reporting consent (Sentry is already initialized at module level)
   useEffect(() => {
     updateCrashReportingConsent(crashReportingOptIn);
   }, [crashReportingOptIn]);
