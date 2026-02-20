@@ -8,5 +8,14 @@
   "positionNotDocumented": "Position non documentée",
   "source": "Source",
   "sources": "Sources",
-  "backToCandidates": "Retour aux candidats"
+  "backToCandidates": "Retour aux candidats",
+  "stepIndicator": "Étape {{current}} sur {{total}}",
+  "candidatesSection": "Candidats",
+  "themeSection": "Thème",
+  "selectedCount_one": "{{count}} sélectionné",
+  "selectedCount_other": "{{count}} sélectionnés",
+  "allThemes": "Tous les thèmes",
+  "compareCta": "Comparer",
+  "selectMinimum": "Sélectionnez 2 candidats minimum",
+  "summaryText": "{{count}} candidats · {{theme}}"
 }
