@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { LogBox, Pressable, Text, View } from "react-native";
+import { LogBox, Pressable, View } from "react-native";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as Sentry from "@sentry/react-native";
@@ -136,29 +136,20 @@ function RootLayout() {
                   color: "#FAFAF8",
                 },
                 headerShadowVisible: false,
-                headerBackButtonDisplayMode: "minimal",
+                headerBackVisible: false,
                 headerLeft: ({ canGoBack }) =>
                   canGoBack ? (
                     <Pressable
                       onPress={() => router.back()}
                       accessibilityRole="button"
                       accessibilityLabel={t("back")}
-                      className="ml-2 flex-row items-center rounded-full px-3 py-2"
-                      hitSlop={8}
-                      style={({ pressed }) => ({
-                        opacity: pressed ? 0.72 : 1,
-                      })}
+                      className="ml-4 p-2"
                     >
                       <Ionicons
                         name="chevron-back"
-                        size={18}
+                        size={22}
                         color="#FAFAF8"
                       />
-                      <Text
-                        className="ml-1 font-body-medium text-sm text-text-inverse"
-                      >
-                        {t("back")}
-                      </Text>
                     </Pressable>
                   ) : null,
                 animation: reduceMotion ? "none" : "slide_from_bottom",
