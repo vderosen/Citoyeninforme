@@ -4,7 +4,6 @@ import { generateExport, deleteAllUserData } from "../../src/services/data-expor
 jest.mock("expo-file-system", () => ({
   cacheDirectory: "/tmp/cache/",
   writeAsStringAsync: jest.fn().mockResolvedValue(undefined),
-  EncodingType: { UTF8: "utf8" },
 }));
 
 jest.mock("expo-sharing", () => ({

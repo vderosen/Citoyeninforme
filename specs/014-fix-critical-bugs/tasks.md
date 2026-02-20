@@ -19,7 +19,7 @@
 
 **Purpose**: Audit all affected files to understand current state before making changes
 
-- [ ] T001 Read and audit all affected source files (`src/services/crash-reporting.ts`, `src/app/_layout.tsx`, `src/services/data-export.ts`, `scripts/llm-proxy.js`) and test files (`tests/unit/crash-reporting.test.ts`, `tests/unit/data-export.test.ts`, `tests/contract/proxy-api.test.ts`) to confirm bug locations match research.md findings
+- [X] T001 Read and audit all affected source files (`src/services/crash-reporting.ts`, `src/app/_layout.tsx`, `src/services/data-export.ts`, `scripts/llm-proxy.js`) and test files (`tests/unit/crash-reporting.test.ts`, `tests/unit/data-export.test.ts`, `tests/contract/proxy-api.test.ts`) to confirm bug locations match research.md findings
 
 ---
 
@@ -33,8 +33,8 @@
 
 ### Implementation for User Story 1
 
-- [ ] T002 [US1] Set `sendDefaultPii: false`, remove `mobileReplayIntegration()` and `feedbackIntegration()` from integrations array, remove `replaysSessionSampleRate` and `replaysOnErrorSampleRate` from config in `src/services/crash-reporting.ts`
-- [ ] T003 [P] [US1] Verify crash reporting description copy is accurate (matches "anonymous, no personal data" promise) in `src/i18n/locales/fr/settings.json`
+- [X] T002 [US1] Set `sendDefaultPii: false`, remove `mobileReplayIntegration()` and `feedbackIntegration()` from integrations array, remove `replaysSessionSampleRate` and `replaysOnErrorSampleRate` from config in `src/services/crash-reporting.ts`
+- [X] T003 [P] [US1] Verify crash reporting description copy is accurate (matches "anonymous, no personal data" promise) in `src/i18n/locales/fr/settings.json`
 
 **Checkpoint**: Sentry config is privacy-safe. UI copy matches actual behavior.
 
@@ -50,7 +50,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T004 [US2] Add `crashReportingOptIn` to the `useEffect` dependency array and use `updateCrashReportingConsent(crashReportingOptIn)` instead of `initCrashReporting(crashReportingOptIn)` in the effect body in `src/app/_layout.tsx`
+- [X] T004 [US2] Add `crashReportingOptIn` to the `useEffect` dependency array and use `updateCrashReportingConsent(crashReportingOptIn)` instead of `initCrashReporting(crashReportingOptIn)` in the effect body in `src/app/_layout.tsx`
 
 **Checkpoint**: Crash reporting responds to both rehydration and runtime preference changes.
 
@@ -68,9 +68,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T005 [P] [US3] Change `process.env.SENTRY_DSN` to `process.env.EXPO_PUBLIC_SENTRY_DSN` and add `mobileReplayIntegration: jest.fn(() => ({}))` and `feedbackIntegration: jest.fn(() => ({}))` to the Sentry mock in `tests/unit/crash-reporting.test.ts`
-- [ ] T006 [P] [US3] Update mock data from `messages: [...]` to `conversations: { comprendre: [...] }` and update assertions from `parsed.assistant.messages` to `parsed.assistant.conversations.comprendre` in `tests/unit/data-export.test.ts`
-- [ ] T007 [US3] Run full test suite (`npm test -- --runInBand`) and verify all tests pass with zero failures
+- [X] T005 [P] [US3] Change `process.env.SENTRY_DSN` to `process.env.EXPO_PUBLIC_SENTRY_DSN` and add `mobileReplayIntegration: jest.fn(() => ({}))` and `feedbackIntegration: jest.fn(() => ({}))` to the Sentry mock in `tests/unit/crash-reporting.test.ts`
+- [X] T006 [P] [US3] Update mock data from `messages: [...]` to `conversations: { comprendre: [...] }` and update assertions from `parsed.assistant.messages` to `parsed.assistant.conversations.comprendre` in `tests/unit/data-export.test.ts`
+- [X] T007 [US3] Run full test suite (`npm test -- --runInBand`) and verify all tests pass with zero failures
 
 **Checkpoint**: Full test suite passes. Safety net restored.
 
@@ -86,8 +86,8 @@
 
 ### Implementation for User Story 4
 
-- [ ] T008 [US4] Add null guard for `FileSystem.cacheDirectory` — throw descriptive error if null — in `src/services/data-export.ts`
-- [ ] T009 [US4] Replace `FileSystem.EncodingType.UTF8` with string literal `'utf8'` in `src/services/data-export.ts`
+- [X] T008 [US4] Add null guard for `FileSystem.cacheDirectory` — throw descriptive error if null — in `src/services/data-export.ts`
+- [X] T009 [US4] Replace `FileSystem.EncodingType.UTF8` with string literal `'utf8'` in `src/services/data-export.ts`
 
 **Checkpoint**: `npx tsc --noEmit` reports zero type errors in data-export.ts.
 
@@ -103,7 +103,7 @@
 
 ### Implementation for User Story 5
 
-- [ ] T010 [US5] Add `?? {}` fallback when accessing `assistantState.conversations` in the export function in `src/services/data-export.ts`
+- [X] T010 [US5] Add `?? {}` fallback when accessing `assistantState.conversations` in the export function in `src/services/data-export.ts`
 
 **Checkpoint**: Export succeeds with empty/missing assistant store data.
 
@@ -119,7 +119,7 @@
 
 ### Implementation for User Story 6
 
-- [ ] T011 [US6] Replace `AsyncStorage.clear()` with `AsyncStorage.multiRemove(['app-state', 'survey-state', 'assistant-state', 'feedback_entries'])` in the `deleteAllUserData` function in `src/services/data-export.ts`
+- [X] T011 [US6] Replace `AsyncStorage.clear()` with `AsyncStorage.multiRemove(['app-state', 'survey-state', 'assistant-state', 'feedback_entries'])` in the `deleteAllUserData` function in `src/services/data-export.ts`
 
 **Checkpoint**: Deletion is surgical — only Lucide keys removed.
 
@@ -135,8 +135,8 @@
 
 ### Implementation for User Story 7
 
-- [ ] T012 [US7] Change `checkAuth()` to return `false` when `expectedKey` is undefined/falsy in `scripts/llm-proxy.js`
-- [ ] T013 [US7] Add startup warning `console.warn("[llm-proxy] WARNING: LLM_PROXY_API_KEY is not set. All requests will be rejected.")` after `server.listen` in `scripts/llm-proxy.js`
+- [X] T012 [US7] Change `checkAuth()` to return `false` when `expectedKey` is undefined/falsy in `scripts/llm-proxy.js`
+- [X] T013 [US7] Add startup warning `console.warn("[llm-proxy] WARNING: LLM_PROXY_API_KEY is not set. All requests will be rejected.")` after `server.listen` in `scripts/llm-proxy.js`
 
 **Checkpoint**: Proxy is fail-closed by default with clear startup warning.
 
@@ -154,7 +154,7 @@
 
 ### Implementation for User Story 8
 
-- [ ] T014 [US8] Rewrite contract tests to spawn actual proxy instance in `beforeAll` (with test port and `LLM_PROXY_API_KEY=test-key`), send real HTTP requests (GET `/health` → 200, POST `/api/chat` without auth → 401, POST `/api/chat` without `OPENAI_API_KEY` → 500), and kill proxy in `afterAll` in `tests/contract/proxy-api.test.ts`
+- [X] T014 [US8] Rewrite contract tests to spawn actual proxy instance in `beforeAll` (with test port and `LLM_PROXY_API_KEY=test-key`), send real HTTP requests (GET `/health` → 200, POST `/api/chat` without auth → 401, POST `/api/chat` without `OPENAI_API_KEY` → 500), and kill proxy in `afterAll` in `tests/contract/proxy-api.test.ts`
 
 **Checkpoint**: Contract tests validate real proxy behavior via HTTP.
 
@@ -164,8 +164,8 @@
 
 **Purpose**: Final verification across all subsystems
 
-- [ ] T015 Run full test suite verification (`npm test`) — confirm zero failures across all unit and contract tests
-- [ ] T016 Run type checker verification (`npx tsc --noEmit`) — confirm zero type errors across entire project
+- [X] T015 Run full test suite verification (`npm test`) — confirm zero failures across all unit and contract tests
+- [X] T016 Run type checker verification (`npx tsc --noEmit`) — confirm zero type errors across entire project
 
 ---
 

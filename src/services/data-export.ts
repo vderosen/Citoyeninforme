@@ -61,7 +61,11 @@ export async function generateExport(): Promise<string> {
     })),
   };
 
-  const cacheDir = FileSystem.cacheDirectory;
+  // expo-file-system types don't export cacheDirectory from the main module
+  // (it moved to expo-file-system/legacy), but it's available at runtime.
+  const cacheDir = (FileSystem as Record<string, unknown>).cacheDirectory as
+    | string
+    | null;
   if (!cacheDir) {
     throw new Error(
       "Cannot export data: device cache directory is unavailable."
@@ -72,11 +76,9 @@ export async function generateExport(): Promise<string> {
   const fileName = `lucide-data-export-${dateStr}.json`;
   const fileUri = `${cacheDir}${fileName}`;
 
-  await FileSystem.writeAsStringAsync(
-    fileUri,
-    JSON.stringify(exportData, null, 2),
-    { encoding: 'utf8' }
-  );
+  await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(exportData, null, 2), {
+    encoding: 'utf8',
+  });
 
   return fileUri;
 }
