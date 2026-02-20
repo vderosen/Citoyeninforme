@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { View, TextInput, Pressable, Text, FlatList, Keyboard, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
+import { View, TextInput, Pressable, Text, FlatList, Keyboard, Platform, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { ChatMessage, AssistantMode, AssistantContext } from "../../stores/assistant";
@@ -41,12 +41,13 @@ export function ChatArea({
   }, [messages.length, messages[messages.length - 1]?.content, isAtBottom]);
 
   // Auto-scroll to bottom when keyboard opens
+  // iOS: keyboardWillShow fires before the animation → scroll syncs with keyboard
+  // Android: only keyboardDidShow exists → scroll after keyboard is up
   useEffect(() => {
-    const sub = Keyboard.addListener("keyboardDidShow", () => {
+    const event = Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
+    const sub = Keyboard.addListener(event, () => {
       if (messages.length > 0) {
-        setTimeout(() => {
-          flatListRef.current?.scrollToEnd({ animated: true });
-        }, 100);
+        flatListRef.current?.scrollToEnd({ animated: true });
       }
     });
     return () => sub.remove();
