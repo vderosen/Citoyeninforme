@@ -25,7 +25,7 @@ import { loadBundledDataset } from "../data/loader";
 import { ErrorBoundary } from "../components/shared/ErrorBoundary";
 import { OfflineBanner } from "../components/shared/OfflineBanner";
 import {
-  initCrashReporting,
+  updateCrashReportingConsent,
   captureException,
 } from "../services/crash-reporting";
 import { PRIVACY_POLICY_VERSION } from "./privacy-consent";
@@ -61,10 +61,10 @@ function RootLayout() {
     Inter_500Medium,
   });
 
-  // Initialize crash reporting
+  // Initialize crash reporting (re-fires on rehydration + runtime toggle)
   useEffect(() => {
-    initCrashReporting(crashReportingOptIn);
-  }, []);
+    updateCrashReportingConsent(crashReportingOptIn);
+  }, [crashReportingOptIn]);
 
   // Set up global error handler
   useEffect(() => {

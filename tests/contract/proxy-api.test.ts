@@ -1,55 +1,122 @@
 /**
  * Proxy API contract tests.
  *
- * These tests validate the proxy's HTTP contract without spawning the proxy.
- * They test the expected request/response behavior documented in contracts/proxy-api.ts.
- *
- * To run integration tests that spawn the actual proxy, use:
- *   LLM_PROXY_API_KEY=test-key node scripts/llm-proxy.js &
- *   curl -H "X-API-Key: test-key" http://localhost:3001/api/chat ...
+ * These tests spawn an actual proxy instance and validate real HTTP behavior.
  */
 
+import { ChildProcess, spawn } from "child_process";
+import http from "http";
+import path from "path";
+
+const TEST_PORT = 9877;
+const TEST_API_KEY = "test-key";
+const PROXY_SCRIPT = path.resolve(__dirname, "../../scripts/llm-proxy.js");
+
+let proxyProcess: ChildProcess;
+
+function request(
+  method: string,
+  urlPath: string,
+  headers: Record<string, string> = {},
+  body?: string
+): Promise<{ status: number; body: string }> {
+  return new Promise((resolve, reject) => {
+    const req = http.request(
+      {
+        hostname: "127.0.0.1",
+        port: TEST_PORT,
+        path: urlPath,
+        method,
+        headers,
+      },
+      (res) => {
+        let data = "";
+        res.on("data", (chunk) => (data += chunk));
+        res.on("end", () =>
+          resolve({ status: res.statusCode ?? 0, body: data })
+        );
+      }
+    );
+    req.on("error", reject);
+    if (body) req.write(body);
+    req.end();
+  });
+}
+
+beforeAll(async () => {
+  // Set OPENAI_API_KEY to empty string to prevent the .env loader from
+  // injecting it — the loader only sets keys that are undefined.
+  proxyProcess = spawn("node", [PROXY_SCRIPT], {
+    env: {
+      ...process.env,
+      OPENAI_API_KEY: "",
+      LLM_PROXY_API_KEY: TEST_API_KEY,
+      LLM_PROXY_PORT: String(TEST_PORT),
+      LLM_PROXY_HOST: "127.0.0.1",
+    },
+    stdio: "pipe",
+  });
+
+  // Wait for the proxy to be ready
+  await new Promise<void>((resolve, reject) => {
+    const timeout = setTimeout(
+      () => reject(new Error("Proxy failed to start within 5s")),
+      5000
+    );
+
+    proxyProcess.stdout?.on("data", (data: Buffer) => {
+      if (data.toString().includes("Listening")) {
+        clearTimeout(timeout);
+        resolve();
+      }
+    });
+
+    proxyProcess.on("error", (err) => {
+      clearTimeout(timeout);
+      reject(err);
+    });
+  });
+});
+
+afterAll(() => {
+  if (proxyProcess) {
+    proxyProcess.kill("SIGTERM");
+  }
+});
+
 describe("proxy API contract", () => {
-  test("health endpoint should return only { ok: true }", () => {
-    // Contract: GET /health returns { ok: true } with no model or key info
-    const expectedResponse = { ok: true };
-    expect(expectedResponse).toEqual({ ok: true });
-    expect(expectedResponse).not.toHaveProperty("model");
-    expect(expectedResponse).not.toHaveProperty("hasApiKey");
+  test("GET /health returns 200 with { ok: true }", async () => {
+    const res = await request("GET", "/health");
+
+    expect(res.status).toBe(200);
+    expect(JSON.parse(res.body)).toEqual({ ok: true });
   });
 
-  test("unauthenticated request should return 401", () => {
-    // Contract: POST /api/chat without X-API-Key header returns 401
-    const expectedStatus = 401;
-    const expectedBody = { error: "Unauthorized" };
-    expect(expectedStatus).toBe(401);
-    expect(expectedBody).toEqual({ error: "Unauthorized" });
+  test("POST /api/chat without auth returns 401", async () => {
+    const res = await request(
+      "POST",
+      "/api/chat",
+      { "Content-Type": "application/json" },
+      JSON.stringify({ messages: [{ role: "user", content: "Hello" }] })
+    );
+
+    expect(res.status).toBe(401);
+    expect(JSON.parse(res.body)).toEqual({ error: "Unauthorized" });
   });
 
-  test("rate limit exceeded should return 429 with Retry-After", () => {
-    // Contract: 21st request within 60s returns 429
-    const expectedStatus = 429;
-    const expectedHeaders = { "Retry-After": expect.any(String) };
-    expect(expectedStatus).toBe(429);
-    expect(expectedHeaders["Retry-After"]).toBeDefined();
-  });
+  test("POST /api/chat with auth but no OPENAI_API_KEY returns 500", async () => {
+    const res = await request(
+      "POST",
+      "/api/chat",
+      {
+        "Content-Type": "application/json",
+        "X-API-Key": TEST_API_KEY,
+      },
+      JSON.stringify({ messages: [{ role: "user", content: "Hello" }] })
+    );
 
-  test("CORS headers should include X-API-Key in allowed headers", () => {
-    // Contract: Access-Control-Allow-Headers includes X-API-Key
-    const allowedHeaders = "Content-Type,X-API-Key";
-    expect(allowedHeaders).toContain("X-API-Key");
-    expect(allowedHeaders).toContain("Content-Type");
-  });
-
-  test("authenticated request should include required fields", () => {
-    // Contract: POST /api/chat with valid key, messages array
-    const validRequest = {
-      headers: { "Content-Type": "application/json", "X-API-Key": "test-key" },
-      body: { messages: [{ role: "user", content: "Hello" }] },
-    };
-
-    expect(validRequest.headers["X-API-Key"]).toBeDefined();
-    expect(validRequest.body.messages).toBeInstanceOf(Array);
-    expect(validRequest.body.messages.length).toBeGreaterThan(0);
+    expect(res.status).toBe(500);
+    const body = JSON.parse(res.body);
+    expect(body.error).toContain("OPENAI_API_KEY");
   });
 });

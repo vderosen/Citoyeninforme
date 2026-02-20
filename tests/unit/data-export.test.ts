@@ -25,6 +25,7 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
   __esModule: true,
   default: {
     clear: jest.fn().mockResolvedValue(undefined),
+    multiRemove: jest.fn().mockResolvedValue(undefined),
   },
 }));
 
@@ -50,14 +51,16 @@ const mockSurveyState = {
 const mockAssistantState = {
   mode: "comprendre",
   selectedCandidateId: null,
-  messages: [
-    {
-      id: "msg-1",
-      role: "user",
-      content: "Hello",
-      timestamp: "2026-01-01T12:00:00.000Z",
-    },
-  ],
+  conversations: {
+    comprendre: [
+      {
+        id: "msg-1",
+        role: "user",
+        content: "Hello",
+        timestamp: "2026-01-01T12:00:00.000Z",
+      },
+    ],
+  },
   resetConversation: jest.fn(),
 };
 
@@ -116,7 +119,7 @@ describe("data-export", () => {
     expect(parsed.survey.status).toBe("completed");
     expect(parsed.survey.answers).toEqual({ q1: "a1" });
     expect(parsed.assistant.mode).toBe("comprendre");
-    expect(parsed.assistant.messages).toHaveLength(1);
+    expect(parsed.assistant.conversations.comprendre).toHaveLength(1);
     expect(parsed.preferences.hasCompletedOnboarding).toBe(true);
     expect(parsed.feedback).toEqual([]);
   });
@@ -134,7 +137,12 @@ describe("data-export", () => {
     expect(mockAssistantState.resetConversation).toHaveBeenCalled();
     expect(mockAppState.revokePrivacyConsent).toHaveBeenCalled();
     expect(mockAppState.setCrashReportingOptIn).toHaveBeenCalledWith(false);
-    expect(AsyncStorage.clear).toHaveBeenCalled();
+    expect(AsyncStorage.multiRemove).toHaveBeenCalledWith([
+      'app-state',
+      'survey-state',
+      'assistant-state',
+      'feedback_entries',
+    ]);
   });
 });
 

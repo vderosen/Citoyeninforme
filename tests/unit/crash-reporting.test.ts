@@ -9,6 +9,8 @@ jest.mock("@sentry/react-native", () => ({
   init: (...args: unknown[]) => mockInit(...args),
   captureException: (...args: unknown[]) => mockCaptureException(...args),
   close: () => mockClose(),
+  mobileReplayIntegration: jest.fn(() => ({})),
+  feedbackIntegration: jest.fn(() => ({})),
 }));
 
 jest.mock("expo-constants", () => ({
@@ -39,7 +41,7 @@ describe("crash-reporting", () => {
   });
 
   test("initCrashReporting(true) calls Sentry.init when DSN exists", () => {
-    process.env.SENTRY_DSN = "https://test@sentry.io/123";
+    process.env.EXPO_PUBLIC_SENTRY_DSN = "https://test@sentry.io/123";
 
     // Re-import to get fresh module state
     const mod = require("../../src/services/crash-reporting");
@@ -53,11 +55,11 @@ describe("crash-reporting", () => {
       })
     );
 
-    delete process.env.SENTRY_DSN;
+    delete process.env.EXPO_PUBLIC_SENTRY_DSN;
   });
 
   test("beforeSend strips breadcrumbs with long messages", () => {
-    process.env.SENTRY_DSN = "https://test@sentry.io/123";
+    process.env.EXPO_PUBLIC_SENTRY_DSN = "https://test@sentry.io/123";
 
     const mod = require("../../src/services/crash-reporting");
     mod.initCrashReporting(true);
@@ -78,6 +80,6 @@ describe("crash-reporting", () => {
     expect(result.breadcrumbs).toHaveLength(1);
     expect(result.breadcrumbs[0].category).toBe("navigation");
 
-    delete process.env.SENTRY_DSN;
+    delete process.env.EXPO_PUBLIC_SENTRY_DSN;
   });
 });

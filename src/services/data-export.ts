@@ -34,7 +34,7 @@ export async function generateExport(): Promise<string> {
       mode: assistantState.mode,
       selectedCandidateId: assistantState.selectedCandidateId,
       conversations: Object.fromEntries(
-        Object.entries(assistantState.conversations).map(([key, msgs]) => [
+        Object.entries(assistantState.conversations ?? {}).map(([key, msgs]) => [
           key,
           msgs.map((m) => ({
             id: m.id,
@@ -61,14 +61,21 @@ export async function generateExport(): Promise<string> {
     })),
   };
 
+  const cacheDir = FileSystem.cacheDirectory;
+  if (!cacheDir) {
+    throw new Error(
+      "Cannot export data: device cache directory is unavailable."
+    );
+  }
+
   const dateStr = new Date().toISOString().slice(0, 10);
   const fileName = `lucide-data-export-${dateStr}.json`;
-  const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
+  const fileUri = `${cacheDir}${fileName}`;
 
   await FileSystem.writeAsStringAsync(
     fileUri,
     JSON.stringify(exportData, null, 2),
-    { encoding: FileSystem.EncodingType.UTF8 }
+    { encoding: 'utf8' }
   );
 
   return fileUri;
@@ -90,5 +97,10 @@ export async function deleteAllUserData(): Promise<void> {
   appStore.revokePrivacyConsent();
   appStore.setCrashReportingOptIn(false);
 
-  await AsyncStorage.clear();
+  await AsyncStorage.multiRemove([
+    'app-state',
+    'survey-state',
+    'assistant-state',
+    'feedback_entries',
+  ]);
 }

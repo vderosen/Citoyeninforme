@@ -110,8 +110,8 @@ function checkAuth(req) {
   const expectedKey = process.env.LLM_PROXY_API_KEY;
 
   if (!expectedKey) {
-    // No key configured — development convenience, allow requests
-    return true;
+    // No key configured — fail closed, reject all requests
+    return false;
   }
 
   const providedKey = req.headers["x-api-key"];
@@ -352,4 +352,10 @@ server.listen(port, host, () => {
   console.log(`[llm-proxy] Listening on http://${host}:${port}`);
   console.log("[llm-proxy] Health check: GET /health");
   console.log("[llm-proxy] Chat endpoint: POST /api/chat");
+
+  if (!process.env.LLM_PROXY_API_KEY) {
+    console.warn(
+      "[llm-proxy] WARNING: LLM_PROXY_API_KEY is not set. All requests will be rejected."
+    );
+  }
 });

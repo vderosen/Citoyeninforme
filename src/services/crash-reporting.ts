@@ -13,14 +13,9 @@ export function initCrashReporting(optIn: boolean): void {
     dsn,
     release: Constants.expoConfig?.version ?? "unknown",
     dist: Constants.expoConfig?.ios?.buildNumber ?? "1",
-    sendDefaultPii: true,
+    sendDefaultPii: false,
     enableLogs: true,
-    replaysSessionSampleRate: 0.1,
-    replaysOnErrorSampleRate: 1,
-    integrations: [
-      Sentry.mobileReplayIntegration(),
-      Sentry.feedbackIntegration(),
-    ],
+    integrations: [],
     beforeSend(event) {
       if (event.breadcrumbs) {
         event.breadcrumbs = event.breadcrumbs.filter((breadcrumb) => {
