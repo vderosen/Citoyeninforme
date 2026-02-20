@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
@@ -10,7 +11,6 @@ import { sendChatMessage } from "../../services/chatbot";
 import { ModeSelector } from "../../components/assistant/ModeSelector";
 import { CandidateSelector } from "../../components/assistant/CandidateSelector";
 import { ChatArea } from "../../components/assistant/ChatArea";
-import { ChatToolbar } from "../../components/assistant/ChatToolbar";
 import { useNetworkStatus } from "../../hooks/useNetworkStatus";
 import type { ChatMessage } from "../../stores/assistant";
 
@@ -19,6 +19,7 @@ const EMPTY_MESSAGES: ChatMessage[] = [];
 export default function AssistantScreen() {
   const { t } = useTranslation("errors");
   const { isConnected } = useNetworkStatus();
+  const headerHeight = useHeaderHeight();
 
   const election = useElectionStore((s) => s.election);
   const candidates = useElectionStore((s) => s.candidates);
@@ -64,15 +65,10 @@ export default function AssistantScreen() {
       timestamp: new Date().toISOString(),
     };
     addMessage(userMessage);
-
-    const assistantMessage = {
-      id: createMessageId(),
-      role: "assistant" as const,
-      content: "",
-      timestamp: new Date().toISOString(),
-    };
-    addMessage(assistantMessage);
     setStreaming(true);
+
+    let firstChunk = true;
+    const assistantMessageId = createMessageId();
 
     sendChatMessage(
       mode,
@@ -82,10 +78,32 @@ export default function AssistantScreen() {
         candidateId: selectedCandidateId ?? undefined,
         userProfile: userProfile ?? undefined,
       },
-      (chunk) => updateLastAssistantMessage(chunk),
+      (chunk) => {
+        if (firstChunk) {
+          firstChunk = false;
+          addMessage({
+            id: assistantMessageId,
+            role: "assistant" as const,
+            content: chunk,
+            timestamp: new Date().toISOString(),
+          });
+        } else {
+          updateLastAssistantMessage(chunk);
+        }
+      },
       () => setStreaming(false),
       (error) => {
-        updateLastAssistantMessage(`\n\n[Erreur: ${error}]`);
+        if (firstChunk) {
+          firstChunk = false;
+          addMessage({
+            id: assistantMessageId,
+            role: "assistant" as const,
+            content: `[Erreur: ${error}]`,
+            timestamp: new Date().toISOString(),
+          });
+        } else {
+          updateLastAssistantMessage(`\n\n[Erreur: ${error}]`);
+        }
         setStreaming(false);
       }
     );
@@ -113,33 +131,34 @@ export default function AssistantScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
-      <View className="pt-2">
-        <ModeSelector activeMode={mode} onModeChange={selectMode} />
-      </View>
+    <KeyboardAvoidingView
+      className="flex-1"
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={headerHeight}
+    >
+      <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
+        <View className="pt-2">
+          <ModeSelector activeMode={mode} onModeChange={selectMode} />
+        </View>
 
-      {mode === "parler" && (
-        <CandidateSelector
-          candidates={candidates}
-          selectedId={selectedCandidateId}
-          onSelect={selectCandidate}
+        {mode === "parler" && (
+          <CandidateSelector
+            candidates={candidates}
+            selectedId={selectedCandidateId}
+            onSelect={selectCandidate}
+          />
+        )}
+
+        <ChatArea
+          messages={messages}
+          isStreaming={isStreaming}
+          onSend={handleSend}
+          mode={mode}
+          context={preloadedContext}
+          onPromptSelect={handlePromptSelect}
+          selectedCandidateId={selectedCandidateId}
         />
-      )}
-
-      <ChatToolbar
-        messages={messages}
-        onNewConversation={resetConversation}
-      />
-
-      <ChatArea
-        messages={messages}
-        isStreaming={isStreaming}
-        onSend={handleSend}
-        mode={mode}
-        context={preloadedContext}
-        onPromptSelect={handlePromptSelect}
-        selectedCandidateId={selectedCandidateId}
-      />
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }

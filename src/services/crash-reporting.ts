@@ -1,27 +1,23 @@
 import * as Sentry from "@sentry/react-native";
 import Constants from "expo-constants";
 
-let isInitialized = false;
+let consentGiven = false;
 
-export function initCrashReporting(optIn: boolean): void {
-  if (!optIn) return;
+const dsn = process.env.EXPO_PUBLIC_SENTRY_DSN;
 
-  const dsn = process.env.EXPO_PUBLIC_SENTRY_DSN;
-  if (!dsn) return;
-
+// Init at module level so Sentry.wrap() has an initialized SDK.
+// No events are sent until the user opts in (gated by beforeSend).
+if (dsn) {
   Sentry.init({
     dsn,
     release: Constants.expoConfig?.version ?? "unknown",
     dist: Constants.expoConfig?.ios?.buildNumber ?? "1",
-    sendDefaultPii: true,
+    sendDefaultPii: false,
     enableLogs: true,
-    replaysSessionSampleRate: 0.1,
-    replaysOnErrorSampleRate: 1,
-    integrations: [
-      Sentry.mobileReplayIntegration(),
-      Sentry.feedbackIntegration(),
-    ],
+    integrations: [],
     beforeSend(event) {
+      if (!consentGiven) return null;
+
       if (event.breadcrumbs) {
         event.breadcrumbs = event.breadcrumbs.filter((breadcrumb) => {
           if (breadcrumb.category === "ui.input") return false;
@@ -54,24 +50,21 @@ export function initCrashReporting(optIn: boolean): void {
       return event;
     },
   });
+}
 
-  isInitialized = true;
+export function initCrashReporting(optIn: boolean): void {
+  consentGiven = optIn;
 }
 
 export function updateCrashReportingConsent(optIn: boolean): void {
-  if (optIn && !isInitialized) {
-    initCrashReporting(true);
-  } else if (!optIn && isInitialized) {
-    Sentry.close();
-    isInitialized = false;
-  }
+  consentGiven = optIn;
 }
 
 export function captureException(
   error: Error,
   context?: Record<string, string>
 ): void {
-  if (!isInitialized) return;
+  if (!consentGiven) return;
 
   Sentry.captureException(error, {
     contexts: context

@@ -1,5 +1,3 @@
-import { initCrashReporting, captureException } from "../../src/services/crash-reporting";
-
 // Mock Sentry
 const mockInit = jest.fn();
 const mockCaptureException = jest.fn();
@@ -9,6 +7,8 @@ jest.mock("@sentry/react-native", () => ({
   init: (...args: unknown[]) => mockInit(...args),
   captureException: (...args: unknown[]) => mockCaptureException(...args),
   close: () => mockClose(),
+  mobileReplayIntegration: jest.fn(() => ({})),
+  feedbackIntegration: jest.fn(() => ({})),
 }));
 
 jest.mock("expo-constants", () => ({
@@ -23,27 +23,14 @@ jest.mock("expo-constants", () => ({
 
 beforeEach(() => {
   jest.clearAllMocks();
-  // Reset module state by clearing the initialized flag
   jest.resetModules();
 });
 
 describe("crash-reporting", () => {
-  test("initCrashReporting(false) does not call Sentry.init", () => {
-    initCrashReporting(false);
-    expect(mockInit).not.toHaveBeenCalled();
-  });
+  test("Sentry.init is called at module load when DSN exists", () => {
+    process.env.EXPO_PUBLIC_SENTRY_DSN = "https://test@sentry.io/123";
 
-  test("captureException is a no-op when not initialized", () => {
-    captureException(new Error("test"));
-    expect(mockCaptureException).not.toHaveBeenCalled();
-  });
-
-  test("initCrashReporting(true) calls Sentry.init when DSN exists", () => {
-    process.env.SENTRY_DSN = "https://test@sentry.io/123";
-
-    // Re-import to get fresh module state
-    const mod = require("../../src/services/crash-reporting");
-    mod.initCrashReporting(true);
+    require("../../src/services/crash-reporting");
 
     expect(mockInit).toHaveBeenCalledTimes(1);
     expect(mockInit).toHaveBeenCalledWith(
@@ -53,14 +40,58 @@ describe("crash-reporting", () => {
       })
     );
 
-    delete process.env.SENTRY_DSN;
+    delete process.env.EXPO_PUBLIC_SENTRY_DSN;
+  });
+
+  test("Sentry.init is not called when DSN is missing", () => {
+    delete process.env.EXPO_PUBLIC_SENTRY_DSN;
+
+    require("../../src/services/crash-reporting");
+
+    expect(mockInit).not.toHaveBeenCalled();
+  });
+
+  test("captureException is a no-op without consent", () => {
+    process.env.EXPO_PUBLIC_SENTRY_DSN = "https://test@sentry.io/123";
+
+    const mod = require("../../src/services/crash-reporting");
+    mod.captureException(new Error("test"));
+
+    expect(mockCaptureException).not.toHaveBeenCalled();
+
+    delete process.env.EXPO_PUBLIC_SENTRY_DSN;
+  });
+
+  test("captureException works after consent is given", () => {
+    process.env.EXPO_PUBLIC_SENTRY_DSN = "https://test@sentry.io/123";
+
+    const mod = require("../../src/services/crash-reporting");
+    mod.updateCrashReportingConsent(true);
+    mod.captureException(new Error("test"));
+
+    expect(mockCaptureException).toHaveBeenCalledTimes(1);
+
+    delete process.env.EXPO_PUBLIC_SENTRY_DSN;
+  });
+
+  test("beforeSend drops events when consent is not given", () => {
+    process.env.EXPO_PUBLIC_SENTRY_DSN = "https://test@sentry.io/123";
+
+    require("../../src/services/crash-reporting");
+
+    const beforeSend = mockInit.mock.calls[0][0].beforeSend;
+    const event = { breadcrumbs: [] };
+
+    expect(beforeSend(event)).toBeNull();
+
+    delete process.env.EXPO_PUBLIC_SENTRY_DSN;
   });
 
   test("beforeSend strips breadcrumbs with long messages", () => {
-    process.env.SENTRY_DSN = "https://test@sentry.io/123";
+    process.env.EXPO_PUBLIC_SENTRY_DSN = "https://test@sentry.io/123";
 
     const mod = require("../../src/services/crash-reporting");
-    mod.initCrashReporting(true);
+    mod.updateCrashReportingConsent(true);
 
     const beforeSend = mockInit.mock.calls[0][0].beforeSend;
 
@@ -74,10 +105,10 @@ describe("crash-reporting", () => {
 
     const result = beforeSend(event);
 
-    // ui.input should be filtered out
+    // ui.input should be filtered out, long message too
     expect(result.breadcrumbs).toHaveLength(1);
     expect(result.breadcrumbs[0].category).toBe("navigation");
 
-    delete process.env.SENTRY_DSN;
+    delete process.env.EXPO_PUBLIC_SENTRY_DSN;
   });
 });

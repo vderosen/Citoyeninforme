@@ -1,6 +1,7 @@
 import { View, Text, ScrollView } from "react-native";
 import { useTranslation } from "react-i18next";
-import type { Candidate, Position, Theme } from "../../data/schema";
+import type { Candidate, Position } from "../../data/schema";
+import { getCandidatePartyColor } from "../../utils/candidatePartyColor";
 import { TrustBadge } from "../shared/TrustBadge";
 import { SourceReference } from "../shared/SourceReference";
 
@@ -8,25 +9,18 @@ interface ComparisonViewProps {
   candidates: Candidate[];
   selectedCandidateIds: string[];
   positions: Position[];
-  themes: Theme[];
   activeThemeId: string;
-  onThemeChange: (themeId: string) => void;
-  onCandidateToggle: (candidateId: string) => void;
 }
 
 export function ComparisonView({
   candidates,
   selectedCandidateIds,
   positions,
-  themes,
   activeThemeId,
-  onThemeChange,
-  onCandidateToggle,
 }: ComparisonViewProps) {
   const { t } = useTranslation("comparison");
   const { t: tCommon } = useTranslation("common");
 
-  const activeTheme = themes.find((th) => th.id === activeThemeId);
   const selectedCandidates = selectedCandidateIds
     .map((id) => candidates.find((c) => c.id === id))
     .filter(Boolean) as Candidate[];
@@ -46,15 +40,6 @@ export function ComparisonView({
 
   return (
     <View className="flex-1">
-      {activeTheme && (
-        <Text
-          className="font-display-semibold text-lg text-civic-navy px-4 py-3"
-          accessibilityRole="header"
-        >
-          {activeTheme.icon} {activeTheme.name}
-        </Text>
-      )}
-
       <ScrollView
         horizontal={selectedCandidates.length > 2}
         showsHorizontalScrollIndicator={false}
@@ -69,6 +54,7 @@ export function ComparisonView({
             (p) =>
               p.candidateId === candidate.id && p.themeId === activeThemeId
           );
+          const partyColor = getCandidatePartyColor(candidate.id);
 
           return (
             <View
@@ -79,7 +65,7 @@ export function ComparisonView({
               <View
                 style={{
                   height: 4,
-                  backgroundColor: candidate.partyColor || "#9CA3AF",
+                  backgroundColor: partyColor,
                   borderRadius: 2,
                   marginBottom: 12,
                 }}

@@ -34,7 +34,7 @@ export async function generateExport(): Promise<string> {
       mode: assistantState.mode,
       selectedCandidateId: assistantState.selectedCandidateId,
       conversations: Object.fromEntries(
-        Object.entries(assistantState.conversations).map(([key, msgs]) => [
+        Object.entries(assistantState.conversations ?? {}).map(([key, msgs]) => [
           key,
           msgs.map((m) => ({
             id: m.id,
@@ -61,15 +61,24 @@ export async function generateExport(): Promise<string> {
     })),
   };
 
+  // expo-file-system types don't export cacheDirectory from the main module
+  // (it moved to expo-file-system/legacy), but it's available at runtime.
+  const cacheDir = (FileSystem as Record<string, unknown>).cacheDirectory as
+    | string
+    | null;
+  if (!cacheDir) {
+    throw new Error(
+      "Cannot export data: device cache directory is unavailable."
+    );
+  }
+
   const dateStr = new Date().toISOString().slice(0, 10);
   const fileName = `lucide-data-export-${dateStr}.json`;
-  const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
+  const fileUri = `${cacheDir}${fileName}`;
 
-  await FileSystem.writeAsStringAsync(
-    fileUri,
-    JSON.stringify(exportData, null, 2),
-    { encoding: FileSystem.EncodingType.UTF8 }
-  );
+  await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(exportData, null, 2), {
+    encoding: 'utf8',
+  });
 
   return fileUri;
 }
@@ -90,5 +99,10 @@ export async function deleteAllUserData(): Promise<void> {
   appStore.revokePrivacyConsent();
   appStore.setCrashReportingOptIn(false);
 
-  await AsyncStorage.clear();
+  await AsyncStorage.multiRemove([
+    'app-state',
+    'survey-state',
+    'assistant-state',
+    'feedback_entries',
+  ]);
 }

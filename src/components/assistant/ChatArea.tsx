@@ -31,6 +31,7 @@ export function ChatArea({
   const flatListRef = useRef<FlatList>(null);
   const [inputText, setInputText] = useState("");
   const [isAtBottom, setIsAtBottom] = useState(true);
+  const listHeightRef = useRef(0);
 
   useEffect(() => {
     if (messages.length > 0 && isAtBottom) {
@@ -39,6 +40,15 @@ export function ChatArea({
       }, 100);
     }
   }, [messages.length, messages[messages.length - 1]?.content, isAtBottom]);
+
+  // Scroll to bottom when the FlatList shrinks (keyboard opened) and we were at bottom
+  const handleListLayout = useCallback((event: { nativeEvent: { layout: { height: number } } }) => {
+    const newHeight = event.nativeEvent.layout.height;
+    if (newHeight < listHeightRef.current && isAtBottom && messages.length > 0) {
+      flatListRef.current?.scrollToEnd({ animated: true });
+    }
+    listHeightRef.current = newHeight;
+  }, [isAtBottom, messages.length]);
 
   const handleSend = () => {
     const text = inputText.trim();
@@ -60,8 +70,7 @@ export function ChatArea({
   const showTypingIndicator =
     isStreaming &&
     messages.length > 0 &&
-    messages[messages.length - 1]?.role === "assistant" &&
-    messages[messages.length - 1]?.content === "";
+    messages[messages.length - 1]?.role !== "assistant";
 
   return (
     <View className="flex-1">
@@ -90,7 +99,10 @@ export function ChatArea({
         }
         ListFooterComponent={showTypingIndicator ? <TypingIndicator /> : null}
         onScroll={handleScroll}
+        onLayout={handleListLayout}
         scrollEventThrottle={16}
+        keyboardDismissMode="interactive"
+        keyboardShouldPersistTaps="handled"
       />
 
       <ScrollToBottomButton
@@ -118,7 +130,6 @@ export function ChatArea({
             returnKeyType="send"
             multiline
             maxLength={1000}
-            editable={!isStreaming}
             accessibilityLabel={t("placeholder")}
           />
           <Pressable

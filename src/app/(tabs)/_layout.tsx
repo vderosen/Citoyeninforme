@@ -2,6 +2,8 @@ import { Pressable } from "react-native";
 import { Tabs, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
+import { AssistantFeedbackHeaderAction } from "../../components/assistant/AssistantFeedbackHeaderAction";
+import { AssistantResetHeaderAction } from "../../components/assistant/AssistantResetHeaderAction";
 
 export default function TabLayout() {
   const { t } = useTranslation("common");
@@ -60,6 +62,8 @@ export default function TabLayout() {
         options={{
           title: t("headers.assistant"),
           tabBarAccessibilityLabel: "Assistant",
+          headerLeft: () => <AssistantResetHeaderAction />,
+          headerRight: () => <AssistantFeedbackHeaderAction />,
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons name={focused ? "chatbubble" : "chatbubble-outline"} size={size} color={color} />
           ),
