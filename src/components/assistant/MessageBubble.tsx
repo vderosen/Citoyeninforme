@@ -49,7 +49,7 @@ export function MessageBubble({ message, isStreaming }: Props) {
 
   return (
     <View
-      className={`mb-3 max-w-[85%] ${isUser ? "self-end" : "self-start"}`}
+      className={`mb-3 ${isUser ? "max-w-[85%] self-end" : ""}`}
     >
       {isUser ? (
         <View className="rounded-2xl px-4 py-3 bg-civic-navy">
