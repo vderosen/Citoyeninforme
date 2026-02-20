@@ -19,7 +19,7 @@
 
 **Purpose**: Remove obsolete i18n keys before component changes
 
-- [ ] T001 Remove unused step/CTA i18n keys from `src/i18n/locales/fr/comparison.json` — keep only 5 keys: `title`, `minimumCandidates`, `positionNotDocumented`, `source`, `sources`. Delete all other keys: `selectCandidates`, `selectTheme`, `noPositionAvailable`, `noDataExplanation`, `backToCandidates`, `stepIndicator`, `candidatesSection`, `themeSection`, `selectedCount_one`, `selectedCount_other`, `allThemes`, `compareCta`, `selectMinimum`, `summaryText`
+- [x] T001 Remove unused step/CTA i18n keys from `src/i18n/locales/fr/comparison.json` — keep only 5 keys: `title`, `minimumCandidates`, `positionNotDocumented`, `source`, `sources`. Delete all other keys: `selectCandidates`, `selectTheme`, `noPositionAvailable`, `noDataExplanation`, `backToCandidates`, `stepIndicator`, `candidatesSection`, `themeSection`, `selectedCount_one`, `selectedCount_other`, `allThemes`, `compareCta`, `selectMinimum`, `summaryText`
 
 ---
 
@@ -29,8 +29,8 @@
 
 **WARNING**: These deletions will cause temporary import errors in `src/app/comparison.tsx` until T007 rewrites it.
 
-- [ ] T002 [P] Delete `src/components/comparison/CandidateSelectCard.tsx` — replaced by compact avatar bar items in CandidateAvatarBar (AD-2)
-- [ ] T003 [P] Delete `src/components/comparison/ComparisonBottomBar.tsx` — no validation step in live design (AD-1, FR-014)
+- [x] T002 [P] Delete `src/components/comparison/CandidateSelectCard.tsx` — replaced by compact avatar bar items in CandidateAvatarBar (AD-2)
+- [x] T003 [P] Delete `src/components/comparison/ComparisonBottomBar.tsx` — no validation step in live design (AD-1, FR-014)
 
 **Checkpoint**: Obsolete files removed. Component creation can begin.
 
@@ -44,7 +44,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T004 [P] [US2] Create `CandidateAvatarBar` component in `src/components/comparison/CandidateAvatarBar.tsx` — horizontal `ScrollView` with `showsHorizontalScrollIndicator={false}`, each item is a `PressableScale` wrapping `CandidateAvatar` (size 36, showRing={false}) + name `Text` below. Props: `{ candidates: Candidate[], selectedIds: string[], onToggle: (id: string) => void, maxSelected?: number }` (default maxSelected=4). Selected state: `bg-accent-coral-light` + `border-accent-coral` (2px) on full item. Unselected: `bg-[#F3F4F6]`. Max reached + unselected: `opacity-50`, tap is no-op. Item ~72px wide × ~60px tall. Min 44×44pt tap target (FR-003, FR-004, FR-005, FR-006, FR-015)
+- [x] T004 [P] [US2] Create `CandidateAvatarBar` component in `src/components/comparison/CandidateAvatarBar.tsx` — horizontal `ScrollView` with `showsHorizontalScrollIndicator={false}`, each item is a `PressableScale` wrapping `CandidateAvatar` (size 36, showRing={false}) + name `Text` below. Props: `{ candidates: Candidate[], selectedIds: string[], onToggle: (id: string) => void, maxSelected?: number }` (default maxSelected=4). Selected state: `bg-accent-coral-light` + `border-accent-coral` (2px) on full item. Unselected: `bg-[#F3F4F6]`. Max reached + unselected: `opacity-50`, tap is no-op. Item ~72px wide × ~60px tall. Min 44×44pt tap target (FR-003, FR-004, FR-005, FR-006, FR-015)
 
 **Checkpoint**: CandidateAvatarBar component ready for integration.
 
@@ -58,7 +58,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T005 [P] [US3] Modify `ThemeChipSelector` in `src/components/comparison/ThemeChipSelector.tsx` — change layout from `flex-row flex-wrap` to horizontal `ScrollView` with `showsHorizontalScrollIndicator={false}`. Remove the "Tous les thèmes" virtual chip (the one with `id: null`). Change `selectedThemeId` prop type from `string | null` to `string`. Change `onSelectTheme` param type from `string | null` to `string`. Keep existing chip styles (selected: `bg-civic-navy text-text-inverse`, default: `bg-warm-gray text-civic-navy`), PressableScale, accessibilityRole="tab" (FR-007, FR-008, AD-3)
+- [x] T005 [P] [US3] Modify `ThemeChipSelector` in `src/components/comparison/ThemeChipSelector.tsx` — change layout from `flex-row flex-wrap` to horizontal `ScrollView` with `showsHorizontalScrollIndicator={false}`. Remove the "Tous les thèmes" virtual chip (the one with `id: null`). Change `selectedThemeId` prop type from `string | null` to `string`. Change `onSelectTheme` param type from `string | null` to `string`. Keep existing chip styles (selected: `bg-civic-navy text-text-inverse`, default: `bg-warm-gray text-civic-navy`), PressableScale, accessibilityRole="tab" (FR-007, FR-008, AD-3)
 
 **Checkpoint**: ThemeChipSelector adapted for live design.
 
@@ -72,7 +72,7 @@
 
 ### Implementation for User Story 4
 
-- [ ] T006 [P] [US4] Modify `ComparisonView` in `src/components/candidates/ComparisonView.tsx` — remove unused props from interface: `themes`, `onThemeChange`, `onCandidateToggle`. Remove or hide the theme header rendering (`activeTheme.icon + activeTheme.name` section). Fix party color bar: replace `candidate.partyColor || "#9CA3AF"` with `getCandidatePartyColor(candidate.id)` (import from `src/utils/candidatePartyColor.ts`). Keep all existing layout logic: empty state (<2 selected), side-by-side (2 candidates, `flex-1`), horizontal scroll (3-4 candidates, `width: 240`). Keep position card content: name, party, summary, details, sources, TrustBadge (FR-010, FR-011, AD-4)
+- [x] T006 [P] [US4] Modify `ComparisonView` in `src/components/candidates/ComparisonView.tsx` — remove unused props from interface: `themes`, `onThemeChange`, `onCandidateToggle`. Remove or hide the theme header rendering (`activeTheme.icon + activeTheme.name` section). Fix party color bar: replace `candidate.partyColor || "#9CA3AF"` with `getCandidatePartyColor(candidate.id)` (import from `src/utils/candidatePartyColor.ts`). Keep all existing layout logic: empty state (<2 selected), side-by-side (2 candidates, `flex-1`), horizontal scroll (3-4 candidates, `width: 240`). Keep position card content: name, party, summary, details, sources, TrustBadge (FR-010, FR-011, AD-4)
 
 **Checkpoint**: ComparisonView cleaned up and party color bug fixed.
 
@@ -88,7 +88,7 @@
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Complete rewrite of `src/app/comparison.tsx` — remove all step-based logic (`step` state, step 1/step 2 rendering, transitions). Remove imports of deleted `CandidateSelectCard` and `ComparisonBottomBar`. State: `const [selectedIds, setSelectedIds] = useState<string[]>([])` and `const [activeThemeId, setActiveThemeId] = useState<string>("")`. useEffect for pre-selection: parse `params.selected` by splitting on commas, validate against candidates list. useEffect for auto-theme: `if (themes.length > 0) setActiveThemeId(themes[0].id)`. toggleCandidate handler: if selected → remove, if not selected and count < maxSelected (4) → add. Render: single vertical `ScrollView` with `bg-warm-white` background containing `CandidateAvatarBar` (all candidates, selectedIds, toggleCandidate), `ThemeChipSelector` (themes, activeThemeId, setActiveThemeId), `ComparisonView` (candidates, selectedIds, filtered positions by activeThemeId, activeThemeId). No bottom bar, no step indicator (FR-001, FR-002, FR-009, FR-013, AD-1, AD-5)
+- [x] T007 [US1] Complete rewrite of `src/app/comparison.tsx` — remove all step-based logic (`step` state, step 1/step 2 rendering, transitions). Remove imports of deleted `CandidateSelectCard` and `ComparisonBottomBar`. State: `const [selectedIds, setSelectedIds] = useState<string[]>([])` and `const [activeThemeId, setActiveThemeId] = useState<string>("")`. useEffect for pre-selection: parse `params.selected` by splitting on commas, validate against candidates list. useEffect for auto-theme: `if (themes.length > 0) setActiveThemeId(themes[0].id)`. toggleCandidate handler: if selected → remove, if not selected and count < maxSelected (4) → add. Render: single vertical `ScrollView` with `bg-warm-white` background containing `CandidateAvatarBar` (all candidates, selectedIds, toggleCandidate), `ThemeChipSelector` (themes, activeThemeId, setActiveThemeId), `ComparisonView` (candidates, selectedIds, filtered positions by activeThemeId, activeThemeId). No bottom bar, no step indicator (FR-001, FR-002, FR-009, FR-013, AD-1, AD-5)
 
 **Checkpoint**: Full comparison screen works as single live page. Pre-selected candidates show positions immediately.
 
@@ -102,7 +102,7 @@
 
 ### Implementation for User Story 5
 
-- [ ] T008 [US5] Verify and adjust empty state behavior in `src/app/comparison.tsx` — ensure ComparisonView receives correct props so it displays the `minimumCandidates` i18n message ("Sélectionnez au moins 2 candidats pour comparer") when `selectedIds.length < 2`. Verify candidate bar and theme chips are not disabled/hidden during empty state. Test direct navigation (no `params.selected`) shows all candidates unselected + first theme auto-selected + empty state message (FR-012)
+- [x] T008 [US5] Verify and adjust empty state behavior in `src/app/comparison.tsx` — ensure ComparisonView receives correct props so it displays the `minimumCandidates` i18n message ("Sélectionnez au moins 2 candidats pour comparer") when `selectedIds.length < 2`. Verify candidate bar and theme chips are not disabled/hidden during empty state. Test direct navigation (no `params.selected`) shows all candidates unselected + first theme auto-selected + empty state message (FR-012)
 
 **Checkpoint**: Empty state works correctly. All user stories complete.
 
@@ -112,8 +112,8 @@
 
 **Purpose**: Final validation across all stories
 
-- [ ] T009 Verify all imports are clean — no references to deleted `CandidateSelectCard` or `ComparisonBottomBar` remain anywhere in codebase. Check `src/app/comparison.tsx` and any barrel exports
-- [ ] T010 Run quickstart.md manual test validation: 13-step flow (single page, 3 zones, toggle candidates, switch themes, side-by-side vs horizontal scroll, empty state) + 5 edge cases (max 5th candidate rejected, no position placeholder, no photo initials fallback, narrow screen scroll, direct navigation empty state)
+- [x] T009 Verify all imports are clean — no references to deleted `CandidateSelectCard` or `ComparisonBottomBar` remain anywhere in codebase. Check `src/app/comparison.tsx` and any barrel exports
+- [x] T010 Run quickstart.md manual test validation: 13-step flow (single page, 3 zones, toggle candidates, switch themes, side-by-side vs horizontal scroll, empty state) + 5 edge cases (max 5th candidate rejected, no position placeholder, no photo initials fallback, narrow screen scroll, direct navigation empty state)
 
 ---
 
