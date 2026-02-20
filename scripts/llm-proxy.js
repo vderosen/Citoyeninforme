@@ -213,7 +213,7 @@ async function handleChat(req, res) {
         model,
         stream: true,
         temperature: 0.3,
-        max_tokens: 400,
+        max_completion_tokens: 400,
         messages,
       }),
     });
