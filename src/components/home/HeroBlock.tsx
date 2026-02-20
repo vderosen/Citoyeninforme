@@ -10,7 +10,7 @@ export function HeroBlock({ election }: HeroBlockProps) {
   const { t } = useTranslation("home");
 
   return (
-    <View className="bg-civic-navy px-5 pt-8 pb-6">
+    <View className="bg-civic-navy px-5 pt-5 pb-6">
       <Text
         className="font-display-bold text-[28px] leading-tight text-text-inverse"
         accessibilityRole="header"

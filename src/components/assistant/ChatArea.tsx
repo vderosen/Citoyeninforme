@@ -7,6 +7,7 @@ import { MessageBubble } from "./MessageBubble";
 import { EmptyState } from "./EmptyState";
 import { TypingIndicator } from "./TypingIndicator";
 import { ScrollToBottomButton } from "./ScrollToBottomButton";
+import { FollowUpSuggestions } from "./FollowUpSuggestions";
 
 interface ChatAreaProps {
   messages: ChatMessage[];
@@ -16,6 +17,8 @@ interface ChatAreaProps {
   context: AssistantContext | null;
   onPromptSelect: (text: string) => void;
   selectedCandidateId: string | null;
+  followUpSuggestions: string[];
+  isGeneratingSuggestions: boolean;
 }
 
 export function ChatArea({
@@ -26,6 +29,8 @@ export function ChatArea({
   context,
   onPromptSelect,
   selectedCandidateId,
+  followUpSuggestions,
+  isGeneratingSuggestions,
 }: ChatAreaProps) {
   const { t } = useTranslation("assistant");
   const flatListRef = useRef<FlatList>(null);
@@ -120,6 +125,13 @@ export function ChatArea({
           elevation: 1,
         }}
       >
+        {messages.length > 0 && !isStreaming && (followUpSuggestions.length > 0 || isGeneratingSuggestions) && (
+          <FollowUpSuggestions
+            suggestions={followUpSuggestions}
+            isLoading={isGeneratingSuggestions}
+            onSelect={onPromptSelect}
+          />
+        )}
         <View className="flex-row items-end px-4 pb-4 pt-3 gap-2">
           <TextInput
             className="flex-1 bg-warm-gray rounded-xl px-4 py-3 font-body text-base text-text-body"

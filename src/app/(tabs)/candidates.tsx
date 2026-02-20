@@ -1,54 +1,61 @@
-import { useState, useCallback } from "react";
-import { View, Text, Pressable } from "react-native";
+import { useState, useCallback, useMemo } from "react";
+import { View, Text, LayoutAnimation, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Ionicons } from "@expo/vector-icons";
 import { useElectionStore } from "../../stores/election";
+import { useAssistantStore } from "../../stores/assistant";
 import { LoadingState } from "../../components/shared/LoadingState";
-import { CandidateGallery } from "../../components/candidates/CandidateGallery";
+import { CandidateAvatarBar } from "../../components/comparison/CandidateAvatarBar";
+import { CandidateProfileCard } from "../../components/candidates/CandidateProfileCard";
+import { ComparisonView } from "../../components/candidates/ComparisonView";
+import { ThemeTabBar } from "../../components/candidates/ThemeTabBar";
+import { deterministicShuffle, dailySeed } from "../../utils/shuffle";
 
-const MAX_COMPARE = 4;
-const MIN_COMPARE = 2;
+const MAX_SELECTED = 4;
 
 export default function CandidatesScreen() {
-  const router = useRouter();
   const { t } = useTranslation("candidates");
+  const router = useRouter();
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const candidates = useElectionStore((s) => s.candidates);
+  const themes = useElectionStore((s) => s.themes);
+  const positions = useElectionStore((s) => s.positions);
+  const getCandidateById = useElectionStore((s) => s.getCandidateById);
+  const getPositionsForCandidate = useElectionStore(
+    (s) => s.getPositionsForCandidate
+  );
+  const selectMode = useAssistantStore((s) => s.selectMode);
+  const selectCandidate = useAssistantStore((s) => s.selectCandidate);
 
-  const [compareMode, setCompareMode] = useState(false);
-  const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [activeThemeId, setActiveThemeId] = useState(themes[0]?.id ?? "");
 
-  const handleCandidatePress = (candidateId: string) => {
-    router.push(`/candidate/${candidateId}`);
-  };
+  const shuffledCandidates = useMemo(
+    () => deterministicShuffle(candidates, dailySeed()),
+    [candidates]
+  );
 
-  const handleToggleCompare = useCallback((candidateId: string) => {
-    setSelectedForCompare((prev) => {
-      if (prev.includes(candidateId)) {
-        return prev.filter((id) => id !== candidateId);
-      }
-      if (prev.length >= MAX_COMPARE) return prev;
-      return [...prev, candidateId];
-    });
-  }, []);
-
-  const handleConfirmCompare = () => {
-    if (selectedForCompare.length >= MIN_COMPARE) {
-      router.push({
-        pathname: "/comparison",
-        params: { selected: selectedForCompare.join(",") },
+  const toggleCandidate = useCallback(
+    (candidateId: string) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setSelectedIds((prev) => {
+        if (prev.includes(candidateId)) {
+          return prev.filter((id) => id !== candidateId);
+        }
+        if (prev.length >= MAX_SELECTED) return prev;
+        return [...prev, candidateId];
       });
-      setCompareMode(false);
-      setSelectedForCompare([]);
-    }
-  };
+    },
+    []
+  );
 
-  const handleCancelCompare = () => {
-    setCompareMode(false);
-    setSelectedForCompare([]);
-  };
+  const handleDebate = useCallback(() => {
+    if (selectedIds.length !== 1) return;
+    selectMode("parler");
+    selectCandidate(selectedIds[0]);
+    router.push("/(tabs)/assistant");
+  }, [selectedIds, selectMode, selectCandidate, router]);
 
   if (!isLoaded) {
     return (
@@ -58,72 +65,65 @@ export default function CandidatesScreen() {
     );
   }
 
+  const renderContent = () => {
+    // US3: Empty state guidance
+    if (selectedIds.length === 0) {
+      return (
+        <View className="flex-1 items-center justify-center px-8 py-12">
+          <Text className="font-display-semibold text-lg text-civic-navy text-center mb-2">
+            {t("emptyStateTitle")}
+          </Text>
+          <Text className="font-body text-sm text-text-caption text-center">
+            {t("emptyStateDescription")}
+          </Text>
+        </View>
+      );
+    }
+
+    // US1: Single candidate profile
+    if (selectedIds.length === 1) {
+      const candidate = getCandidateById(selectedIds[0]);
+      if (!candidate) return null;
+      const candidatePositions = getPositionsForCandidate(selectedIds[0]);
+      return (
+        <CandidateProfileCard
+          candidate={candidate}
+          positions={candidatePositions}
+          themes={themes}
+          onDebate={handleDebate}
+        />
+      );
+    }
+
+    // US2: Multi-candidate comparison (2-4)
+    return (
+      <View>
+        <ThemeTabBar
+          themes={themes}
+          activeThemeId={activeThemeId}
+          onSelectTheme={setActiveThemeId}
+        />
+        <ComparisonView
+          candidates={candidates}
+          selectedCandidateIds={selectedIds}
+          positions={positions}
+          activeThemeId={activeThemeId}
+        />
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
-      <View className="flex-1">
-        <CandidateGallery
-          candidates={candidates}
-          onCandidatePress={handleCandidatePress}
-          compareMode={compareMode}
-          selectedForCompare={selectedForCompare}
-          onToggleCompare={handleToggleCompare}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <CandidateAvatarBar
+          candidates={shuffledCandidates}
+          selectedIds={selectedIds}
+          onToggle={toggleCandidate}
+          maxSelected={MAX_SELECTED}
         />
-
-        {/* Compare confirmation bar */}
-        {compareMode && (
-          <View className="absolute bottom-0 left-0 right-0 bg-civic-navy px-4 py-3 flex-row items-center gap-3">
-            <Pressable
-              onPress={handleCancelCompare}
-              className="p-2"
-              accessibilityRole="button"
-              accessibilityLabel={t("compareCancel")}
-            >
-              <Ionicons name="close" size={22} color="#FAFAF8" />
-            </Pressable>
-            <Text className="font-body-medium text-sm text-text-inverse flex-1">
-              {t("compareCount", { count: selectedForCompare.length, max: MAX_COMPARE })}
-            </Text>
-            <Pressable
-              onPress={handleConfirmCompare}
-              disabled={selectedForCompare.length < MIN_COMPARE}
-              className={`rounded-xl px-4 py-2 ${
-                selectedForCompare.length >= MIN_COMPARE
-                  ? "bg-accent-coral"
-                  : "bg-warm-gray"
-              }`}
-              style={{ minHeight: 40 }}
-              accessibilityRole="button"
-              accessibilityLabel={t("compareConfirm")}
-            >
-              <Text
-                className={`font-display-medium text-sm ${
-                  selectedForCompare.length >= MIN_COMPARE
-                    ? "text-text-inverse"
-                    : "text-text-caption"
-                }`}
-              >
-                {t("compareConfirm")}
-              </Text>
-            </Pressable>
-          </View>
-        )}
-
-        {/* FAB: Comparer button */}
-        {!compareMode && candidates.length >= MIN_COMPARE && (
-          <Pressable
-            onPress={() => setCompareMode(true)}
-            className="absolute bottom-4 self-center bg-accent-coral rounded-full px-5 py-3 flex-row items-center gap-2 shadow-lg"
-            style={{ minHeight: 48, elevation: 4 }}
-            accessibilityRole="button"
-            accessibilityLabel={t("compare")}
-          >
-            <Ionicons name="git-compare-outline" size={20} color="#FAFAF8" />
-            <Text className="font-display-medium text-sm text-text-inverse">
-              {t("compare")}
-            </Text>
-          </Pressable>
-        )}
-      </View>
+        {renderContent()}
+      </ScrollView>
     </SafeAreaView>
   );
 }

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { View, Text, Image, Pressable } from "react-native";
+import { View, Text, Image, Pressable, Modal } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import type { Candidate, Position, Theme } from "../../data/schema";
 import { PositionCard } from "./PositionCard";
+import { ThemeTabBar } from "./ThemeTabBar";
 import { FeedbackAction } from "../shared/FeedbackAction";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
 
@@ -20,28 +21,13 @@ export function CandidateProfileCard({
   themes,
   onDebate,
 }: CandidateProfileCardProps) {
-  const { t } = useTranslation("candidates");
-  const [expandedThemes, setExpandedThemes] = useState<Set<string>>(new Set());
+  const { t } = useTranslation(["candidates", "common"]);
+  const [activeThemeId, setActiveThemeId] = useState(themes[0]?.id ?? "");
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const imageSource = getCandidateImageSource(candidate);
 
-  const positionsByTheme = themes
-    .map((theme) => ({
-      theme,
-      position: positions.find((p) => p.themeId === theme.id),
-    }))
-    .filter((entry) => entry.position || true);
-
-  const toggleTheme = (themeId: string) => {
-    setExpandedThemes((prev) => {
-      const next = new Set(prev);
-      if (next.has(themeId)) {
-        next.delete(themeId);
-      } else {
-        next.add(themeId);
-      }
-      return next;
-    });
-  };
+  const activePosition = positions.find((p) => p.themeId === activeThemeId);
+  const activeTheme = themes.find((th) => th.id === activeThemeId);
 
   return (
     <View className="pb-6">
@@ -53,6 +39,16 @@ export function CandidateProfileCard({
         }}
       />
       <View className="items-center px-4 pt-6 pb-4">
+        {/* Flag icon top-right */}
+        <Pressable
+          onPress={() => setFeedbackOpen(true)}
+          style={{ position: "absolute", top: 12, right: 12, minHeight: 44, minWidth: 44, alignItems: "center", justifyContent: "center" }}
+          accessibilityRole="button"
+          accessibilityLabel={t("common:feedbackSignal")}
+        >
+          <Ionicons name="flag-outline" size={20} color="#9CA3AF" />
+        </Pressable>
+
         {imageSource ? (
           <Image
             source={imageSource}
@@ -73,72 +69,97 @@ export function CandidateProfileCard({
       {/* En bref */}
       <View className="px-4 pb-4">
         <Text className="font-display-semibold text-base text-civic-navy mb-1">
-          {t("enBref")}
+          {t("candidates:enBref")}
         </Text>
         <Text className="font-body text-sm text-text-body leading-relaxed">{candidate.bio}</Text>
       </View>
 
-      {/* Positions by theme */}
-      <View className="px-4 pb-4">
-        <Text className="font-display-semibold text-base text-civic-navy mb-2">
-          {t("positionsByTheme")}
+      {/* Positions by theme — tab bar */}
+      <View className="pb-4">
+        <Text className="font-display-semibold text-base text-civic-navy mb-2 px-4">
+          {t("candidates:positionsByTheme")}
         </Text>
-        {positionsByTheme.map(({ theme, position }) => (
-          <View key={theme.id} className="mb-2">
-            <Pressable
-              onPress={() => toggleTheme(theme.id)}
-              className="flex-row items-center py-2"
-              style={{ minHeight: 44 }}
-              accessibilityRole="button"
-              accessibilityState={{ expanded: expandedThemes.has(theme.id) }}
-              accessibilityLabel={theme.name}
-            >
-              <Text className="font-body-medium text-sm text-civic-navy flex-1">
-                {theme.icon} {theme.name}
+
+        <ThemeTabBar
+          themes={themes}
+          activeThemeId={activeThemeId}
+          onSelectTheme={setActiveThemeId}
+        />
+
+        {/* Active theme name */}
+        {activeTheme && (
+          <Text className="font-body-medium text-sm text-civic-navy px-4 mt-3 mb-1">
+            {activeTheme.icon} {activeTheme.name}
+          </Text>
+        )}
+
+        {/* Position content */}
+        <View className="px-4 mt-1">
+          {activePosition ? (
+            <PositionCard position={activePosition} />
+          ) : (
+            <View className="bg-warm-gray rounded-lg p-3">
+              <Text className="font-body text-sm text-text-caption italic">
+                {t("candidates:noPositionDocumented")}
               </Text>
-              <Ionicons
-                name={expandedThemes.has(theme.id) ? "chevron-up" : "chevron-down"}
-                size={16}
-                color="#1B2A4A"
-              />
-            </Pressable>
-            {expandedThemes.has(theme.id) && (
-              position ? (
-                <PositionCard position={position} />
-              ) : (
-                <View className="bg-warm-gray rounded-lg p-3 mb-2">
-                  <Text className="font-body text-sm text-text-caption italic">
-                    {t("noPositionDocumented")}
-                  </Text>
-                  <Text className="font-body text-xs text-text-caption mt-1">
-                    {t("noPositionNote")}
-                  </Text>
-                </View>
-              )
-            )}
-          </View>
-        ))}
+              <Text className="font-body text-xs text-text-caption mt-1">
+                {t("candidates:noPositionNote")}
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
 
       {/* Action button */}
       <View className="px-4 pb-4">
         <Pressable
           onPress={onDebate}
-          className="bg-accent-coral rounded-xl py-3"
+          className="bg-civic-navy rounded-xl py-3"
           style={{ minHeight: 48 }}
           accessibilityRole="button"
-          accessibilityLabel={t("debate")}
+          accessibilityLabel={t("candidates:debate")}
         >
           <Text className="font-display-medium text-sm text-text-inverse text-center">
-            {t("debate")}
+            {t("candidates:debate")}
           </Text>
         </Pressable>
       </View>
 
-      {/* Feedback */}
-      <View className="px-4">
-        <FeedbackAction screen="candidate" entityId={candidate.id} />
-      </View>
+      {/* Feedback modal (flag icon pattern from assistant) */}
+      <Modal
+        visible={feedbackOpen}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setFeedbackOpen(false)}
+      >
+        <View
+          className="flex-1 justify-center px-4"
+          style={{ backgroundColor: "rgba(27,42,74,0.4)" }}
+        >
+          <Pressable
+            onPress={() => setFeedbackOpen(false)}
+            className="absolute inset-0"
+            accessibilityRole="button"
+            accessibilityLabel={t("common:close")}
+          />
+          <View className="rounded-2xl border border-warm-gray bg-warm-white p-4">
+            <View className="mb-2 flex-row items-center justify-between">
+              <Text className="font-display-medium text-base text-civic-navy">
+                {t("common:feedbackSignal")}
+              </Text>
+              <Pressable
+                onPress={() => setFeedbackOpen(false)}
+                className="h-9 w-9 items-center justify-center rounded-full bg-warm-gray"
+                accessibilityRole="button"
+                accessibilityLabel={t("common:close")}
+              >
+                <Ionicons name="close" size={18} color="#1B2A4A" />
+              </Pressable>
+            </View>
+            <FeedbackAction screen="candidate" entityId={candidate.id} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

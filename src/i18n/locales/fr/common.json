@@ -23,6 +23,7 @@
   "errorDefault": "Une erreur est survenue",
   "errorRetry": "Réessayer",
   "feedbackSignal": "Signaler",
+  "feedbackTitle": "Qu'est-ce qui ne va pas ?",
   "feedbackUnclear": "Information peu claire",
   "feedbackMissing": "Information manquante",
   "feedbackGeneral": "Commentaire général",

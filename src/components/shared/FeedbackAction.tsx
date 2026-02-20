@@ -1,21 +1,31 @@
 import { useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { submitFeedback } from "../../services/feedback";
 
 interface FeedbackActionProps {
   screen: "candidate" | "assistant" | "comparison" | "survey";
   entityId?: string;
+  /** Start with the form visible (skip the "Signaler" button). */
+  initiallyOpen?: boolean;
+  /** Called after successful submission or when user cancels (for modal usage). */
+  onDone?: () => void;
 }
 
 type FeedbackType = "unclear" | "missing" | "general";
 
-export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
+export function FeedbackAction({ screen, entityId, initiallyOpen = false, onDone }: FeedbackActionProps) {
   const { t } = useTranslation("common");
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(initiallyOpen);
   const [selectedType, setSelectedType] = useState<FeedbackType | null>(null);
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
+  const reset = () => {
+    setSelectedType(null);
+    setText("");
+  };
 
   const handleSubmit = () => {
     if (!selectedType) return;
@@ -27,17 +37,21 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
     });
     setSubmitted(true);
     setTimeout(() => {
-      setIsOpen(false);
       setSubmitted(false);
-      setSelectedType(null);
-      setText("");
-    }, 2000);
+      reset();
+      if (initiallyOpen) {
+        onDone?.();
+      } else {
+        setIsOpen(false);
+      }
+    }, 1500);
   };
 
   if (submitted) {
     return (
-      <View className="py-3 px-4">
-        <Text className="font-body text-sm text-signal-green text-center">
+      <View className="items-center py-6">
+        <Ionicons name="checkmark-circle" size={32} color="#16A34A" />
+        <Text className="mt-2 text-center font-body text-sm text-signal-green">
           {t("feedbackThanks")}
         </Text>
       </View>
@@ -48,12 +62,12 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
     return (
       <Pressable
         onPress={() => setIsOpen(true)}
-        className="py-3 px-4"
+        className="px-4 py-3"
         style={{ minHeight: 44 }}
         accessibilityRole="button"
         accessibilityLabel={t("feedbackSignal")}
       >
-        <Text className="font-body-medium text-sm text-accent-coral-dark text-center">
+        <Text className="text-center font-body-medium text-sm text-accent-coral-dark">
           {t("feedbackSignal")}
         </Text>
       </Pressable>
@@ -67,24 +81,24 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
   ];
 
   return (
-    <View className="py-3 px-4 bg-warm-gray rounded-lg">
-      <View className="flex-row flex-wrap gap-2 mb-3">
+    <View>
+      <View className="mb-4 flex-row flex-wrap gap-2">
         {feedbackTypes.map(({ type, label }) => (
           <Pressable
             key={type}
             onPress={() => setSelectedType(type)}
-            className={`px-3 py-1.5 rounded-full border ${
+            className={`rounded-full border px-4 py-2 ${
               selectedType === type
-                ? "bg-accent-coral-light border-accent-coral"
-                : "bg-warm-white border-warm-gray"
+                ? "border-accent-coral bg-accent-coral-light"
+                : "border-warm-gray bg-warm-white"
             }`}
-            style={{ minHeight: 36 }}
+            style={{ minHeight: 40 }}
             accessibilityRole="button"
             accessibilityState={{ selected: selectedType === type }}
             accessibilityLabel={label}
           >
             <Text
-              className={`font-body text-sm ${
+              className={`font-body-medium text-sm ${
                 selectedType === type ? "text-civic-navy" : "text-text-body"
               }`}
             >
@@ -94,47 +108,34 @@ export function FeedbackAction({ screen, entityId }: FeedbackActionProps) {
         ))}
       </View>
       <TextInput
-        className="bg-warm-white border border-warm-gray rounded-lg px-3 py-2 font-body text-sm text-text-body mb-3"
+        className="mb-4 rounded-xl border border-warm-gray bg-warm-white px-4 py-3 font-body text-sm text-text-body"
         placeholder={t("feedbackPlaceholder")}
+        placeholderTextColor="#9CA3AF"
         value={text}
         onChangeText={setText}
         multiline
-        numberOfLines={2}
+        numberOfLines={4}
+        style={{ minHeight: 100, textAlignVertical: "top" }}
         accessibilityLabel={t("feedbackPlaceholder")}
       />
-      <View className="flex-row justify-end gap-2">
-        <Pressable
-          onPress={() => {
-            setIsOpen(false);
-            setSelectedType(null);
-            setText("");
-          }}
-          className="px-4 py-2"
-          style={{ minHeight: 44 }}
-          accessibilityRole="button"
-          accessibilityLabel={t("cancel")}
-        >
-          <Text className="font-body text-sm text-text-caption">{t("cancel")}</Text>
-        </Pressable>
-        <Pressable
-          onPress={handleSubmit}
-          className={`px-4 py-2 rounded-lg ${
-            selectedType ? "bg-accent-coral" : "bg-warm-gray"
+      <Pressable
+        onPress={handleSubmit}
+        className={`items-center rounded-xl py-3.5 ${
+          selectedType ? "bg-civic-navy" : "bg-warm-gray"
+        }`}
+        style={{ minHeight: 48 }}
+        disabled={!selectedType}
+        accessibilityRole="button"
+        accessibilityLabel={t("feedbackSubmit")}
+      >
+        <Text
+          className={`font-display-semibold text-base ${
+            selectedType ? "text-text-inverse" : "text-text-caption"
           }`}
-          style={{ minHeight: 44 }}
-          disabled={!selectedType}
-          accessibilityRole="button"
-          accessibilityLabel={t("feedbackSubmit")}
         >
-          <Text
-            className={`font-body-medium text-sm ${
-              selectedType ? "text-text-inverse" : "text-text-caption"
-            }`}
-          >
-            {t("feedbackSubmit")}
-          </Text>
-        </Pressable>
-      </View>
+          {t("feedbackSubmit")}
+        </Text>
+      </Pressable>
     </View>
   );
 }

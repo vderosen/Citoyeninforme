@@ -24,11 +24,53 @@ export interface ChatMessage {
   timestamp: string;
 }
 
+// === Debate Types ===
+
+export interface DebateOption {
+  id: string;
+  text: string;
+}
+
+export interface DebateSource {
+  title: string;
+  url?: string;
+}
+
+export interface CandidateProximityEntry {
+  candidateId: string;
+  reason: string;
+}
+
+export interface DebateSummary {
+  themesExplored: string[];
+  keyInsight: string;
+  candidateProximity?: CandidateProximityEntry[];
+}
+
+export interface DebateTurn {
+  id: string;
+  statement: string;
+  options: DebateOption[];
+  selectedOptionId: string | null;
+  themeId: string | null;
+  sources: DebateSource[];
+  isConclusion: boolean;
+  summary: DebateSummary | null;
+  timestamp: string;
+}
+
 let messageCounter = 0;
 
 export function createMessageId(): string {
   messageCounter += 1;
   return `msg-${Date.now()}-${messageCounter}`;
+}
+
+let turnCounter = 0;
+
+export function createTurnId(): string {
+  turnCounter += 1;
+  return `turn-${Date.now()}-${turnCounter}`;
 }
 
 interface AssistantState {
@@ -37,6 +79,16 @@ interface AssistantState {
   conversations: Record<string, ChatMessage[]>;
   isStreaming: boolean;
   preloadedContext: AssistantContext | null;
+
+  // Debate state (ephemeral — NOT persisted)
+  debateTurns: DebateTurn[];
+  isDebateActive: boolean;
+  isGeneratingTurn: boolean;
+  debateStartThemeId: string | null;
+
+  // Follow-up suggestions state (ephemeral — NOT persisted)
+  followUpSuggestions: string[];
+  isGeneratingSuggestions: boolean;
 
   selectMode: (mode: AssistantMode) => void;
   selectCandidate: (candidateId: string) => void;
@@ -47,6 +99,19 @@ interface AssistantState {
   setPreloadedContext: (context: AssistantContext) => void;
   consumePreloadedContext: () => AssistantContext | null;
   resetConversation: () => void;
+
+  // Suggestion actions
+  setSuggestions: (suggestions: string[]) => void;
+  setGeneratingSuggestions: (generating: boolean) => void;
+  clearSuggestions: () => void;
+
+  // Debate actions
+  startDebate: (themeId?: string | null) => void;
+  selectDebateOption: (turnId: string, optionId: string) => void;
+  addDebateTurn: (turn: DebateTurn) => void;
+  setGeneratingTurn: (generating: boolean) => void;
+  endDebate: () => void;
+  resetDebate: () => void;
 
   getConversationKey: () => string;
   getCurrentMessages: () => ChatMessage[];
@@ -60,6 +125,16 @@ export const useAssistantStore = create<AssistantState>()(
       conversations: {},
       isStreaming: false,
       preloadedContext: null,
+
+      // Debate initial state (ephemeral)
+      debateTurns: [],
+      isDebateActive: false,
+      isGeneratingTurn: false,
+      debateStartThemeId: null,
+
+      // Suggestions initial state (ephemeral)
+      followUpSuggestions: [],
+      isGeneratingSuggestions: false,
 
       selectMode: (mode) => set({ mode }),
 
@@ -90,6 +165,8 @@ export const useAssistantStore = create<AssistantState>()(
               ...state.conversations,
               [key]: [...current, message],
             },
+            // Clear stale suggestions when user sends a new message
+            ...(message.role === "user" ? { followUpSuggestions: [], isGeneratingSuggestions: false } : {}),
           };
         }),
 
@@ -132,6 +209,53 @@ export const useAssistantStore = create<AssistantState>()(
           },
         }));
       },
+
+      // === Suggestion Actions ===
+
+      setSuggestions: (suggestions) =>
+        set({ followUpSuggestions: suggestions }),
+
+      setGeneratingSuggestions: (generating) =>
+        set({ isGeneratingSuggestions: generating }),
+
+      clearSuggestions: () =>
+        set({ followUpSuggestions: [], isGeneratingSuggestions: false }),
+
+      // === Debate Actions ===
+
+      startDebate: (themeId) =>
+        set({
+          isDebateActive: true,
+          debateTurns: [],
+          debateStartThemeId: themeId ?? null,
+          isGeneratingTurn: false,
+        }),
+
+      selectDebateOption: (turnId, optionId) =>
+        set((state) => ({
+          debateTurns: state.debateTurns.map((turn) =>
+            turn.id === turnId ? { ...turn, selectedOptionId: optionId } : turn
+          ),
+        })),
+
+      addDebateTurn: (turn) =>
+        set((state) => ({
+          debateTurns: [...state.debateTurns, turn],
+        })),
+
+      setGeneratingTurn: (generating) =>
+        set({ isGeneratingTurn: generating }),
+
+      endDebate: () =>
+        set({ isDebateActive: false }),
+
+      resetDebate: () =>
+        set({
+          debateTurns: [],
+          isDebateActive: false,
+          isGeneratingTurn: false,
+          debateStartThemeId: null,
+        }),
     }),
     {
       name: "assistant-state",
