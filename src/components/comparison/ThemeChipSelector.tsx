@@ -1,12 +1,11 @@
-import { View, Text } from "react-native";
-import { useTranslation } from "react-i18next";
+import { Text, ScrollView } from "react-native";
 import type { Theme } from "../../data/schema";
 import { PressableScale } from "../ui/PressableScale";
 
 interface ThemeChipSelectorProps {
   themes: Theme[];
-  selectedThemeId: string | null;
-  onSelectTheme: (themeId: string | null) => void;
+  selectedThemeId: string;
+  onSelectTheme: (themeId: string) => void;
 }
 
 export function ThemeChipSelector({
@@ -14,27 +13,25 @@ export function ThemeChipSelector({
   selectedThemeId,
   onSelectTheme,
 }: ThemeChipSelectorProps) {
-  const { t } = useTranslation("comparison");
   const sortedThemes = [...themes].sort(
     (a, b) => a.displayOrder - b.displayOrder
   );
 
-  const allChips: { id: string | null; label: string }[] = [
-    { id: null, label: t("allThemes") },
-    ...sortedThemes.map((theme) => ({ id: theme.id, label: theme.name })),
-  ];
-
   return (
-    <View className="flex-row flex-wrap gap-2">
-      {allChips.map((chip) => {
-        const isSelected = chip.id === selectedThemeId;
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ gap: 8, paddingHorizontal: 16, paddingVertical: 8 }}
+    >
+      {sortedThemes.map((theme) => {
+        const isSelected = theme.id === selectedThemeId;
         return (
           <PressableScale
-            key={chip.id ?? "all"}
-            onPress={() => onSelectTheme(chip.id)}
+            key={theme.id}
+            onPress={() => onSelectTheme(theme.id)}
             accessibilityRole="tab"
             accessibilityState={{ selected: isSelected }}
-            accessibilityLabel={chip.label}
+            accessibilityLabel={theme.name}
             className={`rounded-full px-4 py-2 ${
               isSelected ? "bg-civic-navy" : "bg-warm-gray"
             }`}
@@ -45,11 +42,11 @@ export function ThemeChipSelector({
                 isSelected ? "text-text-inverse" : "text-civic-navy"
               }`}
             >
-              {chip.label}
+              {theme.name}
             </Text>
           </PressableScale>
         );
       })}
-    </View>
+    </ScrollView>
   );
 }
