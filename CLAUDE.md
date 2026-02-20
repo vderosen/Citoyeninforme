@@ -21,6 +21,8 @@ Auto-generated from all feature plans. Last updated: 2026-02-13
 - AsyncStorage (native) / localStorage (web) via Zustand persist middleware; key `"assistant-state"` — no changes (008-assistant-chat-redesign)
 - TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + NativeWind 4.1.23, react-native-reanimated 4.1.1, @expo/vector-icons 15.0.3, react-i18next 15.4.1 (010-candidates-grid-redesign)
 - TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + Expo Router 6.0, NativeWind 4.1.23, @expo/vector-icons 15.0.3 (Ionicons), react-i18next 15.4.1 (013-comparison-redesign)
+- TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + @sentry/react-native, expo-file-system, zustand 5.0.3, @react-native-async-storage/async-storage, expo-router 6.0, react-i18next 15.4.1 (014-fix-critical-bugs)
+- AsyncStorage (native) / localStorage (web) via Zustand persist middleware; keys: `app-state`, `survey-state`, `assistant-state`, `feedback_entries` (014-fix-critical-bugs)
 
 - TypeScript 5.x on React Native 0.80+ (Expo SDK 54+) + Expo (managed workflow), Expo Router, Zustand, react-i18next, gluestack-ui v3, NativeWind v4, react-native-mmkv, expo-sqlite (001-civic-election-app)
 
@@ -40,9 +42,9 @@ npm test && npm run lint
 TypeScript 5.x on React Native 0.80+ (Expo SDK 54+): Follow standard conventions
 
 ## Recent Changes
+- 014-fix-critical-bugs: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + @sentry/react-native, expo-file-system, zustand 5.0.3, @react-native-async-storage/async-storage, expo-router 6.0, react-i18next 15.4.1
 - 013-comparison-redesign: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + Expo Router 6.0, NativeWind 4.1.23, @expo/vector-icons 15.0.3 (Ionicons), react-i18next 15.4.1
 - 010-candidates-grid-redesign: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + NativeWind 4.1.23, react-native-reanimated 4.1.1, @expo/vector-icons 15.0.3, react-i18next 15.4.1
-- 008-assistant-chat-redesign: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + Expo Router 6.0, Zustand 5.0.3, react-i18next 15.4.1, NativeWind 4.1.23, @gluestack-ui/themed 1.1.73, react-native-reanimated 4.1.1, @expo/vector-icons 15.0.3 (Ionicons), react-native-markdown-display (NEW)
 
 
 <!-- MANUAL ADDITIONS START -->

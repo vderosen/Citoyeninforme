@@ -112,29 +112,30 @@ export async function sendChatMessage(
       return;
     }
 
-    // React Native's fetch doesn't support ReadableStream, so read the
-    // full response as text and parse SSE events from it.
+    // React Native's fetch doesn't support ReadableStream, so the full
+    // response is read as text.  We accumulate all SSE text chunks into a
+    // single string and emit ONE onChunk call to avoid hundreds of rapid
+    // Zustand state updates that break the Markdown renderer.
     const text = await response.text();
     if (__DEV__) {
       console.log(`[chatbot] Response length: ${text.length}, first 200 chars:`, text.slice(0, 200));
     }
     const lines = text.split("\n");
+    let accumulated = "";
 
     for (const line of lines) {
-      if (!line.startsWith("data: ")) continue;
+      const trimmed = line.replace(/\r$/, "");
+      if (!trimmed.startsWith("data: ")) continue;
 
-      const data = line.slice(6);
-      if (data === "[DONE]") {
-        onDone?.();
-        return;
-      }
+      const data = trimmed.slice(6);
+      if (data === "[DONE]") break;
+
       try {
         const parsed = JSON.parse(data);
         if (parsed.type === "text" && parsed.content) {
-          onChunk?.(parsed.content);
+          accumulated += parsed.content;
         } else if (parsed.type === "done") {
-          onDone?.();
-          return;
+          break;
         } else if (parsed.type === "error") {
           onError?.(parsed.message);
           return;
@@ -142,11 +143,14 @@ export async function sendChatMessage(
       } catch {
         // Non-JSON SSE data, treat as text
         if (data.trim()) {
-          onChunk?.(data);
+          accumulated += data;
         }
       }
     }
 
+    if (accumulated) {
+      onChunk?.(accumulated);
+    }
     onDone?.();
   } catch (error) {
     const msg = error instanceof Error ? error.message : "Network error";
