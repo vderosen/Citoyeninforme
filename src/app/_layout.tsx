@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-import { LogBox, View } from "react-native";
+import { LogBox, Pressable, Text, View } from "react-native";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as Sentry from "@sentry/react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useReducedMotion } from "react-native-reanimated";
+import { Ionicons } from "@expo/vector-icons";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import {
   useFonts,
   SpaceGrotesk_500Medium,
@@ -40,6 +42,7 @@ export const unstable_settings = {
 };
 
 function RootLayout() {
+  const { t } = useTranslation("common");
   const loadDataset = useElectionStore((s) => s.loadDataset);
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
@@ -133,6 +136,31 @@ function RootLayout() {
                   color: "#FAFAF8",
                 },
                 headerShadowVisible: false,
+                headerBackButtonDisplayMode: "minimal",
+                headerLeft: ({ canGoBack }) =>
+                  canGoBack ? (
+                    <Pressable
+                      onPress={() => router.back()}
+                      accessibilityRole="button"
+                      accessibilityLabel={t("back")}
+                      className="ml-2 flex-row items-center rounded-full px-3 py-2"
+                      hitSlop={8}
+                      style={({ pressed }) => ({
+                        opacity: pressed ? 0.72 : 1,
+                      })}
+                    >
+                      <Ionicons
+                        name="chevron-back"
+                        size={18}
+                        color="#FAFAF8"
+                      />
+                      <Text
+                        className="ml-1 font-body-medium text-sm text-text-inverse"
+                      >
+                        {t("back")}
+                      </Text>
+                    </Pressable>
+                  ) : null,
                 animation: reduceMotion ? "none" : "slide_from_bottom",
               }}
             >
