@@ -1,0 +1,59 @@
+import { useState } from "react";
+import { Modal, Pressable, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
+import { FeedbackAction } from "../shared/FeedbackAction";
+
+export function AssistantFeedbackHeaderAction() {
+  const { t } = useTranslation("common");
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <Pressable
+        onPress={() => setIsOpen(true)}
+        className="mr-4 p-2"
+        accessibilityRole="button"
+        accessibilityLabel={t("feedbackSignal")}
+      >
+        <Ionicons name="flag-outline" size={22} color="#FAFAF8" />
+      </Pressable>
+
+      <Modal
+        visible={isOpen}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setIsOpen(false)}
+      >
+        <View
+          className="flex-1 justify-center px-4"
+          style={{ backgroundColor: "rgba(27,42,74,0.4)" }}
+        >
+          <Pressable
+            onPress={() => setIsOpen(false)}
+            className="absolute inset-0"
+            accessibilityRole="button"
+            accessibilityLabel={t("close")}
+          />
+          <View className="rounded-2xl border border-warm-gray bg-warm-white p-4">
+            <View className="mb-2 flex-row items-center justify-between">
+              <Text className="font-display-medium text-base text-civic-navy">
+                {t("feedbackSignal")}
+              </Text>
+              <Pressable
+                onPress={() => setIsOpen(false)}
+                className="h-9 w-9 items-center justify-center rounded-full bg-warm-gray"
+                accessibilityRole="button"
+                accessibilityLabel={t("close")}
+              >
+                <Ionicons name="close" size={18} color="#1B2A4A" />
+              </Pressable>
+            </View>
+
+            <FeedbackAction screen="assistant" />
+          </View>
+        </View>
+      </Modal>
+    </>
+  );
+}

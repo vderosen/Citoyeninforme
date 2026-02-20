@@ -11,7 +11,6 @@ import { sendChatMessage } from "../../services/chatbot";
 import { ModeSelector } from "../../components/assistant/ModeSelector";
 import { CandidateSelector } from "../../components/assistant/CandidateSelector";
 import { ChatArea } from "../../components/assistant/ChatArea";
-import { ChatToolbar } from "../../components/assistant/ChatToolbar";
 import { useNetworkStatus } from "../../hooks/useNetworkStatus";
 import type { ChatMessage } from "../../stores/assistant";
 
@@ -149,11 +148,6 @@ export default function AssistantScreen() {
             onSelect={selectCandidate}
           />
         )}
-
-        <ChatToolbar
-          messages={messages}
-          onNewConversation={resetConversation}
-        />
 
         <ChatArea
           messages={messages}

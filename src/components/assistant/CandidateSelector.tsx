@@ -1,5 +1,4 @@
 import { FlatList, View, Text, Pressable, Image } from "react-native";
-import { useTranslation } from "react-i18next";
 import type { Candidate } from "../../data/schema";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
 
@@ -14,13 +13,8 @@ export function CandidateSelector({
   selectedId,
   onSelect,
 }: CandidateSelectorProps) {
-  const { t } = useTranslation("assistant");
-
   return (
     <View className="py-2">
-      <Text className="font-body-medium text-xs text-text-caption px-4 mb-2">
-        {t("selectCandidate")}
-      </Text>
       <FlatList
         data={candidates}
         keyExtractor={(item) => item.id}
