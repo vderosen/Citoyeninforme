@@ -15,12 +15,12 @@ export function HeroBlock({ election }: HeroBlockProps) {
         className="font-display-bold text-[28px] leading-tight text-text-inverse"
         accessibilityRole="header"
       >
-        {t("heroHeading", { type: election.type, city: election.city, year: election.year })}
+        {t("heroHeading", { city: election.city, year: election.year })}
       </Text>
       <Text className="font-display-semibold text-lg text-accent-coral mt-1">
         {t("subtitle")}
       </Text>
-      <Text className="font-body text-[15px] text-text-inverse mt-3 opacity-80 leading-relaxed">
+      <Text className="font-body text-[13px] text-text-inverse mt-3 opacity-80 leading-snug">
         {t("purpose")}
       </Text>
     </View>

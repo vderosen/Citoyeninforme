@@ -18,7 +18,7 @@
   "resumeTitle": "Reprendre où vous en étiez",
   "resumeChat": "Reprendre la conversation",
   "dataSource": "Données issues des programmes officiels des candidats",
-  "heroHeading": "{{type}} · {{city}} {{year}}",
+  "heroHeading": "{{city}} {{year}}",
   "themeSectionTitle": "Explorer par thème",
   "lastUpdated": "Mis à jour le {{date}}",
   "votingMethod": {

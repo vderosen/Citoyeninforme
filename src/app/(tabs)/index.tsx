@@ -56,20 +56,20 @@ export default function HomeScreen() {
           onStartSurvey={handleStartSurvey}
         />
 
-        {/* 3. Trust banner — discreet */}
-        <TrustCard />
-
-        {/* 4. Voting info — 3 expanded cards */}
+        {/* 3. Voting info — 3 expanded cards */}
         {logistics && <VotingInfoCard logistics={logistics} />}
 
-        {/* 5. Retake survey link — discreet, only when completed */}
+        {/* 4. Retake survey link — discreet, only when completed */}
         {surveyStatus === "completed" && (
           <Pressable onPress={handleStartSurvey} className="py-2">
-            <Text className="text-accent-coral text-sm font-body-medium text-center">
+            <Text className="text-text-caption text-sm font-body-medium text-center">
               {t("retakeSurvey")}
             </Text>
           </Pressable>
         )}
+
+        {/* 5. Trust banner — discreet */}
+        <TrustCard />
 
         {/* 6. Last updated footer */}
         {election.lastUpdated && (

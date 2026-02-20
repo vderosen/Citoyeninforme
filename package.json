@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "postinstall": "node scripts/patch-safe-area-warning.js",
     "chat:proxy": "node scripts/llm-proxy.js",
+    "chat:tunnel": "bash scripts/proxy-tunnel.sh",
     "data:review:paris-2026": "node scripts/generate-election-review-md.js paris-2026",
     "test": "jest",
     "lint": "eslint . --ext .ts,.tsx"

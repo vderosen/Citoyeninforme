@@ -64,15 +64,10 @@ export default function AssistantScreen() {
       timestamp: new Date().toISOString(),
     };
     addMessage(userMessage);
-
-    const assistantMessage = {
-      id: createMessageId(),
-      role: "assistant" as const,
-      content: "",
-      timestamp: new Date().toISOString(),
-    };
-    addMessage(assistantMessage);
     setStreaming(true);
+
+    let firstChunk = true;
+    const assistantMessageId = createMessageId();
 
     sendChatMessage(
       mode,
@@ -82,10 +77,32 @@ export default function AssistantScreen() {
         candidateId: selectedCandidateId ?? undefined,
         userProfile: userProfile ?? undefined,
       },
-      (chunk) => updateLastAssistantMessage(chunk),
+      (chunk) => {
+        if (firstChunk) {
+          firstChunk = false;
+          addMessage({
+            id: assistantMessageId,
+            role: "assistant" as const,
+            content: chunk,
+            timestamp: new Date().toISOString(),
+          });
+        } else {
+          updateLastAssistantMessage(chunk);
+        }
+      },
       () => setStreaming(false),
       (error) => {
-        updateLastAssistantMessage(`\n\n[Erreur: ${error}]`);
+        if (firstChunk) {
+          firstChunk = false;
+          addMessage({
+            id: assistantMessageId,
+            role: "assistant" as const,
+            content: `[Erreur: ${error}]`,
+            timestamp: new Date().toISOString(),
+          });
+        } else {
+          updateLastAssistantMessage(`\n\n[Erreur: ${error}]`);
+        }
         setStreaming(false);
       }
     );

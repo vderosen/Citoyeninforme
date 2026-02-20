@@ -60,8 +60,7 @@ export function ChatArea({
   const showTypingIndicator =
     isStreaming &&
     messages.length > 0 &&
-    messages[messages.length - 1]?.role === "assistant" &&
-    messages[messages.length - 1]?.content === "";
+    messages[messages.length - 1]?.role !== "assistant";
 
   return (
     <View className="flex-1">

@@ -42,6 +42,9 @@ function AssistantContent({ content, isStreaming }: { content: string; isStreami
 
 export function MessageBubble({ message, isStreaming }: Props) {
   const isUser = message.role === "user";
+
+  if (!isUser && !message.content) return null;
+
   const timeStr = formatTimestamp(message.timestamp);
 
   return (

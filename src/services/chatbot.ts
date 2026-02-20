@@ -75,6 +75,8 @@ export async function sendChatMessage(
   try {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
+      // Bypass ngrok free-tier browser interstitial page
+      "ngrok-skip-browser-warning": "true",
     };
     if (API_KEY) {
       headers["X-API-Key"] = API_KEY;
@@ -104,6 +106,8 @@ export async function sendChatMessage(
     }
 
     if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
+      console.warn(`[chatbot] API error ${response.status}:`, errorBody.slice(0, 200));
       onError?.(`API error: ${response.status}`);
       return;
     }
@@ -111,6 +115,9 @@ export async function sendChatMessage(
     // React Native's fetch doesn't support ReadableStream, so read the
     // full response as text and parse SSE events from it.
     const text = await response.text();
+    if (__DEV__) {
+      console.log(`[chatbot] Response length: ${text.length}, first 200 chars:`, text.slice(0, 200));
+    }
     const lines = text.split("\n");
 
     for (const line of lines) {
@@ -142,8 +149,10 @@ export async function sendChatMessage(
 
     onDone?.();
   } catch (error) {
-    onError?.(
-      error instanceof Error ? error.message : "Network error"
-    );
+    const msg = error instanceof Error ? error.message : "Network error";
+    if (__DEV__) {
+      console.warn(`[chatbot] Network/fetch error:`, msg);
+    }
+    onError?.(msg);
   }
 }
