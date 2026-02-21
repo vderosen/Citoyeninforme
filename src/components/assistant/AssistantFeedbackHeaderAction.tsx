@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Pressable, Text, View } from "react-native";
+import { KeyboardAvoidingView, Modal, Platform, Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { FeedbackAction } from "../shared/FeedbackAction";
@@ -25,9 +25,10 @@ export function AssistantFeedbackHeaderAction() {
         animationType="fade"
         onRequestClose={() => setIsOpen(false)}
       >
-        <View
-          className="flex-1 justify-end"
+        <KeyboardAvoidingView
+          className="flex-1 justify-center"
           style={{ backgroundColor: "rgba(27,42,74,0.4)" }}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
           <Pressable
             onPress={() => setIsOpen(false)}
@@ -35,7 +36,7 @@ export function AssistantFeedbackHeaderAction() {
             accessibilityRole="button"
             accessibilityLabel={t("close")}
           />
-          <View className="rounded-t-3xl bg-warm-white px-5 pb-8 pt-5">
+          <View className="mx-5 rounded-3xl bg-warm-white px-5 pb-6 pt-5">
             <View className="mb-4 flex-row items-center justify-between">
               <Text className="font-display-semibold text-lg text-civic-navy">
                 {t("feedbackTitle")}
@@ -56,7 +57,7 @@ export function AssistantFeedbackHeaderAction() {
               onDone={() => setIsOpen(false)}
             />
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </>
   );

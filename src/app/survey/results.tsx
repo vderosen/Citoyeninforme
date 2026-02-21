@@ -40,8 +40,8 @@ export default function ResultsScreen() {
     router.replace("/survey/intro");
   };
 
-  const handleCandidatePress = (candidateId: string) => {
-    router.push(`/candidate/${candidateId}`);
+  const handleCandidatePress = (_candidateId: string) => {
+    router.push("/(tabs)/candidates");
   };
 
   return (
