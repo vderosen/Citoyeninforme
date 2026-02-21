@@ -1,5 +1,5 @@
 import { validateDataset } from "../../src/data/loader";
-import type { ElectionDataset } from "../../src/data/schema";
+import type { ElectionDataset, SourceReference } from "../../src/data/schema";
 
 function createValidDataset(): ElectionDataset {
   return {
@@ -40,7 +40,7 @@ function createValidDataset(): ElectionDataset {
     ],
     positions: [
       {
-        id: "pos-1",
+        id: "candidate-1-theme-1",
         candidateId: "candidate-1",
         themeId: "theme-1",
         summary: "Test position summary",
@@ -53,6 +53,7 @@ function createValidDataset(): ElectionDataset {
             accessDate: "2026-02-10",
           },
         ],
+        measures: [],
         lastVerified: "2026-02-10",
       },
     ],
@@ -66,6 +67,16 @@ function createValidDataset(): ElectionDataset {
           { id: "q1-a", text: "Option A", themeScores: { "theme-1": 1 } },
           { id: "q1-b", text: "Option B", themeScores: { "theme-1": -1 } },
         ],
+        order: 1,
+      },
+    ],
+    statementCards: [
+      {
+        id: "s1",
+        electionId: "test-election-2026",
+        text: "Test statement",
+        themeIds: ["theme-1"],
+        baseScores: { "theme-1": 1 },
         order: 1,
       },
     ],
@@ -100,6 +111,17 @@ function createValidDataset(): ElectionDataset {
           accessDate: "2026-02-10",
         },
       ],
+    },
+  };
+}
+
+function createSourcesDict(): Record<string, SourceReference> {
+  return {
+    "source-1": {
+      title: "Source",
+      url: "https://example.com/source",
+      type: "program",
+      accessDate: "2026-02-10",
     },
   };
 }
@@ -149,7 +171,10 @@ describe("validateDataset", () => {
 
   it("rejects duplicate position for same candidate-theme pair", () => {
     const dataset = createValidDataset();
-    dataset.positions.push({ ...dataset.positions[0], id: "pos-2" });
+    dataset.positions.push({
+      ...dataset.positions[0],
+      id: "candidate-1-theme-1-dup",
+    });
     expect(() => validateDataset(dataset)).toThrow("Duplicate position");
   });
 
@@ -177,5 +202,31 @@ describe("validateDataset", () => {
     const dataset = createValidDataset();
     dataset.candidates[0].electionId = "wrong-election";
     expect(() => validateDataset(dataset)).toThrow("electionId mismatch");
+  });
+
+  it("accepts position with empty measures array", () => {
+    const dataset = createValidDataset();
+    dataset.positions[0].measures = [];
+    expect(() => validateDataset(dataset)).not.toThrow();
+  });
+
+  it("accepts position with valid measures", () => {
+    const dataset = createValidDataset();
+    const sources = createSourcesDict();
+    dataset.positions[0].measures = [
+      { text: "A concrete measure", sourceIds: ["source-1"] },
+    ];
+    expect(() => validateDataset(dataset, sources)).not.toThrow();
+  });
+
+  it("rejects measure with unknown sourceId when sources dict provided", () => {
+    const dataset = createValidDataset();
+    const sources = createSourcesDict();
+    dataset.positions[0].measures = [
+      { text: "A measure", sourceIds: ["nonexistent-source"] },
+    ];
+    expect(() => validateDataset(dataset, sources)).toThrow(
+      'unknown sourceId "nonexistent-source"'
+    );
   });
 });

@@ -1,3 +1,7 @@
+/**
+ * @deprecated Replaced by SwipeCard.tsx in the swipe survey redesign (019).
+ * Kept for backward reference only — no longer imported by the active survey flow.
+ */
 import { View, Text } from "react-native";
 import { useTranslation } from "react-i18next";
 import { PressableScale } from "../ui/PressableScale";

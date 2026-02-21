@@ -1,6 +1,5 @@
 import { View, Text } from "react-native";
 import Markdown, { type RenderRules } from "react-native-markdown-display";
-import { Ionicons } from "@expo/vector-icons";
 import type { ChatMessage } from "../../stores/assistant";
 import { TrustBadge } from "../shared/TrustBadge";
 import { markdownStyles } from "./markdownStyles";
@@ -103,18 +102,6 @@ function BubbleTail({
   );
 }
 
-function formatTimestamp(timestamp: string): string {
-  try {
-    const date = new Date(timestamp);
-    return new Intl.DateTimeFormat("fr-FR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(date);
-  } catch {
-    return "";
-  }
-}
-
 function AssistantContent({ content, isStreaming }: { content: string; isStreaming?: boolean }) {
   const displayContent = isStreaming ? content + " ▋" : content;
 
@@ -138,8 +125,6 @@ export function MessageBubble({ message, isStreaming }: Props) {
 
   if (!isUser && !message.content) return null;
 
-  const timeStr = formatTimestamp(message.timestamp);
-
   return (
     <View
       className={`mb-3 ${isUser ? "max-w-[85%] self-end" : ""}`}
@@ -160,44 +145,29 @@ export function MessageBubble({ message, isStreaming }: Props) {
           />
         </View>
       ) : (
-        <View className="flex-row items-start gap-2">
-          <View className="w-6 h-6 rounded-full bg-civic-navy items-center justify-center mt-1">
-            <Ionicons name="sparkles-outline" size={14} color="#FAFAF8" />
+        <View className="relative mb-1">
+          <View
+            className="rounded-2xl px-4 py-3"
+            style={{
+              backgroundColor: ASSISTANT_BUBBLE_COLOR,
+              shadowColor: "#1B2A4A",
+              shadowOffset: { width: 0, height: 1 },
+              shadowOpacity: 0.04,
+              shadowRadius: 2,
+              elevation: 1,
+            }}
+          >
+            <AssistantContent content={message.content} isStreaming={isStreaming} />
           </View>
-          <View className="relative flex-1 mb-1">
-            <View
-              className="flex-1 rounded-2xl px-4 py-3"
-              style={{
-                backgroundColor: ASSISTANT_BUBBLE_COLOR,
-                shadowColor: "#1B2A4A",
-                shadowOffset: { width: 0, height: 1 },
-                shadowOpacity: 0.04,
-                shadowRadius: 2,
-                elevation: 1,
-              }}
-            >
-              <AssistantContent content={message.content} isStreaming={isStreaming} />
-            </View>
-            <BubbleTail
-              side="left"
-              bubbleColor={ASSISTANT_BUBBLE_COLOR}
-            />
-          </View>
+          <BubbleTail
+            side="left"
+            bubbleColor={ASSISTANT_BUBBLE_COLOR}
+          />
         </View>
       )}
 
-      {timeStr !== "" && (
-        <Text
-          className={`text-xs text-text-caption mt-2 ${
-            isUser ? "text-right" : "ml-8"
-          }`}
-        >
-          {timeStr}
-        </Text>
-      )}
-
       {message.sources && message.sources.length > 0 && (
-        <View className={`mt-1 gap-1 ${isUser ? "px-2" : "ml-8"}`}>
+        <View className={`mt-1 gap-1 ${isUser ? "px-2" : "ml-2"}`}>
           {message.sources.map((source, index) => (
             <View key={index} className="flex-row items-center gap-1">
               <TrustBadge

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { View, Text, Image, Pressable, Modal } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import type { Candidate, Position, Theme } from "../../data/schema";
 import { PositionCard } from "./PositionCard";
 import { ThemeTabBar } from "./ThemeTabBar";
-import { FeedbackAction } from "../shared/FeedbackAction";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
+import { getCandidatePartyColor } from "../../utils/candidatePartyColor";
 
 interface CandidateProfileCardProps {
   candidate: Candidate;
@@ -23,59 +23,63 @@ export function CandidateProfileCard({
 }: CandidateProfileCardProps) {
   const { t } = useTranslation(["candidates", "common"]);
   const [activeThemeId, setActiveThemeId] = useState(themes[0]?.id ?? "");
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const imageSource = getCandidateImageSource(candidate);
+  const partyColor = getCandidatePartyColor(candidate.id);
 
   const activePosition = positions.find((p) => p.themeId === activeThemeId);
-  const activeTheme = themes.find((th) => th.id === activeThemeId);
 
   return (
     <View className="pb-6">
-      {/* Header with party color bar */}
+      {/* Header — avatar + name/party row, then bio full-width below */}
       <View
-        style={{
-          height: 6,
-          backgroundColor: candidate.partyColor || "#9CA3AF",
-        }}
-      />
-      <View className="items-center px-4 pt-6 pb-4">
-        {/* Flag icon top-right */}
-        <Pressable
-          onPress={() => setFeedbackOpen(true)}
-          style={{ position: "absolute", top: 12, right: 12, minHeight: 44, minWidth: 44, alignItems: "center", justifyContent: "center" }}
-          accessibilityRole="button"
-          accessibilityLabel={t("common:feedbackSignal")}
-        >
-          <Ionicons name="flag-outline" size={20} color="#9CA3AF" />
-        </Pressable>
-
-        {imageSource ? (
-          <Image
-            source={imageSource}
-            className="w-24 h-24 rounded-xl bg-warm-gray"
-            accessibilityIgnoresInvertColors
-          />
-        ) : (
-          <View className="w-24 h-24 rounded-xl bg-warm-gray items-center justify-center">
-            <Text className="text-4xl">👤</Text>
+        style={{ backgroundColor: partyColor + "14" }}
+        className="px-4 pt-4 pb-3"
+      >
+        <View className="flex-row items-center">
+          {imageSource ? (
+            <Image
+              source={imageSource}
+              className="rounded-full bg-warm-gray"
+              style={{ width: 64, height: 64 }}
+              accessibilityIgnoresInvertColors
+            />
+          ) : (
+            <View
+              className="rounded-full bg-warm-gray items-center justify-center"
+              style={{ width: 64, height: 64 }}
+            >
+              <Text className="text-2xl">👤</Text>
+            </View>
+          )}
+          <View className="flex-1 ml-3">
+            <Text className="font-display-bold text-lg text-civic-navy">
+              {candidate.name}
+            </Text>
+            <View
+              className="rounded-full px-3 py-0.5 mt-0.5 self-start"
+              style={{ backgroundColor: partyColor + "1A" }}
+            >
+              <Text className="font-body-medium text-xs" style={{ color: partyColor }}>
+                {candidate.party}
+              </Text>
+            </View>
           </View>
-        )}
-        <Text className="font-display-bold text-xl text-civic-navy mt-3">
-          {candidate.name}
-        </Text>
-        <Text className="font-body text-sm text-text-caption">{candidate.party}</Text>
+        </View>
+        {candidate.bio ? (
+          <Text
+            className="font-body text-xs text-text-body leading-relaxed mt-2"
+            numberOfLines={3}
+          >
+            {candidate.bio}
+          </Text>
+        ) : null}
       </View>
 
-      {/* En bref */}
-      <View className="px-4 pb-4">
-        <Text className="font-display-semibold text-base text-civic-navy mb-1">
-          {t("candidates:enBref")}
-        </Text>
-        <Text className="font-body text-sm text-text-body leading-relaxed">{candidate.bio}</Text>
-      </View>
+      {/* Divider */}
+      <View className="border-t border-warm-gray mx-4" />
 
       {/* Positions by theme — tab bar */}
-      <View className="pb-4">
+      <View className="py-5">
         <Text className="font-display-semibold text-base text-civic-navy mb-2 px-4">
           {t("candidates:positionsByTheme")}
         </Text>
@@ -86,17 +90,10 @@ export function CandidateProfileCard({
           onSelectTheme={setActiveThemeId}
         />
 
-        {/* Active theme name */}
-        {activeTheme && (
-          <Text className="font-body-medium text-sm text-civic-navy px-4 mt-3 mb-1">
-            {activeTheme.icon} {activeTheme.name}
-          </Text>
-        )}
-
         {/* Position content */}
-        <View className="px-4 mt-1">
+        <View className="px-4 mt-3">
           {activePosition ? (
-            <PositionCard position={activePosition} />
+            <PositionCard position={activePosition} partyColor={partyColor} />
           ) : (
             <View className="bg-warm-gray rounded-lg p-3">
               <Text className="font-body text-sm text-text-caption italic">
@@ -110,56 +107,28 @@ export function CandidateProfileCard({
         </View>
       </View>
 
-      {/* Action button */}
-      <View className="px-4 pb-4">
+      {/* Divider */}
+      <View className="border-t border-warm-gray mx-4" />
+
+      {/* Action button — outlined, centered */}
+      <View className="px-4 pt-5 pb-4 items-center">
         <Pressable
           onPress={onDebate}
-          className="bg-civic-navy rounded-xl py-3"
-          style={{ minHeight: 48 }}
+          className="rounded-xl py-3 px-8 flex-row items-center justify-center"
+          style={{
+            minHeight: 48,
+            borderWidth: 1.5,
+            borderColor: "#1B2A4A",
+          }}
           accessibilityRole="button"
           accessibilityLabel={t("candidates:debate")}
         >
-          <Text className="font-display-medium text-sm text-text-inverse text-center">
+          <Ionicons name="chatbubble-outline" size={18} color="#1B2A4A" style={{ marginRight: 8 }} />
+          <Text className="font-display-medium text-sm text-civic-navy">
             {t("candidates:debate")}
           </Text>
         </Pressable>
       </View>
-
-      {/* Feedback modal (flag icon pattern from assistant) */}
-      <Modal
-        visible={feedbackOpen}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setFeedbackOpen(false)}
-      >
-        <View
-          className="flex-1 justify-center px-4"
-          style={{ backgroundColor: "rgba(27,42,74,0.4)" }}
-        >
-          <Pressable
-            onPress={() => setFeedbackOpen(false)}
-            className="absolute inset-0"
-            accessibilityRole="button"
-            accessibilityLabel={t("common:close")}
-          />
-          <View className="rounded-2xl border border-warm-gray bg-warm-white p-4">
-            <View className="mb-2 flex-row items-center justify-between">
-              <Text className="font-display-medium text-base text-civic-navy">
-                {t("common:feedbackSignal")}
-              </Text>
-              <Pressable
-                onPress={() => setFeedbackOpen(false)}
-                className="h-9 w-9 items-center justify-center rounded-full bg-warm-gray"
-                accessibilityRole="button"
-                accessibilityLabel={t("common:close")}
-              >
-                <Ionicons name="close" size={18} color="#1B2A4A" />
-              </Pressable>
-            </View>
-            <FeedbackAction screen="candidate" entityId={candidate.id} />
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }

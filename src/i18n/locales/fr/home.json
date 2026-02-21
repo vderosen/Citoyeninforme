@@ -20,6 +20,11 @@
   "dataSource": "Données issues des programmes officiels des candidats",
   "heroHeading": "{{city}} {{year}}",
   "themeSectionTitle": "Explorer par thème",
+  "nextDate": "Prochaine date",
+  "surveyProgress": "{{answered}} / {{total}} questions",
+  "statCandidates": "candidats",
+  "statThemes": "thèmes",
+  "statMeasures": "mesures",
   "lastUpdated": "Mis à jour le {{date}}",
   "votingMethod": {
     "inPerson": "En personne",

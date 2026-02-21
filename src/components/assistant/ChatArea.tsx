@@ -78,7 +78,7 @@ export function ChatArea({
     messages[messages.length - 1]?.role !== "assistant";
 
   return (
-    <View className="flex-1">
+    <View className="flex-1" style={{ backgroundColor: "#F5F3EF" }}>
       <FlatList
         ref={flatListRef}
         data={messages}
@@ -116,7 +116,7 @@ export function ChatArea({
       />
 
       <View
-        className="border-t border-warm-gray"
+        className="border-t border-warm-gray bg-white"
         style={{
           shadowColor: "#1B2A4A",
           shadowOffset: { width: 0, height: -1 },

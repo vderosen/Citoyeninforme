@@ -1,65 +1,301 @@
-[
-  {
-    "id": "david-belliard",
-    "electionId": "paris-municipales-2026",
-    "name": "David Belliard",
-    "party": "Les Écologistes",
-    "bio": "Adjoint à la maire de Paris chargé de la transformation de l'espace public, des transports, des mobilités et du code de la rue. Les Écologistes l'ont désigné chef de file pour les municipales 2026 à Paris le 23 mars 2025.",
-    "communicationStyle": "Communication de campagne via site dédié, mobilisation militante et réseaux sociaux.",
-    "programSourceUrl": "https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026"
-  },
-  {
-    "id": "emmanuel-gregoire",
-    "electionId": "paris-municipales-2026",
-    "name": "Emmanuel Grégoire",
-    "party": "Union de la gauche et des écologistes",
-    "bio": "Député et conseiller de Paris, ancien premier adjoint à la maire de Paris. Il est présenté comme candidat de l'union de la gauche et des écologistes pour l'élection municipale de mars 2026.",
-    "communicationStyle": "Communication de campagne via site de programme, réunions publiques et canaux sociaux.",
-    "programSourceUrl": "https://emmanuel-gregoire-2026.fr/"
-  },
-  {
-    "id": "sophia-chikirou",
-    "electionId": "paris-municipales-2026",
-    "name": "Sophia Chikirou",
-    "party": "La France insoumise (Nouveau Paris Populaire)",
-    "bio": "Candidate à la mairie de Paris sur la plateforme Nouveau Paris Populaire, portée et soutenue par La France insoumise.",
-    "communicationStyle": "Communication de campagne via site de programme, meeting, conférence de presse et réseaux sociaux.",
-    "programSourceUrl": "https://sophiapourparis.fr/"
-  },
-  {
-    "id": "rachida-dati",
-    "electionId": "paris-municipales-2026",
-    "name": "Rachida Dati",
-    "party": "Les Républicains",
-    "bio": "Les Républicains ont annoncé son investiture officielle pour la mairie de Paris dans leur communiqué du 28 août 2025.",
-    "communicationStyle": "Communication politique relayée via les canaux officiels du parti.",
-    "programSourceUrl": "https://republicains.fr/actualites/2025/08/28/la-commission-nationale-dinvestiture-des-republicains-investit-rachida-dati-pour-la-mairie-de-paris/"
-  },
-  {
-    "id": "pierre-yves-bournazel",
-    "electionId": "paris-municipales-2026",
-    "name": "Pierre-Yves Bournazel",
-    "party": "100% Paris",
-    "bio": "Élu parisien depuis 2008, il se présente comme candidat pour être le prochain maire de Paris et publie ses engagements sur son site de campagne.",
-    "communicationStyle": "Communication de campagne via site d'engagements thématiques, actualités terrain et mobilisation militante.",
-    "programSourceUrl": "https://bournazel.paris/"
-  },
-  {
-    "id": "sarah-knafo",
-    "electionId": "paris-municipales-2026",
-    "name": "Sarah Knafo",
-    "party": "Sarah Knafo pour Paris",
-    "bio": "Députée européenne et ancienne magistrate à la Cour des comptes, elle se présente comme candidate pour être la prochaine maire de Paris.",
-    "communicationStyle": "Communication de campagne via plateforme numérique, programme détaillé et actions militantes en ligne.",
-    "programSourceUrl": "https://sarahpourparis.fr/unevilleheureuse"
-  },
-  {
-    "id": "thierry-mariani",
-    "electionId": "paris-municipales-2026",
-    "name": "Thierry Mariani",
-    "party": "Retrouvons Paris (soutien RN/UDR)",
-    "bio": "Ancien ministre et député européen, il se présente comme candidat à la mairie de Paris avec la plateforme Retrouvons Paris.",
-    "communicationStyle": "Communication de campagne via programme publié en ligne, actualités de campagne et espace presse.",
-    "programSourceUrl": "https://www.mariani-2026.fr/"
+{
+  "themes": [
+    {
+      "id": "transport",
+      "name": "Transport & Mobilité",
+      "icon": "🚇",
+      "description": "Transports en commun, vélo, piétons, circulation automobile, stationnement",
+      "displayOrder": 1
+    },
+    {
+      "id": "logement",
+      "name": "Logement",
+      "icon": "🏠",
+      "description": "Logement social, encadrement des loyers, rénovation, accès à la propriété",
+      "displayOrder": 2
+    },
+    {
+      "id": "securite",
+      "name": "Sécurité",
+      "icon": "🛡️",
+      "description": "Police municipale, vidéosurveillance, prévention, tranquillité publique",
+      "displayOrder": 3
+    },
+    {
+      "id": "ecologie",
+      "name": "Écologie & Environnement",
+      "icon": "🌿",
+      "description": "Espaces verts, qualité de l'air, gestion des déchets, transition énergétique",
+      "displayOrder": 4
+    },
+    {
+      "id": "budget",
+      "name": "Budget & Finances",
+      "icon": "💰",
+      "description": "Fiscalité locale, dette, investissements, transparence budgétaire",
+      "displayOrder": 5
+    },
+    {
+      "id": "culture",
+      "name": "Culture & Patrimoine",
+      "icon": "🎨",
+      "description": "Musées, événements culturels, patrimoine architectural, vie nocturne",
+      "displayOrder": 6
+    },
+    {
+      "id": "education",
+      "name": "Éducation & Jeunesse",
+      "icon": "📚",
+      "description": "Écoles, crèches, activités périscolaires, universités, formation",
+      "displayOrder": 7
+    },
+    {
+      "id": "social",
+      "name": "Social & Solidarité",
+      "icon": "❤️",
+      "description": "Aide aux personnes âgées, handicap, inclusion, lutte contre la pauvreté",
+      "displayOrder": 8
+    }
+  ],
+  "candidates": [
+    {
+      "id": "david-belliard",
+      "name": "David Belliard",
+      "party": "Les Écologistes",
+      "bio": "Adjoint à la maire de Paris chargé de la transformation de l'espace public, des transports, des mobilités et du code de la rue. Les Écologistes l'ont désigné chef de file pour les municipales 2026 à Paris le 23 mars 2025.",
+      "communicationStyle": "Communication de campagne via site dédié, mobilisation militante et réseaux sociaux.",
+      "programSourceUrl": "https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026",
+      "positions": [
+        {
+          "themeId": "transport",
+          "summary": "Priorité à la transformation de l'espace public et aux mobilités actives.",
+          "details": "Le texte d'investiture des Écologistes met en avant la transformation de l'espace public, les rues aux écoles, un Paris cyclable et la végétalisation urbaine.",
+          "sourceIds": ["belliard-investiture", "belliard-paris-fr"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "ecologie",
+          "summary": "Projet présenté comme une écologie sociale et une ville climatiquement résiliente.",
+          "details": "Les prises de parole de campagne évoquent un Paris qui se prépare aux changements climatiques et articule justice sociale et transition écologique.",
+          "sourceIds": ["belliard-investiture"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "social",
+          "summary": "Positionnement de campagne axé sur la solidarité et la justice sociale.",
+          "details": "La campagne met en avant l'écologie sociale et la protection des personnes les plus vulnérables.",
+          "sourceIds": ["belliard-investiture"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        }
+      ]
+    },
+    {
+      "id": "emmanuel-gregoire",
+      "name": "Emmanuel Grégoire",
+      "party": "Union de la gauche et des écologistes",
+      "bio": "Député et conseiller de Paris, ancien premier adjoint à la maire de Paris. Il est présenté comme candidat de l'union de la gauche et des écologistes pour l'élection municipale de mars 2026.",
+      "communicationStyle": "Communication de campagne via site de programme, réunions publiques et canaux sociaux.",
+      "programSourceUrl": "https://emmanuel-gregoire-2026.fr/",
+      "positions": [
+        {
+          "themeId": "logement",
+          "summary": "Le logement est présenté comme la priorité absolue de la campagne.",
+          "details": "Le programme annonce un engagement central sur le logement abordable et la régulation des locations de courte durée.",
+          "sourceIds": ["gregoire-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "transport",
+          "summary": "Réduction de la place de la voiture au profit des mobilités actives et collectives.",
+          "details": "Le programme décrit une ville avec moins de place pour l'automobile et un renforcement du vélo, de la marche et des transports en commun.",
+          "sourceIds": ["gregoire-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "securite",
+          "summary": "Renforcement annoncé de la police municipale.",
+          "details": "Le programme mentionne explicitement des moyens renforcés pour la police municipale.",
+          "sourceIds": ["gregoire-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "social",
+          "summary": "Accent sur les services publics de proximité et l'accès à la santé.",
+          "details": "Le programme insiste sur les services publics accessibles et le droit à la santé pour tous les habitants.",
+          "sourceIds": ["gregoire-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        }
+      ]
+    },
+    {
+      "id": "sophia-chikirou",
+      "name": "Sophia Chikirou",
+      "party": "La France insoumise (Nouveau Paris Populaire)",
+      "bio": "Candidate à la mairie de Paris sur la plateforme Nouveau Paris Populaire, portée et soutenue par La France insoumise.",
+      "communicationStyle": "Communication de campagne via site de programme, meeting, conférence de presse et réseaux sociaux.",
+      "programSourceUrl": "https://sophiapourparis.fr/",
+      "positions": [
+        {
+          "themeId": "education",
+          "summary": "Annonce d'un plan d'éducation communale comme priorité budgétaire.",
+          "details": "La candidate présente l'éducation communale comme priorité budgétaire et annonce des mesures sur le temps de classe, la restauration et les activités des enfants.",
+          "sourceIds": ["chikirou-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "logement",
+          "summary": "Annonce d'un plan logement axé sur la baisse des loyers et la régulation des locations de courte durée.",
+          "details": "Le programme évoque un encadrement renforcé des loyers, des mesures contre les locations touristiques et un développement de l'offre de logements publics.",
+          "sourceIds": ["chikirou-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        }
+      ]
+    },
+    {
+      "id": "rachida-dati",
+      "name": "Rachida Dati",
+      "party": "Les Républicains",
+      "bio": "Les Républicains ont annoncé son investiture officielle pour la mairie de Paris dans leur communiqué du 28 août 2025.",
+      "communicationStyle": "Communication politique relayée via les canaux officiels du parti.",
+      "programSourceUrl": "https://republicains.fr/actualites/2025/08/28/la-commission-nationale-dinvestiture-des-republicains-investit-rachida-dati-pour-la-mairie-de-paris/",
+      "positions": []
+    },
+    {
+      "id": "pierre-yves-bournazel",
+      "name": "Pierre-Yves Bournazel",
+      "party": "100% Paris",
+      "bio": "Élu parisien depuis 2008, il se présente comme candidat pour être le prochain maire de Paris et publie ses engagements sur son site de campagne.",
+      "communicationStyle": "Communication de campagne via site d'engagements thématiques, actualités terrain et mobilisation militante.",
+      "programSourceUrl": "https://bournazel.paris/",
+      "positions": [
+        {
+          "themeId": "securite",
+          "summary": "Objectif affiché de doubler les effectifs de police municipale à 6 000 agents.",
+          "details": "L'engagement sécurité mentionne un renforcement substantiel des effectifs et l'ambition de faire de Paris la capitale la plus sûre d'Europe.",
+          "sourceIds": ["bournazel-securite"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "budget",
+          "summary": "Objectif déclaré de division par deux de la dette de la Ville de Paris en six ans.",
+          "details": "Le volet financier annonce un plan d'économies et une réduction progressive de la dette municipale.",
+          "sourceIds": ["bournazel-budget"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        }
+      ]
+    },
+    {
+      "id": "sarah-knafo",
+      "name": "Sarah Knafo",
+      "party": "Sarah Knafo pour Paris",
+      "bio": "Députée européenne et ancienne magistrate à la Cour des comptes, elle se présente comme candidate pour être la prochaine maire de Paris.",
+      "communicationStyle": "Communication de campagne via plateforme numérique, programme détaillé et actions militantes en ligne.",
+      "programSourceUrl": "https://sarahpourparis.fr/unevilleheureuse",
+      "positions": [
+        {
+          "themeId": "securite",
+          "summary": "Le programme place la sécurité au premier rang des priorités municipales.",
+          "details": "Le programme annonce le renforcement de la police municipale, l'extension de la vidéosurveillance et des dispositifs de réponse rapide aux incidents.",
+          "sourceIds": ["knafo-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "education",
+          "summary": "Annonce d'un plan de création de places en crèche et de revalorisation de l'attractivité des métiers de la petite enfance.",
+          "details": "Le programme indique la création de 7 000 places en crèche et des mesures d'organisation et de rémunération pour améliorer le recrutement.",
+          "sourceIds": ["knafo-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        }
+      ]
+    },
+    {
+      "id": "thierry-mariani",
+      "name": "Thierry Mariani",
+      "party": "Retrouvons Paris (soutien RN/UDR)",
+      "bio": "Ancien ministre et député européen, il se présente comme candidat à la mairie de Paris avec la plateforme Retrouvons Paris.",
+      "communicationStyle": "Communication de campagne via programme publié en ligne, actualités de campagne et espace presse.",
+      "programSourceUrl": "https://www.mariani-2026.fr/",
+      "positions": [
+        {
+          "themeId": "securite",
+          "summary": "Annonce d'un renforcement et d'un armement de la police municipale avec présence continue.",
+          "details": "Le programme mentionne explicitement une police municipale armée, des patrouilles renforcées et un dispositif continu de surveillance.",
+          "sourceIds": ["mariani-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        },
+        {
+          "themeId": "budget",
+          "summary": "Engagement de baisse de la taxe foncière dans un cadre de réduction des dépenses et de la dette.",
+          "details": "Le programme présente un plan d'économies, de désendettement et de baisse de la pression fiscale locale.",
+          "sourceIds": ["mariani-programme"],
+          "measures": [],
+          "lastVerified": "2026-02-15"
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "belliard-investiture": {
+      "title": "David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026",
+      "url": "https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026",
+      "type": "statement",
+      "accessDate": "2026-02-15"
+    },
+    "belliard-paris-fr": {
+      "title": "David Belliard - Paris.fr",
+      "url": "https://www.paris.fr/pages/david-belliard-21783",
+      "type": "official",
+      "accessDate": "2026-02-15"
+    },
+    "gregoire-programme": {
+      "title": "Le programme - Emmanuel Grégoire 2026",
+      "url": "https://emmanuel-gregoire-2026.fr/",
+      "type": "program",
+      "accessDate": "2026-02-15"
+    },
+    "chikirou-programme": {
+      "title": "Le programme - Sophia pour Paris",
+      "url": "https://sophiapourparis.fr/",
+      "type": "program",
+      "accessDate": "2026-02-15"
+    },
+    "bournazel-securite": {
+      "title": "Un Paris sûr pour tous - Pierre-Yves Bournazel",
+      "url": "https://bournazel.paris/engagement/un-paris-sur-pour-tous/",
+      "type": "program",
+      "accessDate": "2026-02-15"
+    },
+    "bournazel-budget": {
+      "title": "Un Paris ambitieux et responsable - Pierre-Yves Bournazel",
+      "url": "https://bournazel.paris/engagement/un-paris-ambitieux-et-responsable/",
+      "type": "program",
+      "accessDate": "2026-02-15"
+    },
+    "knafo-programme": {
+      "title": "Programme Une ville heureuse - Sarah Knafo pour Paris",
+      "url": "https://sarahpourparis.fr/unevilleheureuse",
+      "type": "program",
+      "accessDate": "2026-02-15"
+    },
+    "mariani-programme": {
+      "title": "Retrouvons Paris - Programme",
+      "url": "https://www.mariani-2026.fr/",
+      "type": "program",
+      "accessDate": "2026-02-15"
+    }
   }
-]
+}

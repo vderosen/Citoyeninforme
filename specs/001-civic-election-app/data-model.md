@@ -7,49 +7,59 @@
 
 ```text
 ┌──────────────┐
-│   Election   │──────────────────────────────────────┐
-│              │                                       │
-│ id           │       ┌────────────┐                  │
-│ city         │───1:N─│  Candidate │──┐               │
-│ type         │       │            │  │               │
-│ year         │       │ id         │  │               │
-│ votingRules  │       │ name       │  │  ┌──────────┐ │
-│ timeline     │       │ party      │  ├──│ Position │ │
-└──────┬───────┘       │ bio        │  │  │          │ │
-       │               │ style      │  │  │ id       │ │
-       │               │ programUrl │  │  │ summary  │ │
-       │               └────────────┘  │  │ details  │ │
-       │                               │  │ sources  │ │
-       │               ┌────────────┐  │  └──────────┘ │
-       │───────────1:N─│   Theme    │──┘       │       │
-       │               │            │     N:1  │  N:1  │
-       │               │ id         │◄─────────┘       │
-       │               │ name       │                  │
-       │               │ icon       │                  │
-       │               │ description│                  │
-       │               └─────┬──────┘                  │
-       │                     │                         │
-       │                     │ N:M                     │
-       │               ┌─────┴──────────┐              │
-       │───────────1:N─│ SurveyQuestion │              │
-       │               │                │              │
-       │               │ id             │              │
-       │               │ text           │              │
-       │               │ options        │              │
-       │               │ themeIds       │              │
-       │               └────────────────┘              │
-       │                                               │
-       │               ┌────────────────┐              │
-       │───────────1:N─│   CivicFact    │              │
-       │               │                │              │
-       │               │ id             │              │
-       │               │ text           │              │
-       │               │ category       │              │
-       │               │ source         │              │
-       │               └────────────────┘              │
-       │                                               │
-       │               ┌────────────────┐              │
-       └───────────1:1─│ElectionLogistics│─────────────┘
+│   Election   │──────────────────────────────────────────┐
+│              │                                           │
+│ id           │       ┌────────────┐                      │
+│ city         │───1:N─│  Candidate │──┐                   │
+│ type         │       │            │  │                   │
+│ year         │       │ id         │  │                   │
+│ votingRules  │       │ name       │  │  ┌──────────────┐ │
+│ timeline     │       │ party      │  ├──│   Position   │ │
+└──────┬───────┘       │ bio        │  │  │              │ │
+       │               │ style      │  │  │ id           │ │
+       │               │ programUrl │  │  │ summary      │ │
+       │               └────────────┘  │  │ details      │ │
+       │                               │  │ sources      │ │
+       │               ┌────────────┐  │  │ measures ────┼─┐
+       │───────────1:N─│   Theme    │──┘  └──────┬───────┘ │
+       │               │            │  N:1  │ N:1│    1:N  │
+       │               │ id         │◄──────┘    │         │
+       │               │ name       │        ┌───┴───────┐ │
+       │               │ icon       │        │  Measure  │ │
+       │               │ description│        │           │ │
+       │               └─────┬──────┘        │ text      │ │
+       │                     │               │ sourceIds │ │
+       │                     │ N:M           └───────────┘ │
+       │               ┌─────┴──────────┐                  │
+       │───────────1:N─│ SurveyQuestion │                  │
+       │               │                │                  │
+       │               │ id             │                  │
+       │               │ text           │                  │
+       │               │ options        │                  │
+       │               │ themeIds       │                  │
+       │               └────────────────┘                  │
+       │                                                   │
+       │               ┌────────────────┐                  │
+       │───────────1:N─│ StatementCard  │                  │
+       │               │                │                  │
+       │               │ id             │                  │
+       │               │ text           │                  │
+       │               │ themeIds       │                  │
+       │               │ baseScores     │                  │
+       │               │ order          │                  │
+       │               └────────────────┘                  │
+       │                                                   │
+       │               ┌────────────────┐                  │
+       │───────────1:N─│   CivicFact    │                  │
+       │               │                │                  │
+       │               │ id             │                  │
+       │               │ text           │                  │
+       │               │ category       │                  │
+       │               │ source         │                  │
+       │               └────────────────┘                  │
+       │                                                   │
+       │               ┌────────────────┐                  │
+       └───────────1:1─│ElectionLogistics│─────────────────┘
                        │                │
                        │ keyDates       │
                        │ eligibility    │
@@ -68,6 +78,10 @@
 │ candidateRanking │
 │ completedAt      │
 └──────────────────┘
+
+Note: In the file format (candidates.json), positions are stored nested within
+each candidate object. The data loader flattens them into a separate Position[]
+array when building the in-memory ElectionDataset.
 ```
 
 ## Entity Definitions
@@ -167,6 +181,7 @@ interface Position {
   summary: string;               // 1-2 sentence summary
   details: string;               // Full position description (expandable in UI)
   sources: SourceReference[];    // At least one source required (Principle II)
+  measures: Measure[];           // Concrete measures for this position (can be empty)
   lastVerified: string;          // ISO 8601 date — when sources were last checked
 }
 
@@ -182,7 +197,25 @@ interface SourceReference {
 - Each (candidateId, themeId) pair must be unique
 - `sources` array must have at least 1 entry (Principle II: Source-Grounded Truth)
 - `url` in sources must be a valid URL
+- `measures` can be an empty array if no concrete measures are documented
 - If a candidate has no position on a theme, there is NO Position record — the UI displays "Pas de position documentée" (spec Edge Case 1)
+
+---
+
+### Measure
+
+A concrete, actionable measure within a candidate's position on a theme. Measures are nested within positions in the file format (`candidates.json`) and flattened by the loader.
+
+```typescript
+interface Measure {
+  text: string;                  // Description of the concrete measure
+  sourceIds: string[];           // References to keys in the sources dictionary
+}
+```
+
+**Validation rules**:
+- `sourceIds` must reference existing keys in the normalized sources dictionary (defined in `candidates.json`)
+- `text` must not be empty
 
 ---
 
@@ -214,6 +247,29 @@ interface SurveyOption {
 - All options must have scores for the same set of theme IDs
 - Score ranges must be consistent across all questions (e.g., -2 to +2)
 - The sum of possible scores across all questions must be balanced — no theme can be structurally over- or under-weighted unless the user explicitly prioritizes it
+
+---
+
+### StatementCard
+
+A statement used in the swipe-based survey. Each card presents a political statement that the user can agree or disagree with.
+
+```typescript
+interface StatementCard {
+  id: string;                    // e.g., "sc01"
+  electionId: string;            // FK to Election.id
+  text: string;                  // Statement text in French
+  themeIds: string[];            // FK to Theme.id — which themes this statement relates to
+  baseScores: Record<string, number>;  // CandidateId → base alignment score
+  order: number;                 // Display order in the swipe stack
+}
+```
+
+**Validation rules**:
+- `id` must be unique within an election
+- `themeIds` must reference valid Theme.ids
+- `baseScores` keys must reference valid Candidate.ids
+- `order` determines the default card presentation sequence
 
 ---
 
@@ -323,80 +379,19 @@ interface ThemeJustification {
 - `importanceWeights` values must be 0-1 and are set by the user (Principle I: no hidden weighting)
 - UserProfile is NEVER sent to a server without explicit user consent (Principle VII)
 
-## SQLite Schema
+## Storage
 
-The election dataset JSON files are loaded into SQLite on first launch for efficient querying.
+Election data is stored as bundled JSON files (3 files per election) and loaded into an in-memory Zustand store at app startup. No database is used.
 
-```sql
-CREATE TABLE elections (
-  id TEXT PRIMARY KEY,
-  city TEXT NOT NULL,
-  type TEXT NOT NULL,
-  year INTEGER NOT NULL,
-  voting_rules TEXT NOT NULL,       -- JSON
-  timeline TEXT NOT NULL,           -- JSON
-  data_version TEXT NOT NULL,
-  last_updated TEXT NOT NULL
-);
+## File Organization
 
-CREATE TABLE candidates (
-  id TEXT PRIMARY KEY,
-  election_id TEXT NOT NULL REFERENCES elections(id),
-  name TEXT NOT NULL,
-  party TEXT NOT NULL,
-  bio TEXT NOT NULL,
-  communication_style TEXT NOT NULL,
-  program_source_url TEXT NOT NULL,
-  photo_url TEXT
-);
+Each election's data is split into 3 JSON files, organized by domain concern:
 
-CREATE TABLE themes (
-  id TEXT PRIMARY KEY,
-  election_id TEXT NOT NULL REFERENCES elections(id),
-  name TEXT NOT NULL,
-  icon TEXT NOT NULL,
-  description TEXT NOT NULL,
-  display_order INTEGER NOT NULL
-);
+- **`election.json`**: Institutional data — election metadata, logistics (key dates, eligibility, voting methods), and civic facts. This data is static and comes from official government sources.
+- **`candidates.json`**: Campaign data — themes, candidates with their positions nested inline (each candidate contains a `positions` array with `measures`), and a normalized `sources` dictionary. The loader flattens nested positions into a separate `Position[]` array when building the in-memory `ElectionDataset`.
+- **`survey.json`**: Interactive data — survey questions (with options and theme scores) and statement cards (for the swipe-based survey). This data drives the user-facing questionnaire and matching algorithm.
 
-CREATE TABLE positions (
-  id TEXT PRIMARY KEY,
-  candidate_id TEXT NOT NULL REFERENCES candidates(id),
-  theme_id TEXT NOT NULL REFERENCES themes(id),
-  summary TEXT NOT NULL,
-  details TEXT NOT NULL,
-  sources TEXT NOT NULL,            -- JSON array of SourceReference
-  last_verified TEXT NOT NULL,
-  UNIQUE(candidate_id, theme_id)
-);
-
-CREATE TABLE survey_questions (
-  id TEXT PRIMARY KEY,
-  election_id TEXT NOT NULL REFERENCES elections(id),
-  text TEXT NOT NULL,
-  theme_ids TEXT NOT NULL,          -- JSON array of theme IDs
-  options TEXT NOT NULL,            -- JSON array of SurveyOption
-  display_order INTEGER NOT NULL
-);
-
-CREATE TABLE civic_facts (
-  id TEXT PRIMARY KEY,
-  election_id TEXT NOT NULL REFERENCES elections(id),
-  text TEXT NOT NULL,
-  category TEXT NOT NULL CHECK(category IN ('governance', 'voting', 'institutions')),
-  source TEXT NOT NULL,             -- JSON SourceReference
-  display_order INTEGER NOT NULL
-);
-
-CREATE TABLE election_logistics (
-  election_id TEXT PRIMARY KEY REFERENCES elections(id),
-  key_dates TEXT NOT NULL,          -- JSON array
-  eligibility TEXT NOT NULL,        -- JSON array
-  voting_methods TEXT NOT NULL,     -- JSON array
-  locations TEXT NOT NULL,          -- JSON array
-  official_sources TEXT NOT NULL    -- JSON array
-);
-```
+Files are located at `src/data/elections/{election-id}/` (e.g., `src/data/elections/paris-2026/`).
 
 ## State Transitions
 

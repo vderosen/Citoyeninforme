@@ -52,6 +52,7 @@ export interface Candidate {
   communicationStyle: string;
   programSourceUrl: string;
   photoUrl?: string;
+  partyColor?: string;
 }
 
 // === Theme ===
@@ -65,6 +66,13 @@ export interface Theme {
   displayOrder: number;
 }
 
+// === Measure ===
+
+export interface Measure {
+  text: string;
+  sourceIds: string[];
+}
+
 // === Position ===
 
 export interface Position {
@@ -74,6 +82,7 @@ export interface Position {
   summary: string;
   details: string;
   sources: SourceReference[];
+  measures: Measure[];
   lastVerified: string; // ISO 8601
 }
 
@@ -140,6 +149,17 @@ export interface VotingLocation {
   notes?: string;
 }
 
+// === Statement Card ===
+
+export interface StatementCard {
+  id: string;
+  electionId: string;
+  text: string;
+  themeIds: string[];
+  baseScores: Record<string, number>;
+  order: number;
+}
+
 // === Complete Dataset Bundle ===
 
 export interface ElectionDataset {
@@ -148,6 +168,7 @@ export interface ElectionDataset {
   themes: Theme[];
   positions: Position[];
   surveyQuestions: SurveyQuestion[];
+  statementCards: StatementCard[];
   civicFacts: CivicFact[];
   logistics: ElectionLogistics;
 }

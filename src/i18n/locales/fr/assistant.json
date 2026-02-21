@@ -42,5 +42,6 @@
   "candidatePickerTitle": "À qui voulez-vous parler ?",
   "candidatePickerBack": "Retour aux modes",
   "changeCandidate": "Changer de candidat",
-  "suggestionsLoading": "Suggestions..."
+  "suggestionsLoading": "Suggestions...",
+  "assistantSubtitle": "Ton assistant civique"
 }

@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
-import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { View, Text, KeyboardAvoidingView, Platform, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
@@ -9,20 +10,27 @@ import { useAssistantStore, createMessageId } from "../../stores/assistant";
 import { useSurveyStore } from "../../stores/survey";
 import { sendChatMessage } from "../../services/chatbot";
 import { generateFollowUpSuggestions } from "../../services/suggestions";
-import { ModeSelector } from "../../components/assistant/ModeSelector";
+import { ModeSelectionView } from "../../components/assistant/ModeSelectionView";
 import { CandidatePickerView } from "../../components/assistant/CandidatePickerView";
-import { ActiveCandidatePill } from "../../components/assistant/ActiveCandidatePill";
+import { CandidateAvatar } from "../../components/candidates/CandidateAvatar";
+import { AssistantResetHeaderAction } from "../../components/assistant/AssistantResetHeaderAction";
+import { AssistantFeedbackHeaderAction } from "../../components/assistant/AssistantFeedbackHeaderAction";
 import { ChatArea } from "../../components/assistant/ChatArea";
 import { DebateArea } from "../../components/assistant/DebateArea";
 import { useNetworkStatus } from "../../hooks/useNetworkStatus";
-import type { ChatMessage } from "../../stores/assistant";
+import type { AssistantMode, ChatMessage } from "../../stores/assistant";
 
 const EMPTY_MESSAGES: ChatMessage[] = [];
 
 export default function AssistantScreen() {
-  const { t } = useTranslation("errors");
+  const { t: tErrors } = useTranslation("errors");
+  const { t } = useTranslation("assistant");
+  const { t: tCommon } = useTranslation("common");
   const { isConnected } = useNetworkStatus();
   const headerHeight = useHeaderHeight();
+  const navigation = useNavigation();
+
+  const [activeView, setActiveView] = useState<"selection" | "mode">("selection");
 
   const election = useElectionStore((s) => s.election);
   const candidates = useElectionStore((s) => s.candidates);
@@ -60,6 +68,136 @@ export default function AssistantScreen() {
 
   // Generation counter to prevent stale suggestions from overwriting fresh ones
   const suggestionGenRef = useRef(0);
+
+  // --- Navigation handlers ---
+
+  // Skip auto-switch on first mount to avoid reacting to persisted state
+  const isFirstMount = useRef(true);
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    // External navigation (e.g. from candidates page) set parler + candidate:
+    // auto-switch to mode view so the chat shows directly
+    if (activeView === "selection" && mode === "parler" && selectedCandidateId) {
+      setActiveView("mode");
+    }
+  }, [mode, selectedCandidateId]);
+
+  const handleModeSelect = (newMode: AssistantMode) => {
+    clearSuggestions();
+    // Always show the candidate picker when entering parler from mode selection
+    if (newMode === "parler") {
+      clearCandidate();
+    }
+    selectMode(newMode);
+    setActiveView("mode");
+  };
+
+  const handleBack = () => {
+    if (mode === "parler" && selectedCandidateId) {
+      clearCandidate();
+    } else {
+      if (mode === "debattre") resetDebate();
+      setActiveView("selection");
+    }
+  };
+
+  // --- Dynamic header ---
+
+  useLayoutEffect(() => {
+    if (activeView === "selection") {
+      navigation.setOptions({
+        headerTitle: tCommon("headers.assistant"),
+        headerTitleAlign: "center",
+        headerLeft: () => null,
+        headerRight: () => null,
+      });
+      return;
+    }
+
+    const BackButton = () => (
+      <Pressable
+        onPress={handleBack}
+        className="ml-3 p-2"
+        accessibilityRole="button"
+        accessibilityLabel={tCommon("back")}
+      >
+        <Ionicons name="arrow-back" size={22} color="#FAFAF8" />
+      </Pressable>
+    );
+
+    const RightActions = () => (
+      <View className="flex-row items-center">
+        <AssistantResetHeaderAction />
+        <AssistantFeedbackHeaderAction />
+      </View>
+    );
+
+    if (mode === "comprendre") {
+      navigation.setOptions({
+        headerTitleAlign: "left",
+        headerTitle: () => (
+          <View className="flex-row items-center" style={{ marginTop: -3, marginLeft: 10 }}>
+            <View
+              className="items-center justify-center rounded-full bg-accent-coral"
+              style={{ width: 34, height: 34 }}
+            >
+              <Ionicons name="sparkles" size={17} color="#FAFAF8" />
+            </View>
+            <View className="ml-2.5" style={{ marginLeft: 11, marginTop: -4 }}>
+              <Text className="font-display-medium text-base text-text-inverse">
+                Lucide
+              </Text>
+              <Text className="font-body text-xs text-text-inverse/70">
+                {t("assistantSubtitle")}
+              </Text>
+            </View>
+          </View>
+        ),
+        headerLeft: () => <BackButton />,
+        headerRight: () => <RightActions />,
+      });
+    } else if (mode === "parler" && !selectedCandidateId) {
+      navigation.setOptions({
+        headerTitleAlign: "left",
+        headerTitle: t("parlerModeShort"),
+        headerLeft: () => <BackButton />,
+        headerRight: () => null,
+      });
+    } else if (mode === "parler" && selectedCandidate) {
+      navigation.setOptions({
+        headerTitleAlign: "left",
+        headerTitle: () => (
+          <View className="flex-row items-center" style={{ marginTop: -3, marginLeft: 10 }}>
+            <CandidateAvatar candidate={selectedCandidate} size={32} showRing />
+            <View className="ml-2.5" style={{ marginLeft: 11, marginTop: -4 }}>
+              <Text className="font-display-medium text-base text-text-inverse" numberOfLines={1}>
+                {selectedCandidate.name}
+              </Text>
+              {selectedCandidate.party ? (
+                <Text className="font-body text-xs text-text-inverse/70" numberOfLines={1}>
+                  {selectedCandidate.party}
+                </Text>
+              ) : null}
+            </View>
+          </View>
+        ),
+        headerLeft: () => <BackButton />,
+        headerRight: () => <RightActions />,
+      });
+    } else if (mode === "debattre") {
+      navigation.setOptions({
+        headerTitleAlign: "left",
+        headerTitle: t("debattreModeShort"),
+        headerLeft: () => <BackButton />,
+        headerRight: () => <RightActions />,
+      });
+    }
+  }, [activeView, mode, selectedCandidateId, selectedCandidate]);
+
+  // --- Suggestions ---
 
   const triggerSuggestions = () => {
     const currentMessages = useAssistantStore.getState().getCurrentMessages();
@@ -100,18 +238,7 @@ export default function AssistantScreen() {
     }
   }, []);
 
-  // Reset debate state when switching away from debattre mode
-  const handleModeChange = (newMode: typeof mode) => {
-    if (mode === "debattre" && newMode !== "debattre") {
-      resetDebate();
-    }
-    clearSuggestions();
-    selectMode(newMode);
-  };
-
-  const handleParlerBack = () => {
-    selectMode("comprendre");
-  };
+  // --- Chat handlers ---
 
   const handleSend = (text: string) => {
     if (!election || isStreaming || !isConnected) return;
@@ -182,16 +309,26 @@ export default function AssistantScreen() {
         <View className="flex-1 items-center justify-center px-8">
           <Ionicons name="cloud-offline-outline" size={48} color="#6B7280" />
           <Text className="font-display-medium text-lg text-civic-navy text-center mt-4 mb-2">
-            {t("offlineTitle")}
+            {tErrors("offlineTitle")}
           </Text>
           <Text className="font-body text-sm text-text-caption text-center">
-            {t("chatOffline")}
+            {tErrors("chatOffline")}
           </Text>
         </View>
       </SafeAreaView>
     );
   }
 
+  // Mode selection view
+  if (activeView === "selection") {
+    return (
+      <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
+        <ModeSelectionView onModeSelect={handleModeSelect} />
+      </SafeAreaView>
+    );
+  }
+
+  // Active mode view
   return (
     <KeyboardAvoidingView
       className="flex-1"
@@ -203,39 +340,21 @@ export default function AssistantScreen() {
           <CandidatePickerView
             candidates={candidates}
             onSelect={selectCandidate}
-            onBack={handleParlerBack}
           />
+        ) : mode === "debattre" ? (
+          <DebateArea />
         ) : (
-          <>
-            {mode === "parler" && selectedCandidate ? (
-              <View className="pt-2">
-                <ActiveCandidatePill
-                  candidate={selectedCandidate}
-                  onDeselect={clearCandidate}
-                />
-              </View>
-            ) : (
-              <View className="pt-2">
-                <ModeSelector activeMode={mode} onModeChange={handleModeChange} />
-              </View>
-            )}
-
-            {mode === "debattre" ? (
-              <DebateArea />
-            ) : (
-              <ChatArea
-                messages={messages}
-                isStreaming={isStreaming}
-                onSend={handleSend}
-                mode={mode}
-                context={preloadedContext}
-                onPromptSelect={handlePromptSelect}
-                selectedCandidateId={selectedCandidateId}
-                followUpSuggestions={followUpSuggestions}
-                isGeneratingSuggestions={isGeneratingSuggestions}
-              />
-            )}
-          </>
+          <ChatArea
+            messages={messages}
+            isStreaming={isStreaming}
+            onSend={handleSend}
+            mode={mode}
+            context={preloadedContext}
+            onPromptSelect={handlePromptSelect}
+            selectedCandidateId={selectedCandidateId}
+            followUpSuggestions={followUpSuggestions}
+            isGeneratingSuggestions={isGeneratingSuggestions}
+          />
         )}
       </SafeAreaView>
     </KeyboardAvoidingView>

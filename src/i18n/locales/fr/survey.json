@@ -28,5 +28,20 @@
   "tieTitle": "Égalité détectée",
   "tieExplanation": "{{candidates}} obtiennent le même score d'alignement. Cela signifie que vos priorités ne les distinguent pas sur les thèmes évalués.",
   "whyThisResult": "Pourquoi ce résultat ?",
-  "whyThisResultExplanation": "Le classement est calculé en comparant vos réponses et l'importance que vous accordez à chaque thème avec les positions documentées des candidats. Aucune pondération cachée n'est appliquée."
+  "whyThisResultExplanation": "Le classement est calculé en comparant vos réponses et l'importance que vous accordez à chaque thème avec les positions documentées des candidats. Aucune pondération cachée n'est appliquée.",
+  "swipeAgree": "D'accord",
+  "swipeDisagree": "Pas d'accord",
+  "swipeStronglyAgree": "Coup de cœur",
+  "swipeStronglyDisagree": "Catastrophe",
+  "swipeSkip": "Pas d'avis",
+  "swipeInstruction": "Glissez ou utilisez les boutons  ·  Double-tap = Pas d'avis",
+  "tutorialTitle": "Comment répondre ?",
+  "tutorialSwipeRight": "Glisser à droite",
+  "tutorialSwipeLeft": "Glisser à gauche",
+  "tutorialSwipeUp": "Glisser vers le haut",
+  "tutorialSwipeDown": "Glisser vers le bas",
+  "tutorialDoubleTap": "Double-tap",
+  "tutorialDismiss": "Compris !",
+  "undoLabel": "Annuler",
+  "cardProgress": "{{current}} / {{total}}"
 }

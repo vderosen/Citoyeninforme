@@ -1,8 +1,9 @@
 /**
  * Dataset Loader
  *
- * Loads bundled JSON election data and validates against schema types.
- * SQLite initialization is in database.native.ts / database.web.ts
+ * Loads bundled JSON election data from 3 domain-organized files,
+ * flattens nested structures, dereferences source IDs, and validates
+ * referential integrity before returning an ElectionDataset.
  */
 
 import type {
@@ -12,37 +13,218 @@ import type {
   Theme,
   Position,
   SurveyQuestion,
+  StatementCard,
   CivicFact,
   ElectionLogistics,
+  SourceReference,
+  Measure,
+  SurveyOption,
 } from "./schema";
 
-// Import bundled JSON dataset
-import electionData from "./elections/paris-2026/election.json";
-import candidatesData from "./elections/paris-2026/candidates.json";
-import themesData from "./elections/paris-2026/themes.json";
-import positionsData from "./elections/paris-2026/positions.json";
-import surveyQuestionsData from "./elections/paris-2026/survey-questions.json";
-import civicFactsData from "./elections/paris-2026/civic-facts.json";
-import logisticsData from "./elections/paris-2026/logistics.json";
+// Import bundled JSON dataset (3 domain-organized files)
+import electionFileRaw from "./elections/paris-2026/election.json";
+import candidatesFileRaw from "./elections/paris-2026/candidates.json";
+import surveyFileRaw from "./elections/paris-2026/survey.json";
 
-export { initializeDatabase } from "./database";
+// ============================================================
+// File schema types (match the JSON structure on disk)
+// ============================================================
+
+interface ElectionFileSchema {
+  election: Election;
+  logistics: {
+    keyDates: ElectionLogistics["keyDates"];
+    eligibility: ElectionLogistics["eligibility"];
+    votingMethods: ElectionLogistics["votingMethods"];
+    locations: ElectionLogistics["locations"];
+    officialSources: SourceReference[];
+  };
+  civicFacts: Array<{
+    id: string;
+    text: string;
+    category: string;
+    source: SourceReference;
+    order: number;
+  }>;
+}
+
+interface CandidatesFileSchema {
+  themes: Array<{
+    id: string;
+    name: string;
+    icon: string;
+    description: string;
+    displayOrder: number;
+  }>;
+  candidates: Array<{
+    id: string;
+    name: string;
+    party: string;
+    bio: string;
+    communicationStyle: string;
+    programSourceUrl: string;
+    photoUrl?: string;
+    partyColor?: string;
+    positions: Array<{
+      themeId: string;
+      summary: string;
+      details: string;
+      sourceIds: string[];
+      measures: Array<{ text: string; sourceIds: string[] }>;
+      lastVerified: string;
+    }>;
+  }>;
+  sources: Record<string, SourceReference>;
+}
+
+interface SurveyFileSchema {
+  surveyQuestions: Array<{
+    id: string;
+    text: string;
+    themeIds: string[];
+    options: Array<{
+      id: string;
+      text: string;
+      themeScores: Record<string, number>;
+    }>;
+    order: number;
+  }>;
+  statementCards: Array<{
+    id: string;
+    text: string;
+    themeIds: string[];
+    baseScores: Record<string, number>;
+    order: number;
+  }>;
+}
+
+// Cast JSON imports to their file schema types
+const electionFile = electionFileRaw as unknown as ElectionFileSchema;
+const candidatesFile = candidatesFileRaw as unknown as CandidatesFileSchema;
+const surveyFile = surveyFileRaw as unknown as SurveyFileSchema;
 
 export function loadBundledDataset(): ElectionDataset {
-  const dataset: ElectionDataset = {
-    election: electionData as Election,
-    candidates: candidatesData as Candidate[],
-    themes: themesData as Theme[],
-    positions: positionsData as Position[],
-    surveyQuestions: surveyQuestionsData as SurveyQuestion[],
-    civicFacts: civicFactsData as CivicFact[],
-    logistics: logisticsData as ElectionLogistics,
+  const electionId = electionFile.election.id;
+  const sources = candidatesFile.sources;
+
+  // Build themes with electionId injected
+  const themes: Theme[] = candidatesFile.themes.map((t) => ({
+    id: t.id,
+    electionId,
+    name: t.name,
+    icon: t.icon,
+    description: t.description,
+    displayOrder: t.displayOrder,
+  }));
+
+  // Build candidates (without positions) with electionId injected
+  const candidates: Candidate[] = candidatesFile.candidates.map((c) => ({
+    id: c.id,
+    electionId,
+    name: c.name,
+    party: c.party,
+    bio: c.bio,
+    communicationStyle: c.communicationStyle,
+    programSourceUrl: c.programSourceUrl,
+    photoUrl: c.photoUrl,
+    partyColor: c.partyColor,
+  }));
+
+  // Flatten nested positions into Position[] with candidateId injected
+  // and sourceIds dereferenced to SourceReference[] objects
+  const positions: Position[] = candidatesFile.candidates.flatMap((candidate) =>
+    candidate.positions.map((p): Position => {
+      const resolvedSources = p.sourceIds.map((sid) => {
+        const source = sources[sid];
+        if (!source) {
+          throw new Error(
+            `Position ${candidate.id}-${p.themeId}: unknown sourceId "${sid}"`
+          );
+        }
+        return source;
+      });
+
+      const measures: Measure[] = p.measures.map((m) => ({
+        text: m.text,
+        sourceIds: m.sourceIds,
+      }));
+
+      return {
+        id: `${candidate.id}-${p.themeId}`,
+        candidateId: candidate.id,
+        themeId: p.themeId,
+        summary: p.summary,
+        details: p.details,
+        sources: resolvedSources,
+        measures,
+        lastVerified: p.lastVerified,
+      };
+    })
+  );
+
+  // Build survey questions with electionId injected
+  const surveyQuestions: SurveyQuestion[] = surveyFile.surveyQuestions.map(
+    (q) => ({
+      id: q.id,
+      electionId,
+      text: q.text,
+      themeIds: q.themeIds,
+      options: q.options as SurveyOption[],
+      order: q.order,
+    })
+  );
+
+  // Build statement cards with electionId injected
+  const statementCards: StatementCard[] = surveyFile.statementCards.map(
+    (s) => ({
+      id: s.id,
+      electionId,
+      text: s.text,
+      themeIds: s.themeIds,
+      baseScores: s.baseScores,
+      order: s.order,
+    })
+  );
+
+  // Build civic facts with electionId injected
+  const civicFacts: CivicFact[] = electionFile.civicFacts.map((f) => ({
+    id: f.id,
+    electionId,
+    text: f.text,
+    category: f.category as CivicFact["category"],
+    source: f.source,
+    order: f.order,
+  }));
+
+  // Build logistics with electionId injected
+  const logistics: ElectionLogistics = {
+    electionId,
+    keyDates: electionFile.logistics.keyDates,
+    eligibility: electionFile.logistics.eligibility,
+    votingMethods: electionFile.logistics.votingMethods,
+    locations: electionFile.logistics.locations,
+    officialSources: electionFile.logistics.officialSources,
   };
 
-  validateDataset(dataset);
+  const dataset: ElectionDataset = {
+    election: electionFile.election,
+    candidates,
+    themes,
+    positions,
+    surveyQuestions,
+    statementCards,
+    civicFacts,
+    logistics,
+  };
+
+  validateDataset(dataset, sources);
   return dataset;
 }
 
-export function validateDataset(dataset: ElectionDataset): void {
+export function validateDataset(
+  dataset: ElectionDataset,
+  sources?: Record<string, SourceReference>
+): void {
   const errors: string[] = [];
 
   // Validate election
@@ -59,11 +241,10 @@ export function validateDataset(dataset: ElectionDataset): void {
     if (candidateIds.has(candidate.id))
       errors.push(`Duplicate candidate id: ${candidate.id}`);
     candidateIds.add(candidate.id);
-    if (!candidate.name) errors.push(`Candidate ${candidate.id}: name required`);
+    if (!candidate.name)
+      errors.push(`Candidate ${candidate.id}: name required`);
     if (candidate.electionId !== dataset.election.id)
-      errors.push(
-        `Candidate ${candidate.id}: electionId mismatch`
-      );
+      errors.push(`Candidate ${candidate.id}: electionId mismatch`);
   }
 
   // Validate themes
@@ -97,6 +278,18 @@ export function validateDataset(dataset: ElectionDataset): void {
       errors.push(
         `Position ${position.id}: at least one source required (Principle II)`
       );
+
+    // Validate measures sourceIds reference existing sources
+    if (sources) {
+      for (const measure of position.measures) {
+        for (const sid of measure.sourceIds) {
+          if (!sources[sid])
+            errors.push(
+              `Position ${position.id} measure: unknown sourceId "${sid}"`
+            );
+        }
+      }
+    }
   }
 
   // Validate survey questions
@@ -114,10 +307,37 @@ export function validateDataset(dataset: ElectionDataset): void {
       );
   }
 
+  // Validate statement cards
+  const statementCardIds = new Set<string>();
+  for (const card of dataset.statementCards) {
+    if (!card.id) errors.push("StatementCard id is required");
+    if (statementCardIds.has(card.id))
+      errors.push(`Duplicate statementCard id: ${card.id}`);
+    statementCardIds.add(card.id);
+    if (!card.text) errors.push(`StatementCard ${card.id}: text required`);
+    if (card.electionId !== dataset.election.id)
+      errors.push(`StatementCard ${card.id}: electionId mismatch`);
+    if (!card.themeIds || card.themeIds.length === 0)
+      errors.push(`StatementCard ${card.id}: at least 1 themeId required`);
+    for (const themeId of card.themeIds ?? []) {
+      if (!themeIds.has(themeId))
+        errors.push(`StatementCard ${card.id}: unknown themeId ${themeId}`);
+    }
+    if (!card.baseScores || Object.keys(card.baseScores).length === 0)
+      errors.push(`StatementCard ${card.id}: baseScores required`);
+    for (const scoreThemeId of Object.keys(card.baseScores ?? {})) {
+      if (!themeIds.has(scoreThemeId))
+        errors.push(
+          `StatementCard ${card.id}: unknown baseScores themeId ${scoreThemeId}`
+        );
+    }
+  }
+
   // Validate civic facts
   for (const fact of dataset.civicFacts) {
     if (!fact.id) errors.push("CivicFact id is required");
-    if (!fact.source) errors.push(`Fact ${fact.id}: source required (Principle II)`);
+    if (!fact.source)
+      errors.push(`Fact ${fact.id}: source required (Principle II)`);
   }
 
   if (errors.length > 0) {

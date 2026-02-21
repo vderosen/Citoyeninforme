@@ -1,29 +1,10 @@
 import { View, Text } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
-import type {
-  ElectionLogistics,
-  LogisticsDate,
-  VotingMethod,
-} from "../../data/schema";
+import type { ElectionLogistics, VotingMethod } from "../../data/schema";
+import { groupAndClassifyDates } from "../../utils/date-helpers";
 
-// --- View-layer types (T002) ---
-
-type TemporalStatus = "past" | "next" | "future";
-
-interface TimelineEntry {
-  date: string;
-  formattedDate: string;
-  labels: string[];
-  status: TemporalStatus;
-}
-
-// --- Constants (T002) ---
-
-const FRENCH_MONTHS = [
-  "JAN", "FÉV", "MARS", "AVR", "MAI", "JUIN",
-  "JUIL", "AOÛT", "SEPT", "OCT", "NOV", "DÉC",
-];
+// --- Constants ---
 
 const VOTING_METHOD_CONFIG: Record<
   string,
@@ -39,51 +20,7 @@ const VOTING_METHOD_FALLBACK = {
   titleKey: "votingMethod.other",
 };
 
-// --- Helpers (T003, T004) ---
-
-function formatFrenchDate(isoDate: string): string {
-  const d = new Date(isoDate + "T00:00:00");
-  const day = d.getDate();
-  const month = FRENCH_MONTHS[d.getMonth()];
-  const year = d.getFullYear();
-  return `${day} ${month} ${year}`;
-}
-
-function groupAndClassifyDates(keyDates: LogisticsDate[]): TimelineEntry[] {
-  const groups = new Map<string, string[]>();
-  for (const item of keyDates) {
-    const existing = groups.get(item.date);
-    if (existing) {
-      existing.push(item.label);
-    } else {
-      groups.set(item.date, [item.label]);
-    }
-  }
-
-  const sortedDates = [...groups.keys()].sort();
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  let foundNext = false;
-  return sortedDates.map((date) => {
-    const entryDate = new Date(date + "T00:00:00");
-    let status: TemporalStatus;
-    if (entryDate < today) {
-      status = "past";
-    } else if (!foundNext) {
-      status = "next";
-      foundNext = true;
-    } else {
-      status = "future";
-    }
-    return {
-      date,
-      formattedDate: formatFrenchDate(date),
-      labels: groups.get(date)!,
-      status,
-    };
-  });
-}
+// --- Helpers ---
 
 function mapVotingMethod(method: VotingMethod) {
   const config = VOTING_METHOD_CONFIG[method.type] ?? VOTING_METHOD_FALLBACK;
@@ -109,7 +46,7 @@ export function VotingInfoCard({ logistics }: VotingInfoCardProps) {
     <View className="mx-4 gap-3">
       {/* Key Dates — Vertical Timeline (T005 / US1) */}
       {logistics.keyDates.length > 0 && (
-        <View className="bg-warm-gray rounded-xl p-4">
+        <View className="bg-white shadow-card rounded-xl p-4">
           <View className="flex-row items-center gap-2 mb-3">
             <Ionicons name="calendar-outline" size={18} color="#1B2A4A" />
             <Text className="font-display-semibold text-sm text-civic-navy">
@@ -157,7 +94,7 @@ export function VotingInfoCard({ logistics }: VotingInfoCardProps) {
 
       {/* Eligibility — Numbered Sub-Cards (T006 / US2) */}
       {logistics.eligibility.length > 0 && (
-        <View className="bg-warm-gray rounded-xl p-4">
+        <View className="bg-white shadow-card rounded-xl p-4">
           <View className="flex-row items-center gap-2 mb-3">
             <Ionicons
               name="checkmark-circle-outline"
@@ -191,7 +128,7 @@ export function VotingInfoCard({ logistics }: VotingInfoCardProps) {
 
       {/* Voting Methods — Icon Sub-Cards (T007 / US3) */}
       {logistics.votingMethods.length > 0 && (
-        <View className="bg-warm-gray rounded-xl p-4">
+        <View className="bg-white shadow-card rounded-xl p-4">
           <View className="flex-row items-center gap-2 mb-3">
             <Ionicons
               name="document-text-outline"

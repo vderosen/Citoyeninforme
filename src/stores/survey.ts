@@ -52,6 +52,7 @@ interface SurveyState {
   setImportanceWeight: (themeId: string, weight: number) => void;
   nextQuestion: () => void;
   previousQuestion: () => void;
+  clearAnswer: (cardId: string) => void;
   setComputing: () => void;
   setResults: (profile: UserProfile, datasetVersion: string) => void;
   complete: () => void;
@@ -91,6 +92,14 @@ export const useSurveyStore = create<SurveyState>()(
         set((state) => ({
           currentQuestionIndex: Math.max(0, state.currentQuestionIndex - 1),
         })),
+      clearAnswer: (cardId: string) =>
+        set((state) => {
+          const { [cardId]: _, ...rest } = state.answers;
+          return {
+            answers: rest,
+            currentQuestionIndex: Math.max(0, state.currentQuestionIndex - 1),
+          };
+        }),
       setComputing: () => set({ status: "computing" }),
       setResults: (profile, datasetVersion) =>
         set({ status: "results_ready", profile, datasetVersion }),

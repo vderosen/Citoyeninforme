@@ -29,6 +29,7 @@ Auto-generated from all feature plans. Last updated: 2026-02-13
 - N/A — selection state is ephemeral (local component state, not persisted) (018-unified-candidates-view)
 - TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + Expo Router 6.0, Zustand 5.0.3, react-i18next 15.4.1, NativeWind 4.1.23, react-native-reanimated 4.1.1, react-native-gesture-handler 2.28.0 (transitive → add as direct dependency) (019-swipe-survey-redesign)
 - AsyncStorage via Zustand persist (key: `survey-state`) (019-swipe-survey-redesign)
+- Bundled JSON files (static imports via Metro bundler), Zustand in-memory store (021-data-restructuring)
 
 - TypeScript 5.x on React Native 0.80+ (Expo SDK 54+) + Expo (managed workflow), Expo Router, Zustand, react-i18next, gluestack-ui v3, NativeWind v4, react-native-mmkv, expo-sqlite (001-civic-election-app)
 
@@ -48,9 +49,9 @@ npm test && npm run lint
 TypeScript 5.x on React Native 0.80+ (Expo SDK 54+): Follow standard conventions
 
 ## Recent Changes
+- 021-data-restructuring: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + Expo Router 6.0, Zustand 5.0.3, react-i18next 15.4.1, NativeWind 4.1.23
 - 019-swipe-survey-redesign: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + Expo Router 6.0, Zustand 5.0.3, react-i18next 15.4.1, NativeWind 4.1.23, react-native-reanimated 4.1.1, react-native-gesture-handler 2.28.0 (transitive → add as direct dependency)
 - 018-unified-candidates-view: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + Expo Router 6.0, NativeWind 4.1.23, react-native-reanimated 4.1.1, @expo/vector-icons 15.0.3 (Ionicons), react-i18next 15.4.1, Zustand 5.0.3
-- 017-rapid-debate-mode: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + Expo Router 6.0, Zustand 5.0.3, react-i18next 15.4.1, NativeWind 4.1.23, react-native-reanimated 4.1.1, @expo/vector-icons 15.0.3 (Ionicons)
 
 
 <!-- MANUAL ADDITIONS START -->

@@ -8,7 +8,6 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useEffect } from "react";
-import { Ionicons } from "@expo/vector-icons";
 
 const DOT_SIZE = 8;
 const BOUNCE_HEIGHT = -6;
@@ -53,10 +52,7 @@ function BouncingDot({ delay }: { delay: number }) {
 export function TypingIndicator() {
   return (
     <View className="mb-3 max-w-[85%] self-start">
-      <View className="flex-row items-center gap-2">
-        <View className="w-6 h-6 rounded-full bg-civic-navy items-center justify-center">
-          <Ionicons name="sparkles-outline" size={14} color="#FAFAF8" />
-        </View>
+      <View className="flex-row items-center">
         <View
           className="rounded-2xl px-4 py-3 bg-white"
           style={{

@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import * as Sentry from "@sentry/react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useReducedMotion } from "react-native-reanimated";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StackHeader } from "../components/shared/StackHeader";
@@ -118,37 +119,39 @@ function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <GluestackUIProvider>
-        <ErrorBoundary>
-          <View style={{ flex: 1 }}>
-            <OfflineBanner />
-            <Stack
-              screenOptions={{
-                header: (props) => <StackHeader {...props} />,
-                animation: reduceMotion ? "none" : "slide_from_bottom",
-              }}
-            >
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen
-                name="onboarding"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="privacy-consent"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="survey" options={{ headerShown: false }} />
-              <Stack.Screen
-                name="settings"
-                options={{ title: "Paramètres" }}
-              />
-            </Stack>
-          </View>
-          <StatusBar style="light" />
-        </ErrorBoundary>
-      </GluestackUIProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <GluestackUIProvider>
+          <ErrorBoundary>
+            <View style={{ flex: 1 }}>
+              <OfflineBanner />
+              <Stack
+                screenOptions={{
+                  header: (props) => <StackHeader {...props} />,
+                  animation: reduceMotion ? "none" : "slide_from_bottom",
+                }}
+              >
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="onboarding"
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="privacy-consent"
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen name="survey" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="settings"
+                  options={{ title: "Paramètres" }}
+                />
+              </Stack>
+            </View>
+            <StatusBar style="light" />
+          </ErrorBoundary>
+        </GluestackUIProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 

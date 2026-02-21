@@ -5,6 +5,7 @@ import type {
   Theme,
   Position,
   SurveyQuestion,
+  StatementCard,
   CivicFact,
   ElectionLogistics,
   ElectionDataset,
@@ -16,6 +17,7 @@ interface ElectionState {
   themes: Theme[];
   positions: Position[];
   surveyQuestions: SurveyQuestion[];
+  statementCards: StatementCard[];
   civicFacts: CivicFact[];
   logistics: ElectionLogistics | null;
   isLoaded: boolean;
@@ -24,6 +26,7 @@ interface ElectionState {
   loadDataset: (dataset: ElectionDataset) => void;
   getCandidateById: (id: string) => Candidate | undefined;
   getThemeById: (id: string) => Theme | undefined;
+  getStatementCards: () => StatementCard[];
   getPositionsForCandidate: (candidateId: string) => Position[];
   getPositionsForTheme: (themeId: string) => Position[];
   getPositionForCandidateTheme: (
@@ -38,6 +41,7 @@ export const useElectionStore = create<ElectionState>((set, get) => ({
   themes: [],
   positions: [],
   surveyQuestions: [],
+  statementCards: [],
   civicFacts: [],
   logistics: null,
   isLoaded: false,
@@ -52,6 +56,9 @@ export const useElectionStore = create<ElectionState>((set, get) => ({
       surveyQuestions: dataset.surveyQuestions.sort(
         (a, b) => a.order - b.order
       ),
+      statementCards: dataset.statementCards.sort(
+        (a, b) => a.order - b.order
+      ),
       civicFacts: dataset.civicFacts.sort((a, b) => a.order - b.order),
       logistics: dataset.logistics,
       isLoaded: true,
@@ -63,6 +70,8 @@ export const useElectionStore = create<ElectionState>((set, get) => ({
     get().candidates.find((c) => c.id === id),
 
   getThemeById: (id: string) => get().themes.find((t) => t.id === id),
+
+  getStatementCards: () => get().statementCards,
 
   getPositionsForCandidate: (candidateId: string) =>
     get().positions.filter((p) => p.candidateId === candidateId),

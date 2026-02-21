@@ -21,6 +21,10 @@ interface TabLayout {
 
 const ANIMATION_DURATION = 250;
 
+function firstWord(name: string): string {
+  return name.split(/\s+/)[0] || name;
+}
+
 export function ThemeTabBar({ themes, activeThemeId, onSelectTheme }: Props) {
   const reduceMotion = useReducedMotion();
   const scrollRef = useRef<ScrollView>(null);
@@ -93,8 +97,8 @@ export function ThemeTabBar({ themes, activeThemeId, onSelectTheme }: Props) {
               onLayout={(e) => handleTabLayout(theme.id, e)}
               style={{
                 paddingHorizontal: 10,
-                paddingTop: 8,
-                paddingBottom: 12,
+                paddingTop: 6,
+                paddingBottom: 14,
                 minHeight: 44,
                 alignItems: "center",
                 justifyContent: "center",
@@ -104,7 +108,18 @@ export function ThemeTabBar({ themes, activeThemeId, onSelectTheme }: Props) {
               accessibilityState={{ selected: isActive }}
               accessibilityLabel={theme.name}
             >
-              <Text style={{ fontSize: 24 }}>{theme.icon}</Text>
+              <Text style={{ fontSize: 22 }}>{theme.icon}</Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  marginTop: 2,
+                  color: "#1B2A4A",
+                  fontWeight: isActive ? "600" : "400",
+                }}
+                numberOfLines={1}
+              >
+                {firstWord(theme.name)}
+              </Text>
             </Pressable>
           );
         })}

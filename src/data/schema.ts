@@ -55,6 +55,11 @@ export interface Theme {
   displayOrder: number;
 }
 
+export interface Measure {
+  text: string;
+  sourceIds: string[];
+}
+
 export interface Position {
   id: string;
   candidateId: string;
@@ -62,6 +67,7 @@ export interface Position {
   summary: string;
   details: string;
   sources: SourceReference[];
+  measures: Measure[];
   lastVerified: string;
 }
 
@@ -122,12 +128,29 @@ export interface ElectionLogistics {
   officialSources: SourceReference[];
 }
 
+export type SwipeDirection =
+  | "agree"
+  | "disagree"
+  | "strongly_agree"
+  | "strongly_disagree"
+  | "skip";
+
+export interface StatementCard {
+  id: string;
+  electionId: string;
+  text: string;
+  themeIds: string[];
+  baseScores: Record<string, number>;
+  order: number;
+}
+
 export interface ElectionDataset {
   election: Election;
   candidates: Candidate[];
   themes: Theme[];
   positions: Position[];
   surveyQuestions: SurveyQuestion[];
+  statementCards: StatementCard[];
   civicFacts: CivicFact[];
   logistics: ElectionLogistics;
 }
