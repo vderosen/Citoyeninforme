@@ -35,7 +35,7 @@ export default function HomeScreen() {
 
   const handleStartSurvey = () => {
     if (surveyStatus === "not_started") {
-      router.push("/survey/intro");
+      router.push("/survey/questions");
     } else if (
       surveyStatus === "civic_context" ||
       surveyStatus === "questionnaire"
@@ -43,7 +43,7 @@ export default function HomeScreen() {
       router.push("/survey/questions");
     } else {
       useSurveyStore.getState().reset();
-      router.push("/survey/intro");
+      router.push("/survey/questions");
     }
   };
 

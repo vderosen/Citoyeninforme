@@ -1,10 +1,9 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { View, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
-import { useAppStore } from "../../stores/app";
 import { SwipeStack } from "../../components/survey/SwipeStack";
 import { SwipeTutorialOverlay } from "../../components/survey/SwipeTutorialOverlay";
 import { ProgressBar } from "../../components/survey/ProgressBar";
@@ -27,11 +26,16 @@ export default function QuestionsScreen() {
   const candidates = useElectionStore((s) => s.candidates);
   const themes = useElectionStore((s) => s.themes);
 
-  const hasSeenTutorial = useAppStore((s) => s.hasSeenSwipeTutorial);
-  const markTutorialSeen = useAppStore((s) => s.markSwipeTutorialSeen);
+  const [hasSeenTutorial, setHasSeenTutorial] = useState(false);
+  const dismissTutorial = useCallback(() => setHasSeenTutorial(true), []);
 
   const currentIndex = useSurveyStore((s) => s.currentQuestionIndex);
+  const surveyStatus = useSurveyStore((s) => s.status);
   const answers = useSurveyStore((s) => s.answers);
+  const startQuestionnaire = useSurveyStore((s) => s.startQuestionnaire);
+  const markQuestionnaireActive = useSurveyStore(
+    (s) => s.markQuestionnaireActive
+  );
   const answerQuestion = useSurveyStore((s) => s.answerQuestion);
   const nextQuestion = useSurveyStore((s) => s.nextQuestion);
   const clearAnswer = useSurveyStore((s) => s.clearAnswer);
@@ -49,6 +53,20 @@ export default function QuestionsScreen() {
   const [swipedCards, setSwipedCards] = useState<
     { card: StatementCard; direction: SwipeDirection }[]
   >([]);
+
+  useEffect(() => {
+    if (surveyStatus === "questionnaire") return;
+    if (surveyStatus === "computing" || surveyStatus === "results_ready") {
+      return;
+    }
+
+    if (surveyStatus === "not_started" || surveyStatus === "completed") {
+      startQuestionnaire();
+      return;
+    }
+
+    markQuestionnaireActive();
+  }, [markQuestionnaireActive, startQuestionnaire, surveyStatus]);
 
   const isLast = currentIndex >= shuffledCards.length - 1;
 
@@ -150,11 +168,14 @@ export default function QuestionsScreen() {
   );
 
   const handleUndo = useCallback(() => {
-    if (swipedCards.length === 0) return;
-    const lastSwiped = swipedCards[swipedCards.length - 1];
-    setSwipedCards((prev) => prev.slice(0, -1));
-    clearAnswer(lastSwiped.card.id);
-  }, [clearAnswer, swipedCards]);
+    if (currentIndex <= 0) return;
+
+    const previousCard = shuffledCards[currentIndex - 1];
+    if (!previousCard) return;
+
+    setSwipedCards((prev) => (prev.length > 0 ? prev.slice(0, -1) : prev));
+    clearAnswer(previousCard.id);
+  }, [clearAnswer, currentIndex, shuffledCards]);
 
   if (shuffledCards.length === 0) {
     return (
@@ -187,7 +208,7 @@ export default function QuestionsScreen() {
 
       {/* First-launch tutorial overlay */}
       {!hasSeenTutorial && (
-        <SwipeTutorialOverlay onDismiss={markTutorialSeen} />
+        <SwipeTutorialOverlay onDismiss={dismissTutorial} />
       )}
     </View>
   );

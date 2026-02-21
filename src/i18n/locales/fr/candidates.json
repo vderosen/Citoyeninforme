@@ -17,5 +17,7 @@
   "details": "Détails",
   "hideDetails": "Masquer les détails",
   "emptyStateTitle": "Explorez les candidats",
-  "emptyStateDescription": "Appuyez sur un candidat pour voir son profil, ou sélectionnez-en plusieurs pour les comparer."
+  "emptyStateDescription": "Appuyez sur un candidat pour voir son profil, ou sélectionnez-en plusieurs pour les comparer.",
+  "learnMore": "En savoir plus",
+  "close": "Fermer"
 }

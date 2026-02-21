@@ -30,7 +30,11 @@ export default function AssistantScreen() {
   const headerHeight = useHeaderHeight();
   const navigation = useNavigation();
 
-  const [activeView, setActiveView] = useState<"selection" | "mode">("selection");
+  const initialMode = useAssistantStore((s) => s.mode);
+  const initialCandidateId = useAssistantStore((s) => s.selectedCandidateId);
+  const [activeView, setActiveView] = useState<"selection" | "mode">(
+    initialMode === "parler" && initialCandidateId ? "mode" : "selection"
+  );
 
   const election = useElectionStore((s) => s.election);
   const candidates = useElectionStore((s) => s.candidates);

@@ -48,6 +48,7 @@ interface SurveyState {
 
   startCivicContext: () => void;
   startQuestionnaire: () => void;
+  markQuestionnaireActive: () => void;
   answerQuestion: (questionId: string, optionId: string) => void;
   setImportanceWeight: (themeId: string, weight: number) => void;
   nextQuestion: () => void;
@@ -73,6 +74,7 @@ export const useSurveyStore = create<SurveyState>()(
       startCivicContext: () => set({ status: "civic_context" }),
       startQuestionnaire: () =>
         set({ status: "questionnaire", currentQuestionIndex: 0 }),
+      markQuestionnaireActive: () => set({ status: "questionnaire" }),
       answerQuestion: (questionId, optionId) =>
         set((state) => ({
           answers: { ...state.answers, [questionId]: optionId },

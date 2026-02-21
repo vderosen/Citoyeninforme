@@ -10,8 +10,9 @@ interface Props {
 }
 
 const USER_BUBBLE_COLOR = "#1B2A4A";
-const ASSISTANT_BUBBLE_COLOR = "#F2F4F7";
-const TAIL_SIZE = 14;
+const ASSISTANT_BUBBLE_COLOR = "#FFFFFF";
+const BUBBLE_R = 16;
+const POINTED_CORNER_R = 4;
 
 const selectableMarkdownRules: RenderRules = {
   text: (node: any, _children: any, _parent: any, styles: any, inheritedStyles: any = {}) => (
@@ -76,29 +77,47 @@ const selectableMarkdownRules: RenderRules = {
   ),
 };
 
-function BubbleTail({
+function BubbleShape({
   side,
-  bubbleColor,
+  fillColor,
+  shadow,
+  children,
 }: {
   side: "left" | "right";
-  bubbleColor: string;
+  fillColor: string;
+  shadow?: {
+    color: string;
+    offset: { width: number; height: number };
+    opacity: number;
+    radius: number;
+    elevation: number;
+  };
+  children: React.ReactNode;
 }) {
-  const isLeft = side === "left";
+  const isRight = side === "right";
 
   return (
     <View
-      pointerEvents="none"
       style={{
-        position: "absolute",
-        bottom: -5,
-        width: TAIL_SIZE,
-        height: TAIL_SIZE,
-        backgroundColor: bubbleColor,
-        borderRadius: 5,
-        transform: [{ rotate: isLeft ? "-35deg" : "35deg" }],
-        ...(isLeft ? { left: 14 } : { right: 14 }),
+        marginBottom: 4,
+        backgroundColor: fillColor,
+        borderTopLeftRadius: BUBBLE_R,
+        borderTopRightRadius: BUBBLE_R,
+        borderBottomLeftRadius: isRight ? BUBBLE_R : POINTED_CORNER_R,
+        borderBottomRightRadius: isRight ? POINTED_CORNER_R : BUBBLE_R,
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        ...(shadow && {
+          shadowColor: shadow.color,
+          shadowOffset: shadow.offset,
+          shadowOpacity: shadow.opacity,
+          shadowRadius: shadow.radius,
+          elevation: shadow.elevation,
+        }),
       }}
-    />
+    >
+      {children}
+    </View>
   );
 }
 
@@ -129,42 +148,29 @@ export function MessageBubble({ message, isStreaming }: Props) {
     <View
       className={`mb-3 ${isUser ? "max-w-[85%] self-end" : ""}`}
     >
-      {isUser ? (
-        <View className="relative mb-1">
-          <View
-            className="rounded-2xl px-4 py-3"
-            style={{ backgroundColor: USER_BUBBLE_COLOR }}
-          >
-            <Text selectable className="font-body text-base text-text-inverse">
-              {message.content}
-            </Text>
-          </View>
-          <BubbleTail
-            side="right"
-            bubbleColor={USER_BUBBLE_COLOR}
-          />
-        </View>
-      ) : (
-        <View className="relative mb-1">
-          <View
-            className="rounded-2xl px-4 py-3"
-            style={{
-              backgroundColor: ASSISTANT_BUBBLE_COLOR,
-              shadowColor: "#1B2A4A",
-              shadowOffset: { width: 0, height: 1 },
-              shadowOpacity: 0.04,
-              shadowRadius: 2,
-              elevation: 1,
-            }}
-          >
-            <AssistantContent content={message.content} isStreaming={isStreaming} />
-          </View>
-          <BubbleTail
-            side="left"
-            bubbleColor={ASSISTANT_BUBBLE_COLOR}
-          />
-        </View>
-      )}
+      <BubbleShape
+        side={isUser ? "right" : "left"}
+        fillColor={isUser ? USER_BUBBLE_COLOR : ASSISTANT_BUBBLE_COLOR}
+        shadow={
+          isUser
+            ? undefined
+            : {
+                color: "#1B2A4A",
+                offset: { width: 0, height: 2 },
+                opacity: 0.08,
+                radius: 6,
+                elevation: 3,
+              }
+        }
+      >
+        {isUser ? (
+          <Text selectable className="font-body text-base text-text-inverse">
+            {message.content}
+          </Text>
+        ) : (
+          <AssistantContent content={message.content} isStreaming={isStreaming} />
+        )}
+      </BubbleShape>
 
       {message.sources && message.sources.length > 0 && (
         <View className={`mt-1 gap-1 ${isUser ? "px-2" : "ml-2"}`}>

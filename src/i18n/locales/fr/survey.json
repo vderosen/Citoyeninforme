@@ -43,5 +43,6 @@
   "tutorialDoubleTap": "Double-tap",
   "tutorialDismiss": "Compris !",
   "undoLabel": "Annuler",
+  "undoPreviousQuestion": "Revenir à la question précédente",
   "cardProgress": "{{current}} / {{total}}"
 }

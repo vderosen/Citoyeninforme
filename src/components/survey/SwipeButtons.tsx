@@ -8,105 +8,131 @@ interface SwipeButtonsProps {
   disabled?: boolean;
 }
 
-const GRID_BUTTONS: {
-  direction: SwipeDirection;
-  i18nKey: string;
-  icon: keyof typeof Ionicons.glyphMap;
-  color: string;
-  bgColor: string;
-}[] = [
-  {
-    direction: "disagree",
-    i18nKey: "swipeDisagree",
-    icon: "close-circle",
-    color: "#ef4444",
-    bgColor: "bg-red-50",
-  },
-  {
-    direction: "agree",
-    i18nKey: "swipeAgree",
-    icon: "checkmark-circle",
-    color: "#22c55e",
-    bgColor: "bg-green-50",
-  },
-  {
-    direction: "strongly_disagree",
-    i18nKey: "swipeStronglyDisagree",
-    icon: "flash",
-    color: "#374151",
-    bgColor: "bg-gray-100",
-  },
-  {
-    direction: "strongly_agree",
-    i18nKey: "swipeStronglyAgree",
-    icon: "heart",
-    color: "#f59e0b",
-    bgColor: "bg-amber-50",
-  },
-];
-
 export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
   const { t } = useTranslation("survey");
+  const o = disabled ? 0.5 : 1;
 
   return (
-    <View className="px-4 py-3">
-      {/* 2×2 grid */}
-      <View className="flex-row gap-3 mb-2">
-        {GRID_BUTTONS.slice(0, 2).map((btn) => (
-          <Pressable
-            key={btn.direction}
-            onPress={() => onButtonPress(btn.direction)}
-            disabled={disabled}
-            accessibilityRole="button"
-            accessibilityLabel={t(btn.i18nKey)}
-            className={`${btn.bgColor} rounded-xl px-3 py-2 flex-row items-center gap-2 flex-1`}
-            style={{ minHeight: 48, opacity: disabled ? 0.5 : 1 }}
+    <View className="px-6 pt-1 pb-3" style={{ opacity: o }}>
+      {/* Row 1: Coup de coeur (up) — centered pill */}
+      <View className="items-center mb-1.5">
+        <Pressable
+          onPress={() => onButtonPress("strongly_agree")}
+          disabled={disabled}
+          accessibilityRole="button"
+          accessibilityLabel={t("swipeStronglyAgree")}
+          className="bg-amber-50 border border-amber-200 rounded-full px-4 flex-row items-center justify-center gap-1"
+          style={{ height: 36 }}
+        >
+          <Ionicons name="heart" size={15} color="#d97706" />
+          <Text
+            className="font-body-medium"
+            style={{ color: "#d97706", fontSize: 11 }}
           >
-            <Ionicons name={btn.icon} size={22} color={btn.color} />
-            <Text
-              className="font-body text-xs"
-              style={{ color: btn.color }}
-            >
-              {t(btn.i18nKey)}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
-      <View className="flex-row gap-3 mb-3">
-        {GRID_BUTTONS.slice(2, 4).map((btn) => (
-          <Pressable
-            key={btn.direction}
-            onPress={() => onButtonPress(btn.direction)}
-            disabled={disabled}
-            accessibilityRole="button"
-            accessibilityLabel={t(btn.i18nKey)}
-            className={`${btn.bgColor} rounded-xl px-3 py-2 flex-row items-center gap-2 flex-1`}
-            style={{ minHeight: 48, opacity: disabled ? 0.5 : 1 }}
-          >
-            <Ionicons name={btn.icon} size={22} color={btn.color} />
-            <Text
-              className="font-body text-xs"
-              style={{ color: btn.color }}
-            >
-              {t(btn.i18nKey)}
-            </Text>
-          </Pressable>
-        ))}
+            {t("swipeStronglyAgree")}
+          </Text>
+          <Ionicons
+            name="chevron-up"
+            size={12}
+            color="#d97706"
+            style={{ opacity: 0.4, marginLeft: 2 }}
+          />
+        </Pressable>
       </View>
 
-      {/* "Pas d'avis" as a discrete text link */}
-      <Pressable
-        onPress={() => onButtonPress("skip")}
-        disabled={disabled}
-        accessibilityRole="button"
-        accessibilityLabel={t("swipeSkip")}
-        style={{ minHeight: 48, opacity: disabled ? 0.5 : 1 }}
-        className="items-center justify-center"
-      >
-        <Text className="font-body text-xs text-text-caption underline">
-          {t("swipeSkip")}
-        </Text>
-      </Pressable>
+      {/* Row 2: Disagree (left) + Pas d'avis (center) + Agree (right) */}
+      <View className="flex-row items-center gap-2 mb-1.5">
+        {/* Disagree */}
+        <Pressable
+          onPress={() => onButtonPress("disagree")}
+          disabled={disabled}
+          accessibilityRole="button"
+          accessibilityLabel={t("swipeDisagree")}
+          className="bg-red-50 border border-red-200 rounded-full px-3 flex-row items-center justify-center gap-1 flex-1"
+          style={{ height: 36 }}
+        >
+          <Ionicons
+            name="chevron-back"
+            size={12}
+            color="#dc2626"
+            style={{ opacity: 0.4 }}
+          />
+          <Ionicons name="close-circle" size={15} color="#dc2626" />
+          <Text
+            className="font-body-medium"
+            style={{ color: "#dc2626", fontSize: 11 }}
+          >
+            {t("swipeDisagree")}
+          </Text>
+        </Pressable>
+
+        {/* Skip / Pas d'avis — visible text pill */}
+        <Pressable
+          onPress={() => onButtonPress("skip")}
+          disabled={disabled}
+          accessibilityRole="button"
+          accessibilityLabel={t("swipeSkip")}
+          className="bg-gray-50 border border-gray-200 rounded-full px-3 items-center justify-center"
+          style={{ height: 36 }}
+        >
+          <Text
+            className="font-body"
+            style={{ color: "#9ca3af", fontSize: 11 }}
+          >
+            {t("swipeSkip")}
+          </Text>
+        </Pressable>
+
+        {/* Agree */}
+        <Pressable
+          onPress={() => onButtonPress("agree")}
+          disabled={disabled}
+          accessibilityRole="button"
+          accessibilityLabel={t("swipeAgree")}
+          className="bg-green-50 border border-green-200 rounded-full px-3 flex-row items-center justify-center gap-1 flex-1"
+          style={{ height: 36 }}
+        >
+          <Text
+            className="font-body-medium"
+            style={{ color: "#16a34a", fontSize: 11 }}
+          >
+            {t("swipeAgree")}
+          </Text>
+          <Ionicons name="checkmark-circle" size={15} color="#16a34a" />
+          <Ionicons
+            name="chevron-forward"
+            size={12}
+            color="#16a34a"
+            style={{ opacity: 0.4 }}
+          />
+        </Pressable>
+      </View>
+
+      {/* Row 3: Catastrophe (down) — centered pill */}
+      <View className="items-center">
+        <Pressable
+          onPress={() => onButtonPress("strongly_disagree")}
+          disabled={disabled}
+          accessibilityRole="button"
+          accessibilityLabel={t("swipeStronglyDisagree")}
+          className="bg-gray-50 border border-gray-300 rounded-full px-4 flex-row items-center justify-center gap-1"
+          style={{ height: 36 }}
+        >
+          <Ionicons name="flash" size={15} color="#374151" />
+          <Text
+            className="font-body-medium"
+            style={{ color: "#374151", fontSize: 11 }}
+          >
+            {t("swipeStronglyDisagree")}
+          </Text>
+          <Ionicons
+            name="chevron-down"
+            size={12}
+            color="#374151"
+            style={{ opacity: 0.4, marginLeft: 2 }}
+          />
+        </Pressable>
+      </View>
     </View>
   );
 }

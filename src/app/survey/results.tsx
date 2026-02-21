@@ -37,7 +37,7 @@ export default function ResultsScreen() {
 
   const handleRetake = () => {
     reset();
-    router.replace("/survey/intro");
+    router.replace("/survey/questions");
   };
 
   const handleCandidatePress = (_candidateId: string) => {

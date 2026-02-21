@@ -1,12 +1,10 @@
-import { Pressable } from "react-native";
-import { Tabs, useRouter } from "expo-router";
+import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import { CandidateFeedbackHeaderAction } from "../../components/candidates/CandidateFeedbackHeaderAction";
 
 export default function TabLayout() {
   const { t } = useTranslation("common");
-  const router = useRouter();
 
   return (
     <Tabs
@@ -19,6 +17,7 @@ export default function TabLayout() {
           fontSize: 17,
           color: "#FAFAF8",
         },
+        headerTitleAlign: "center",
         headerShadowVisible: false,
         headerRight: undefined,
         lazy: true,
@@ -39,20 +38,11 @@ export default function TabLayout() {
         name="index"
         options={{
           title: t("headers.lucide"),
+          headerShown: false,
           tabBarLabel: "Accueil",
           tabBarAccessibilityLabel: "Accueil",
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons name={focused ? "home" : "home-outline"} size={size} color={color} />
-          ),
-          headerRight: () => (
-            <Pressable
-              onPress={() => router.push("/settings")}
-              className="mr-4 p-2"
-              accessibilityRole="button"
-              accessibilityLabel="Paramètres"
-            >
-              <Ionicons name="settings-outline" size={22} color="#FAFAF8" />
-            </Pressable>
           ),
         }}
       />
