@@ -71,24 +71,39 @@
           "summary": "Priorité à la transformation de l'espace public et aux mobilités actives.",
           "details": "Le texte d'investiture des Écologistes met en avant la transformation de l'espace public, les rues aux écoles, un Paris cyclable et la végétalisation urbaine.",
           "sourceIds": ["belliard-investiture", "belliard-paris-fr"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Piétonniser 100 hectares supplémentaires dont la place de la République et les avenues Magenta et Beaumarchais", "sourceIds": ["belliard-sudradio"] },
+            { "text": "Plan Vélo de 250 M€ : 130 km de nouvelles pistes cyclables pour rendre Paris 100 % cyclable", "sourceIds": ["belliard-plan-velo"] },
+            { "text": "Supprimer 50 % des places de stationnement en surface, soit 60 hectares récupérés", "sourceIds": ["belliard-jdd"] },
+            { "text": "Instaurer la gratuité des bus parisiens", "sourceIds": ["belliard-coalition"] },
+            { "text": "Transformer une voie du périphérique en voie dédiée transports en commun et covoiturage", "sourceIds": ["belliard-investiture"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "ecologie",
           "summary": "Projet présenté comme une écologie sociale et une ville climatiquement résiliente.",
           "details": "Les prises de parole de campagne évoquent un Paris qui se prépare aux changements climatiques et articule justice sociale et transition écologique.",
           "sourceIds": ["belliard-investiture"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Poursuivre la plantation massive d'arbres (155 000 plantés sur le mandat précédent, objectif d'accélération)", "sourceIds": ["belliard-investiture"] },
+            { "text": "Remettre au jour la Bièvre (5e et 13e arr.) pour créer un corridor vert piéton", "sourceIds": ["belliard-investiture"] },
+            { "text": "Instaurer une redevance incitative au poids des déchets en remplacement de la taxe d'enlèvement (objectif zéro déchet)", "sourceIds": ["belliard-investiture"] },
+            { "text": "Poursuivre la désimperméabilisation des sols et les cours Oasis dans les écoles (165 déjà réalisées)", "sourceIds": ["belliard-investiture"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "social",
           "summary": "Positionnement de campagne axé sur la solidarité et la justice sociale.",
           "details": "La campagne met en avant l'écologie sociale et la protection des personnes les plus vulnérables.",
           "sourceIds": ["belliard-investiture"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Objectif de 40 % de logements publics dont 30 % de logements sociaux (marqueur de la coalition PS-EELV-PCF)", "sourceIds": ["belliard-coalition"] },
+            { "text": "Mettre en place un service de garde d'enfants universel", "sourceIds": ["belliard-coalition"] },
+            { "text": "Gratuité des transports en commun pour les moins de 18 ans", "sourceIds": ["belliard-investiture"] }
+          ],
+          "lastVerified": "2026-02-21"
         }
       ]
     },
@@ -105,32 +120,56 @@
           "summary": "Le logement est présenté comme la priorité absolue de la campagne.",
           "details": "Le programme annonce un engagement central sur le logement abordable et la régulation des locations de courte durée.",
           "sourceIds": ["gregoire-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Construire 60 000 nouveaux logements publics : 30 000 sociaux et 30 000 abordables (loyers jusqu'à 25 % inférieurs au marché)", "sourceIds": ["gregoire-programme", "gregoire-batiactu"] },
+            { "text": "Rénover 200 000 logements sur le mandat (isolation, volets, toitures) dont 35 000 logements sociaux", "sourceIds": ["gregoire-batiactu"] },
+            { "text": "Créer une brigade de protection du logement contre les locations touristiques illégales", "sourceIds": ["gregoire-programme"] },
+            { "text": "Taxer les logements vacants et résidences secondaires pour remettre 300 000 appartements sur le marché", "sourceIds": ["gregoire-batiactu"] },
+            { "text": "1 000 logements en Bail Réel Solidaire (accession sociale à la propriété)", "sourceIds": ["gregoire-batiactu"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "transport",
           "summary": "Réduction de la place de la voiture au profit des mobilités actives et collectives.",
           "details": "Le programme décrit une ville avec moins de place pour l'automobile et un renforcement du vélo, de la marche et des transports en commun.",
           "sourceIds": ["gregoire-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Ouvrir le métro 24h/24 en pilote sur les 3 lignes automatisées (1, 4, 14)", "sourceIds": ["gregoire-programme", "gregoire-publicsenat"] },
+            { "text": "Rendre 1 000 rues aux piétons et créer 80 « cœurs de quartier » piétonniers", "sourceIds": ["gregoire-singulier"] },
+            { "text": "Transformer 15 lignes de bus en lignes express avec voies dédiées et fréquence de 5 min en heure de pointe", "sourceIds": ["gregoire-singulier"] },
+            { "text": "Ajouter 10 km de promenade sur la Petite Ceinture et 25 km de berges de Seine piétonnes", "sourceIds": ["gregoire-singulier"] },
+            { "text": "Achever le plan Paris 100 % cyclable : pistes bidirectionnelles sur toutes les rues, doublement des arceaux vélo", "sourceIds": ["gregoire-programme"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "securite",
           "summary": "Renforcement annoncé de la police municipale.",
           "details": "Le programme mentionne explicitement des moyens renforcés pour la police municipale.",
           "sourceIds": ["gregoire-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Recruter 1 000 agents de police municipale supplémentaires (total : ~5 000 agents)", "sourceIds": ["gregoire-programme", "gregoire-securite"] },
+            { "text": "Déployer des kiosques de police mobiles (modèle japonais « koban ») dans chaque arrondissement", "sourceIds": ["gregoire-securite"] },
+            { "text": "Installer 500 caméras tactiques mobiles sur les sites sensibles", "sourceIds": ["gregoire-securite"] },
+            { "text": "Créer une brigade spécialisée de sécurité routière pour protéger piétons et cyclistes", "sourceIds": ["gregoire-singulier"] },
+            { "text": "Refus de l'armement létal de la police municipale", "sourceIds": ["gregoire-securite"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "social",
           "summary": "Accent sur les services publics de proximité et l'accès à la santé.",
           "details": "Le programme insiste sur les services publics accessibles et le droit à la santé pour tous les habitants.",
           "sourceIds": ["gregoire-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Ouvrir 5 nouveaux centres de santé municipaux (100 000 consultations supplémentaires en secteur 1)", "sourceIds": ["gregoire-programme"] },
+            { "text": "Créer un guichet unique de service public par arrondissement avec horaires étendus", "sourceIds": ["gregoire-publicsenat"] },
+            { "text": "Créer 2 800 postes dans le périscolaire avec titularisation et filière de carrière", "sourceIds": ["gregoire-publicsenat"] },
+            { "text": "100 % bio, local et durable dans les cantines municipales, avec goûter gratuit pour tous les enfants", "sourceIds": ["gregoire-publicsenat"] },
+            { "text": "Objectif zéro enfant à la rue : 4 000 places d'hébergement d'urgence supplémentaires", "sourceIds": ["gregoire-programme"] }
+          ],
+          "lastVerified": "2026-02-21"
         }
       ]
     },
@@ -147,27 +186,117 @@
           "summary": "Annonce d'un plan d'éducation communale comme priorité budgétaire.",
           "details": "La candidate présente l'éducation communale comme priorité budgétaire et annonce des mesures sur le temps de classe, la restauration et les activités des enfants.",
           "sourceIds": ["chikirou-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Recruter 2 000 animateurs périscolaires supplémentaires et titulariser les 4 000 agents actuellement précaires", "sourceIds": ["chikirou-programme", "chikirou-singulier"] },
+            { "text": "Atteindre 10 000 animateurs permanents d'ici la fin du mandat (ratios : 1 pour 8 en maternelle, 1 pour 12 en élémentaire)", "sourceIds": ["chikirou-ifrap"] },
+            { "text": "Gratuité de la cantine pour les familles aux quotients 1 à 3 et des fournitures scolaires pour les plus modestes", "sourceIds": ["chikirou-singulier"] },
+            { "text": "Objectif « zéro enfant sans accompagnant » pour les enfants en situation de handicap, avec création du métier d'animateur d'inclusion", "sourceIds": ["chikirou-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "logement",
           "summary": "Annonce d'un plan logement axé sur la baisse des loyers et la régulation des locations de courte durée.",
           "details": "Le programme évoque un encadrement renforcé des loyers, des mesures contre les locations touristiques et un développement de l'offre de logements publics.",
           "sourceIds": ["chikirou-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Construire 80 000 logements publics supplémentaires, en grande partie sociaux", "sourceIds": ["chikirou-programme", "chikirou-singulier"] },
+            { "text": "Tripler les effectifs chargés du contrôle de l'encadrement des loyers", "sourceIds": ["chikirou-singulier"] },
+            { "text": "Identifier et poursuivre 25 000 annonces Airbnb illégales pour retour au marché locatif", "sourceIds": ["chikirou-ifrap"] },
+            { "text": "Créer une agence locative populaire publique (alternative aux agences privées, loyers encadrés garantis)", "sourceIds": ["chikirou-programme"] },
+            { "text": "Hausse de la taxe foncière de 20,5 à 23 points pour financer le plan logement", "sourceIds": ["chikirou-singulier"] }
+          ],
+          "lastVerified": "2026-02-21"
         }
       ]
     },
     {
       "id": "rachida-dati",
       "name": "Rachida Dati",
-      "party": "Les Républicains",
-      "bio": "Les Républicains ont annoncé son investiture officielle pour la mairie de Paris dans leur communiqué du 28 août 2025.",
-      "communicationStyle": "Communication politique relayée via les canaux officiels du parti.",
-      "programSourceUrl": "https://republicains.fr/actualites/2025/08/28/la-commission-nationale-dinvestiture-des-republicains-investit-rachida-dati-pour-la-mairie-de-paris/",
-      "positions": []
+      "party": "Les Républicains / MoDem / UDI",
+      "bio": "Maire du 7e arrondissement et ancienne ministre de la Culture, elle est candidate officielle sous la bannière LR/MoDem/UDI avec le slogan « Changer Paris ». Programme complet présenté le 10 février 2026.",
+      "communicationStyle": "Communication de campagne via site dédié, conférences de presse, interviews et programme téléchargeable.",
+      "programSourceUrl": "https://rachidadati2026.com/",
+      "positions": [
+        {
+          "themeId": "transport",
+          "summary": "Un « Paris apaisé » multi-modal, critique de la ZTL, accessibilité universelle du métro.",
+          "details": "Dati prône une planification des déplacements fondée sur des études d'impact plutôt que sur des restrictions idéologiques. Elle veut préserver les acquis cyclables tout en rééquilibrant la place de la voiture et en améliorant le réseau de bus.",
+          "sourceIds": ["dati-programme", "dati-nouvelhay"],
+          "measures": [
+            { "text": "Supprimer la Zone à Trafic Limité (ZTL) du centre de Paris et la remplacer par une planification fondée sur des études d'impact environnemental", "sourceIds": ["dati-nouvelhay", "dati-ifrap"] },
+            { "text": "Rendre 100 % des stations de métro accessibles aux personnes en situation de handicap", "sourceIds": ["dati-publicsenat"] },
+            { "text": "Améliorer la circulation des bus avec voies dédiées, signalétique renforcée aux arrêts et feux synchronisés", "sourceIds": ["dati-jgp"] },
+            { "text": "Développer les parkings relais aux portes de Paris et unifier le tarif de stationnement résidentiel sur l'ensemble de la capitale", "sourceIds": ["dati-nouvelhay", "dati-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
+        },
+        {
+          "themeId": "securite",
+          "summary": "« Plan choc » sécurité : 5 000 policiers municipaux armés et doublement de la vidéosurveillance.",
+          "details": "La sécurité est le pilier phare du programme. Dati cite la hausse de la délinquance depuis 2019 (consommation de drogue +218 %, violences physiques +23 %, violences sexuelles +59 %) pour justifier un renforcement massif des moyens.",
+          "sourceIds": ["dati-lejdd", "dati-publicsenat"],
+          "measures": [
+            { "text": "Porter la police municipale à 5 000 agents armés opérant 24h/24, avec pouvoirs élargis (contrôles d'identité, accès fichiers nationaux)", "sourceIds": ["dati-lejdd", "dati-ifrap"] },
+            { "text": "Doubler les caméras de vidéosurveillance de 4 000 à 8 000 avec un Centre urbain de supervision centralisé", "sourceIds": ["dati-lejdd", "dati-publicsenat"] },
+            { "text": "Sécuriser les grands parcs (Champ de Mars, Bois de Vincennes, Bois de Boulogne) avec clôtures, fermeture nocturne et brigades équestres", "sourceIds": ["dati-ifrap"] },
+            { "text": "Créer des brigades municipales de sécurité dans les écoles, composées de civils spécialisés dans la prévention du harcèlement", "sourceIds": ["dati-publicsenat"] }
+          ],
+          "lastVerified": "2026-02-21"
+        },
+        {
+          "themeId": "logement",
+          "summary": "Gel du logement social à 25 %, rénovation massive du parc existant et incitations fiscales à la rénovation énergétique.",
+          "details": "Dati rejette l'objectif de 40 % de logements sociaux porté par la gauche. Elle veut rediriger le budget d'acquisition vers la rénovation thermique, qu'elle qualifie de « chantier du siècle ».",
+          "sourceIds": ["dati-batiweb", "dati-ifrap"],
+          "measures": [
+            { "text": "Rénover 10 000 logements sociaux par an (double de l'objectif actuel) : isolation, ascenseurs, plomberie", "sourceIds": ["dati-batiweb", "dati-ifrap"] },
+            { "text": "Stopper les nouvelles acquisitions pour conversion en logements sociaux et rediriger ~250 M€/an dont 100 M€ vers la rénovation", "sourceIds": ["dati-publicsenat", "dati-ifrap"] },
+            { "text": "Exonération de taxe foncière pendant 5 ans pour les propriétaires sortant leurs logements des catégories DPE F ou G", "sourceIds": ["dati-batiweb"] },
+            { "text": "Prêts à taux zéro de 10 000 à 50 000 € pour aider les familles à s'installer ou rester à Paris", "sourceIds": ["dati-jgp"] }
+          ],
+          "lastVerified": "2026-02-21"
+        },
+        {
+          "themeId": "ecologie",
+          "summary": "« Écologie de bon sens » : végétalisation, énergie solaire, gestion intelligente des déchets.",
+          "details": "Dati oppose son « écologie pragmatique » à ce qu'elle appelle l'« écologie de communication » de la mandature sortante. Le programme mise sur la végétalisation en pleine terre, la protection des arbres et la transition énergétique des bâtiments publics.",
+          "sourceIds": ["dati-france24", "dati-vert"],
+          "measures": [
+            { "text": "Planter 500 nouvelles bandes végétalisées en pleine terre et protéger les 200 000 arbres parisiens (aucun abattage sauf exception documentée)", "sourceIds": ["dati-france24", "dati-vert"] },
+            { "text": "Transformer la Petite Ceinture en un parc urbain linéaire de 30 kilomètres", "sourceIds": ["dati-ifrap", "dati-jgp"] },
+            { "text": "Doubler la couverture en panneaux solaires des bâtiments publics pour atteindre 164 000 m² de toitures équipées", "sourceIds": ["dati-ifrap"] },
+            { "text": "Déployer une gestion intelligente des déchets : capteurs sur les bennes et optimisation des tournées de collecte par IA", "sourceIds": ["dati-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
+        },
+        {
+          "themeId": "education",
+          "summary": "Protection des enfants en périscolaire, retour à la semaine de 4 jours, 1 Md€ pour les écoles.",
+          "details": "Dati fait de la protection de l'enfance et de l'attractivité familiale de Paris des axes majeurs, en réponse à l'exode des familles constaté depuis 2014 et aux scandales de violences en milieu périscolaire.",
+          "sourceIds": ["dati-petiteenfance", "dati-publicsenat"],
+          "measures": [
+            { "text": "Appliquer la règle « aucun enfant seul avec un animateur » dans toutes les écoles, votée en conseil extraordinaire dès le lendemain de l'élection", "sourceIds": ["dati-petiteenfance", "dati-publicsenat"] },
+            { "text": "Retour à la semaine de 4 jours (lundi-mardi-jeudi-vendredi) avec activités périscolaires à haute valeur éducative concentrées le mercredi", "sourceIds": ["dati-petiteenfance"] },
+            { "text": "Plan de rénovation des écoles d'un milliard d'euros sur le mandat", "sourceIds": ["dati-ifrap", "dati-publicsenat"] },
+            { "text": "Porter le taux d'occupation des crèches à 100 % (contre 20-50 % actuellement) et prioriser l'accès au logement social pour les personnels de crèche", "sourceIds": ["dati-petiteenfance", "dati-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
+        },
+        {
+          "themeId": "budget",
+          "summary": "« Choc de gestion » : 600 M€ à 1 Md€ d'économies, guichet unique pour les commerces.",
+          "details": "L'axe économique repose sur la discipline budgétaire, la simplification administrative et le rétablissement de l'attractivité commerciale de Paris, avec un taux de vacance commerciale de plus de 10 % à résorber.",
+          "sourceIds": ["dati-ifrap", "dati-jgp"],
+          "measures": [
+            { "text": "Réaliser 600 M€ à 1 Md€ d'économies sur le mandat par révision des subventions et réorganisation des services municipaux", "sourceIds": ["dati-ifrap", "dati-publicsenat"] },
+            { "text": "Créer un guichet unique pour les autorisations d'urbanisme avec délais de réponse garantis, contre la vacance commerciale", "sourceIds": ["dati-jgp"] },
+            { "text": "Institutionnaliser un fonds de soutien aux commerçants et artisans affectés par des événements exceptionnels (grèves, grands travaux)", "sourceIds": ["dati-jgp"] },
+            { "text": "Privatiser la collecte des déchets pour redéployer les agents municipaux vers la propreté des rues et les espaces verts", "sourceIds": ["dati-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
+        }
+      ]
     },
     {
       "id": "pierre-yves-bournazel",
@@ -182,16 +311,26 @@
           "summary": "Objectif affiché de doubler les effectifs de police municipale à 6 000 agents.",
           "details": "L'engagement sécurité mentionne un renforcement substantiel des effectifs et l'ambition de faire de Paris la capitale la plus sûre d'Europe.",
           "sourceIds": ["bournazel-securite"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Tripler la police municipale à 6 000 agents armés avec un budget supplémentaire de 100 M€/an", "sourceIds": ["bournazel-securite"] },
+            { "text": "Déployer au minimum un policier municipal par station de métro le soir (convention avec Île-de-France Mobilités)", "sourceIds": ["bournazel-publicsenat"] },
+            { "text": "Créer une brigade canine de 50 chiens et 60 agents spécialisés (5 M€/an) contre les dealers et pickpockets", "sourceIds": ["bournazel-securite"] },
+            { "text": "Moderniser la vidéoprotection (3 M€) avec détection algorithmique et caméras aux entrées de chaque école", "sourceIds": ["bournazel-securite"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "budget",
           "summary": "Objectif déclaré de division par deux de la dette de la Ville de Paris en six ans.",
           "details": "Le volet financier annonce un plan d'économies et une réduction progressive de la dette municipale.",
           "sourceIds": ["bournazel-budget"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "4,2 milliards d'euros d'économies sur le mandat dont 1 milliard sur les dépenses de fonctionnement", "sourceIds": ["bournazel-publicsenat"] },
+            { "text": "Privatiser intégralement le service de nettoyage des rues (économie de 700 M€ sur six ans)", "sourceIds": ["bournazel-publicsenat"] },
+            { "text": "Supprimer 70 000 places de stationnement en surface et racheter 80 000 places souterraines gratuites", "sourceIds": ["bournazel-publicsenat"] },
+            { "text": "Engagement de ne pas augmenter les impôts ni les taxes", "sourceIds": ["bournazel-budget"] }
+          ],
+          "lastVerified": "2026-02-21"
         }
       ]
     },
@@ -208,16 +347,28 @@
           "summary": "Le programme place la sécurité au premier rang des priorités municipales.",
           "details": "Le programme annonce le renforcement de la police municipale, l'extension de la vidéosurveillance et des dispositifs de réponse rapide aux incidents.",
           "sourceIds": ["knafo-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Porter la police municipale à 8 000 agents armés (contre ~3 000 actuellement)", "sourceIds": ["knafo-programme", "knafo-ifrap"] },
+            { "text": "Déployer 500 policiers municipaux supplémentaires dans les transports en commun", "sourceIds": ["knafo-ifrap"] },
+            { "text": "Équiper les 8 000 réverbères de Paris de capteurs sonores anti-agression (éclairage automatique + alerte patrouille)", "sourceIds": ["knafo-ifrap"] },
+            { "text": "Déployer l'IA pour le traitement automatisé des images de vidéoprotection", "sourceIds": ["knafo-programme"] },
+            { "text": "Créer des brigades équestre et canine pour les parcs et zones touristiques", "sourceIds": ["knafo-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "education",
           "summary": "Annonce d'un plan de création de places en crèche et de revalorisation de l'attractivité des métiers de la petite enfance.",
           "details": "Le programme indique la création de 7 000 places en crèche et des mesures d'organisation et de rémunération pour améliorer le recrutement.",
           "sourceIds": ["knafo-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Rendre opérationnelles immédiatement 7 000 places en crèche et recruter 1 200 professionnels manquants", "sourceIds": ["knafo-programme", "knafo-ifrap"] },
+            { "text": "+10 % sur le salaire à l'embauche des agents municipaux de crèche et logement prioritaire en HLM", "sourceIds": ["knafo-ifrap"] },
+            { "text": "Gratuité de la crèche à partir du 3e enfant et allocation de 300 €/mois aux familles sans solution de garde", "sourceIds": ["knafo-ifrap"] },
+            { "text": "Créer 100 centres de soutien scolaire gratuits dans les équipements municipaux", "sourceIds": ["knafo-ifrap"] },
+            { "text": "Plafonner les repas scolaires à 3 € maximum avec approvisionnement en produits agricoles français locaux", "sourceIds": ["knafo-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
         }
       ]
     },
@@ -234,16 +385,28 @@
           "summary": "Annonce d'un renforcement et d'un armement de la police municipale avec présence continue.",
           "details": "Le programme mentionne explicitement une police municipale armée, des patrouilles renforcées et un dispositif continu de surveillance.",
           "sourceIds": ["mariani-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Porter la police municipale à 8 350 agents armés (ratio de 4 agents pour 1 000 habitants, modèle new-yorkais)", "sourceIds": ["mariani-programme", "mariani-ifrap"] },
+            { "text": "Tripler le parc de vidéoprotection à 15 000 caméras", "sourceIds": ["mariani-ifrap"] },
+            { "text": "Créer 7 brigades spécialisées : anti-squats, anti-drogue, anti-campements, transports, circulation, action rapide, police de quartier", "sourceIds": ["mariani-ifrap"] },
+            { "text": "Créer 7 zones de sécurité prioritaires (ZSP) avec antennes de police dédiées", "sourceIds": ["mariani-ifrap"] },
+            { "text": "Déployer des drones avec assistance IA et des caméras mobiles sur les zones de deal", "sourceIds": ["mariani-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
         },
         {
           "themeId": "budget",
           "summary": "Engagement de baisse de la taxe foncière dans un cadre de réduction des dépenses et de la dette.",
           "details": "Le programme présente un plan d'économies, de désendettement et de baisse de la pression fiscale locale.",
           "sourceIds": ["mariani-programme"],
-          "measures": [],
-          "lastVerified": "2026-02-15"
+          "measures": [
+            { "text": "Réduire la taxe foncière de 20 % (économie estimée : 205 € pour un studio, 574 € pour un 70 m², 820 € pour un 4 pièces)", "sourceIds": ["mariani-programme", "mariani-ifrap"] },
+            { "text": "Geler la taxe de stationnement résidentiel, les redevances de terrasse et la TEOM", "sourceIds": ["mariani-ifrap"] },
+            { "text": "Lancer un audit indépendant des comptes de la Ville dès le début du mandat", "sourceIds": ["mariani-ifrap"] },
+            { "text": "Créer un Conseil de surveillance budgétaire indépendant avec rapports publics semestriels", "sourceIds": ["mariani-ifrap"] },
+            { "text": "Fonds de 50 M€ sur 5 ans pour la revitalisation des commerces de proximité", "sourceIds": ["mariani-ifrap"] }
+          ],
+          "lastVerified": "2026-02-21"
         }
       ]
     }
@@ -253,7 +416,7 @@
       "title": "David Belliard est élu chef de file des Écologistes à Paris pour les élections municipales 2026",
       "url": "https://paris.lesecologistes.fr/posts/2aivEWtwTrOaGrO2Qf7s5K/david-belliard-est-elu-chef-de-file-des-ecologistes-a-paris-pour-les-elections-municipales-2026",
       "type": "statement",
-      "accessDate": "2026-02-15"
+      "accessDate": "2026-02-21"
     },
     "belliard-paris-fr": {
       "title": "David Belliard - Paris.fr",
@@ -261,23 +424,83 @@
       "type": "official",
       "accessDate": "2026-02-15"
     },
+    "belliard-sudradio": {
+      "title": "Municipales 2026 : David Belliard veut une place de la République 100 % piétonne à Paris - Sud Radio",
+      "url": "https://www.sudradio.fr/linvite-politique/municipales-2026-david-belliard-veut-une-place-de-la-republique-100-pietonne-a-paris",
+      "type": "interview",
+      "accessDate": "2026-02-21"
+    },
+    "belliard-plan-velo": {
+      "title": "Paris lance son nouveau plan vélo pour devenir 100 % cyclable d'ici 2026 - France Bleu",
+      "url": "https://www.francebleu.fr/infos/transports/paris-lance-son-nouveau-plan-velo-pour-devenir-100-cyclable-d-ici-2026-1634823158",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "belliard-jdd": {
+      "title": "David Belliard au JDD : « Nous voulons accélérer cette révolution piétonne à Paris »",
+      "url": "https://www.lejdd.fr/Societe/david-belliard-au-jdd-nous-voulons-accelerer-cette-revolution-pietonne-a-paris-3996018",
+      "type": "interview",
+      "accessDate": "2026-02-21"
+    },
+    "belliard-coalition": {
+      "title": "Municipales 2026 à Paris : PS, EELV et PCF se réunissent derrière Emmanuel Grégoire - Parlons Politique",
+      "url": "https://www.parlons-politique.fr/politique-locale/municipales-2026-a-paris-ps-eelv-et-pcf-se-reunissent-derriere-emmanuel-gregoire-avec-belliard-et-brossat-40-logements-publics-creches-et-tensions_6315/",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
     "gregoire-programme": {
       "title": "Le programme - Emmanuel Grégoire 2026",
       "url": "https://emmanuel-gregoire-2026.fr/",
       "type": "program",
-      "accessDate": "2026-02-15"
+      "accessDate": "2026-02-21"
+    },
+    "gregoire-publicsenat": {
+      "title": "Métro 24h/24, logements sociaux, goûter gratuit : Emmanuel Grégoire présente son projet - Public Sénat",
+      "url": "https://www.publicsenat.fr/actualites/politique/metro-24h-24-refondation-du-periscolaire-logements-sociaux-gouter-gratuit-emmanuel-gregoire-presente-son-projet-pour-les-municipales-a-paris",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "gregoire-batiactu": {
+      "title": "Les ambitions du candidat à la mairie de Paris Emmanuel Grégoire - Batiactu",
+      "url": "https://www.batiactu.com/edito/ambitions-candidat-a-mairie-paris-emmanuel-gregoire-73549.php",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "gregoire-singulier": {
+      "title": "Paris 2026 : Emmanuel Grégoire dévoile son projet pour une capitale apaisée - Le Singulier",
+      "url": "https://lesinguliersete.fr/paris-2026-emmanuel-gregoire-devoile-son-projet-pour-une-capitale-apaisee/",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "gregoire-securite": {
+      "title": "Municipales 2026 à Paris : Emmanuel Grégoire propose des kiosques mobiles de police municipale - Yahoo Actualités",
+      "url": "https://fr.news.yahoo.com/municipales-2026-%C3%A0-paris-emmanuel-005700135.html",
+      "type": "statement",
+      "accessDate": "2026-02-21"
     },
     "chikirou-programme": {
       "title": "Le programme - Sophia pour Paris",
       "url": "https://sophiapourparis.fr/",
       "type": "program",
-      "accessDate": "2026-02-15"
+      "accessDate": "2026-02-21"
+    },
+    "chikirou-singulier": {
+      "title": "Sophia Chikirou mise sur la fiscalité locale pour financer son projet parisien - Le Singulier",
+      "url": "https://lesinguliersete.fr/sophia-chikirou-mise-sur-la-fiscalite-locale-pour-financer-son-projet-parisien/",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "chikirou-ifrap": {
+      "title": "Les programmes détaillés des cinq candidats à Paris - Municipales 2026 - Fondation IFRAP",
+      "url": "https://www.ifrap.org/etat-et-collectivites/les-programmes-detailles-des-cinq-candidats-paris-municipales-2026",
+      "type": "statement",
+      "accessDate": "2026-02-21"
     },
     "bournazel-securite": {
-      "title": "Un Paris sûr pour tous - Pierre-Yves Bournazel",
-      "url": "https://bournazel.paris/engagement/un-paris-sur-pour-tous/",
+      "title": "Engagements Sécurité - Pierre-Yves Bournazel",
+      "url": "https://bournazel.paris/engagements/securite",
       "type": "program",
-      "accessDate": "2026-02-15"
+      "accessDate": "2026-02-21"
     },
     "bournazel-budget": {
       "title": "Un Paris ambitieux et responsable - Pierre-Yves Bournazel",
@@ -285,17 +508,95 @@
       "type": "program",
       "accessDate": "2026-02-15"
     },
+    "bournazel-publicsenat": {
+      "title": "Un policier par métro la nuit, 60 000 logements en plus : Pierre-Yves Bournazel promet un Paris apaisé - Public Sénat",
+      "url": "https://www.publicsenat.fr/actualites/politique/un-policier-par-metro-la-nuit-une-revolution-de-la-proprete-60-000-logements-en-plus-pierre-yves-bournazel-promet-un-paris-apaise-0",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
     "knafo-programme": {
       "title": "Programme Une ville heureuse - Sarah Knafo pour Paris",
       "url": "https://sarahpourparis.fr/unevilleheureuse",
       "type": "program",
-      "accessDate": "2026-02-15"
+      "accessDate": "2026-02-21"
+    },
+    "knafo-ifrap": {
+      "title": "Les programmes détaillés des cinq candidats à Paris - Municipales 2026 - Fondation IFRAP (Knafo)",
+      "url": "https://www.ifrap.org/etat-et-collectivites/les-programmes-detailles-des-cinq-candidats-paris-municipales-2026",
+      "type": "statement",
+      "accessDate": "2026-02-21"
     },
     "mariani-programme": {
       "title": "Retrouvons Paris - Programme",
       "url": "https://www.mariani-2026.fr/",
       "type": "program",
-      "accessDate": "2026-02-15"
+      "accessDate": "2026-02-21"
+    },
+    "mariani-ifrap": {
+      "title": "Les programmes détaillés des cinq candidats à Paris - Municipales 2026 - Fondation IFRAP (Mariani)",
+      "url": "https://www.ifrap.org/etat-et-collectivites/les-programmes-detailles-des-cinq-candidats-paris-municipales-2026",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-programme": {
+      "title": "Rachida Dati 2026 - Programme « Changer Paris »",
+      "url": "https://rachidadati2026.com/",
+      "type": "program",
+      "accessDate": "2026-02-21"
+    },
+    "dati-publicsenat": {
+      "title": "Police municipale, désendettement, métro : Rachida Dati détaille son programme pour Paris - Public Sénat",
+      "url": "https://www.publicsenat.fr/actualites/politique/police-municipale-desendettement-metro-rachida-dati-detaille-son-programme-pour-paris-et-appelle-pierre-yves-bournazel-au-rassemblement",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-ifrap": {
+      "title": "Les programmes détaillés des cinq candidats à Paris - Municipales 2026 - Fondation IFRAP (Dati)",
+      "url": "https://www.ifrap.org/etat-et-collectivites/les-programmes-detailles-des-cinq-candidats-paris-municipales-2026",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-lejdd": {
+      "title": "Vidéosurveillance, 5 000 policiers armés : le plan choc de Rachida Dati pour la sécurité à Paris - Le JDD",
+      "url": "https://www.lejdd.fr/Societe/videosurveillance-5-000-policiers-armes-le-plan-choc-de-rachida-dati-pour-la-securite-a-paris-165052",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-batiweb": {
+      "title": "Élections municipales : les propositions des candidats à Paris pour le logement - Batiweb",
+      "url": "https://www.batiweb.com/actualites/immobilier/elections-municipales-les-propositions-des-candidats-a-paris-pour-le-logement-48286",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-france24": {
+      "title": "Municipales à Paris : Dati promet de rafraîchir et apaiser la capitale - France 24",
+      "url": "https://www.france24.com/fr/info-en-continu/20260127-municipales-%C3%A0-paris-dati-promet-de-rafra%C3%AEchir-et-apaiser-la-capitale",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-vert": {
+      "title": "Municipales 2026 à Paris : qui propose quoi sur l'écologie ? - Vert.eco",
+      "url": "https://vert.eco/articles/municipales-2026-rachida-dati-emmanuel-gregoire-sarah-knafo-a-paris-qui-propose-quoi-sur-lecologie",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-jgp": {
+      "title": "Municipales à Paris : le programme d'action de Rachida Dati, du quotidien à l'attractivité - Le Journal du Grand Paris",
+      "url": "https://www.lejournaldugrandparis.fr/municipales-a-paris-le-programme-daction-de-rachida-dati-du-quotidien-a-lattractivite/",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-nouvelhay": {
+      "title": "Rachida Dati présente son programme de mobilité pour un Paris apaisé - Nouvel Hay",
+      "url": "https://www.nouvelhay.com/fr/2025/11/rachida-dati-presente-son-programme-de-mobilite-pour-un-paris-apaise-soutenue-par-la-droite-aux-municipales-de-2026/",
+      "type": "statement",
+      "accessDate": "2026-02-21"
+    },
+    "dati-petiteenfance": {
+      "title": "Municipales : Rachida Dati dévoile son programme pour les familles parisiennes - Les Pros de la Petite Enfance",
+      "url": "https://www.lesprosdelapetiteenfance.fr/revue-de-presse/municipales-rachida-devoile-son-programme-pour-les-familles-parisiennes/",
+      "type": "statement",
+      "accessDate": "2026-02-21"
     }
   }
 }
