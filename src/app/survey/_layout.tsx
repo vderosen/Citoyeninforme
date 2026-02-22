@@ -16,8 +16,6 @@ export default function SurveyLayout() {
       }}
     >
       <Stack.Screen name="intro" options={{ title: t("headers.survey") }} />
-      <Stack.Screen name="questions" options={{ title: t("headers.surveyQuestions") }} />
-      <Stack.Screen name="results" options={{ title: t("headers.surveyResults"), headerLeft: () => null }} />
     </Stack>
   );
 }

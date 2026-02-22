@@ -14,37 +14,49 @@ const GESTURES: {
   icon: keyof typeof Ionicons.glyphMap;
   color: string;
 }[] = [
-  {
-    i18nKey: "tutorialSwipeRight",
-    actionKey: "swipeAgree",
-    icon: "arrow-forward",
-    color: "#22c55e",
-  },
-  {
-    i18nKey: "tutorialSwipeLeft",
-    actionKey: "swipeDisagree",
-    icon: "arrow-back",
-    color: "#ef4444",
-  },
-  {
-    i18nKey: "tutorialSwipeUp",
-    actionKey: "swipeStronglyAgree",
-    icon: "arrow-up",
-    color: "#f59e0b",
-  },
-  {
-    i18nKey: "tutorialSwipeDown",
-    actionKey: "swipeStronglyDisagree",
-    icon: "arrow-down",
-    color: "#374151",
-  },
-  {
-    i18nKey: "tutorialDoubleTap",
-    actionKey: "swipeSkip",
-    icon: "contract-outline",
-    color: "#9ca3af",
-  },
-];
+    {
+      i18nKey: "tutorialSwipeRight",
+      actionKey: "swipeAgree",
+      icon: "arrow-forward",
+      color: "#16a34a",
+    },
+    {
+      i18nKey: "tutorialSwipeLeft",
+      actionKey: "swipeDisagree",
+      icon: "arrow-back",
+      color: "#dc2626",
+    },
+    {
+      i18nKey: "tutorialButtonStrongAgree",
+      actionKey: "swipeStronglyAgree",
+      icon: "checkmark-done",
+      color: "#16a34a",
+    },
+    {
+      i18nKey: "tutorialButtonAgree",
+      actionKey: "swipeAgree",
+      icon: "checkmark",
+      color: "#16a34a",
+    },
+    {
+      i18nKey: "tutorialButtonSkip",
+      actionKey: "swipeSkip",
+      icon: "remove-outline",
+      color: "#9ca3af",
+    },
+    {
+      i18nKey: "tutorialButtonDisagree",
+      actionKey: "swipeDisagree",
+      icon: "close",
+      color: "#dc2626",
+    },
+    {
+      i18nKey: "tutorialButtonStrongDisagree",
+      actionKey: "swipeStronglyDisagree",
+      icon: "close-circle",
+      color: "#dc2626",
+    },
+  ];
 
 export function SwipeTutorialOverlay({ onDismiss }: SwipeTutorialOverlayProps) {
   const { t } = useTranslation("survey");

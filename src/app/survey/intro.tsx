@@ -8,7 +8,7 @@ export default function SurveyIntroScreen() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/survey/questions");
+    router.replace("/(tabs)/cards");
   }, [router]);
 
   return (

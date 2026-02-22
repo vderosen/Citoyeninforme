@@ -4,7 +4,6 @@ import type {
   Candidate,
   Theme,
   Position,
-  SurveyQuestion,
   StatementCard,
   CivicFact,
   ElectionLogistics,
@@ -16,7 +15,6 @@ interface ElectionState {
   candidates: Candidate[];
   themes: Theme[];
   positions: Position[];
-  surveyQuestions: SurveyQuestion[];
   statementCards: StatementCard[];
   civicFacts: CivicFact[];
   logistics: ElectionLogistics | null;
@@ -40,7 +38,6 @@ export const useElectionStore = create<ElectionState>((set, get) => ({
   candidates: [],
   themes: [],
   positions: [],
-  surveyQuestions: [],
   statementCards: [],
   civicFacts: [],
   logistics: null,
@@ -53,9 +50,6 @@ export const useElectionStore = create<ElectionState>((set, get) => ({
       candidates: dataset.candidates,
       themes: dataset.themes.sort((a, b) => a.displayOrder - b.displayOrder),
       positions: dataset.positions,
-      surveyQuestions: dataset.surveyQuestions.sort(
-        (a, b) => a.order - b.order
-      ),
       statementCards: dataset.statementCards.sort(
         (a, b) => a.order - b.order
       ),

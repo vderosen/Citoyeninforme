@@ -2,11 +2,11 @@ import { View, Text, Pressable, Image } from "react-native";
 import Animated, { FadeInDown, useReducedMotion } from "react-native-reanimated";
 import { useTranslation } from "react-i18next";
 import type { Candidate } from "../../data/schema";
-import type { CandidateMatch } from "../../stores/survey";
+import type { CandidateMatchResult } from "../../services/matching";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
 
 interface AlignmentRankingProps {
-  ranking: CandidateMatch[];
+  ranking: CandidateMatchResult[];
   candidates: Candidate[];
   onCandidatePress: (candidateId: string) => void;
 }
@@ -18,7 +18,6 @@ export function AlignmentRanking({
 }: AlignmentRankingProps) {
   const { t } = useTranslation("survey");
   const reduceMotion = useReducedMotion();
-  const topScore = ranking[0]?.alignmentScore ?? 0;
 
   return (
     <View className="mb-6">
@@ -33,7 +32,6 @@ export function AlignmentRanking({
         if (!candidate) return null;
         const imageSource = getCandidateImageSource(candidate);
         const isTop = index === 0;
-        const barWidth = topScore > 0 ? (match.alignmentScore / topScore) * 100 : 0;
 
         return (
           <Animated.View
@@ -42,39 +40,31 @@ export function AlignmentRanking({
           >
             <Pressable
               onPress={() => onCandidatePress(match.candidateId)}
-              className="mb-3"
-              style={{ minHeight: 56 }}
+              className="mb-3 bg-white rounded-xl p-3 shadow-sm border border-warm-gray"
               accessibilityRole="button"
-              accessibilityLabel={`${candidate.name}, ${Math.round(match.alignmentScore)}% d'alignement`}
+              accessibilityLabel={`${candidate.name}, ${match.alignmentScore} points`}
             >
-              <View className="flex-row items-center mb-1">
+              <View className="flex-row items-center">
                 {imageSource ? (
                   <Image
                     source={imageSource}
-                    className="w-8 h-8 rounded-lg bg-warm-gray mr-3"
+                    className="w-10 h-10 rounded-full bg-warm-gray mr-3"
                     accessibilityIgnoresInvertColors
                   />
                 ) : (
-                  <View className="w-8 h-8 rounded-lg bg-warm-gray items-center justify-center mr-3">
+                  <View className="w-10 h-10 rounded-full bg-warm-gray items-center justify-center mr-3">
                     <Text className="text-sm">👤</Text>
                   </View>
                 )}
-                <Text className="font-display-medium text-sm text-civic-navy flex-1">
+                <Text className="font-display-medium text-base text-civic-navy flex-1">
                   {candidate.name}
                 </Text>
                 <Text
-                  className={`font-display-bold text-xl ${
-                    isTop ? "text-accent-coral" : "text-civic-navy"
-                  }`}
+                  className={`font-display-bold text-xl ${isTop ? "text-accent-coral" : "text-civic-navy"
+                    }`}
                 >
-                  {Math.round(match.alignmentScore)}%
+                  {match.alignmentScore > 0 ? `+${match.alignmentScore}` : match.alignmentScore} pts
                 </Text>
-              </View>
-              <View className="ml-11 h-3 bg-warm-gray rounded-sm overflow-hidden">
-                <View
-                  className={`h-3 rounded-sm ${isTop ? "bg-accent-coral" : "bg-civic-navy"}`}
-                  style={{ width: `${barWidth}%` }}
-                />
               </View>
             </Pressable>
           </Animated.View>

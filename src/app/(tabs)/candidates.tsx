@@ -321,7 +321,7 @@ export default function CandidatesScreen() {
                   </Text>
                   {!compact && (
                     <View className="border-t border-warm-gray pt-2 gap-1">
-                      {position.sources.map((source, index) => (
+                      {position.sources.map((source: import("../../data/schema").SourceReference, index: number) => (
                         <SourceReference
                           key={index}
                           source={source}

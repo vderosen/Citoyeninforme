@@ -26,7 +26,6 @@ export async function generateExport(): Promise<string> {
     survey: {
       status: surveyState.status,
       answers: surveyState.answers,
-      importanceWeights: surveyState.importanceWeights,
       profile: surveyState.profile,
     },
 

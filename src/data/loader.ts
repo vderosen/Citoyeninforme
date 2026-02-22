@@ -12,19 +12,17 @@ import type {
   Candidate,
   Theme,
   Position,
-  SurveyQuestion,
   StatementCard,
   CivicFact,
   ElectionLogistics,
   SourceReference,
   Measure,
-  SurveyOption,
 } from "./schema";
 
-// Import bundled JSON dataset (3 domain-organized files)
 import electionFileRaw from "./elections/paris-2026/election.json";
 import candidatesFileRaw from "./elections/paris-2026/candidates.json";
-import surveyFileRaw from "./elections/paris-2026/survey.json";
+// Fallback to require to bypass out-of-root tsconfig restrictions
+const proposalsFileRaw = require("../../data_pipeline/proposals/proposals.json");
 
 // ============================================================
 // File schema types (match the JSON structure on disk)
@@ -77,31 +75,17 @@ interface CandidatesFileSchema {
   sources: Record<string, SourceReference>;
 }
 
-interface SurveyFileSchema {
-  surveyQuestions: Array<{
-    id: string;
-    text: string;
-    themeIds: string[];
-    options: Array<{
-      id: string;
-      text: string;
-      themeScores: Record<string, number>;
-    }>;
-    order: number;
-  }>;
-  statementCards: Array<{
-    id: string;
-    text: string;
-    themeIds: string[];
-    baseScores: Record<string, number>;
-    order: number;
-  }>;
+interface ProposalItem {
+  card_id: string;
+  candidat: string;
+  titre_canonique: string;
+  description_canonique_revisitée: string;
 }
 
 // Cast JSON imports to their file schema types
 const electionFile = electionFileRaw as unknown as ElectionFileSchema;
 const candidatesFile = candidatesFileRaw as unknown as CandidatesFileSchema;
-const surveyFile = surveyFileRaw as unknown as SurveyFileSchema;
+const proposalsFile = proposalsFileRaw as unknown as ProposalItem[];
 
 export function loadBundledDataset(): ElectionDataset {
   const electionId = electionFile.election.id;
@@ -162,29 +146,78 @@ export function loadBundledDataset(): ElectionDataset {
     })
   );
 
-  // Build survey questions with electionId injected
-  const surveyQuestions: SurveyQuestion[] = surveyFile.surveyQuestions.map(
-    (q) => ({
-      id: q.id,
-      electionId,
-      text: q.text,
-      themeIds: q.themeIds,
-      options: q.options as SurveyOption[],
-      order: q.order,
-    })
-  );
+  // Clean up candidate names for matching
+  const normalizeName = (name: string) =>
+    name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").trim();
 
-  // Build statement cards with electionId injected
-  const statementCards: StatementCard[] = surveyFile.statementCards.map(
-    (s) => ({
-      id: s.id,
-      electionId,
-      text: s.text,
-      themeIds: s.themeIds,
-      baseScores: s.baseScores,
-      order: s.order,
-    })
-  );
+  // Create a fast lookup map for Candidates: { "normalized name": "candidate-id" }
+  const candidateLookup = new Map<string, string>();
+  candidates.forEach(c => candidateLookup.set(normalizeName(c.name), c.id));
+
+  // Initialize a map to aggregate proposals by card_id
+  const statementMap = new Map<string, StatementCard>();
+  let orderCounter = 1;
+
+  proposalsFile.forEach(prop => {
+    // Basic validation
+    if (!prop.card_id || !prop.candidat || prop.candidat === "Anonyme") return;
+
+    // Check if it's an opposing candidate (e.g. "Anne Hidalgo VS")
+    const isOpposing = prop.candidat.endsWith(" VS");
+    const cleanCandidat = prop.candidat.replace(" VS", "").trim();
+
+    // Resolve candidate ID
+    const normalizedTarget = normalizeName(cleanCandidat);
+    // Hardcoded aliases: proposals.json uses short last names
+    const aliases: Record<string, string> = {
+      "dati": "rachida-dati",
+      "gregoire": "emmanuel-gregoire",
+      "chikirou": "sophia-chikirou",
+      "bournazel": "pierre-yves-bournazel",
+      "knafo": "sarah-knafo",
+      "mariani": "thierry-mariani",
+    };
+
+    let candidateId = candidateLookup.get(normalizedTarget);
+
+    if (!candidateId && aliases[normalizedTarget]) {
+      candidateId = aliases[normalizedTarget];
+    }
+
+    // If we still can't find it, skip
+    if (!candidateId) {
+      console.warn(`[loader] Skipping unknown candidate: "${prop.candidat}" on card ${prop.card_id}`);
+      return;
+    }
+
+    if (!statementMap.has(prop.card_id)) {
+      statementMap.set(prop.card_id, {
+        id: prop.card_id,
+        electionId,
+        text: prop.titre_canonique || prop.card_id,
+        description: prop.description_canonique_revisitée,
+        candidateIds: [],
+        opposingCandidateIds: [],
+        order: orderCounter++
+      });
+    }
+
+    const card = statementMap.get(prop.card_id)!;
+
+    // Add candidate to the correct array
+    if (isOpposing) {
+      if (!card.opposingCandidateIds) card.opposingCandidateIds = [];
+      if (!card.opposingCandidateIds.includes(candidateId)) {
+        card.opposingCandidateIds.push(candidateId);
+      }
+    } else {
+      if (!card.candidateIds.includes(candidateId)) {
+        card.candidateIds.push(candidateId);
+      }
+    }
+  });
+
+  const statementCards = Array.from(statementMap.values());
 
   // Build civic facts with electionId injected
   const civicFacts: CivicFact[] = electionFile.civicFacts.map((f) => ({
@@ -211,7 +244,6 @@ export function loadBundledDataset(): ElectionDataset {
     candidates,
     themes,
     positions,
-    surveyQuestions,
     statementCards,
     civicFacts,
     logistics,
@@ -292,20 +324,7 @@ export function validateDataset(
     }
   }
 
-  // Validate survey questions
-  for (const question of dataset.surveyQuestions) {
-    if (!question.id) errors.push("SurveyQuestion id is required");
-    for (const themeId of question.themeIds) {
-      if (!themeIds.has(themeId))
-        errors.push(
-          `Question ${question.id}: unknown themeId ${themeId}`
-        );
-    }
-    if (!question.options || question.options.length < 2)
-      errors.push(
-        `Question ${question.id}: at least 2 options required`
-      );
-  }
+  // Validation of survey options removed since surveyQuestions was removed
 
   // Validate statement cards
   const statementCardIds = new Set<string>();
@@ -317,19 +336,15 @@ export function validateDataset(
     if (!card.text) errors.push(`StatementCard ${card.id}: text required`);
     if (card.electionId !== dataset.election.id)
       errors.push(`StatementCard ${card.id}: electionId mismatch`);
-    if (!card.themeIds || card.themeIds.length === 0)
-      errors.push(`StatementCard ${card.id}: at least 1 themeId required`);
-    for (const themeId of card.themeIds ?? []) {
-      if (!themeIds.has(themeId))
-        errors.push(`StatementCard ${card.id}: unknown themeId ${themeId}`);
+    if (!card.candidateIds || card.candidateIds.length === 0)
+      errors.push(`StatementCard ${card.id}: at least 1 candidateId required`);
+    for (const cid of card.candidateIds ?? []) {
+      if (!candidateIds.has(cid))
+        errors.push(`StatementCard ${card.id}: unknown candidateId ${cid}`);
     }
-    if (!card.baseScores || Object.keys(card.baseScores).length === 0)
-      errors.push(`StatementCard ${card.id}: baseScores required`);
-    for (const scoreThemeId of Object.keys(card.baseScores ?? {})) {
-      if (!themeIds.has(scoreThemeId))
-        errors.push(
-          `StatementCard ${card.id}: unknown baseScores themeId ${scoreThemeId}`
-        );
+    for (const cid of card.opposingCandidateIds ?? []) {
+      if (!candidateIds.has(cid))
+        errors.push(`StatementCard ${card.id}: unknown opposingCandidateId ${cid}`);
     }
   }
 

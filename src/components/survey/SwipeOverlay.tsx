@@ -17,32 +17,32 @@ interface SwipeOverlayProps {
 
 const DIRECTIONS = {
   agree: {
-    icon: "checkmark-circle" as keyof typeof Ionicons.glyphMap,
+    icon: "checkmark" as keyof typeof Ionicons.glyphMap,
     label: "D'accord",
     color: "rgba(34, 197, 94, 1)",
     bg: "rgba(34, 197, 94, 0.25)",
     border: "rgba(34, 197, 94, 0.6)",
   },
   disagree: {
-    icon: "close-circle" as keyof typeof Ionicons.glyphMap,
+    icon: "close" as keyof typeof Ionicons.glyphMap,
     label: "Pas d'accord",
     color: "rgba(239, 68, 68, 1)",
     bg: "rgba(239, 68, 68, 0.25)",
     border: "rgba(239, 68, 68, 0.6)",
   },
   strongly_agree: {
-    icon: "heart" as keyof typeof Ionicons.glyphMap,
-    label: "Coup de c\u0153ur",
-    color: "rgba(245, 158, 11, 1)",
-    bg: "rgba(245, 158, 11, 0.25)",
-    border: "rgba(245, 158, 11, 0.6)",
+    icon: "checkmark-done" as keyof typeof Ionicons.glyphMap,
+    label: "Totalement",
+    color: "rgba(34, 197, 94, 1)",
+    bg: "rgba(34, 197, 94, 0.25)",
+    border: "rgba(34, 197, 94, 0.6)",
   },
   strongly_disagree: {
-    icon: "flash" as keyof typeof Ionicons.glyphMap,
-    label: "Catastrophe",
-    color: "rgba(55, 65, 81, 1)",
-    bg: "rgba(55, 65, 81, 0.25)",
-    border: "rgba(55, 65, 81, 0.6)",
+    icon: "double-close", // Handled specially in render
+    label: "Pas du tout",
+    color: "rgba(239, 68, 68, 1)",
+    bg: "rgba(239, 68, 68, 0.25)",
+    border: "rgba(239, 68, 68, 0.6)",
   },
 };
 
@@ -62,11 +62,11 @@ export function SwipeOverlay({
     return {
       opacity: active
         ? interpolate(
-            translationX.value,
-            [0, SWIPE_THRESHOLD],
-            [0, 1],
-            Extrapolation.CLAMP
-          )
+          translationX.value,
+          [0, SWIPE_THRESHOLD],
+          [0, 1],
+          Extrapolation.CLAMP
+        )
         : 0,
     };
   });
@@ -82,11 +82,11 @@ export function SwipeOverlay({
     return {
       opacity: active
         ? interpolate(
-            translationX.value,
-            [0, -SWIPE_THRESHOLD],
-            [0, 1],
-            Extrapolation.CLAMP
-          )
+          translationX.value,
+          [0, -SWIPE_THRESHOLD],
+          [0, 1],
+          Extrapolation.CLAMP
+        )
         : 0,
     };
   });
@@ -102,11 +102,11 @@ export function SwipeOverlay({
     return {
       opacity: active
         ? interpolate(
-            translationY.value,
-            [0, -SWIPE_THRESHOLD],
-            [0, 1],
-            Extrapolation.CLAMP
-          )
+          translationY.value,
+          [0, -SWIPE_THRESHOLD],
+          [0, 1],
+          Extrapolation.CLAMP
+        )
         : 0,
     };
   });
@@ -122,11 +122,11 @@ export function SwipeOverlay({
     return {
       opacity: active
         ? interpolate(
-            translationY.value,
-            [0, SWIPE_THRESHOLD],
-            [0, 1],
-            Extrapolation.CLAMP
-          )
+          translationY.value,
+          [0, SWIPE_THRESHOLD],
+          [0, 1],
+          Extrapolation.CLAMP
+        )
         : 0,
     };
   });
@@ -147,10 +147,10 @@ export function SwipeOverlay({
           key === "agree"
             ? agreeStyle
             : key === "disagree"
-            ? disagreeStyle
-            : key === "strongly_agree"
-            ? stronglyAgreeStyle
-            : stronglyDisagreeStyle;
+              ? disagreeStyle
+              : key === "strongly_agree"
+                ? stronglyAgreeStyle
+                : stronglyDisagreeStyle;
 
         return (
           <Animated.View
@@ -173,7 +173,14 @@ export function SwipeOverlay({
             ]}
             pointerEvents="none"
           >
-            <Ionicons name={dir.icon} size={56} color={dir.color} />
+            {dir.icon === "double-close" ? (
+              <View className="flex-row items-center" style={{ marginLeft: -12 }}>
+                <Ionicons name="close" size={56} color={dir.color} style={{ marginRight: -24 }} />
+                <Ionicons name="close" size={56} color={dir.color} />
+              </View>
+            ) : (
+              <Ionicons name={dir.icon as any} size={56} color={dir.color} />
+            )}
             <Text
               style={{
                 color: dir.color,
@@ -208,7 +215,7 @@ export function SwipeOverlay({
         ]}
         pointerEvents="none"
       >
-        <Ionicons name="remove-circle" size={56} color="rgba(107, 114, 128, 0.8)" />
+        <Text style={{ fontSize: 56 }}>🤷‍♂️</Text>
         <Text
           style={{
             color: "rgba(107, 114, 128, 0.9)",
@@ -217,7 +224,7 @@ export function SwipeOverlay({
             marginTop: 8,
           }}
         >
-          Pas d'avis
+          Je ne sais pas
         </Text>
       </Animated.View>
     </>

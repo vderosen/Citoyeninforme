@@ -28,33 +28,22 @@ export interface SwipeCardHandle {
 
 interface SwipeCardProps {
   card: StatementCard;
-  themeIcon: string;
-  themeName: string;
   onSwipe: (cardId: string, direction: SwipeDirection) => void;
+  onShowDescription?: () => void;
   isTop: boolean;
 }
 
 function detectDirection(
   translationX: number,
-  translationY: number,
-  velocityX: number,
-  velocityY: number
+  velocityX: number
 ): SwipeDirection | null {
   "worklet";
   const absX = Math.abs(translationX);
-  const absY = Math.abs(translationY);
-  const fastFlick =
-    Math.abs(velocityX) > VELOCITY_THRESHOLD ||
-    Math.abs(velocityY) > VELOCITY_THRESHOLD;
+  const fastFlick = Math.abs(velocityX) > VELOCITY_THRESHOLD;
   const threshold = fastFlick ? VELOCITY_REDUCED_THRESHOLD : SWIPE_THRESHOLD;
 
-  if (absX < threshold && absY < threshold) return null;
-
-  if (absX > absY) {
-    return translationX > 0 ? "agree" : "disagree";
-  } else {
-    return translationY < 0 ? "strongly_agree" : "strongly_disagree";
-  }
+  if (absX < threshold) return null;
+  return translationX > 0 ? "agree" : "disagree";
 }
 
 /** Animate exit after a gesture — card is already at drag position */
@@ -80,8 +69,8 @@ function animateGestureExit(
       direction === "strongly_agree"
         ? -height
         : direction === "strongly_disagree"
-        ? height
-        : 0;
+          ? height
+          : 0;
 
     translateX.value = withTiming(exitX, { duration: 500 });
     translateY.value = withTiming(exitY, { duration: 500 }, () => {
@@ -93,14 +82,14 @@ function animateGestureExit(
       direction === "agree"
         ? SWIPE_THRESHOLD
         : direction === "disagree"
-        ? -SWIPE_THRESHOLD
-        : 0;
+          ? -SWIPE_THRESHOLD
+          : 0;
     const flashY =
       direction === "strongly_agree"
         ? -SWIPE_THRESHOLD
         : direction === "strongly_disagree"
-        ? SWIPE_THRESHOLD
-        : 0;
+          ? SWIPE_THRESHOLD
+          : 0;
 
     translateX.value = withTiming(flashX, { duration: 150 });
     translateY.value = withTiming(flashY, { duration: 150 });
@@ -142,14 +131,14 @@ function animateButtonExit(
     direction === "agree"
       ? SWIPE_THRESHOLD
       : direction === "disagree"
-      ? -SWIPE_THRESHOLD
-      : 0;
+        ? -SWIPE_THRESHOLD
+        : 0;
   const thresholdY =
     direction === "strongly_agree"
       ? -SWIPE_THRESHOLD
       : direction === "strongly_disagree"
-      ? SWIPE_THRESHOLD
-      : 0;
+        ? SWIPE_THRESHOLD
+        : 0;
 
   // Stage 2 target: fly off screen
   const exitX =
@@ -158,8 +147,8 @@ function animateButtonExit(
     direction === "strongly_agree"
       ? -height
       : direction === "strongly_disagree"
-      ? height
-      : 0;
+        ? height
+        : 0;
 
   if (shouldAnimate) {
     // Stage 1: snap to threshold (200ms) → Stage 2: fly off (400ms)
@@ -187,7 +176,7 @@ function animateButtonExit(
 }
 
 export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
-  function SwipeCard({ card, themeIcon, themeName, onSwipe, isTop }, ref) {
+  function SwipeCard({ card, onSwipe, onShowDescription, isTop }, ref) {
     const { width, height } = useWindowDimensions();
     const { shouldAnimate } = useMotionPreference();
     const translateX = useSharedValue(0);
@@ -256,15 +245,13 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
       .onUpdate((event) => {
         if (isAnimatingOut.value) return;
         translateX.value = event.translationX;
-        translateY.value = event.translationY;
+        translateY.value = event.translationY * 0.1;
       })
       .onEnd((event) => {
         if (isAnimatingOut.value) return;
         const direction = detectDirection(
           event.translationX,
-          event.translationY,
-          event.velocityX,
-          event.velocityY
+          event.velocityX
         );
 
         if (direction) {
@@ -330,14 +317,6 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
         >
           <Pressable onPress={isTop ? handleCardPress : undefined}>
             <View className="mx-4 bg-warm-white rounded-2xl p-6 shadow-lg border border-warm-gray min-h-[280px]">
-              {/* Theme badge */}
-              <View className="flex-row items-center mb-4">
-                <Text className="text-lg mr-2">{themeIcon}</Text>
-                <Text className="font-body-medium text-sm text-text-caption">
-                  {themeName}
-                </Text>
-              </View>
-
               {/* Statement text */}
               <Text
                 className="font-display-bold text-xl text-civic-navy leading-snug flex-1"
@@ -345,6 +324,18 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
               >
                 {card.text}
               </Text>
+
+              {card.description && (
+                <Pressable
+                  onPress={onShowDescription}
+                  className="mt-6 py-3.5 px-6 bg-white rounded-2xl shadow-sm border border-warm-gray/50 items-center justify-center"
+                  hitSlop={10}
+                >
+                  <Text className="font-display-bold text-sm text-civic-navy uppercase tracking-wider">
+                    + EN SAVOIR PLUS
+                  </Text>
+                </Pressable>
+              )}
 
               {/* Direction overlays — opacity driven by gesture position */}
               <SwipeOverlay

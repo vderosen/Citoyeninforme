@@ -71,20 +71,7 @@ export interface Position {
   lastVerified: string;
 }
 
-export interface SurveyOption {
-  id: string;
-  text: string;
-  themeScores: Record<string, number>;
-}
 
-export interface SurveyQuestion {
-  id: string;
-  electionId: string;
-  text: string;
-  themeIds: string[];
-  options: SurveyOption[];
-  order: number;
-}
 
 export interface CivicFact {
   id: string;
@@ -139,8 +126,9 @@ export interface StatementCard {
   id: string;
   electionId: string;
   text: string;
-  themeIds: string[];
-  baseScores: Record<string, number>;
+  description?: string;
+  candidateIds: string[];
+  opposingCandidateIds?: string[];
   order: number;
 }
 
@@ -149,7 +137,6 @@ export interface ElectionDataset {
   candidates: Candidate[];
   themes: Theme[];
   positions: Position[];
-  surveyQuestions: SurveyQuestion[];
   statementCards: StatementCard[];
   civicFacts: CivicFact[];
   logistics: ElectionLogistics;

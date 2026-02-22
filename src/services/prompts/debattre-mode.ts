@@ -24,38 +24,16 @@ export function buildDebateModePrompt(context: DebateModeContext): string {
   let profileSection = "";
 
   if (userProfile) {
-    const themePrefs = Object.entries(userProfile.themeScores)
-      .map(([themeId, score]) => {
-        const theme = themes.find((t) => t.id === themeId);
-        return `- ${theme?.name ?? themeId}: score ${score > 0 ? "+" : ""}${score}`;
-      })
-      .join("\n");
-
-    const contradictions =
-      userProfile.contradictions.length > 0
-        ? userProfile.contradictions
-            .map(
-              (c) =>
-                `- ${c.themeA} ↔ ${c.themeB}: ${c.description} (sévérité: ${c.severity})`
-            )
-            .join("\n")
-        : "Aucune contradiction détectée.";
 
     const ranking = userProfile.candidateRanking
       .map((r) => {
         const candidate = candidates.find((c) => c.id === r.candidateId);
-        return `- ${candidate?.name ?? r.candidateId}: ${r.alignmentScore}% d'alignement`;
+        return `- ${candidate?.name ?? r.candidateId}: ${r.alignmentScore > 0 ? "+" : ""}${r.alignmentScore} pts d'alignement`;
       })
       .join("\n");
 
     profileSection = `
 PROFIL DE L'UTILISATEUR:
-
-Préférences thématiques:
-${themePrefs}
-
-Contradictions détectées:
-${contradictions}
 
 Classement des candidats:
 ${ranking}`;
@@ -136,31 +114,18 @@ export function buildDebateTurnPrompt(context: DebateTurnContext): string {
   let profileSection = "";
 
   if (userProfile) {
-    const themePrefs = Object.entries(userProfile.themeScores)
-      .map(([themeId, score]) => {
-        const theme = themes.find((t) => t.id === themeId);
-        return `- ${theme?.name ?? themeId}: score ${score > 0 ? "+" : ""}${score}`;
+    const ranking = userProfile.candidateRanking
+      .map((r) => {
+        const candidate = candidates.find((c) => c.id === r.candidateId);
+        return `- ${candidate?.name ?? r.candidateId}: ${r.alignmentScore > 0 ? "+" : ""}${r.alignmentScore} pts d'alignement`;
       })
       .join("\n");
-
-    const contradictions =
-      userProfile.contradictions.length > 0
-        ? userProfile.contradictions
-            .map(
-              (c) =>
-                `- ${c.themeA} ↔ ${c.themeB}: ${c.description} (sévérité: ${c.severity})`
-            )
-            .join("\n")
-        : "Aucune contradiction détectée.";
 
     profileSection = `
 PROFIL DE L'UTILISATEUR:
 
-Préférences thématiques:
-${themePrefs}
-
-Contradictions détectées:
-${contradictions}`;
+Classement des candidats:
+${ranking}`;
   } else {
     profileSection =
       "\nL'utilisateur n'a pas complété le questionnaire. Propose un débat général sur les enjeux municipaux.";

@@ -14,6 +14,7 @@ interface SwipeStackProps {
   onSwipe: (cardId: string, direction: SwipeDirection) => void;
   swipedCards: { card: StatementCard; direction: SwipeDirection }[];
   onUndo?: () => void;
+  onShowDescription?: (cardId: string) => void;
 }
 
 export function SwipeStack({
@@ -22,21 +23,10 @@ export function SwipeStack({
   onSwipe,
   swipedCards,
   onUndo,
+  onShowDescription,
 }: SwipeStackProps) {
-  const themes = useElectionStore((s) => s.themes);
   const [isButtonAnimating, setIsButtonAnimating] = useState(false);
   const topCardRef = useRef<SwipeCardHandle>(null);
-
-  const getThemeInfo = useCallback(
-    (themeIds: string[]) => {
-      const theme = themes.find((t) => t.id === themeIds[0]);
-      return {
-        icon: theme?.icon ?? "\uD83D\uDCCB",
-        name: theme?.name ?? "",
-      };
-    },
-    [themes]
-  );
 
   const handleButtonPress = useCallback(
     (direction: SwipeDirection) => {
@@ -63,8 +53,6 @@ export function SwipeStack({
       <View className="justify-center" style={{ minHeight: 320, maxHeight: 420 }}>
         {visibleCards.map((card, stackIndex) => {
           const isTop = stackIndex === visibleCards.length - 1;
-          const { icon, name } = getThemeInfo(card.themeIds);
-
           return (
             <Animated.View
               key={card.id}
@@ -84,9 +72,8 @@ export function SwipeStack({
               <SwipeCard
                 ref={isTop ? topCardRef : undefined}
                 card={card}
-                themeIcon={icon}
-                themeName={name}
                 onSwipe={onSwipe}
+                onShowDescription={onShowDescription ? () => onShowDescription(card.id) : undefined}
                 isTop={isTop}
               />
             </Animated.View>

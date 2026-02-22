@@ -224,15 +224,15 @@ function validateTurnResponse(
         keyInsight: summary.keyInsight as string,
         candidateProximity: Array.isArray(summary.candidateProximity)
           ? (
-              summary.candidateProximity as Array<{
-                candidateId: string;
-                reason: string;
-              }>
-            ).filter(
-              (e) =>
-                typeof e.candidateId === "string" &&
-                typeof e.reason === "string"
-            )
+            summary.candidateProximity as Array<{
+              candidateId: string;
+              reason: string;
+            }>
+          ).filter(
+            (e) =>
+              typeof e.candidateId === "string" &&
+              typeof e.reason === "string"
+          )
           : undefined,
       },
     };
@@ -253,8 +253,8 @@ function validateTurnResponse(
 
   const sources = Array.isArray(data.sources)
     ? (data.sources as Array<{ title: string; url?: string }>).filter(
-        (s) => typeof s.title === "string"
-      )
+      (s) => typeof s.title === "string"
+    )
     : [];
 
   return {
@@ -482,16 +482,7 @@ function buildConclusionPrompt(context: ConclusionPromptContext): string {
 
   let profileSection = "";
   if (userProfile) {
-    const contradictions =
-      userProfile.contradictions.length > 0
-        ? userProfile.contradictions
-            .map(
-              (c) =>
-                `- ${c.themeA} ↔ ${c.themeB}: ${c.description}`
-            )
-            .join("\n")
-        : "Aucune.";
-    profileSection = `\nContradictions du profil:\n${contradictions}`;
+    profileSection = `\nProfil Complété: Oui`;
   }
 
   return `Tu es un agent socratique de débat pour les élections municipales de ${election.city} ${election.year}.

@@ -35,15 +35,15 @@ export default function HomeScreen() {
 
   const handleStartSurvey = () => {
     if (surveyStatus === "not_started") {
-      router.push("/survey/questions");
+      router.push("/(tabs)/cards");
     } else if (
       surveyStatus === "civic_context" ||
       surveyStatus === "questionnaire"
     ) {
-      router.push("/survey/questions");
+      router.push("/(tabs)/cards");
     } else {
       useSurveyStore.getState().reset();
-      router.push("/survey/questions");
+      router.push("/(tabs)/cards");
     }
   };
 

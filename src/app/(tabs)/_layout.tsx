@@ -35,6 +35,28 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
+        name="cards"
+        options={{
+          title: "Sondage",
+          tabBarLabel: "Sondage",
+          tabBarAccessibilityLabel: "Sondage",
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name={focused ? "albums" : "albums-outline"} size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="matches"
+        options={{
+          title: "Résultats",
+          tabBarLabel: "Résultats",
+          tabBarAccessibilityLabel: "Résultats",
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name={focused ? "trophy" : "trophy-outline"} size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="index"
         options={{
           title: t("headers.lucide"),

@@ -10,31 +10,11 @@ export type SurveyStatus =
   | "results_ready"
   | "completed";
 
-export interface ThemeJustification {
-  themeId: string;
-  alignment: "agree" | "partial" | "disagree";
-  weight: number;
-}
-
-export interface CandidateMatch {
-  candidateId: string;
-  alignmentScore: number;
-  justification: ThemeJustification[];
-}
-
-export interface Contradiction {
-  themeA: string;
-  themeB: string;
-  description: string;
-  severity: "low" | "medium" | "high";
-}
+import type { CandidateMatchResult } from "../services/matching";
 
 export interface UserProfile {
   surveyAnswers: Record<string, string>;
-  themeScores: Record<string, number>;
-  importanceWeights: Record<string, number>;
-  contradictions: Contradiction[];
-  candidateRanking: CandidateMatch[];
+  candidateRanking: CandidateMatchResult[];
   completedAt: string;
 }
 
@@ -42,7 +22,6 @@ interface SurveyState {
   status: SurveyStatus;
   currentQuestionIndex: number;
   answers: Record<string, string>;
-  importanceWeights: Record<string, number>;
   profile: UserProfile | null;
   datasetVersion: string | null;
 
@@ -50,7 +29,6 @@ interface SurveyState {
   startQuestionnaire: () => void;
   markQuestionnaireActive: () => void;
   answerQuestion: (questionId: string, optionId: string) => void;
-  setImportanceWeight: (themeId: string, weight: number) => void;
   nextQuestion: () => void;
   previousQuestion: () => void;
   clearAnswer: (cardId: string) => void;
@@ -79,13 +57,6 @@ export const useSurveyStore = create<SurveyState>()(
         set((state) => ({
           answers: { ...state.answers, [questionId]: optionId },
         })),
-      setImportanceWeight: (themeId, weight) =>
-        set((state) => ({
-          importanceWeights: {
-            ...state.importanceWeights,
-            [themeId]: weight,
-          },
-        })),
       nextQuestion: () =>
         set((state) => ({
           currentQuestionIndex: state.currentQuestionIndex + 1,
@@ -111,7 +82,6 @@ export const useSurveyStore = create<SurveyState>()(
           status: "not_started",
           currentQuestionIndex: 0,
           answers: {},
-          importanceWeights: {},
           profile: null,
           datasetVersion: null,
         }),
