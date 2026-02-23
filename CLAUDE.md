@@ -1,4 +1,4 @@
-# Lucide_v2 Development Guidelines
+# Citoyen Informé (formerly Lucide_v2) Development Guidelines
 
 Auto-generated from all feature plans. Last updated: 2026-02-13
 

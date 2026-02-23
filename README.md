@@ -1,6 +1,6 @@
-# Lucide v2
+# Citoyen Informé (formerly Lucide v2)
 
-Lucide is a civic election app built with Expo + React Native.  
+Citoyen Informé is a civic election app built with Expo + React Native.  
 Its goal is to help citizens understand candidates and programs with neutral, source-backed information, not voting recommendations.
 
 This repository currently ships with the Paris 2026 municipal election dataset (`src/data/elections/paris-2026`), but the app architecture is dataset-driven.

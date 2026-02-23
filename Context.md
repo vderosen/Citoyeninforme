@@ -1,8 +1,8 @@
-# Lucide v2 – Project Context
+# Citoyen Informé (formerly Lucide v2) – Project Context
 
 ## What We're Doing
 
-We are building **Lucide**, a city-agnostic civic app using Expo and React Native. The current MVP focuses exclusively on the **Paris 2026 municipal election**.
+We are building **Citoyen Informé**, a city-agnostic civic app using Expo and React Native. The current MVP focuses exclusively on the **Paris 2026 municipal election**.
 
 The fundamental principle of the app is **neutral, source-grounded information** without editorial bias or voting recommendations. All data is structured, heavily sourced, and loaded locally on the device to respect privacy.
 
