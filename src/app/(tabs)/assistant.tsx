@@ -50,8 +50,11 @@ export default function AssistantScreen() {
             <Ionicons name="sparkles" size={17} color="#FAFAF8" />
           </View>
           <View className="ml-2.5" style={{ marginLeft: 11, marginTop: -4 }}>
-            <Text className="font-display-medium text-base text-text-inverse">
-              Lucide
+            <Text
+              className="text-base text-text-inverse tracking-wide"
+              style={{ fontFamily: 'ArialRoundedMTBold' }}
+            >
+              Citoyen Informé
             </Text>
             <Text className="font-body text-xs text-text-inverse/70">
               {t("assistantSubtitle")}

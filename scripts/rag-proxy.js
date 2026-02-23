@@ -12,7 +12,7 @@
  *   POST /api/chat   — RAG chat (retrieve + generate)
  *
  * Usage:  node scripts/rag-proxy.js
- * Env:    OPENAI_API_KEY, OPENAI_MODEL, LLM_PROXY_PORT, LLM_PROXY_API_KEY
+ * Env:    GEMINI_API_KEY, GEMINI_MODEL, LLM_PROXY_PORT, LLM_PROXY_API_KEY
  */
 
 const http = require("http");
@@ -194,22 +194,21 @@ function loadIndex() {
 // Embedding a query
 // ---------------------------------------------------------------------------
 async function embedQuery(text, apiKey) {
-    const response = await fetch("https://api.openai.com/v1/embeddings", {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${apiKey}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-            model: indexMeta.model,
-            input: text,
+            model: "models/text-embedding-004",
+            content: { parts: [{ text }] },
         }),
     });
     if (!response.ok) {
-        throw new Error(`Embedding API error: ${response.status}`);
+        throw new Error(`Embedding API error: ${response.status} - ${await response.text()}`);
     }
     const data = await response.json();
-    return data.data[0].embedding;
+    return data.embedding.values;
 }
 
 // ---------------------------------------------------------------------------
@@ -272,11 +271,11 @@ ${contextBlocks}
 // Chat handler
 // ---------------------------------------------------------------------------
 async function handleChat(req, res) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    const model = process.env.OPENAI_MODEL || "gpt-4.1-nano-2025-04-14";
+    const apiKey = process.env.GEMINI_API_KEY;
+    const model = process.env.GEMINI_MODEL || "gemini-3.0-flash-preview";
 
     if (!apiKey) {
-        sendJson(req, res, 500, { error: "OPENAI_API_KEY missing in .env" });
+        sendJson(req, res, 500, { error: "GEMINI_API_KEY missing in .env" });
         return;
     }
 
@@ -312,11 +311,14 @@ async function handleChat(req, res) {
         // 3. Build system prompt with context
         const systemPrompt = buildSystemPrompt(retrieved);
 
-        // 4. Build messages for the LLM (system + conversation history)
-        const llmMessages = [
-            { role: "system", content: systemPrompt },
-            ...messages.filter((m) => m.role === "user" || m.role === "assistant"),
-        ];
+        // 4. Build messages for the LLM
+        // Gemini format
+        const geminiMessages = messages
+            .filter((m) => m.role === "user" || m.role === "assistant")
+            .map((m) => ({
+                role: m.role === "assistant" ? "model" : "user",
+                parts: [{ text: m.content }],
+            }));
 
         // 5. Stream response via SSE
         setCorsHeaders(req, res);
@@ -325,18 +327,18 @@ async function handleChat(req, res) {
         res.setHeader("Cache-Control", "no-cache, no-transform");
         res.setHeader("Connection", "keep-alive");
 
-        const upstream = await fetch("https://api.openai.com/v1/chat/completions", {
+        const upstream = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
-                model,
-                stream: true,
-                temperature: 0.3,
-                max_tokens: 600,
-                messages: llmMessages,
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                contents: geminiMessages,
+                generationConfig: {
+                    temperature: 0.3,
+                    maxOutputTokens: 600,
+                },
             }),
         });
 
@@ -344,7 +346,7 @@ async function handleChat(req, res) {
             const errorBody = await upstream.text();
             sseWrite(res, {
                 type: "error",
-                message: `OpenAI error ${upstream.status}: ${errorBody.slice(0, 400)}`,
+                message: `Gemini error ${upstream.status}: ${errorBody.slice(0, 400)}`,
             });
             res.end();
             return;
@@ -372,13 +374,10 @@ async function handleChat(req, res) {
                 const line = rawLine.trim();
                 if (!line.startsWith("data:")) continue;
                 const data = line.slice(5).trim();
-                if (data === "[DONE]") {
-                    sseDone(res);
-                    return;
-                }
+                if (!data) continue;
                 try {
                     const parsed = JSON.parse(data);
-                    const delta = parsed?.choices?.[0]?.delta?.content;
+                    const delta = parsed?.candidates?.[0]?.content?.parts?.[0]?.text;
                     if (delta) {
                         sseWrite(res, { type: "text", content: delta });
                     }
@@ -423,7 +422,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "GET" && req.url === "/health") {
         sendJson(req, res, 200, {
             ok: true,
-            model: process.env.OPENAI_MODEL || "gpt-4.1-nano-2025-04-14",
+            model: process.env.GEMINI_MODEL || "gemini-3.0-flash-preview",
             chunks_loaded: ragChunks.length,
             candidates: indexMeta.candidates,
             index_created_at: indexMeta.created_at,

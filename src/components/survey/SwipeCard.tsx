@@ -316,10 +316,10 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
           ]}
         >
           <Pressable onPress={isTop ? handleCardPress : undefined}>
-            <View className="mx-4 bg-warm-white rounded-2xl p-6 shadow-lg border border-warm-gray min-h-[280px]">
+            <View className="mx-4 bg-white rounded-2xl p-8 shadow-elevated border border-warm-gray/30 min-h-[280px]">
               {/* Statement text */}
               <Text
-                className="font-display-bold text-xl text-civic-navy leading-snug flex-1"
+                className="font-display-bold text-[22px] text-civic-navy leading-snug flex-1"
                 accessibilityRole="header"
               >
                 {card.text}

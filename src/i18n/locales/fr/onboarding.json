@@ -1,8 +1,8 @@
 {
   "step1": {
-    "title": "Comprendre avant de choisir.",
-    "description": "Lucide vous aide à lire et comparer les programmes municipaux, en restant neutre et en citant les sources.",
-    "cta": "Commencer"
+    "title": "Un Regard Citoyen Informé",
+    "description": "Citoyen Informé vous aide à lire et comparer les programmes municipaux, en restant neutre et en citant les sources.",
+    "cta": "Commencer l'exploration"
   },
   "step2": {
     "title": "Neutre, sourcé, vérifiable.",
@@ -22,13 +22,13 @@
       "description": "Comparer thème par thème"
     },
     "card3": {
-      "title": "Assistant Lucide",
-      "description": "Poser une question"
+      "title": "Assistant Citoyen Informé",
+      "description": "Posez vos questions à l'IA. Elle parcourt l'ensemble des programmes pour vous apporter une réponse factuelle."
     },
     "cta": "Continuer"
   },
   "step4": {
-    "title": "Ce que Lucide fait –",
+    "title": "Ce que Citoyen Informé fait –",
     "titleEmphasis": "et ne fait pas",
     "does1": "Informations sourcées",
     "does2": "Expliquer · Sourcer · Mettre en contexte",
@@ -39,7 +39,7 @@
   },
   "step5": {
     "title": "Prêt·e ?",
-    "description": "Commencez par le questionnaire : vous pourrez ensuite explorer et questionner.",
+    "description": "Nous regroupons les programmes complets. L'assistant référence les PDF originaux que vous pouvez consulter vous-même.",
     "cta": "Démarrer le questionnaire",
     "secondary1": "Explorer les candidats",
     "secondary2": "Poser une question"

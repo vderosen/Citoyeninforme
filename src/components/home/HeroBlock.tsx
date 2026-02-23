@@ -35,8 +35,11 @@ export function HeroBlock({ election }: HeroBlockProps) {
         <View className="flex-row items-center mb-3">
           <View className="w-10" />
           <View className="flex-1 items-center">
-            <Text className="font-display-semibold text-[17px] text-text-inverse">
-              Lucide
+            <Text
+              className="text-[19px] text-text-inverse tracking-wide"
+              style={{ fontFamily: 'ArialRoundedMTBold' }}
+            >
+              Citoyen Informé
             </Text>
           </View>
           <Pressable

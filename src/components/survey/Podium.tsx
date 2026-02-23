@@ -58,64 +58,71 @@ export function Podium({ ranking, candidates, onCandidatePress }: PodiumProps) {
                     const imageSource = getCandidateImageSource(candidate);
                     const partyColor = getCandidatePartyColor(candidate.id);
                     const isFirst = slot.rank === 1;
-                    const avatarSize = isFirst ? 52 : 42;
+                    const avatarSize = isFirst ? 56 : 46;
+                    const podiumColor = isFirst ? "#E84855" : "#718096"; // text-caption for neutrals
 
                     return (
-                        <Pressable
+                        <Animated.View
                             key={slot.match.candidateId}
-                            onPress={() => onCandidatePress(slot.match.candidateId)}
+                            entering={reduceMotion ? undefined : FadeInUp.delay(i * 100).springify().damping(18).mass(0.8)}
                             className="items-center flex-1"
-                            accessibilityRole="button"
-                            accessibilityLabel={`${candidate.name}, ${slot.label}`}
                         >
-                            {/* Avatar */}
-                            <View
-                                className="rounded-full border-2 mb-2 overflow-hidden"
-                                style={{
-                                    width: avatarSize + 4,
-                                    height: avatarSize + 4,
-                                    borderColor: partyColor,
-                                    backgroundColor: "#F5F3EF",
-                                }}
+                            <Pressable
+                                onPress={() => onCandidatePress(slot.match.candidateId)}
+                                className="items-center w-full"
+                                accessibilityRole="button"
+                                accessibilityLabel={`${candidate.name}, ${slot.label}`}
                             >
-                                {imageSource ? (
-                                    <Image
-                                        source={imageSource}
-                                        style={{ width: avatarSize, height: avatarSize, borderRadius: avatarSize / 2 }}
-                                        accessibilityIgnoresInvertColors
-                                    />
-                                ) : (
-                                    <View
-                                        className="items-center justify-center"
-                                        style={{ width: avatarSize, height: avatarSize }}
-                                    >
-                                        <Text style={{ fontSize: isFirst ? 22 : 18 }}>👤</Text>
-                                    </View>
-                                )}
-                            </View>
-
-                            {/* Podium bar */}
-                            <View
-                                className="w-full rounded-t-xl items-center justify-start pt-3"
-                                style={{
-                                    height: slot.height,
-                                    backgroundColor: partyColor,
-                                }}
-                            >
-                                <Text className="font-display-bold text-white text-lg mb-1">
-                                    {slot.label}
-                                </Text>
-                                <Text
-                                    className="font-display-medium text-white/90 text-xs text-center px-1"
-                                    numberOfLines={2}
+                                {/* Avatar */}
+                                <View
+                                    className={`rounded-full border-[3px] mb-2 overflow-hidden ${isFirst ? 'shadow-elevated z-10' : 'shadow-sm z-0'}`}
+                                    style={{
+                                        width: avatarSize + 6,
+                                        height: avatarSize + 6,
+                                        borderColor: podiumColor,
+                                        backgroundColor: "#FFFFFF",
+                                        marginBottom: isFirst ? 16 : 8,
+                                    }}
                                 >
-                                    {candidate.name}
-                                </Text>
-                                <Text className="font-display-bold text-white text-sm mt-1">
-                                    {slot.match.alignmentScore > 0 ? `+${slot.match.alignmentScore}` : slot.match.alignmentScore}
-                                </Text>
-                            </View>
-                        </Pressable>
+                                    {imageSource ? (
+                                        <Image
+                                            source={imageSource}
+                                            style={{ width: avatarSize, height: avatarSize, borderRadius: avatarSize / 2 }}
+                                            accessibilityIgnoresInvertColors
+                                        />
+                                    ) : (
+                                        <View
+                                            className="items-center justify-center"
+                                            style={{ width: avatarSize, height: avatarSize }}
+                                        >
+                                            <Text style={{ fontSize: isFirst ? 22 : 18 }}>👤</Text>
+                                        </View>
+                                    )}
+                                </View>
+
+                                {/* Podium bar */}
+                                <View
+                                    className={`w-full rounded-t-2xl items-center justify-start pt-4 border-t border-l border-r border-white/20 ${isFirst ? 'shadow-elevated z-10' : 'shadow-card z-0'}`}
+                                    style={{
+                                        height: slot.height + (isFirst ? 20 : 0), // Extra height for 1st place
+                                        backgroundColor: podiumColor,
+                                    }}
+                                >
+                                    <Text className="font-display-bold text-white text-lg mb-1">
+                                        {slot.label}
+                                    </Text>
+                                    <Text
+                                        className="font-display-medium text-white/90 text-xs text-center px-1"
+                                        numberOfLines={2}
+                                    >
+                                        {candidate.name}
+                                    </Text>
+                                    <Text className="font-display-bold text-white text-sm mt-1">
+                                        {slot.match.alignmentScore > 0 ? `+${slot.match.alignmentScore}` : slot.match.alignmentScore}
+                                    </Text>
+                                </View>
+                            </Pressable>
+                        </Animated.View>
                     );
                 })}
             </View>

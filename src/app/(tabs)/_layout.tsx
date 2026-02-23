@@ -1,7 +1,6 @@
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
-import { CandidateFeedbackHeaderAction } from "../../components/candidates/CandidateFeedbackHeaderAction";
 
 export default function TabLayout() {
   const { t } = useTranslation("common");
@@ -10,30 +9,42 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: true,
-        headerStyle: { backgroundColor: "#1B2A4A" },
-        headerTintColor: "#FAFAF8",
+        headerStyle: { backgroundColor: "#1E2A44" },
+        headerTintColor: "#FFFFFF",
         headerTitleStyle: {
           fontFamily: "SpaceGrotesk_600SemiBold",
-          fontSize: 17,
-          color: "#FAFAF8",
+          fontSize: 18,
+          color: "#FFFFFF",
         },
         headerTitleAlign: "center",
         headerShadowVisible: false,
         headerRight: undefined,
         lazy: true,
-        tabBarActiveTintColor: "#1B2A4A",
-        tabBarInactiveTintColor: "#6B7280",
+        tabBarActiveTintColor: "#1E2A44",
+        tabBarInactiveTintColor: "#718096",
         tabBarLabelStyle: {
           fontSize: 12,
           fontFamily: "Inter_500Medium",
         },
         tabBarStyle: {
-          backgroundColor: "#FAFAF8",
+          backgroundColor: "#FFFFFF",
           borderTopWidth: 1,
-          borderTopColor: "#1B2A4A",
+          borderTopColor: "#F4F5F7",
         },
       }}
     >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: t("headers.lucide"),
+          headerShown: false,
+          tabBarLabel: "Accueil",
+          tabBarAccessibilityLabel: "Accueil",
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name={focused ? "home" : "home-outline"} size={size} color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="cards"
         options={{
@@ -57,18 +68,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="index"
-        options={{
-          title: t("headers.lucide"),
-          headerShown: false,
-          tabBarLabel: "Accueil",
-          tabBarAccessibilityLabel: "Accueil",
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name={focused ? "home" : "home-outline"} size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="assistant"
         options={{
           title: t("headers.assistant"),
@@ -78,15 +77,11 @@ export default function TabLayout() {
           ),
         }}
       />
+      {/* Hide candidates tab — content moved to home page carousel */}
       <Tabs.Screen
         name="candidates"
         options={{
-          title: t("headers.candidats"),
-          tabBarAccessibilityLabel: "Candidats",
-          headerRight: () => <CandidateFeedbackHeaderAction />,
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name={focused ? "people" : "people-outline"} size={size} color={color} />
-          ),
+          href: null,
         }}
       />
     </Tabs>

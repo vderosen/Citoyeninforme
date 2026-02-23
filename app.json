@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Lucide",
-    "slug": "lucide",
+    "name": "Citoyen Informé",
+    "slug": "citoyen-informe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "lucide",
+    "scheme": "citoyeninforme",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lucide.app",
+      "bundleIdentifier": "com.vderosen.citoyeninforme",
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -28,7 +28,7 @@
       },
       "edgeToEdgeEnabled": true,
       "softwareKeyboardLayoutMode": "resize",
-      "package": "com.lucide.app",
+      "package": "com.vderosen.citoyeninforme",
       "versionCode": 1
     },
     "web": {
@@ -37,7 +37,12 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      ["expo-router", { "root": "./src/app" }],
+      [
+        "expo-router",
+        {
+          "root": "./src/app"
+        }
+      ],
       "expo-localization",
       [
         "@sentry/react-native/expo",
@@ -54,7 +59,14 @@
     "extra": {
       "privacyPolicyUrl": "https://lucide.app/privacy-policy",
       "supportUrl": "https://lucide.app/support",
-      "tosUrl": "https://lucide.app/terms"
-    }
+      "tosUrl": "https://lucide.app/terms",
+      "router": {
+        "root": "./src/app"
+      },
+      "eas": {
+        "projectId": "d5072e7c-4376-4909-a6dc-9e87cfeef99a"
+      }
+    },
+    "owner": "vderosen"
   }
 }

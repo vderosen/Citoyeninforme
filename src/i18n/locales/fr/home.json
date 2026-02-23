@@ -1,6 +1,7 @@
 {
   "title": "{{city}} {{year}}",
   "subtitle": "Élections municipales",
+  "candidatesTitle": "Les candidats",
   "purpose": "Comprendre, comparer, choisir — formez votre propre opinion sur les candidats et leurs programmes.",
   "startSurvey": "Tester mes idées",
   "resumeSurvey": "Reprendre le sondage",

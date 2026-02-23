@@ -1,7 +1,9 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { SwipeDirection } from "../../data/schema";
+import { PressableScale } from "../ui/PressableScale";
+import * as Haptics from "expo-haptics";
 
 interface SwipeButtonsProps {
   onButtonPress: (direction: SwipeDirection) => void;
@@ -16,67 +18,82 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
     <View className="px-4 py-4" style={{ opacity: o }}>
       <View className="flex-row items-center justify-between w-full">
         {/* Double Red Cross (-2) */}
-        <Pressable
-          onPress={() => onButtonPress("strongly_disagree")}
+        <PressableScale
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            onButtonPress("strongly_disagree");
+          }}
           disabled={disabled}
           accessibilityRole="button"
           accessibilityLabel={t("swipeStronglyDisagree")}
-          className="bg-red-50 border border-red-200 rounded-full items-center justify-center shadow-sm"
-          style={{ width: 48, height: 48 }}
+          className="bg-red-50 border-2 border-red-200 rounded-full items-center justify-center shadow-sm"
+          style={{ width: 56, height: 56 }}
         >
           <View className="flex-row items-center" style={{ marginLeft: -4 }}>
-            <Ionicons name="close" size={20} color="#dc2626" style={{ marginRight: -10 }} />
-            <Ionicons name="close" size={20} color="#dc2626" />
+            <Ionicons name="close" size={24} color="#E84855" style={{ marginRight: -12 }} />
+            <Ionicons name="close" size={24} color="#E84855" />
           </View>
-        </Pressable>
+        </PressableScale>
 
         {/* Single Red Cross (-1) -> Slightly bigger */}
-        <Pressable
-          onPress={() => onButtonPress("disagree")}
+        <PressableScale
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            onButtonPress("disagree");
+          }}
           disabled={disabled}
           accessibilityRole="button"
           accessibilityLabel={t("swipeDisagree")}
-          className="bg-red-50 border border-red-200 rounded-full items-center justify-center shadow-sm"
-          style={{ width: 64, height: 64 }}
+          className="bg-red-50 border-2 border-red-200 rounded-full items-center justify-center shadow-card"
+          style={{ width: 72, height: 72 }}
         >
-          <Ionicons name="close" size={32} color="#dc2626" />
-        </Pressable>
+          <Ionicons name="close" size={36} color="#E84855" />
+        </PressableScale>
 
         {/* Neutral Skip (0) */}
-        <Pressable
-          onPress={() => onButtonPress("skip")}
+        <PressableScale
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            onButtonPress("skip");
+          }}
           disabled={disabled}
           accessibilityRole="button"
           accessibilityLabel={t("swipeSkip")}
-          className="bg-gray-50 border border-gray-200 rounded-full items-center justify-center shadow-sm"
-          style={{ width: 48, height: 48 }}
+          className="bg-gray-50 border-2 border-gray-200 rounded-full items-center justify-center shadow-sm"
+          style={{ width: 56, height: 56 }}
         >
-          <Text style={{ fontSize: 24, transform: [{ translateY: -1 }] }}>🤷‍♂️</Text>
-        </Pressable>
+          <Text style={{ fontSize: 26, transform: [{ translateY: -1 }] }}>🤷‍♂️</Text>
+        </PressableScale>
 
         {/* Single Green Tick (+1) -> Slightly bigger */}
-        <Pressable
-          onPress={() => onButtonPress("agree")}
+        <PressableScale
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            onButtonPress("agree");
+          }}
           disabled={disabled}
           accessibilityRole="button"
           accessibilityLabel={t("swipeAgree")}
-          className="bg-green-50 border border-green-200 rounded-full items-center justify-center shadow-sm"
-          style={{ width: 64, height: 64 }}
+          className="bg-green-50 border-2 border-green-200 rounded-full items-center justify-center shadow-card"
+          style={{ width: 72, height: 72 }}
         >
-          <Ionicons name="checkmark" size={32} color="#16a34a" />
-        </Pressable>
+          <Ionicons name="checkmark" size={36} color="#4CAF83" />
+        </PressableScale>
 
         {/* Double Green Tick (+2) */}
-        <Pressable
-          onPress={() => onButtonPress("strongly_agree")}
+        <PressableScale
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            onButtonPress("strongly_agree");
+          }}
           disabled={disabled}
           accessibilityRole="button"
           accessibilityLabel={t("swipeStronglyAgree")}
-          className="bg-green-50 border border-green-200 rounded-full items-center justify-center shadow-sm"
-          style={{ width: 48, height: 48 }}
+          className="bg-green-50 border-2 border-green-200 rounded-full items-center justify-center shadow-sm"
+          style={{ width: 56, height: 56 }}
         >
-          <Ionicons name="checkmark-done" size={24} color="#16a34a" />
-        </Pressable>
+          <Ionicons name="checkmark-done" size={28} color="#4CAF83" />
+        </PressableScale>
       </View>
     </View>
   );

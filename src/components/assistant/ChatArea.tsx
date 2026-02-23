@@ -119,7 +119,7 @@ export function ChatArea({
       >
         <View className="flex-row items-end px-4 pb-4 pt-3 gap-2">
           <TextInput
-            className="flex-1 bg-warm-gray rounded-xl px-4 py-3 font-body text-base text-text-body"
+            className="flex-1 bg-warm-gray rounded-3xl px-5 py-3.5 font-body text-base text-text-body"
             placeholder={t("placeholder")}
             value={inputText}
             onChangeText={setInputText}
@@ -132,15 +132,15 @@ export function ChatArea({
           <Pressable
             onPress={handleSend}
             disabled={isStreaming || !inputText.trim()}
-            className={`w-11 h-11 rounded-full items-center justify-center ${isStreaming || !inputText.trim() ? "bg-warm-gray" : "bg-accent-coral"
+            className={`w-12 h-12 rounded-full items-center justify-center shadow-sm ${isStreaming || !inputText.trim() ? "bg-warm-gray" : "bg-civic-navy"
               }`}
             accessibilityRole="button"
             accessibilityLabel={t("send")}
           >
             <Ionicons
               name="send"
-              size={18}
-              color={isStreaming || !inputText.trim() ? "#6B7280" : "#FAFAF8"}
+              size={20}
+              color={isStreaming || !inputText.trim() ? "#6B7280" : "#FFFFFF"}
             />
           </Pressable>
         </View>

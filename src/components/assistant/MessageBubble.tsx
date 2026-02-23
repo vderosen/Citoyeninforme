@@ -9,10 +9,10 @@ interface Props {
   isStreaming?: boolean;
 }
 
-const USER_BUBBLE_COLOR = "#1B2A4A";
-const ASSISTANT_BUBBLE_COLOR = "#FFFFFF";
-const BUBBLE_R = 16;
-const POINTED_CORNER_R = 4;
+const USER_BUBBLE_COLOR = "#1E2A44"; // civic-navy
+const ASSISTANT_BUBBLE_COLOR = "rgba(30,42,68,0.05)"; // civic-navy-light
+const BUBBLE_R = 24;
+const POINTED_CORNER_R = 6;
 
 const selectableMarkdownRules: RenderRules = {
   text: (node: any, _children: any, _parent: any, styles: any, inheritedStyles: any = {}) => (

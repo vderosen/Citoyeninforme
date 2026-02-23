@@ -2,6 +2,8 @@ import { View, Text, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import { OnboardingStep } from "./OnboardingStep";
+import { PressableScale } from "../ui/PressableScale";
+import * as Haptics from "expo-haptics";
 
 type EntryPointTarget = "survey" | "candidates" | "assistant";
 
@@ -36,9 +38,12 @@ export function StepReady({
       </Text>
 
       {/* Primary CTA */}
-      <Pressable
-        onPress={() => onComplete("survey")}
-        className="bg-accent-coral rounded-xl py-4 w-full items-center mb-4"
+      <PressableScale
+        onPress={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          onComplete("survey");
+        }}
+        className="bg-civic-navy rounded-xl py-4 w-full items-center mb-4 shadow-sm"
         style={{ minHeight: 48 }}
         accessibilityRole="button"
         accessibilityLabel={t("step5.cta")}
@@ -46,7 +51,7 @@ export function StepReady({
         <Text className="font-display-medium text-text-inverse text-base">
           {t("step5.cta")}
         </Text>
-      </Pressable>
+      </PressableScale>
 
       {/* Secondary links */}
       <Pressable

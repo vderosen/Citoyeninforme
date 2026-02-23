@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
-import { View, Text, Pressable, ScrollView, useWindowDimensions } from "react-native";
+import { View, Text, ScrollView, useWindowDimensions } from "react-native";
 import { useTranslation } from "react-i18next";
+import { PressableScale } from "../ui/PressableScale";
+import * as Haptics from "expo-haptics";
 
 interface OnboardingStepProps {
   title: ReactNode;
@@ -71,9 +73,12 @@ export function OnboardingStep({
           {/* Bottom section: CTA + progress */}
           <View className="mt-8 items-center">
             {!hideCta && (
-              <Pressable
-                onPress={onCtaPress}
-                className="bg-accent-coral rounded-xl py-4 w-full items-center mb-4"
+              <PressableScale
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  onCtaPress();
+                }}
+                className="bg-civic-navy rounded-xl py-4 w-full items-center mb-4 shadow-sm"
                 style={{ minHeight: 48 }}
                 accessibilityRole="button"
                 accessibilityLabel={ctaLabel}
@@ -81,7 +86,7 @@ export function OnboardingStep({
                 <Text className="font-display-medium text-text-inverse text-base">
                   {ctaLabel}
                 </Text>
-              </Pressable>
+              </PressableScale>
             )}
 
             <Text className="font-body text-sm text-text-caption">

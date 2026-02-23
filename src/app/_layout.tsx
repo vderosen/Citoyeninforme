@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LogBox, View } from "react-native";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -21,6 +21,7 @@ import {
 } from "@expo-google-fonts/inter";
 import { useElectionStore } from "../stores/election";
 import { useAppStore } from "../stores/app";
+import { useSurveyStore } from "../stores/survey";
 import { loadBundledDataset } from "../data/loader";
 import { ErrorBoundary } from "../components/shared/ErrorBoundary";
 import { OfflineBanner } from "../components/shared/OfflineBanner";
@@ -47,8 +48,10 @@ function RootLayout() {
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
   const privacyConsentVersion = useAppStore((s) => s.privacyConsentVersion);
   const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
+  const surveyStatus = useSurveyStore((s) => s.status);
   const router = useRouter();
   const segments = useSegments();
+  const [initialRouteHandled, setInitialRouteHandled] = useState(false);
 
   const reduceMotion = useReducedMotion();
 
@@ -106,13 +109,37 @@ function RootLayout() {
       return;
     }
 
-    // Then check onboarding
-    if (!hasCompletedOnboarding && !inOnboarding) {
-      router.replace("/onboarding");
-    } else if (hasCompletedOnboarding && inOnboarding) {
-      router.replace("/(tabs)");
+    // Check onboarding
+    if (!hasCompletedOnboarding) {
+      if (!inOnboarding) {
+        router.replace("/onboarding");
+      }
+      return;
     }
-  }, [isLoaded, hasCompletedOnboarding, privacyConsentVersion, segments]);
+
+    // User has completed onboarding
+    if (inOnboarding) {
+      // Just finished onboarding, redirect to home
+      router.replace("/(tabs)");
+      setInitialRouteHandled(true);
+      return;
+    }
+
+    // Smart routing on app launch for returning users
+    if (!initialRouteHandled && segments.length > 0) {
+      setInitialRouteHandled(true);
+
+      // Only redirect if they landed on the default tabs index
+      if (segments[0] === "(tabs)" && segments.length === 1) {
+        const isSurveyFinished = surveyStatus === "results_ready" || surveyStatus === "completed";
+        if (!isSurveyFinished) {
+          router.replace("/(tabs)/cards");
+        } else {
+          router.replace("/(tabs)/matches");
+        }
+      }
+    }
+  }, [isLoaded, hasCompletedOnboarding, privacyConsentVersion, segments, surveyStatus, initialRouteHandled]);
 
   if (!fontsLoaded) {
     return null;
