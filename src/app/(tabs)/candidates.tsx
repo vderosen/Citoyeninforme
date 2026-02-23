@@ -41,7 +41,6 @@ export default function CandidatesScreen() {
   const themes = useElectionStore((s) => s.themes);
   const positions = useElectionStore((s) => s.positions);
   const getCandidateById = useElectionStore((s) => s.getCandidateById);
-  const selectMode = useAssistantStore((s) => s.selectMode);
   const selectCandidate = useAssistantStore((s) => s.selectCandidate);
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -77,10 +76,9 @@ export default function CandidatesScreen() {
 
   const handleDebate = useCallback(() => {
     if (selectedIds.length !== 1) return;
-    selectMode("parler");
     selectCandidate(selectedIds[0]);
     router.push("/(tabs)/assistant");
-  }, [selectedIds, selectMode, selectCandidate, router]);
+  }, [selectedIds, selectCandidate, router]);
 
   if (!isLoaded) {
     return (

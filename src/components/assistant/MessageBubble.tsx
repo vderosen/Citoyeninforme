@@ -155,12 +155,12 @@ export function MessageBubble({ message, isStreaming }: Props) {
           isUser
             ? undefined
             : {
-                color: "#1B2A4A",
-                offset: { width: 0, height: 2 },
-                opacity: 0.08,
-                radius: 6,
-                elevation: 3,
-              }
+              color: "#1B2A4A",
+              offset: { width: 0, height: 2 },
+              opacity: 0.08,
+              radius: 6,
+              elevation: 3,
+            }
         }
       >
         {isUser ? (
@@ -171,24 +171,6 @@ export function MessageBubble({ message, isStreaming }: Props) {
           <AssistantContent content={message.content} isStreaming={isStreaming} />
         )}
       </BubbleShape>
-
-      {message.sources && message.sources.length > 0 && (
-        <View className={`mt-1 gap-1 ${isUser ? "px-2" : "ml-2"}`}>
-          {message.sources.map((source, index) => (
-            <View key={index} className="flex-row items-center gap-1">
-              <TrustBadge
-                variant="source"
-                source={{
-                  title: source.title,
-                  url: source.url,
-                  type: "program",
-                  accessDate: "",
-                }}
-              />
-            </View>
-          ))}
-        </View>
-      )}
     </View>
   );
 }

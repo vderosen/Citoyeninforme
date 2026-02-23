@@ -6,15 +6,13 @@ import { useAssistantStore } from "../../stores/assistant";
 export function AssistantResetHeaderAction() {
   const { t } = useTranslation("assistant");
   const { t: tCommon } = useTranslation("common");
-  const mode = useAssistantStore((s) => s.mode);
   const selectedCandidateId = useAssistantStore((s) => s.selectedCandidateId);
   const conversations = useAssistantStore((s) => s.conversations);
   const resetConversation = useAssistantStore((s) => s.resetConversation);
 
-  const key =
-    mode === "parler" && selectedCandidateId
-      ? `parler:${selectedCandidateId}`
-      : mode;
+  const key = selectedCandidateId
+    ? `candidate:${selectedCandidateId}`
+    : "general";
   const hasMessages = (conversations[key] ?? []).length > 0;
 
   const handleReset = () => {

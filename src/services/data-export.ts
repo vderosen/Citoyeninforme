@@ -30,7 +30,6 @@ export async function generateExport(): Promise<string> {
     },
 
     assistant: {
-      mode: assistantState.mode,
       selectedCandidateId: assistantState.selectedCandidateId,
       conversations: Object.fromEntries(
         Object.entries(assistantState.conversations ?? {}).map(([key, msgs]) => [
