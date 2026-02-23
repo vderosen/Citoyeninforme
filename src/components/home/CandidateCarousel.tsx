@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { View, Text, FlatList, Pressable, LayoutAnimation } from "react-native";
+import { View, Text, FlatList, Pressable, Modal, ScrollView } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import type { Candidate } from "../../data/schema";
@@ -13,25 +13,28 @@ interface CandidateCarouselProps {
 
 export function CandidateCarousel({ candidates }: CandidateCarouselProps) {
     const { t } = useTranslation("home");
-    const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null);
+
+    const selectedCandidate = useMemo(
+        () => candidates.find((c) => c.id === selectedCandidateId),
+        [candidates, selectedCandidateId]
+    );
 
     const shuffled = useMemo(
         () => deterministicShuffle(candidates, dailySeed()),
         [candidates]
     );
 
-    const toggleExpand = (id: string) => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        setExpandedId((prev) => (prev === id ? null : id));
+    const openCandidate = (id: string) => {
+        setSelectedCandidateId(id);
     };
 
     const renderItem = ({ item }: { item: Candidate }) => {
-        const isExpanded = expandedId === item.id;
         const partyColor = getCandidatePartyColor(item.id);
 
         return (
             <Pressable
-                onPress={() => toggleExpand(item.id)}
+                onPress={() => openCandidate(item.id)}
                 className="mr-3 bg-white rounded-2xl overflow-hidden"
                 style={{
                     width: 160,
@@ -48,16 +51,16 @@ export function CandidateCarousel({ candidates }: CandidateCarouselProps) {
                 <View style={{ height: 4, backgroundColor: partyColor }} />
 
                 {/* Avatar + Name */}
-                <View className="items-center pt-4 pb-3 px-3">
+                <View className="items-center pt-4 pb-4 px-3">
                     <CandidateAvatar candidate={item} size={64} showRing />
                     <Text
-                        className="font-display-semibold text-sm text-civic-navy mt-2 text-center"
+                        className="font-display-semibold text-sm text-civic-navy mt-3 text-center"
                         numberOfLines={1}
                     >
                         {item.name}
                     </Text>
                     <View
-                        className="rounded-full px-2.5 py-0.5 mt-1"
+                        className="rounded-full px-2.5 py-0.5 mt-1.5"
                         style={{ backgroundColor: partyColor + "1A" }}
                     >
                         <Text
@@ -68,24 +71,7 @@ export function CandidateCarousel({ candidates }: CandidateCarouselProps) {
                             {item.party}
                         </Text>
                     </View>
-
-                    {/* Expand hint */}
-                    <Ionicons
-                        name={isExpanded ? "chevron-up" : "chevron-down"}
-                        size={16}
-                        color="#9CA3AF"
-                        style={{ marginTop: 6 }}
-                    />
                 </View>
-
-                {/* Bio — expandable */}
-                {isExpanded && item.bio ? (
-                    <View className="px-3 pb-4 border-t border-warm-gray">
-                        <Text className="font-body text-xs text-text-body mt-2 leading-relaxed">
-                            {item.bio}
-                        </Text>
-                    </View>
-                ) : null}
             </Pressable>
         );
     };
@@ -107,6 +93,59 @@ export function CandidateCarousel({ candidates }: CandidateCarouselProps) {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 4 }}
             />
+
+            <Modal
+                visible={!!selectedCandidate}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setSelectedCandidateId(null)}
+            >
+                <View className="flex-1 bg-black/50 justify-center items-center p-4">
+                    <View className="bg-warm-white w-full max-w-sm rounded-2xl overflow-hidden shadow-xl max-h-[85vh]">
+                        {selectedCandidate && (
+                            <>
+                                <View style={{ height: 6, backgroundColor: getCandidatePartyColor(selectedCandidate.id) }} />
+                                <ScrollView className="p-6">
+                                    <View className="items-center mb-6">
+                                        <CandidateAvatar candidate={selectedCandidate} size={80} showRing />
+                                        <Text className="font-display-bold text-xl text-civic-navy mt-4 text-center">
+                                            {selectedCandidate.name}
+                                        </Text>
+                                        <View
+                                            className="rounded-full px-3 py-1 mt-2"
+                                            style={{ backgroundColor: getCandidatePartyColor(selectedCandidate.id) + "1A" }}
+                                        >
+                                            <Text
+                                                className="font-body-medium text-sm text-center"
+                                                style={{ color: getCandidatePartyColor(selectedCandidate.id) }}
+                                            >
+                                                {selectedCandidate.party}
+                                            </Text>
+                                        </View>
+                                    </View>
+
+                                    {selectedCandidate.bio && (
+                                        <Text className="font-body-regular text-base text-text-secondary leading-relaxed mb-4">
+                                            {selectedCandidate.bio}
+                                        </Text>
+                                    )}
+                                </ScrollView>
+
+                                <View className="p-4 border-t border-warm-gray">
+                                    <Pressable
+                                        onPress={() => setSelectedCandidateId(null)}
+                                        className="bg-civic-navy py-3.5 px-6 rounded-xl active:opacity-80 items-center"
+                                    >
+                                        <Text className="font-display-bold text-warm-white text-sm uppercase tracking-wider">
+                                            Fermer
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </>
+                        )}
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }

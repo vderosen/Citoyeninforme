@@ -157,7 +157,7 @@ export default function CardsScreen() {
         return (
             <View className="flex-1 items-center justify-center bg-warm-white p-6">
                 <Text className="font-display-bold text-2xl text-civic-navy mb-4 text-center">
-                    Sondage terminé !
+                    Cartes Swipe terminées !
                 </Text>
                 <Text className="font-body text-text-body text-center mb-8">
                     Vous avez swipé toutes les cartes. Allez dans l'onglet Résultats pour voir vos matchs en détail.

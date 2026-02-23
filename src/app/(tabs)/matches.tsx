@@ -21,7 +21,7 @@ export default function MatchesScreen() {
                     Pas encore de résultats
                 </Text>
                 <Text className="font-body text-text-body text-center">
-                    Allez dans l'onglet Sondage et swipez quelques cartes pour découvrir avec quels candidats vous vous alignez le plus !
+                    Allez dans l'onglet Cartes Swipe et swipez quelques cartes pour découvrir avec quels candidats vous vous alignez le plus !
                 </Text>
             </View>
         );

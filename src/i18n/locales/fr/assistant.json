@@ -21,10 +21,9 @@
   "infoUncertain": "Information incertaine",
   "contextPromptCandidate": "Que propose {{candidateName}} sur {{themeName}} ?",
   "contextPromptTheme": "Comparez les positions sur {{themeName}}",
-  "contextPromptSurvey": "Expliquez mes résultats de sondage",
+  "contextPromptSurvey": "Expliquez mes résultats de Cartes Swipe",
   "newConversation": "Nouvelle conversation",
   "resetConfirm": "Voulez-vous effacer la conversation actuelle ?",
-
   "debateThemeGridTitle": "Choisissez un thème pour débattre",
   "debateLoading": "L'IA prépare son argument…",
   "debateEndButton": "Terminer le débat",
@@ -38,7 +37,6 @@
   "debateErrorGeneric": "Une erreur est survenue. Veuillez réessayer.",
   "debateErrorTimeout": "La génération prend trop de temps. Veuillez réessayer.",
   "debateErrorParse": "Réponse inattendue de l'IA. Veuillez réessayer.",
-
   "candidatePickerTitle": "À qui voulez-vous parler ?",
   "candidatePickerBack": "Retour aux modes",
   "changeCandidate": "Changer de candidat",

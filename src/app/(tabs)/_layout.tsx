@@ -48,9 +48,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="cards"
         options={{
-          title: "Sondage",
-          tabBarLabel: "Sondage",
-          tabBarAccessibilityLabel: "Sondage",
+          title: "Cartes Swipe",
+          tabBarLabel: "Cartes Swipe",
+          tabBarAccessibilityLabel: "Cartes Swipe",
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons name={focused ? "albums" : "albums-outline"} size={size} color={color} />
           ),

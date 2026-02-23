@@ -64,8 +64,8 @@ export function SwipeStack({
                   zIndex: stackIndex,
                 },
                 !isTop && {
-                  transform: [{ scale: 0.95 }, { translateY: 10 }],
-                  opacity: 0.7,
+                  // Hidden exactly beneath the top card.
+                  opacity: 1,
                 },
               ]}
             >

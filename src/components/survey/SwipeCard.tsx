@@ -304,49 +304,73 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
     });
 
     return (
-      <GestureDetector gesture={panGesture}>
-        <Animated.View
-          style={[
-            cardStyle,
-            {
-              position: "absolute",
-              width: "100%",
-              zIndex: isTop ? 10 : 0,
-            },
-          ]}
-        >
-          <Pressable onPress={isTop ? handleCardPress : undefined}>
-            <View className="mx-4 bg-white rounded-2xl p-8 shadow-elevated border border-warm-gray/30 min-h-[420px]">
-              {/* Statement text */}
-              <Text
-                className="font-display-bold text-[22px] text-civic-navy leading-snug flex-1"
-                accessibilityRole="header"
-              >
-                {card.text}
-              </Text>
-
-              {card.description && (
-                <Pressable
-                  onPress={onShowDescription}
-                  className="mt-6 py-3.5 px-6 bg-white rounded-2xl shadow-sm border border-warm-gray/50 items-center justify-center"
-                  hitSlop={10}
-                >
-                  <Text className="font-display-bold text-sm text-civic-navy uppercase tracking-wider">
-                    + EN SAVOIR PLUS
-                  </Text>
-                </Pressable>
+      <View style={{ width: "100%", position: "absolute", zIndex: isTop ? 10 : 0 }}>
+        <GestureDetector gesture={panGesture}>
+          <Animated.View
+            style={[
+              cardStyle,
+              {
+                position: "absolute",
+                width: "100%",
+                zIndex: isTop ? 10 : 0,
+              },
+            ]}
+          >
+            <Pressable onPress={isTop ? handleCardPress : undefined}>
+              {/* Fake card stacks in the background - only show for !isTop (the next card) */}
+              {!isTop && (
+                <>
+                  <View
+                    className="absolute inset-0 mx-4 rounded-2xl border border-warm-gray/40 shadow-sm"
+                    style={{
+                      backgroundColor: "#E2E8F0",
+                      transform: [{ translateX: 14 }, { translateY: -14 }],
+                      zIndex: -2
+                    }}
+                  />
+                  <View
+                    className="absolute inset-0 mx-4 rounded-2xl border border-warm-gray/40 shadow-sm"
+                    style={{
+                      backgroundColor: "#F1F5F9",
+                      transform: [{ translateX: 7 }, { translateY: -7 }],
+                      zIndex: -1
+                    }}
+                  />
+                </>
               )}
+              {/* Main Card */}
+              <View className="mx-4 bg-white rounded-2xl p-8 shadow-elevated border border-warm-gray/40 min-h-[420px]">
+                {/* Statement text */}
+                <Text
+                  className="font-display-bold text-[22px] text-civic-navy leading-snug flex-1"
+                  accessibilityRole="header"
+                >
+                  {card.text}
+                </Text>
 
-              {/* Direction overlays — opacity driven by gesture position */}
-              <SwipeOverlay
-                translationX={translateX}
-                translationY={translateY}
-                skipProgress={skipProgress}
-              />
-            </View>
-          </Pressable>
-        </Animated.View>
-      </GestureDetector>
+                {card.description && (
+                  <Pressable
+                    onPress={onShowDescription}
+                    className="mt-6 py-3.5 px-6 bg-white rounded-2xl shadow-sm border border-warm-gray/50 items-center justify-center"
+                    hitSlop={10}
+                  >
+                    <Text className="font-display-bold text-sm text-civic-navy uppercase tracking-wider">
+                      + EN SAVOIR PLUS
+                    </Text>
+                  </Pressable>
+                )}
+
+                {/* Direction overlays — opacity driven by gesture position */}
+                <SwipeOverlay
+                  translationX={translateX}
+                  translationY={translateY}
+                  skipProgress={skipProgress}
+                />
+              </View>
+            </Pressable>
+          </Animated.View>
+        </GestureDetector>
+      </View>
     );
   }
 );
