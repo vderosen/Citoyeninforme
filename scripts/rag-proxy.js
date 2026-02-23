@@ -404,7 +404,7 @@ loadDotEnv();
 loadIndex();
 
 const host = process.env.LLM_PROXY_HOST || "0.0.0.0";
-const port = Number(process.env.LLM_PROXY_PORT || "3001");
+const port = Number(process.env.LLM_PROXY_PORT || process.env.PORT || "3001");
 
 const server = http.createServer(async (req, res) => {
     if (!req.url || !req.method) {

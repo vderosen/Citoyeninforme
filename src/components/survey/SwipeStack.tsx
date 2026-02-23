@@ -50,7 +50,7 @@ export function SwipeStack({
   return (
     <View className="flex-1">
       {/* Card stack */}
-      <View className="justify-center" style={{ minHeight: 320, maxHeight: 420 }}>
+      <View className="justify-center" style={{ minHeight: 480, maxHeight: 630 }}>
         {visibleCards.map((card, stackIndex) => {
           const isTop = stackIndex === visibleCards.length - 1;
           return (

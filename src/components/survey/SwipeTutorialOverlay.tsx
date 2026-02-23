@@ -32,24 +32,14 @@ const GESTURES: {
       icon: "checkmark-done",
       color: "#16a34a",
     },
-    {
-      i18nKey: "tutorialButtonAgree",
-      actionKey: "swipeAgree",
-      icon: "checkmark",
-      color: "#16a34a",
-    },
+
     {
       i18nKey: "tutorialButtonSkip",
       actionKey: "swipeSkip",
       icon: "remove-outline",
       color: "#9ca3af",
     },
-    {
-      i18nKey: "tutorialButtonDisagree",
-      actionKey: "swipeDisagree",
-      icon: "close",
-      color: "#dc2626",
-    },
+
     {
       i18nKey: "tutorialButtonStrongDisagree",
       actionKey: "swipeStronglyDisagree",

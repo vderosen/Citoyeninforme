@@ -42,7 +42,7 @@ const ANSWER_TEXT_MAP: Record<string, string> = {
   "agree": "D'accord",
   "disagree": "Pas d'accord",
   "strongly_agree": "Coup de cœur",
-  "strongly_disagree": "Catastrophe",
+  "strongly_disagree": "Pas du tout d'accord",
   "skip": "Je ne sais pas",
 };
 

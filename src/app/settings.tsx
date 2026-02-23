@@ -182,6 +182,11 @@ export default function SettingsScreen() {
             onPress={() => WebBrowser.openBrowserAsync(PRIVACY_POLICY_URL)}
           />
           <SettingsRow
+            icon="document-text-outline"
+            label={t("about.terms")}
+            onPress={() => WebBrowser.openBrowserAsync("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")}
+          />
+          <SettingsRow
             icon="bug-outline"
             label={t("about.crashReports")}
             description={t("about.crashReportsDescription")}
