@@ -39,8 +39,9 @@ The end goal is to provide citizens with tools for election learning and critica
 | Fonts | @expo-google-fonts/space-grotesk, Inter |
 | Storage (native) | AsyncStorage via Zustand persist middleware |
 | Storage (web) | localStorage via Zustand persist middleware |
-| Chat backend | OpenAI Node SDK (proxied — Gemini via OpenAI-compatible endpoint) |
-| Deployment | Railway (Backend Proxy) |
+| Chat backend | Gemini `gemini-2.0-flash` via native Gemini API |
+| Embeddings | Gemini `gemini-embedding-001` (768 dims) — index build + live queries |
+| Deployment | Railway (Backend Proxy at `https://lucide-rag-production.up.railway.app`) |
 
 ---
 
@@ -144,15 +145,31 @@ Cards are ordered by a greedy coverage scheduler to ensure fair exposure. Order 
 
 ## Assistant IA & Backend
 
-**Setup doc:** `CHATBOT_SETUP.md`
+The assistant uses a **RAG proxy** hosted on Railway (`https://lucide-rag-production.up.railway.app`). The backend URL is set via `EXPO_PUBLIC_LLM_PROXY_URL` in `.env`. Authentication uses `EXPO_PUBLIC_LLM_PROXY_API_KEY` (shared secret).
 
-The assistant uses a **local-first proxy** hosted on Railway. The backend URL is set via `EXPO_PUBLIC_CHAT_API_URL` in `.env`.
+**RAG System (v2 — current):**
+- `scripts/rag-proxy.js` — the deployed Railway server. On each request it:
+  1. Embeds the user query with Gemini `gemini-embedding-001`
+  2. Runs cosine similarity search over `data_pipeline/rag_index.json`
+  3. Auto-detects candidate names in the query text (surname + first name variants) and applies a candidate filter
+  4. Builds a grounded system prompt from retrieved chunks
+  5. Streams the response from Gemini `gemini-2.0-flash` via SSE
+- `data_pipeline/rag_index.json` — pre-built vector index: **707 chunks**, 6 candidates, **768-dim Gemini embeddings**, ~20 MB.
+- `scripts/build-rag-index.js` — rebuilds the index from `data_pipeline/rag_sources_by_vass/text_clean/`. Uses `GEMINI_API_KEY`.
+- `scripts/test-rag-coverage.js` — validates retrieval for all 6 candidates (18/18 tests pass, cosine sim 0.56–0.83).
+- `src/services/chatbot.ts` — app-side XHR client. Sends messages + optional `candidate_filter` to `/api/chat`, streams SSE back to UI.
 
-**RAG Assistant (v2):**
-- Replaced prompt-stuffing with **embedding-based retrieval**.
-- Improved context window management for more accurate answers.
-- `services/chatbot.ts` handles Comprendre / Parler mode.
-- `services/debate.ts` handles Débattre mode (Socratic logic).
+**RAG Index Coverage:**
+| Candidate | Chunks |
+|---|---|
+| Bournazel | 118 |
+| Chikirou | 201 |
+| Dati | 63 |
+| Gregoire | 181 |
+| Knafo | 118 |
+| Mariani | 26 |
+
+**Rate limits (Railway proxy):** 5 req/min · 25 req/hour · 50 req/day per IP.
 
 ---
 
@@ -201,6 +218,45 @@ The pipeline transforms raw source documents into structured data used by the ap
 
 - **Branding & UI:** Finalized branding as "Citoyen Informé". Implemented 3D stack effect and 5-button scoring for Cartes Swipe.
 - **Architecture:** Full React Native + Expo + Zustand stack. Switched to `proposals.json` sourced from pipeline.
-- **Assistant IA:** Deployed v2 RAG system on Railway using embedding retrieval for efficient and accurate answers.
+- **Assistant IA:** Deployed v2 RAG system on Railway using Gemini embedding retrieval. All 6 candidates verified working.
 - **Survey Engine:** Direct integer scoring, balanced shuffle, and tie-aware podium display.
 - **Data Pipeline:** End-to-end pipeline from PDF ingestion to structured JSON output.
+
+---
+
+## App Store Submission Status
+
+**App Store Connect:**
+- App name: **Citoyen Informé**
+- Bundle ID: `com.vderosen.citoyeninforme`
+- SKU: `CITOYENINFORME2026`
+- Primary language: French
+- Platform: iOS
+- EAS project ID: `d5072e7c-4376-4909-a6dc-9e87cfeef99a`
+
+**EAS Build config (`eas.json`):**
+- Production profile: iOS App Bundle (AAB), auto-increment build number
+- `appleId` and `ascAppId` must be filled in `eas.json` before running `eas submit`
+
+**Build commands:**
+```bash
+eas build --platform ios --profile production   # creates IPA (~15 min)
+eas submit --platform ios --latest              # submits to App Store Connect
+```
+
+**Website URLs (all live and verified):**
+| Purpose | URL |
+|---|---|
+| Privacy Policy | `https://citoyeninforme.fr/politique-de-confidentialite` |
+| Support | `https://citoyeninforme.fr/support` |
+| Terms of Use | `https://citoyeninforme.fr/conditions-utilisation` |
+
+---
+
+## Recent Changes (2026-02-24)
+
+- **RAG embedding fix:** Switched `build-rag-index.js` from OpenAI `text-embedding-3-small` (1536 dims) to Gemini `gemini-embedding-001` (768 dims) to match the live proxy. Rebuilt `rag_index.json`. Added candidate name auto-detection in `rag-proxy.js`. All 6 candidates now answer reliably.
+- **Pre-deployment i18n fixes:** Replaced hardcoded French strings in `cards.tsx` and `matches.tsx` with `t()` calls. Added 4 new keys to `survey.json` and `accessedOn` to `common.json`.
+- **Asset fix:** Renamed `assets/images/Splash-icon.png` → `splash-icon.png` (case-sensitive Linux EAS build fix).
+- **Store cleanup:** Removed dead `importanceWeights: {}` from `survey.ts` initial state.
+- **Config fixes:** Updated `supportUrl` and `tosUrl` in `app.json` from `lucide.app` to `citoyeninforme.fr`. Fixed privacy policy fallback URL in `settings.tsx`.
