@@ -1,0 +1,1617 @@
+[
+  {
+    "id": "CARD_0001",
+    "electionId": "paris-2026",
+    "text": "Augmentation du nombre de caméras de vidéoprotection sur l'espace public parisien",
+    "description": "La mesure consisterait à augmenter le nombre de caméras de vidéoprotection sur l'espace public. Actuellement, Paris compte environ 4 400 caméras de surveillance. La proposition vise à augmenter ce nombre pour atteindre entre 8 000 et 15 000 caméras.. La vidéoprotection relève de la compétence de la Ville, en coordination avec la Préfecture de police.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "dati",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 1
+  },
+  {
+    "id": "CARD_0002",
+    "electionId": "paris-2026",
+    "text": "Privatisation de la collecte des déchets parisiens",
+    "description": "À Paris, la collecte des déchets ménagers est actuellement assurée par une organisation mixte. Les services municipaux gèrent la collecte dans les 2e, 5e, 6e, 8e, 9e, 12e, 14e, 16e, 17e et 20e arrondissements, tandis que des entreprises privées interviennent dans les autres. La proposition consisterait à confier l'intégralité de la collecte à des opérateurs privés. Cette mesure transférerait donc la responsabilité de la collecte des déchets des arrondissements actuellement gérés par la ville à des entreprises privées.",
+    "category": "Environnement",
+    "candidateIds": [
+      "dati",
+      "bournazel",
+      "knafo",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 2
+  },
+  {
+    "id": "CARD_0002 VS",
+    "electionId": "paris-2026",
+    "text": "Service 100 % public de la propreté urbaine",
+    "description": "La mesure consisterait à confier l’ensemble des missions de propreté urbaine: collecte des déchets, nettoiement des rues et entretien de l’espace public exclusivement aux services municipaux. Aujourd’hui, à Paris, une partie de ces activités est assurée par des entreprises privées dans le cadre de contrats conclus avec la Ville, tandis que d’autres arrondissements sont gérés en régie. L’internalisation totale impliquerait la fin de ces délégations et la reprise directe de l’ensemble des missions par des agents municipaux.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 3
+  },
+  {
+    "id": "CARD_0003",
+    "electionId": "paris-2026",
+    "text": "Décentralisation de la gestion de la propreté aux maires d’arrondissement",
+    "description": "Le candidat propose de confier une partie des effectifs de la propreté directement aux maires d'arrondissement. Cela impliquerait de déléguer aux maires d’arrondissement des responsabilités décisionnelles et des moyens de gestion, notamment concernant le personnel et le choix des prestataires de services pour les missions de proximité.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 4
+  },
+  {
+    "id": "CARD_0004",
+    "electionId": "paris-2026",
+    "text": "Développement de parkings relais aux entrées de Paris",
+    "description": "La mesure consisterait à aménager des parkings relais aux entrées de Paris, en les connectant au réseau de transports en commun. L'objectif serait de permettre aux automobilistes de stationner leur véhicule en périphérie de la ville et d'utiliser les transports en commun pour se rendre dans le centre de Paris. Ces parkings seraient situés, par exemple, sur des terrains délaissés. Le dispositif comprendrait la sécurisation des sites et une tarification spécifique.",
+    "category": "Transports",
+    "candidateIds": [
+      "dati",
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 5
+  },
+  {
+    "id": "CARD_0005",
+    "electionId": "paris-2026",
+    "text": "Augmentation de l'offre de stationnement automobile à Paris",
+    "description": "La mesure consisterait à augmenter l'offre de stationnement automobile à Paris par la création de 15 000 à 20 000 places supplémentaires durant la mandature. Ces nouveaux emplacements seraient créés par la construction ou l'aménagement d'espaces dédiés. \n\nÀ titre de référence, Paris compte actuellement environ 800 000 places de stationnement pour véhicules motorisés (voitures majoritairement, ainsi que deux-roues), dont environ 130 000 à 140 000 en voirie et le reste principalement en parkings privés ou souterrains (Ville de Paris, données sur la réforme du stationnement).",
+    "category": "Transports",
+    "candidateIds": [
+      "knafo",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 6
+  },
+  {
+    "id": "CARD_0006",
+    "electionId": "paris-2026",
+    "text": "Baisser les tarifs de stationnement d'automobile en voirie",
+    "description": "La mesure consisterait à réduire le coût horaire du stationnement en surface pour l’ensemble des usagers à Paris. Aujourd’hui, le stationnement sur voirie est payant du lundi au samedi, généralement de 9 h à 20 h, avec des tarifs visiteurs compris entre environ 4 € et 6 € par heure selon l’arrondissement. Les arrondissements centraux appliquent les montants les plus élevés, tandis que les arrondissements périphériques sont moins chers.",
+    "category": "Transports",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 7
+  },
+  {
+    "id": "CARD_0007",
+    "electionId": "paris-2026",
+    "text": "Gratuité du stationnement pour les deux-roues motorisés à Paris",
+    "description": "La mesure supprimerait le paiement du stationnement pour les deux-roues motorisés (motos et scooters) sur la voirie à Paris. Avant septembre 2022, le stationnement était gratuit pour ces véhicules. Depuis, ils sont soumis à une tarification horaire, avec des tarifs spécifiques pour les résidents. La mesure reviendrait donc à la situation antérieure, en supprimant ces frais de stationnement, qu'ils soient horaires ou résidentiels. Elle s'appliquerait à l'ensemble des propriétaires de deux-roues motorisés, sans distinction. La mesure impacterait les recettes de la Ville de Paris issues du stationnement payant.",
+    "category": "Transports",
+    "candidateIds": [
+      "knafo",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 8
+  },
+  {
+    "id": "CARD_0008",
+    "electionId": "paris-2026",
+    "text": "Aménagement des quais de la Seine en un parc urbain continu",
+    "description": "La mesure propose de réaménager les quais de Seine en un parc urbain continu traversant Paris. Le projet prévoit la création d'un cheminement piétonnier continu le long du fleuve, impliquant potentiellement des modifications de la circulation sur les voies adjacentes. L'aménagement inclurait l'installation d'équipements de loisirs et un renforcement de la végétalisation sur l'ensemble du site.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 9
+  },
+  {
+    "id": "CARD_0009",
+    "electionId": "paris-2026",
+    "text": "Doubler au minimum l'effectif actuel de la police municpale",
+    "description": "La police municipale parisienne comptait environ 2 300 agents en 2024 selon les communications de la Ville. La mesure consisterait à augmenter cet effectif, avec des propositions allant de 5000 à 8 350 agents. Cela impliquerait un plan de recrutement et de formation, ainsi qu’une augmentation des moyens budgétaires consacrés au service. Les propositions divergent quant à l'armement des agents, allant du maintien d'une force non létale à l'autorisation du port d'armes à feu, ce qui impliquerait des formations spécifiques et la définition de règles d’usage. L’organisation et le niveau d’effectifs relèvent de la compétence de la Ville de Paris.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "dati",
+      "bournazel",
+      "knafo",
+      "mariani",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 10
+  },
+  {
+    "id": "CARD_0010",
+    "electionId": "paris-2026",
+    "text": "Port d'armes pour la police municipale",
+    "description": "Actuellement, les agents de la police municipale parisienne sont équipés d'un bâton de défense, d'une bombe lacrymogène, de menottes, d'un gilet pare-balles et de caméras individuelles. La mesure envisagerait d'autoriser le port d'armes à feu en complément de cet équipement.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "bournazel",
+      "knafo",
+      "dati",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 11
+  },
+  {
+    "id": "CARD_0010 VS",
+    "electionId": "paris-2026",
+    "text": "Refus de l'armement létal pour la police municipale parisienne",
+    "description": "La mesure maintiendrait la police municipale parisienne comme une force non létale. Actuellement, les agents sont équipés d'un bâton de défense, d'une bombe lacrymogène, de menottes, d'un gilet pare-balles et de caméras individuelles. La proposition exclut l'ajout d'armes à feu à cet équipement. La police municipale assure des missions de prévention, de tranquillité publique et de contrôle des règlements municipaux. Son organisation et son équipement relèvent de la compétence de la Ville de Paris, en coordination avec la Préfecture de police pour les aspects réglementaires.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "chikirou",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 12
+  },
+  {
+    "id": "CARD_0011",
+    "electionId": "paris-2026",
+    "text": "Ouverture généralisée des parcs parisiens aux chiens tenus en laisse",
+    "description": "La logique d'accès aux espaces verts sera inversée pour autoriser les chiens en laisse par défaut. Actuellement interdits dans la plupart des parcs, les animaux y auront accès sauf exceptions définies localement. Cette réforme vise à offrir plus d'espaces de promenade aux propriétaires de chiens.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "dati",
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 13
+  },
+  {
+    "id": "CARD_0012",
+    "electionId": "paris-2026",
+    "text": "Augmentation des espaces autorisés aux chiens sans laisse à Paris",
+    "description": "La mesure consisterait à augmenter le nombre d'espaces où les chiens seraient autorisés à circuler sans laisse à Paris. Cela pourrait prendre la forme d'aménagement de nouveaux caniparcs sécurisés, de sentiers de promenade dédiés, ou de l'extension des zones existantes où les chiens sont déjà autorisés sans laisse.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "chikirou",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 14
+  },
+  {
+    "id": "CARD_0013",
+    "electionId": "paris-2026",
+    "text": "Déploiement de radars sonores et renforcement des contrôles de nuisances sonores routières",
+    "description": "La mesure consisterait à déployer des radars sonores, aussi appelés « méduses », sur la voirie parisienne. Ces dispositifs ont pour but de mesurer les émissions sonores des véhicules et d'identifier ceux dépassant les seuils autorisés. Le déploiement de ces radars s'accompagnerait d'un renforcement des contrôles de nuisances sonores routières par la police municipale. L'objectif est de verbaliser automatiquement les conducteurs dont les véhicules sont trop bruyants.",
+    "category": "Transports",
+    "candidateIds": [
+      "dati",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 15
+  },
+  {
+    "id": "CARD_0014",
+    "electionId": "paris-2026",
+    "text": "Facilitation de l'implantation géographique des établissements d'enseignement privé",
+    "description": "La mesure consisterait à renforcer le soutien aux établissements d'enseignement privé sous contrat avec l'État, notamment en facilitant leur implantation géographique à Paris. Concrètement, la Ville pourrait céder des locaux municipaux vacants à des institutions privées reconnues afin de permettre l'ouverture de nouvelles antennes scolaires.",
+    "category": "Éducation",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 16
+  },
+  {
+    "id": "CARD_0015",
+    "electionId": "paris-2026",
+    "text": "Créer 10 000 nouvelles solutions de garde (crèches et garde à domicile)",
+    "description": "Ce projet prévoit la création de 10 000 solutions supplémentaires pour la petite enfance. Cela inclut le développement de nouvelles places en crèches municipales et le soutien aux modes de garde à domicile. \nActuellement, Paris dispose d'environ 45 000 solutions d'accueils \"petite enfance\" (crêche + garde à domicile).",
+    "category": "Social",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 17
+  },
+  {
+    "id": "CARD_0016",
+    "electionId": "paris-2026",
+    "text": "Extension des horaires d'ouverture des crèches",
+    "description": "La mesure consisterait à étendre les horaires d’ouverture des crèches municipales, incluant potentiellement le samedi et, dans certains cas, le dimanche. L'accès serait prioritairement accordé aux familles monoparentales et aux parents exerçant une activité professionnelle durant ces périodes.  \nActuellement, les crèches municipales à Paris sont généralement ouvertes du lundi au vendredi, avec une amplitude horaire d'environ 10h30 par jour, souvent entre 7h30/8h00 et 18h30/19h30.",
+    "category": "Social",
+    "candidateIds": [
+      "mariani",
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 18
+  },
+  {
+    "id": "CARD_0017",
+    "electionId": "paris-2026",
+    "text": "Interdiction des cars de tourisme non électriques dans la capitale",
+    "description": "La mesure interdirait aux cars de tourisme non électriques de circuler dans Paris. Actuellement, les cars de tourisme, souvent thermiques, peuvent circuler et stationner selon certaines règles. La proposition limiterait l'accès aux seuls véhicules électriques, impliquant le remplacement des flottes existantes pour les opérateurs souhaitant desservir la capitale.",
+    "category": "Transports",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 19
+  },
+  {
+    "id": "CARD_0018",
+    "electionId": "paris-2026",
+    "text": "Suppression du stationnement des autocars de tourisme sur l'espace public",
+    "description": "La mesure interdirait le stationnement des autocars de tourisme sur l'espace public parisien. Elle contraindrait ces véhicules à utiliser des parkings privés ou des espaces dédiés hors voirie.",
+    "category": "Transports",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 20
+  },
+  {
+    "id": "CARD_0019",
+    "electionId": "paris-2026",
+    "text": "Limitation des locations Airbnb à 30 jours par an",
+    "description": "Pour lutter contre la crise du logement, le candidat propose de réduire drastiquement la durée autorisée des meublés de tourisme. La limite annuelle de location passerait de 90 jours à seulement 30 jours. Cette mesure vise à inciter les propriétaires à privilégier les baux de longue durée pour les résidents.",
+    "category": "Logement",
+    "candidateIds": [
+      "bournazel",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 21
+  },
+  {
+    "id": "CARD_0020",
+    "electionId": "paris-2026",
+    "text": "Mettre en place un système de vidéo surveillance par IA où les images ne sont ni visionnées ni enregistrées sauf en cas d'infraction.",
+    "description": "Le dispositif de vidéoprotection sera limité par l'absence d'enregistrement ou de visionnage systématique. L'accès aux images ne sera possible qu'en cas d'infraction avérée commise sur la voie publique.  Ce dispositif impliquerait l'installation de caméras équipées de logiciels d'analyse d'images, ainsi que la définition des types d'infractions susceptibles de déclencher l'enregistrement.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 22
+  },
+  {
+    "id": "CARD_0021",
+    "electionId": "paris-2026",
+    "text": "Suppression de l'encadrement des loyers à Paris",
+    "description": "L'encadrement des loyers est un dispositif qui limite le montant des loyers dans les zones tendues. La mesure consisterait à supprimer ce dispositif à Paris. Actuellement, l'encadrement des loyers est en vigueur et fixe des loyers de référence, majorés ou minorés, en fonction des caractéristiques du logement et du quartier. La suppression impliquerait la libéralisation des loyers, permettant aux propriétaires de fixer librement le prix des nouveaux baux.",
+    "category": "Logement",
+    "candidateIds": [
+      "mariani",
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 23
+  },
+  {
+    "id": "CARD_0021 VS",
+    "electionId": "paris-2026",
+    "text": "Maintenir l'encadrement des loyers",
+    "description": "L'encadrement des loyers est un dispositif qui limite les prix des loyers dans le parc privé, principalement dans les zones tendues où la demande de logements est supérieure à l'offre. La mesure consisterait à maintenir ce dispositif. Cela signifie que les loyers des logements concernés ne pourraient pas dépasser un certain plafond, défini en fonction de différents critères tels que la localisation, la typologie du logement et sa date de construction.",
+    "category": "Logement",
+    "candidateIds": [
+      "chikirou",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 24
+  },
+  {
+    "id": "CARD_0022",
+    "electionId": "paris-2026",
+    "text": "Priorité d'accès au logement social pour les agents municipaux",
+    "description": "La mesure consisterait à instaurer une priorité d’accès à une partie du parc de logements sociaux parisiens pour les agents municipaux, en intégrant des quotas réservés dans les critères d’attribution. Actuellement, l’accès au logement social à Paris repose sur un système de cotation fondé sur les ressources, la composition familiale et l’urgence, sans priorité explicite pour les agents de la Ville . Cette réforme modifierait la procédure de sélection en accordant des points ou des réservations spécifiques aux agents municipaux demandeurs.\nEn 2023, 503 logements sociaux ont été attribués à des agents de la Ville, sur environ 4 500 attributions annuelles.",
+    "category": "Logement",
+    "candidateIds": [
+      "bournazel",
+      "gregoire",
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 25
+  },
+  {
+    "id": "CARD_0023",
+    "electionId": "paris-2026",
+    "text": "Arrêt de la construction de nouveaux logements sociaux",
+    "description": "La mesure consisterait à renoncer à l’objectif municipal visant à porter à 40 % la part de logements publics à Paris d’ici 2035, dont 30 % de logements sociaux. Cet objectif figure dans la stratégie actuelle de la Ville. En 2023, les logements sociaux représentaient environ 25 % des résidences principales parisiennes.",
+    "category": "Logement",
+    "candidateIds": [
+      "knafo",
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 26
+  },
+  {
+    "id": "CARD_0023 VS",
+    "electionId": "paris-2026",
+    "text": "Création massive de nouveaux logements sociaux",
+    "description": "La mesure vise à augmenter la part des logements sous gestion publique à 40 % du parc immobilier parisien d'ici 2035. Cet objectif se répartirait en 30 % de logements sociaux et 10 % de logements abordables. Actuellement, la part de logements sociaux à Paris est inférieure à ce seuil. La mise en œuvre impliquerait l'acquisition ou la construction de nouveaux logements par la Ville ou ses partenaires, ainsi que la transformation de logements existants en logements sociaux ou abordables. L'atteinte de cet objectif nécessiterait une politique foncière active et des financements adaptés.",
+    "category": "Logement",
+    "candidateIds": [
+      "chikirou",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 27
+  },
+  {
+    "id": "CARD_0024",
+    "electionId": "paris-2026",
+    "text": "Taxer davantage les logements non principaux (vacants + résidences secondaires) pour les remettre sur le marché",
+    "description": "La mesure consisterait à augmenter la fiscalité applicable aux logements qui ne constituent pas une résidence principale, afin d’inciter à leur remise sur le marché. Aujourd’hui, un logement vacant depuis au moins un an au 1er janvier est soumis à la taxe sur les logements vacants (TLV), au taux de 17 % la première année puis 34 % les années suivantes. Ces taux s’appliquent à la valeur locative cadastrale, c’est-à-dire un loyer théorique fixé par l’administration fiscale, et non au loyer de marché. Les résidences secondaires sont soumises à la taxe d’habitation sur les résidences secondaires, avec à Paris une majoration de 60 % votée par la Ville.",
+    "category": "Logement",
+    "candidateIds": [
+      "chikirou",
+      "gregoire",
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 28
+  },
+  {
+    "id": "CARD_0025",
+    "electionId": "paris-2026",
+    "text": "Extension des horaires nocturnes des transports en commun les week-ends à Paris",
+    "description": "La mesure consisterait à étendre les horaires de fonctionnement des transports en commun (métro, bus, tramway) les nuits des vendredis et samedis. Actuellement, le service est interrompu durant une partie de la nuit. La mise en œuvre pourrait privilégier le fonctionnement continu des lignes de métro automatisées. La mesure nécessiterait une coordination avec Île-de-France Mobilités, l'autorité organisatrice des transports dans la région. Les lignes de transport automatique comme la ligne 14 ou 1 du métro seront en priorités ciblés.",
+    "category": "Transports",
+    "candidateIds": [
+      "bournazel",
+      "gregoire",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 29
+  },
+  {
+    "id": "CARD_0026",
+    "electionId": "paris-2026",
+    "text": "Renforcement de la présence d'agents de sécurité dans le métro en soirée",
+    "description": "La mesure consisterait à renforcer la présence d'agents de sécurité dans le métro parisien en soirée. Concrètement, cela impliquerait le déploiement d'un agent de sécurité dans la première voiture de chaque rame quotidiennement de 20h jusqu'à la fin du service. La mise en œuvre nécessiterait une coordination entre la Ville de Paris, responsable de la police municipale, et la RATP, opérateur du réseau de métro.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 30
+  },
+  {
+    "id": "CARD_0027",
+    "electionId": "paris-2026",
+    "text": "création de trois nouveaux quartiers étudiants, avec 7.000 logements supplémentaires dédiés",
+    "description": "La mesure consisterait à créer trois nouveaux quartiers étudiants, offrant 7 000 logements supplémentaires. Ces logements seraient spécifiquement dédiés aux étudiants et proposés via un bail étudiant annuel ou un contrat de location solidaire de neuf à dix mois. Le dispositif s'appuierait sur la mobilisation du parc immobilier privé, avec des loyers encadrés et stabilisés. La création de ces quartiers impliquerait une planification urbaine et des partenariats avec des propriétaires privés.",
+    "category": "Logement",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 31
+  },
+  {
+    "id": "CARD_0028",
+    "electionId": "paris-2026",
+    "text": "Réservation d'un quota de logements sociaux pour les étudiants et jeunes actifs",
+    "description": "La mesure consisterait à réserver une part des logements sociaux aux étudiants et jeunes actifs. Cela passerait par la mise en place d'un quota de place dans les nouvelles constructions et acquisitions de logements sociaux. Ce dispositif s'appliquerait aux nouvelles opérations immobilières ainsi qu'au parc de logements géré par les régies publiques. La mesure augmenterait le nombre de logements sociaux disponibles pour les étudiants et jeunes actifs par rapport aux règles d'attribution actuelles.",
+    "category": "Logement",
+    "candidateIds": [
+      "chikirou",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 32
+  },
+  {
+    "id": "CARD_0029",
+    "electionId": "paris-2026",
+    "text": "Accélération de la rénovation du parc social à 12 000 logements par an",
+    "description": "La mesure consisterait à multiplier par quatre le rythme actuel de rénovation du parc de logements sociaux à Paris pour atteindre environ 12 000 logements rénovés par an sur une décennie, dans le cadre d’un « plan Marshall ». Aujourd’hui, la Ville de Paris accompagne les bailleurs sociaux pour rénover leur patrimoine, avec un rythme estimé à plus de 5 000 logements sociaux rénovés chaque année pour répondre aux objectifs climatiques et d’amélioration du confort, selon les données de la municipalité.",
+    "category": "Logement",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 33
+  },
+  {
+    "id": "CARD_0030",
+    "electionId": "paris-2026",
+    "text": "remplacement non systématique de tous les départs à la retraite afin de réduire le nombre de fonctionnaire municipaux",
+    "description": "La mesure consisterait à ne pas remplacer systématiquement les fonctionnaires municipaux partant à la retraite, afin de réduire le nombre d'agents de la collectivité territoriale. Cela impliquerait un non-remplacement partiel ou total des départs, potentiellement accompagné d'un gel de postes vacants et d'une réduction programmée des effectifs. Le dispositif viserait principalement les fonctions administratives et de support. Le nombre de fonctionnaires territoriaux à Paris était autour de 45 000 en 2023.",
+    "category": "Économie",
+    "candidateIds": [
+      "dati",
+      "bournazel",
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 34
+  },
+  {
+    "id": "CARD_0031",
+    "electionId": "paris-2026",
+    "text": "Piétonnisation des abords des 626 écoles maternelles et élémentaires",
+    "description": "La mesure consisterait à étendre les zones piétonnes aux abords des 626 écoles maternelles et élémentaires de Paris. Cela impliquerait de réserver l'espace public aux piétons sur les rues desservant ces établissements, potentiellement de manière temporaire aux heures d'entrée et de sortie des classes. Cette mesure s'ajouterait aux rues déjà piétonnes dans la capitale, augmentant ainsi le nombre total de zones réservées aux piétons.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 35
+  },
+  {
+    "id": "CARD_0032",
+    "electionId": "paris-2026",
+    "text": "Transformation de la voirie pour atteindre 1000 rues piétonnes",
+    "description": "La mesure consisterait à augmenter le nombre de rues piétonnes à Paris pour atteindre un total de 1 000 rues. Cela impliquerait de transformer des voies actuellement ouvertes à la circulation automobile afin de les réserver entièrement aux piétons. Une partie de ces nouvelles rues piétonnes serait aménagée aux abords des écoles maternelles et élémentaires. \n\nAujourd’hui, on compte environ 300 à 500 rues faisant l’objet d’une piétonnisation, en incluant les aires piétonnes permanentes et les dispositifs de type « rues aux écoles ».",
+    "category": "Transports",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 36
+  },
+  {
+    "id": "CARD_0033",
+    "electionId": "paris-2026",
+    "text": "Réouverture de la circulation motorisée des voies sur berge et création d'une promenade suspendue",
+    "description": "La mesure consisterait à rouvrir à la circulation motorisée des voies sur berges actuellement piétonnisées ou réservées à d'autres usages. En parallèle, il serait créé une promenade suspendue, structure piétonne distincte surplombant potentiellement les voies de circulation. La réouverture des voies impacterait la circulation et la répartition de l'espace public. La création d'une promenade suspendue offrirait un espace dédié aux piétons, séparé du flux automobile. La faisabilité technique et l'impact environnemental de la promenade suspendue devraient être étudiés.",
+    "category": "Transports",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 37
+  },
+  {
+    "id": "CARD_0034",
+    "electionId": "paris-2026",
+    "text": "Développement et pérennisation des couloirs de bus réservés dans Paris",
+    "description": "La mesure consisterait à développer et pérenniser les couloirs de bus existants à Paris. Cela impliquerait l'aménagement et l'extension de voies de circulation réservées aux autobus, séparées du reste du trafic automobile par un marquage et une signalisation spécifiques.",
+    "category": "Transports",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 38
+  },
+  {
+    "id": "CARD_0035",
+    "electionId": "paris-2026",
+    "text": "Suppression du financement et des structures municipales d'accueil des migrants à Paris",
+    "description": "La mesure consisterait à limiter l'utilisation des ressources et des compétences municipales pour l'accueil des populations immigrées à Paris. Cela inclurait l'arrêt des financements municipaux pour les programmes d'accompagnement et de prise en charge des migrants, ainsi que la fermeture des structures d'accueil gérées par la ville, telles que la Maison des réfugiés. L'État étant compétent en matière d'immigration, la mesure impacterait les actions municipales complémentaires.",
+    "category": "Social",
+    "candidateIds": [
+      "knafo",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 39
+  },
+  {
+    "id": "CARD_0036",
+    "electionId": "paris-2026",
+    "text": "Ouverture à des référendums sur certaines décisions municipales",
+    "description": "La mesure consisterait à instaurer des référendums locaux à Paris, permettant aux électeurs de se prononcer directement sur des décisions municipales. Ces référendums pourraient être obligatoires pour les projets d'investissement dépassant un certain coût, ou déclenchés par une pétition citoyenne atteignant un seuil de signatures d'électeurs. Une proposition prévoit un seuil de déclenchement de 5% de la population. La consultation pourrait s'effectuer par voie numérique. Actuellement, les décisions sont prises par le Conseil de Paris et les services municipaux. La mise en place de tels mécanismes modifierait le processus décisionnel en intégrant plus directement l'avis des Parisiens.",
+    "category": "Social",
+    "candidateIds": [
+      "knafo",
+      "mariani",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 40
+  },
+  {
+    "id": "CARD_0037",
+    "electionId": "paris-2026",
+    "text": "Réduction de la taxe foncière pour les propriétaires immobiliers parisiens",
+    "description": "La mesure consisterait à diminuer la taxe foncière due par les propriétaires parisiens (taux actuel : 20,5 % en 2024). La taxe foncière est un impôt local annuel payé par les propriétaires. Elle est calculée à partir d’un loyer théorique estimé par l’administration fiscale, appelé valeur locative cadastrale, et non à partir du loyer réellement perçu. Cette valeur est d’abord réduite de 50 %, puis on applique à ce montant le taux de taxe foncière fixé par le Conseil de Paris, actuellement de 20,5 %. Toute baisse de ce taux réduirait les recettes de la Ville.",
+    "category": "Budget",
+    "candidateIds": [
+      "knafo",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 41
+  },
+  {
+    "id": "CARD_0038",
+    "electionId": "paris-2026",
+    "text": "Augmentation de la surface d'agriculture urbaine à Paris d'ici 2032",
+    "description": "La mesure consisterait à augmenter les surfaces dédiées à l'agriculture urbaine à Paris, en les portant de 37 hectares actuellement à 100 hectares d'ici 2032. Cela impliquerait l'identification et l'aménagement de nouveaux espaces pour accueillir des activités agricoles, notamment sur des sites comme la Petite Ceinture.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 42
+  },
+  {
+    "id": "CARD_0039",
+    "electionId": "paris-2026",
+    "text": "Plafonnement du prix des cantines scolaires à 3 euros",
+    "description": "La mesure consisterait à fixer un tarif maximal de 3 € par repas, quel que soit le niveau de revenu des familles. Aujourd’hui, le tarif le plus élevé atteint environ 7 € par repas pour les tranches supérieures. Le plafonnement réduirait donc le coût pour les ménages actuellement situés dans les tranches les plus hautes. Les familles aux revenus modestes continueraient de bénéficier des tarifs bas existants.",
+    "category": "Social",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 43
+  },
+  {
+    "id": "CARD_0040",
+    "electionId": "paris-2026",
+    "text": "Augmentation de la vitesse maximale autorisée sur lepériphériques de Paris à 80km",
+    "description": "La mesure consisterait à porter la vitesse maximale autorisée sur le périphérique parisien à 80 km/h. Depuis octobre 2024, la limitation est fixée à 50 km/h, après avoir été de 70 km/h. Cette proposition reviendrait à établir un niveau supérieur à toutes les limitations appliquées ces dernières années. La réglementation de la circulation sur le périphérique relève de la compétence de la Ville de Paris, en lien avec la Préfecture de police.",
+    "category": "Transports",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 44
+  },
+  {
+    "id": "CARD_0041",
+    "electionId": "paris-2026",
+    "text": "Augmentation de la vitesse maximale autorisée sur lepériphériques de Paris à 90km",
+    "description": "La mesure consisterait à fixer la vitesse maximale autorisée sur le périphérique parisien à 90 km/h. Actuellement limitée à 50 km/h depuis octobre 2024, et auparavant à 70 km/h. Cette proposition reviendrait à établir un niveau supérieur à toutes les limitations appliquées ces dernières années. La réglementation de la circulation sur le périphérique relève de la compétence de la Ville de Paris, en lien avec la Préfecture de police.",
+    "category": "Transports",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 45
+  },
+  {
+    "id": "CARD_0042",
+    "electionId": "paris-2026",
+    "text": "Obligation de logements sociaux dans les projets de bureaux",
+    "description": "La mesure consisterait à généraliser l’obligation pour tout projet de construction ou de restructuration de bureaux de plus de 5 000 m² d’y intégrer au moins 10 % de logements sociaux, quel que soit l’arrondissement de Paris. Aujourd’hui, certaines règles d’urbanisme envisagent déjà d’imposer une mixité fonctionnelle à ce seuil, mais elles ne sont pas généralisées à l’ensemble de la capitale. La proposition prévoit également d’abaisser ce seuil à 2 500 m² dans les zones où le déficit de logements sociaux est le plus marqué",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 46
+  },
+  {
+    "id": "CARD_0043",
+    "electionId": "paris-2026",
+    "text": "Instauration d'un congé menstruel pour les agentes de la Ville de Paris",
+    "description": "La mesure consisterait à instaurer un congé menstruel pour les agentes de la Ville de Paris. Ce congé serait un droit à l'arrêt de travail pour les employées de l'administration parisienne souffrant de problèmes de santé liés à leur cycle menstruel. La mise en œuvre de ce dispositif impliquerait la définition des modalités d'accès à ce congé, potentiellement sur présentation d'un justificatif médical. Actuellement, il n'existe pas de congé spécifique de ce type pour les agentes de la Ville.",
+    "category": "Social",
+    "candidateIds": [
+      "chikirou",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 47
+  },
+  {
+    "id": "CARD_0044",
+    "electionId": "paris-2026",
+    "text": "Création d'un dispositif de rémunération de l'engagement citoyen pour les jeunes Parisiens",
+    "description": "La mesure consisterait à créer un dispositif de soutien financier pour les jeunes Parisiens de moins de 25 ans engagés dans des activités citoyennes ou associatives. Ce dispositif prendrait la forme soit d'une allocation spécifique versée en fonction du parcours d'engagement du jeune, soit d'un contrat de 200 heures pour des missions d'intérêt général, rémunérées au SMIC horaire. La mise en œuvre impliquerait la définition des critères d'éligibilité, des types d'engagement reconnus et des modalités de versement de l'allocation ou de contractualisation des missions.",
+    "category": "Social",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 48
+  },
+  {
+    "id": "CARD_0045",
+    "electionId": "paris-2026",
+    "text": "Gratuité des crèches pour les familles françaises de trois enfants ou plus",
+    "description": "La mesure consisterait à rendre les crèches municipales gratuites pour les familles françaises ayant au moins trois enfants à charge. Actuellement, les tarifs des crèches municipales sont calculés en fonction des revenus des familles et du nombre d'enfants. Cette mesure supprimerait donc toute participation financière pour les familles éligibles. Elle s'appliquerait uniquement aux établissements gérés par la Ville de Paris et serait réservée aux familles de nationalité française. La mise en œuvre impliquerait une adaptation du système de facturation et une compensation financière pour les recettes non perçues.",
+    "category": "Social",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 49
+  },
+  {
+    "id": "CARD_0046",
+    "electionId": "paris-2026",
+    "text": "Extension régionale du service de vélibs",
+    "description": "La mesure consisterait à étendre le service de vélos en libre-service existant au-delà du boulevard périphérique, à l'échelle de la région Île-de-France, en partenariat avec les autorités régionales. Ce déploiement s'accompagnerait de la création d'un réseau de pistes cyclables, majoritairement en site propre, c'est-à-dire séparées de la circulation automobile. Actuellement, le service de vélos en libre-service et les aménagements cyclables sont concentrés principalement dans Paris intra-muros. La mise en œuvre impliquerait des accords avec les différentes collectivités territoriales et une coordination des financements pour assurer la continuité du service et des infrastructures.",
+    "category": "Transports",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 50
+  },
+  {
+    "id": "CARD_0047",
+    "electionId": "paris-2026",
+    "text": "Mise en accessibilité du métro parisien pour les personnes à mobilité réduite",
+    "description": "La mesure consisterait à adapter progressivement les infrastructures du métro parisien aux personnes à mobilité réduite. Un plan d'investissement serait mis en place à cet effet, en commençant prioritairement par la ligne 6. Les travaux d'adaptation viseraient à faciliter l'accès aux stations et aux rames pour les personnes en fauteuil roulant, les personnes âgées, les familles avec poussettes ou toute autre personne ayant des difficultés de mobilité. La coordination de ces travaux avec la Région Île-de-France serait assurée. Actuellement, seule une faible part des stations de métro parisiennes sont accessibles aux personnes à mobilité réduite.",
+    "category": "Transports",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 51
+  },
+  {
+    "id": "CARD_0048",
+    "electionId": "paris-2026",
+    "text": "Installation de cellules d'accompagnement psychologique permanent dans chaque établissement scolaire",
+    "description": "La mesure consisterait à installer des cellules d'accompagnement psychologique permanent dans chaque établissement scolaire parisien. Ces cellules seraient destinées aux élèves et à leurs parents. L'objectif serait de fournir un soutien psychologique directement au sein de l'établissement.  Actuellement, l'accès à un soutien psychologique pour les élèves peut varier selon les établissements et les ressources disponibles.",
+    "category": "Éducation",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 52
+  },
+  {
+    "id": "CARD_0049",
+    "electionId": "paris-2026",
+    "text": "Instauration de la semaine scolaire de quatre jours dans les écoles parisiennes",
+    "description": "La mesure consisterait à organiser la semaine scolaire des écoles maternelles et élémentaires parisiennes sur quatre jours, en supprimant la classe du mercredi matin. Aujourd’hui, à Paris, les élèves ont cours sur quatre jours et demi, soit 24 heures d’enseignement réparties du lundi au vendredi matin, conformément à l’organisation mise en place après la réforme nationale de 2013. Depuis 2017, les communes peuvent toutefois demander à revenir à une semaine de quatre jours, organisation déjà adoptée par une majorité de villes en France.",
+    "category": "Éducation",
+    "candidateIds": [
+      "dati",
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 53
+  },
+  {
+    "id": "CARD_0050",
+    "electionId": "paris-2026",
+    "text": "Extension des prérogatives et des compétences de la police municipale au contrôle d'identité, la gestion de la petite délinquance et de la lutte contre les incivilités.",
+    "description": "La mesure consisterait à étendre les missions de la police municipale au contrôle d'identité et à la consultation de certains fichiers nationaux. Actuellement, ces compétences sont principalement exercées par la police nationale. La mesure impliquerait une modification du cadre juridique régissant les pouvoirs de la police municipale. Elle attribuerait également à la police municipale la responsabilité de la gestion de la petite délinquance et de la lutte contre les incivilités, missions aujourd'hui partagées avec la police nationale. La mise en œuvre nécessiterait une coordination accrue entre les deux forces de police, ainsi que des formations spécifiques pour les agents municipaux.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 54
+  },
+  {
+    "id": "CARD_0051",
+    "electionId": "paris-2026",
+    "text": "Clôture du Champ de Mars et création d'un poste de police dédié",
+    "description": "La mesure consisterait à installer une clôture autour du Champ de Mars, permettant sa fermeture nocturne selon des horaires définis. Un poste de police permanent serait également créé sur le site. Actuellement, le Champ de Mars est un espace vert ouvert sans restriction d'accès. La mise en place de cette clôture impliquerait la modification des accès et de la circulation dans ce secteur. La présence d'un poste de police dédié renforcerait la surveillance et la capacité d'intervention sur le site",
+    "category": "Sécurité",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 55
+  },
+  {
+    "id": "CARD_0052",
+    "electionId": "paris-2026",
+    "text": "Création d'un prêt à taux zéro pour le déménagement après une naissance",
+    "description": "Un dispositif de prêt à taux zéro sera instauré pour accompagner les familles qui doivent déménager suite à la naissance d'un nouvel enfant. Cette aide financière vise à faciliter l'accès à un logement plus grand.",
+    "category": "Logement",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 56
+  },
+  {
+    "id": "CARD_0053",
+    "electionId": "paris-2026",
+    "text": "Extension des compétences des maires d'arrondissement pour la régulation des débits de boisson",
+    "description": "La mesure transférerait aux maires d'arrondissement des pouvoirs de régulation concernant les débits de boisson et les établissements festifs. Actuellement, la délivrance des licences et la réglementation des horaires relèvent principalement de la Préfecture de police et de la Ville de Paris. Ce transfert de compétences permettrait aux maires d'arrondissement d'intervenir plus directement sur les conditions d'exploitation de ces établissements, potentiellement en matière d'horaires d'ouverture, de nuisances sonores ou de respect des règles de sécurité.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 57
+  },
+  {
+    "id": "CARD_0054",
+    "electionId": "paris-2026",
+    "text": "Création d'un permis à points pour l'exploitation des terrasses commerciales",
+    "description": "La mesure consisterait à instaurer un permis à points pour les exploitants de terrasses commerciales à Paris. Ce permis serait doté d'un nombre initial de points, et des points seraient retirés en cas d'infractions constatées aux règles d'exploitation des terrasses (nuisances sonores, occupation illégale de l'espace public, non-respect des horaires, etc.). Un seuil de points atteints pourrait entraîner des sanctions, allant jusqu'à la suspension ou le retrait du permis d'exploitation. Ce système viendrait e, complément des amendes pour tapage nocturne.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 58
+  },
+  {
+    "id": "CARD_0055",
+    "electionId": "paris-2026",
+    "text": "Réduction des horaires autorisés pour les travaux bruyants",
+    "description": "La mesure consisterait à étendre les plages de tranquillité en interdisant les travaux bruyants à partir de 20 heures en semaine et dès le samedi midi, au lieu des horaires actuellement en vigueur. Aujourd’hui, à Paris, les travaux bruyants sont autorisés en principe de 7h à 22h du lundi au vendredi, de 8h à 20h le samedi, et sont interdits les dimanches et jours fériés, sauf dérogation. La proposition reviendrait donc à avancer l’horaire d’interdiction de deux heures en semaine et à restreindre davantage les activités le week-end.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "dati",
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 59
+  },
+  {
+    "id": "CARD_0056",
+    "electionId": "paris-2026",
+    "text": "Mise en place d'un guichet unique et d'un dossier administratif partagé",
+    "description": "La mesure consisterait à génariliser la démarche du guichet unique pour centraliser toutes les demandes des usagers auprès des services municipaux. Ce guichet permettrait aux Parisiens d'effectuer l'ensemble de leurs démarches administratives locales en un seul point d'accès. Un dossier administratif partagé serait mis en place, basé sur le principe du « dites-le nous une fois », évitant ainsi aux usagers de fournir plusieurs fois les mêmes pièces justificatives. La mise en œuvre impliquerait la création d'une plateforme numérique ou d'un lieu physique unique, ainsi que la coordination des différents services municipaux pour partager les informations et traiter les demandes de manière centralisée.",
+    "category": "Économie",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 60
+  },
+  {
+    "id": "CARD_0057",
+    "electionId": "paris-2026",
+    "text": "Autorisation automatique en cas d’absence de réponse de la Ville pour l'occupation du domaine public",
+    "description": "La mesure proposée inverserait la règle actuelle concernant les demandes d'occupation du domaine public (terrasses, étalages, travaux sur la voirie). Aujourd'hui, une absence de réponse de l'administration équivaut à un refus. Avec cette mesure, au-delà d'un délai d'instruction prédéfini, une absence de réponse vaudrait acceptation tacite. Cela signifierait que les demandeurs seraient autorisés à occuper le domaine public si la Ville ne se prononce pas dans les délais impartis.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 61
+  },
+  {
+    "id": "CARD_0058",
+    "electionId": "paris-2026",
+    "text": "Exonération de CFE pour l'installation d'entreprises dans des locaux vacants",
+    "description": "Exonérer temporairement de Cotisation Foncière des Entreprises (CFE) les entreprises qui s'installent dans des locaux vacants depuis plus de deux ans.  La CFE est un impôt local dû par les entreprises et dont le produit revient aux collectivités territoriales.",
+    "category": "Économie",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 62
+  },
+  {
+    "id": "CARD_0059",
+    "electionId": "paris-2026",
+    "text": "Abaissement du seuil de détaxe pour les achats touristiques à Paris",
+    "description": "La mesure consisterait à négocier avec l'État pour abaisser le seuil d'éligibilité à la détaxe pour les achats effectués par les touristes à Paris. Actuellement, les touristes peuvent se faire rembourser la TVA sur leurs achats en France si ceux-ci dépassent un certain montant. La proposition abaisserait ce seuil de 100 à 50 euros pour les achats réalisés auprès des commerçants et artisans parisiens. La mise en œuvre nécessiterait un accord avec l'État, car la détaxe relève de la réglementation nationale.",
+    "category": "Économie",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 63
+  },
+  {
+    "id": "CARD_0060",
+    "electionId": "paris-2026",
+    "text": "Prise en charge municipale partielle des frais d'obsèques des animaux de compagnie",
+    "description": "Actuellement, les frais d'obsèques d'un animal de compagnie sont intégralement à la charge du propriétaire, qu'il s'agisse d'une inhumation dans un cimetière animalier ou d'une crémation. Les frais d'obsèque d'un animal de compagnie sont généralement entre 100 et 400€",
+    "category": "Social",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 64
+  },
+  {
+    "id": "CARD_0061",
+    "electionId": "paris-2026",
+    "text": "Augmentation de l'amende pour non-ramassage des déjections canines",
+    "description": "Actuellement, le montant de cette contravention est de 135 euros. La proposition vise à porter cette sanction financière à 300 euros. Cette augmentation s'appliquerait aux propriétaires de chiens ne respectant pas l'obligation de ramasser les déjections de leur animal sur l'espace public.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 65
+  },
+  {
+    "id": "CARD_0062",
+    "electionId": "paris-2026",
+    "text": "Conditionnement et contrôle des subventions municipales versées aux associations",
+    "description": "La mesure consisterait à évaluer systématiquement l'efficacité et l'utilité locale des subventions municipales versées aux associations. Le renouvellement de ces subventions serait conditionné aux résultats de cette évaluation. Les financements seraient recentrés sur les associations dont l'action présente une utilité directe pour les résidents. Les subventions à des projets sans lien direct avec les besoins locaux ou considérés comme étant à caractère idéologique seraient supprimées.",
+    "category": "Budget",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 66
+  },
+  {
+    "id": "CARD_0063",
+    "electionId": "paris-2026",
+    "text": "Enseignement hebdomadaire du codage et de l'intelligence artificielle en école primaire",
+    "description": "La mesure consisterait à introduire une heure hebdomadaire d'enseignement du codage informatique et de l'intelligence artificielle pour les élèves des écoles primaires parisiennes. Actuellement, ces thématiques ne font pas partie intégrante du programme scolaire obligatoire en primaire.",
+    "category": "Éducation",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 67
+  },
+  {
+    "id": "CARD_0064",
+    "electionId": "paris-2026",
+    "text": "Installation de casiers sécurisés pour assurer l'interdiction des smartphones au collège",
+    "description": "La mesure consisterait à installer des casiers sécurisés ou des mallettes dans les collèges parisiens afin d’y entreposer les téléphones portables des élèves pendant le temps scolaire. Les élèves seraient tenus de déposer leur appareil à leur arrivée et de le récupérer à la fin de la journée.\n\nDepuis la loi du 3 août 2018, l’usage des téléphones portables est déjà interdit dans les collèges pendant les cours et les activités scolaires, sauf exceptions prévues par le règlement intérieur. La proposition irait au-delà de cette interdiction d’usage en instaurant un stockage obligatoire et centralisé des appareils.",
+    "category": "Éducation",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 68
+  },
+  {
+    "id": "CARD_0065",
+    "electionId": "paris-2026",
+    "text": "Suppression des voitures avec chauffeur pour les adjoints de Maire et hauts fonctionnaires municipaux",
+    "description": "Actuellement, certains élus et cadres de l'administration bénéficient de ce type de service pour leurs déplacements professionnels.  Les alternatives pourraient inclure l'utilisation de véhicules de service partagés, de transports en commun, ou le remboursement de frais de déplacement sur justificatifs.",
+    "category": "Budget",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 69
+  },
+  {
+    "id": "CARD_0066",
+    "electionId": "paris-2026",
+    "text": "Reprise des logements étudiants par les propriétaires durant la période estivale",
+    "description": "La mesure permettrait aux propriétaires de logements étudiants de récupérer leur bien pendant l'été, que ce soit pour un usage personnel ou pour une location saisonnière. Actuellement, les baux étudiants classiques courent sur 12 mois, limitant la disponibilité des logements durant l'été. La proposition introduirait une flexibilité pour les propriétaires, leur permettant de disposer du logement pendant une période définie. La durée de cette location de courte durée serait plafonnée à 30 jours au total.",
+    "category": "Logement",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 70
+  },
+  {
+    "id": "CARD_0067",
+    "electionId": "paris-2026",
+    "text": "Limitation du droit de préemption municipal aux seuls immeubles insalubres",
+    "description": "Le droit de préemption permet à une collectivité publique d'acquérir un bien immobilier en priorité lors d'une vente. La mesure consisterait à limiter l'usage de ce droit par la Ville de Paris aux seuls immeubles considérés comme insalubres. Actuellement, la Ville peut l'utiliser dans d'autres cas, par exemple pour réaliser des opérations d'aménagement urbain ou pour constituer des réserves foncières. La mesure signifierait que la Ville ne pourrait plus préempter de logements en dehors des situations d'insalubrité avérée.",
+    "category": "Logement",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 71
+  },
+  {
+    "id": "CARD_0068",
+    "electionId": "paris-2026",
+    "text": "Extension des compétences de la police municipale aux stations de métro",
+    "description": "Actuellement, la sécurité dans le métro parisien relève principalement de la compétence de la police nationale et des agents de sécurité de la RATP. La mesure consisterait à étendre les compétences de la police municipale aux stations de métro, en établissant une convention avec l'autorité organisatrice des transports. Cela autoriserait les policiers municipaux à patrouiller et à intervenir directement dans les stations.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 72
+  },
+  {
+    "id": "CARD_0069",
+    "electionId": "paris-2026",
+    "text": "Recours à la vidéoverbalisation pour le contrôle des voies de bus",
+    "description": "La mesure consisterait à mettre en place un système de vidéoverbalisation pour contrôler l'utilisation des voies de bus. Des caméras détecteraient les véhicules non autorisés circulant sur ces voies réservées. Les infractions seraient constatées à distance et feraient l'objet de contraventions envoyées automatiquement aux propriétaires des véhicules. Ce dispositif s'ajouterait aux contrôles effectués par les agents verbalisateurs.",
+    "category": "Transports",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 73
+  },
+  {
+    "id": "CARD_0070",
+    "electionId": "paris-2026",
+    "text": "Suppression des bus diesel et renouvellement de la flotte à Paris d'ici 2026",
+    "description": "La mesure prévoit le remplacement de tous les bus diesel par des véhicules électriques ou hybrides d'ici 2026. En 2024, le parc de bus de la RATP comptait encore des véhicules diesel, bien que le renouvellement vers des motorisations plus propres soit en cours. La mise en œuvre impliquerait une accélération de cette transation.",
+    "category": "Transports",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 74
+  },
+  {
+    "id": "CARD_0071",
+    "electionId": "paris-2026",
+    "text": "Refus de la gratuité des transports en commun",
+    "description": "La mesure consisterait à maintenir la tarification actuelle des transports en commun pour les usagers, impliquant que l'accès aux réseaux de transport public ne serait pas gratuit pour tous. Le financement des transports en commun repose aujourd'hui sur une combinaison de recettes provenant des usagers (via l'achat de titres de transport) et de contributions des collectivités publiques (Ville, Région, etc.). Le refus de la gratuité totale maintiendrait ce modèle de financement mixte.",
+    "category": "Transports",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 75
+  },
+  {
+    "id": "CARD_0072",
+    "electionId": "paris-2026",
+    "text": "Restriction de l'accès des engins lourds et puissants aux pistes cyclables",
+    "description": "La mesure interdirait l'accès des engins lourds et puissants aux pistes cyclables. Actuellement, l'accès aux pistes cyclables est généralement autorisé aux vélos et engins assimilés. La proposition vise à exclure certains types d'engins motorisés ou de forte corpulence, tels que les fat bikes, les trottinettes à haute puissance et les gyropodes, en fonction de critères de poids et de puissance qui seraient définis.",
+    "category": "Transports",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 76
+  },
+  {
+    "id": "CARD_0073",
+    "electionId": "paris-2026",
+    "text": "Suppression de la gare routière de Paris-Bercy",
+    "description": "Fin de l'accueil des lignes de transport longue distance à cet endroit. Actuellement, la gare routière de Bercy permet aux voyageurs de transiter vers de nombreuses destinations nationales et internationales en autocar. La mise en œuvre de cette mesure nécessiterait la réorganisation des flux de transport longue distance, potentiellement vers d'autres gares ou points de départ situés en périphérie de Paris ou dans d'autres quartiers.",
+    "category": "Transports",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 77
+  },
+  {
+    "id": "CARD_0074",
+    "electionId": "paris-2026",
+    "text": "Création de places de stationnement exclusivement réservées aux résidents",
+    "description": "La mesure consisterait à créer, dans certains quartiers principalement résidentiels, des places de stationnement strictement réservées aux habitants du secteur, appelées « places vertes ». Seuls les véhicules disposant d’un droit de stationnement résident dans la zone concernée seraient autorisés à y stationner, les autres usagers ne pouvant plus y accéder, même en payant le tarif visiteur.\n\nAujourd’hui, le stationnement résidentiel à Paris repose sur un tarif préférentiel, mais les places restent ouvertes à tous les automobilistes moyennant paiement. La réforme introduirait donc une exclusivité d’usage pour certaines places.",
+    "category": "Transports",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 78
+  },
+  {
+    "id": "CARD_0075",
+    "electionId": "paris-2026",
+    "text": "Instauration de pénalités financières automatiques pour les retards de chantiers publics",
+    "description": "La mesure prévoit l'instauration de pénalités financières automatiques pour les entreprises en cas de retard sur des chantiers publics.  Actuellement, des pénalités de retard peuvent être appliquées, mais leur mise en œuvre n'est pas systématique.",
+    "category": "Budget",
+    "candidateIds": [
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 79
+  },
+  {
+    "id": "CARD_0076",
+    "electionId": "paris-2026",
+    "text": "Plan de 300 millions d'euros pour la restauration des églises parisiennes",
+    "description": "La mesure consisterait à consacrer 300 millions d’euros sur la durée du mandat municipal à l’entretien et à la restauration des églises appartenant à la Ville de Paris. La Ville est propriétaire de 96 édifices cultuels construits avant 1905. En 2023, un plan d’investissement de 80 millions d’euros sur quatre ans (2023-2026) a été adopté pour leur rénovation, en complément des crédits annuels d’entretien courant, généralement compris entre 10 et 15 millions d’euros par an. L’enveloppe proposée représenterait donc un niveau d’investissement supérieur aux programmes actuellement engagés.",
+    "category": "Culture & Sport",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 80
+  },
+  {
+    "id": "CARD_0077",
+    "electionId": "paris-2026",
+    "text": "Autorisation des dispositifs de chauffage électrique pour les terrasses de cafés-restaurants",
+    "description": "La mesure consisterait à autoriser à nouveau l’installation de dispositifs de chauffage sur les terrasses des cafés et restaurants parisiens, à condition qu’ils fonctionnent exclusivement à l’électricité et soient considérés comme non polluants. Actuellement, ces équipements sont interdits.\n\nLa mise en œuvre nécessiterait une évolution du cadre réglementaire national, en complément d’une adaptation des règles municipales relatives aux terrasses. Elle impliquerait donc une coordination / négociation entre l’État et la Ville de Paris.",
+    "category": "Environnement",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 81
+  },
+  {
+    "id": "CARD_0078",
+    "electionId": "paris-2026",
+    "text": "Suppression des critères de mixité sociale de l'algorithme Affelnet",
+    "description": "La mesure consisterait à supprimer les critères de mixité sociale intégrés à l’algorithme Affelnet, utilisé pour l’affectation des élèves dans les lycées publics parisiens. Concrètement, l’algorithme ne prendrait plus en compte les indicateurs socio-économiques des élèves lors de l’attribution des places. Cela modifierait les règles actuelles d’affectation et pourrait influencer la composition sociale des établissements. L’affectation reposerait alors principalement sur d’autres critères, tels que le secteur géographique, les résultats scolaires ou les options choisies.\n\nToutefois, l’organisation de l’affectation dans les lycées publics relève de la compétence de l’Éducation nationale, via le rectorat de Paris, et non de la seule Ville de Paris. La mise en œuvre nécessiterait donc une décision ou une évolution réglementaire au niveau de l’État.",
+    "category": "Éducation",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 82
+  },
+  {
+    "id": "CARD_0079",
+    "electionId": "paris-2026",
+    "text": "Interdiction de l'écriture inclusive dans les communications des services municipaux",
+    "description": "La mesure interdirait l'usage de l'écriture inclusive dans les communications des services municipaux. Cette interdiction s'appliquerait à l'ensemble des documents internes et aux communications officielles destinées au public, ainsi qu'à toutes les productions écrites émanant de la collectivité territoriale. L’écriture inclusive désigne des formes d’écriture visant à représenter explicitement les femmes et les hommes, par exemple en utilisant le point médian (« les étudiant·e·s »). La mesure impliquerait de définir précisément les règles d'écriture autorisées et de s'assurer de leur application au sein des services municipaux.",
+    "category": "Social",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 83
+  },
+  {
+    "id": "CARD_0080",
+    "electionId": "paris-2026",
+    "text": "Réduction par deux du nombre d'adjoints et des effectifs des cabinets municipaux",
+    "description": "La mesure consisterait à réduire de moitié le nombre d’adjoints au Maire et de collaborateurs de cabinet afin de réaliser des économies estimées à 55 millions d’euros sur la durée du mandat.\n\nLe Conseil de Paris compte 163 conseillers. L’exécutif municipal comprend actuellement 37 adjoints au Maire, chacun chargé d’une délégation thématique. Par ailleurs, les cabinets du Maire et des adjoints comptaient 145 collaborateurs au 31 décembre 2023.\n\nLes adjoints sont des élus qui pilotent les politiques municipales dans leur domaine, tandis que les collaborateurs de cabinet sont des agents contractuels chargés de l’assistance politique et stratégique.",
+    "category": "Budget",
+    "candidateIds": [
+      "knafo",
+      "bournazel"
+    ],
+    "opposingCandidateIds": [],
+    "order": 84
+  },
+  {
+    "id": "CARD_0081",
+    "electionId": "paris-2026",
+    "text": "Autorisation de l'éclairage nocturne des vitrines et enseignes commerciales",
+    "description": "La mesure autoriserait les commerçants à maintenir allumées les vitrines et enseignes lumineuses de leurs locaux commerciaux la nuit. Actuellement, des restrictions réglementaires imposent l'extinction de ces éclairages après la fermeture des commerces. La levée de ces restrictions s'appliquerait à l'ensemble des devantures visibles depuis la voie publique.  La décision d'autoriser ou non l'éclairage reviendrait alors aux commerçants, dans le respect des autres réglementations applicables (nuisances lumineuses, consommation énergétique, etc.).",
+    "category": "Environnement",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 85
+  },
+  {
+    "id": "CARD_0082",
+    "electionId": "paris-2026",
+    "text": "Suspension du RSA en cas de manquement aux obligations",
+    "description": "La mesure consisterait à appliquer un mécanisme de « suspension remobilisation » au RSA. Dès le premier manquement aux obligations d’insertion (absence à un rendez-vous, non-respect du contrat d’engagement), 80 % du montant serait suspendu. En cas de récidive, le versement serait suspendu pendant quatre mois.\n\nAujourd’hui, les sanctions applicables aux bénéficiaires du RSA sont encadrées par la loi et graduées. Leur régime relève du cadre national, même si le RSA est versé par le Département de Paris.",
+    "category": "Social",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 86
+  },
+  {
+    "id": "CARD_0083",
+    "electionId": "paris-2026",
+    "text": "Amendes de stationnement : forfait unique de 30 €",
+    "description": "La mesure consisterait à fixer un montant unique de 30 euros pour le forfait de post-stationnement (FPS) sur l’ensemble du territoire parisien. Ce montant correspondrait au prix de six heures de stationnement et s’appliquerait quel que soit le véhicule ou l’arrondissement.\n\nAujourd’hui, le montant du FPS varie selon les zones et le type de véhicule, avec des montants plus élevés dans les arrondissements centraux et pour les véhicules lourds. La proposition viserait donc à harmoniser le dispositif et à réduire le montant dans les secteurs où il est actuellement supérieur.",
+    "category": "Transports",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 87
+  },
+  {
+    "id": "CARD_0084",
+    "electionId": "paris-2026",
+    "text": "Vente du stade du Parc des Princes au club Paris Saint-Germain",
+    "description": "Vendre le parc des Princes, actuellement propriété de la Ville de Paris, au club de football du Paris Saint-Germain. Le Parc des Princes est le stade résident du PSG. Ce transfert impliquerait une modification du statut juridique du stade, qui deviendrait un bien privé géré par le club. Actuellement, la Ville assure l'entretien et les investissements dans le stade. Le transfert de propriété donnerait au club le contrôle total sur la gestion, la modernisation et l'exploitation du stade, sans intervention de la Ville.",
+    "category": "Budget",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 88
+  },
+  {
+    "id": "CARD_0084 VS",
+    "electionId": "paris-2026",
+    "text": "ne pas vendre le parc des princes",
+    "description": "La mesure propose d'interdire la vente du Parc des Princes, ainsi que d'autres actifs immobiliers et stratégiques de la Ville. Cela stopperait toute transaction en cours ou future concernant ces biens. Actuellement, la Ville peut décider de vendre certains éléments de son patrimoine. La mesure limiterait cette possibilité en protégeant spécifiquement certains bâtiments publics et sites d'intérêt majeur. Elle garantirait que le Parc des Princes et d'autres lieux désignés restent propriété de la municipalité, empêchant ainsi leur cession à des entités privées ou publiques.",
+    "category": "Budget",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 89
+  },
+  {
+    "id": "CARD_0085",
+    "electionId": "paris-2026",
+    "text": "Augmentation des redevances d'occupation du domaine public pour l'industrie du luxe",
+    "description": "La mesure consisterait à augmenter les redevances que les entreprises du secteur du luxe paient à la Ville de Paris pour l'occupation temporaire du domaine public. Ces redevances concernent notamment l'organisation d'événements comme les défilés de mode. Les tarifs actuels seraient révisés à la hausse. Les recettes issues de ces redevances sont versées au budget de la municipalité.",
+    "category": "Budget",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 90
+  },
+  {
+    "id": "CARD_0086",
+    "electionId": "paris-2026",
+    "text": "Revalorisation des primes et droits sociaux des agents municipaux travaillant de nuit",
+    "description": "La mesure vise à améliorer les conditions de travail des agents municipaux travaillant de nuit. Elle prévoit une majoration de 50 % de la prime de travail nocturne, augmentant ainsi leur rémunération. De plus, le nombre de jours de repos serait augmenté pour compenser les contraintes liées au travail de nuit. Un suivi médical renforcé serait mis en place pour assurer la santé et le bien-être de ces agents. Après cinq années d'exercice de nuit, un dispositif permettrait aux agents de demander une réaffectation de poste, offrant ainsi une possibilité d'évolution de carrière.",
+    "category": "Social",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 91
+  },
+  {
+    "id": "CARD_0087",
+    "electionId": "paris-2026",
+    "text": "Gratuité des activités sportives municipales pour les moins de 25 ans",
+    "description": "La mesure propose la gratuité des activités sportives municipales pour les moins de 25 ans. Elle s'appliquerait aux équipements et programmes sportifs gérés par la Ville. Actuellement, l'accès à ces activités est généralement payant, avec des tarifs variables selon les disciplines et les équipements.",
+    "category": "Culture & Sport",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 92
+  },
+  {
+    "id": "CARD_0088",
+    "electionId": "paris-2026",
+    "text": "Extension du droit de vote des résidents étrangers aux scrutins locaux",
+    "description": "La mesure consisterait à permettre aux résidents étrangers, y compris non européens, de participer aux votations citoyennes organisées par la Ville de Paris. Ces votations sont des consultations locales sur des projets municipaux (aménagements, budget participatif, etc.). Elles ne permettent pas d’élire des responsables politiques et n’ont pas la valeur juridique d’une élection.\n\nAujourd’hui, la participation à ces consultations est réservée aux personnes inscrites sur les listes électorales municipales, c’est-à-dire aux citoyens français et aux citoyens de l’Union européenne résidant en France. La proposition viserait donc à élargir ce droit au niveau local. En revanche, le droit de vote aux élections municipales (élection du maire et des conseillers) est encadré par la Constitution et ne peut être modifié qu’au niveau national.",
+    "category": "Social",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 93
+  },
+  {
+    "id": "CARD_0089",
+    "electionId": "paris-2026",
+    "text": "Abaissement de l'âge de participation aux consultations locales à 16 ans",
+    "description": "La mesure consisterait à permettre aux jeunes de 16 et 17 ans de participer à l’ensemble des votations et consultations citoyennes organisées par la Ville de Paris. Ces consultations portent sur des projets municipaux et ne permettent pas d’élire des représentants.\n\nActuellement, le droit de vote aux élections municipales est fixé à 18 ans par la loi nationale. La proposition prévoit également d’engager une démarche auprès des autorités nationales afin d’abaisser l’âge légal du droit de vote à 16 ans pour les élections locales et nationales, ce qui nécessiterait une modification du Code électoral au niveau de l’État.",
+    "category": "Social",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 94
+  },
+  {
+    "id": "CARD_0090",
+    "electionId": "paris-2026",
+    "text": "Expérimentation de la semaine de 32 heures pour les agents municipaux",
+    "description": "La mesure consisterait à lancer des expérimentations de réduction du temps de travail hebdomadaire à 32 heures pour les agents municipaux. Cela impliquerait une nouvelle organisation du travail au sein des services de la ville, ainsi qu'une évaluation des impacts sur le fonctionnement et la qualité des services publics. La mise en œuvre nécessiterait potentiellement des négociations avec l'État afin d'obtenir un cadre juridique adapté à cette modification du temps de travail, le temps de travail des agents étant actuellement régi par des règles nationales. La mesure ne s'appliquerait qu'à titre expérimental et sur un périmètre à définir.",
+    "category": "Économie",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 95
+  },
+  {
+    "id": "CARD_0091",
+    "electionId": "paris-2026",
+    "text": "Revalorisation des grilles salariales et du régime indemnitaire des agents municipaux",
+    "description": "La mesure consisterait à revoir les grilles de salaires et le système de primes des agents municipaux. Cela impliquerait une refonte du régime indemnitaire, c'est-à-dire l'ensemble des primes et indemnités versées aux agents en complément de leur traitement de base. L'objectif serait d'améliorer la rémunération globale des employés de la Ville.",
+    "category": "Économie",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 96
+  },
+  {
+    "id": "CARD_0092",
+    "electionId": "paris-2026",
+    "text": "Interdiction du financement des services publics parisiens par la publicité commerciale",
+    "description": "La mesure interdirait le financement des services publics parisiens via la publicité commerciale. Concrètement, cela signifierait l'arrêt des contrats d'affichage publicitaire sur le mobilier urbain (abribus, panneaux, etc.) et dans l'espace public. Le financement des services publics municipaux devrait alors être assuré par d'autres sources de revenus, comme les impôts locaux, les subventions ou les redevances payées par les usagers.",
+    "category": "Budget",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 97
+  },
+  {
+    "id": "CARD_0093",
+    "electionId": "paris-2026",
+    "text": "Attribution de la citoyenneté d'honneur de la Ville de Paris aux habitants de Gaza",
+    "description": "La mesure consisterait à mettre en œuvre une délibération du Conseil de Paris visant à décerner le titre de citoyen d'honneur à l'ensemble des habitants de Gaza. Cette distinction honorifique est un symbole de solidarité et de soutien moral. La citoyenneté d'honneur est une distinction symbolique, accordée par une municipalité à une personne ou un groupe de personnes, en reconnaissance de services rendus ou de valeurs défendues. Elle n'implique pas l'acquisition de droits civiques ou de nationalité.",
+    "category": "Social",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 98
+  },
+  {
+    "id": "CARD_0094",
+    "electionId": "paris-2026",
+    "text": "Mobilisation des locaux vacants pour l'hébergement des personnes sans-abri",
+    "description": "La mesure consisterait à recenser et réaffecter les locaux vacants, notamment les bâtiments inoccupés depuis plus de 18 mois, en solutions d'hébergement d'urgence pour les personnes sans-abri. La mise en œuvre impliquerait l'utilisation des pouvoirs de réquisition du maire pour une durée déterminée, par exemple 12 mois, et l'aménagement des bâtiments concernés. L'objectif est de transformer la vacance immobilière en espaces d'accueil, répondant ainsi aux besoins immédiats de mise à l'abri.",
+    "category": "Logement",
+    "candidateIds": [
+      "chikirou",
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 99
+  },
+  {
+    "id": "CARD_0095",
+    "electionId": "paris-2026",
+    "text": "Interdiction des investissements immobiliers étrangers dans le secteur résidentiel",
+    "description": "La mesure consisterait à interdire aux personnes physiques ou morales non résidentes en France d’acquérir des logements à Paris, en réservant l’achat de biens immobiliers résidentiels aux seuls résidents.\n\nActuellement, le droit français repose sur la liberté d’acquisition immobilière : il n’existe pas de restriction générale empêchant un non-résident ou un investisseur étranger d’acheter un bien en France. Le droit de propriété et la libre circulation des capitaux sont protégés par la Constitution et par le droit européen.\n\nUne telle interdiction nécessiterait donc une modification législative au niveau national, voire une adaptation du cadre européen. Elle ne pourrait pas être mise en œuvre par une simple décision de la Ville de Paris.",
+    "category": "Logement",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 100
+  },
+  {
+    "id": "CARD_0096",
+    "electionId": "paris-2026",
+    "text": "Interdiction de la reconnaissance faciale dans l'espace public à Paris",
+    "description": "La mesure interdirait l'utilisation de systèmes de reconnaissance faciale dans les espaces publics de Paris. Cela empêcherait la collecte et l'analyse automatisée de données biométriques à partir d'images ou de vidéos capturées dans les rues, les parcs, les transports en commun et autres lieux accessibles au public. L'interdiction s'appliquerait à tous les acteurs, qu'ils soient publics ou privés. Elle exclurait également toute phase d'expérimentation de ces technologies sur le territoire parisien. Actuellement, l'utilisation de la reconnaissance faciale est soumise à un cadre légal précis, notamment concernant la protection des données personnelles et les autorisations nécessaires.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 101
+  },
+  {
+    "id": "CARD_0097",
+    "electionId": "paris-2026",
+    "text": "Renforcement de l'accompagnement juridique municipal pour les travailleurs sans titre",
+    "description": "La mesure consisterait à renforcer l'accompagnement juridique municipal pour les travailleurs sans titre de séjour ou dont la situation administrative est en cours d'examen. Cela se traduirait par le déploiement de permanences juridiques spécialisées en droit du travail et en procédures de régularisation administrative. Ces permanences seraient mises en place par la municipalité et viseraient à informer et conseiller les travailleurs étrangers sur leurs droits et les démarches à effectuer. Actuellement, l'accès à ce type d'accompagnement peut être limité ou difficile pour cette population.",
+    "category": "Social",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 102
+  },
+  {
+    "id": "CARD_0098",
+    "electionId": "paris-2026",
+    "text": "Instauration de la gratuité des transports pour les Parisiens de moins de 25 ans",
+    "description": "La mesure consisterait à rendre gratuits les transports en commun pour les Parisiens de moins de 25 ans. Aujourd’hui, les tarifs sont fixés par Île-de-France Mobilités et les usagers doivent acheter un titre ou un abonnement (Navigo, Imagine R).\n\nLa Ville ne peut pas décider seule de la gratuité, mais elle pourrait financer la prise en charge totale du coût des abonnements pour les jeunes Parisiens, sous réserve d’un accord avec Île-de-France Mobilités. La mise en œuvre nécessiterait donc une coordination entre la Ville et l’autorité régionale des transports.",
+    "category": "Transports",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 103
+  },
+  {
+    "id": "CARD_0099",
+    "electionId": "paris-2026",
+    "text": "Extension et intensification du dispositif de piétonisation temporaire « Paris Respire »",
+    "description": "La mesure consisterait à étendre le dispositif « Paris Respire » à davantage de zones et à augmenter sa fréquence. Actuellement, « Paris Respire » interdit temporairement la circulation motorisée dans certains quartiers, généralement le dimanche et les jours fériés. L'extension géographique impliquerait de désigner de nouveaux secteurs bénéficiant de cette piétonisation temporaire. L'intensification temporelle signifierait que les zones concernées seraient piétonnisées plus souvent, par exemple plusieurs jours par semaine ou durant des périodes plus longues. La mise en œuvre nécessiterait une signalétique adaptée et une information claire aux riverains et aux usagers.",
+    "category": "Transports",
+    "candidateIds": [
+      "chikirou"
+    ],
+    "opposingCandidateIds": [],
+    "order": 104
+  },
+  {
+    "id": "CARD_0100",
+    "electionId": "paris-2026",
+    "text": "Suppression des tarifs d'entrée pour les piscines et les musées municipaux",
+    "description": "La mesure consisterait à rendre l'accès gratuit à l'ensemble des piscines municipales et aux collections permanentes des musées gérés par la Ville de Paris. Actuellement, l'accès à ces services est payant, avec des tarifs variables selon l'âge, le statut et parfois le lieu de résidence. La gratuité s'appliquerait à tous les usagers, sans condition de ressources ou de domiciliation. Cette mesure impliquerait une modification des modalités de financement de ces équipements culturels et sportifs, qui seraient alors intégralement pris en charge par le budget municipal.",
+    "category": "Culture & Sport",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 105
+  },
+  {
+    "id": "CARD_0101",
+    "electionId": "paris-2026",
+    "text": "Accès gratuit et réservé à la Tour Eiffel pour les parisiens",
+    "description": "La mesure consisterait à rendre l'accès à la Tour Eiffel gratuit pour les résidents de Paris et de la métropole du Grand Paris. Actuellement, l'accès à la Tour Eiffel est payant pour tous les visiteurs. La proposition impliquerait la mise en place de créneaux horaires spécifiques ou de dispositifs d'accès dédiés pour les Parisiens et les métropolitains. Les modalités pratiques, comme la justification du domicile et la gestion des flux de visiteurs, seraient à définir. La Tour Eiffel est gérée par la Société d'exploitation de la Tour Eiffel (SETE), dont le principal actionnaire est la Ville de Paris.",
+    "category": "Culture & Sport",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 106
+  },
+  {
+    "id": "CARD_0102",
+    "electionId": "paris-2026",
+    "text": "Ouverture nocturne et élargissement des services dans les bibliothèques et musées municipaux",
+    "description": "La mesure consisterait à étendre les horaires d’ouverture des bibliothèques et des musées gérés par la Ville de Paris, notamment en soirée, et à y développer de nouveaux services comme des espaces de coworking ou des offres de restauration durable. Actuellement, les horaires d’ouverture varient selon les établissements, avec des nocturnes ponctuelles dans certains musées et bibliothèques, mais sans généralisation à l’ensemble du réseau.",
+    "category": "Culture & Sport",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 107
+  },
+  {
+    "id": "CARD_0103",
+    "electionId": "paris-2026",
+    "text": "Taxe de séjour indexée sur le prix des nuitées haut de gamme",
+    "description": "La mesure consisterait à remplacer la taxe de séjour forfaitaire applicable aux hôtels cinq étoiles et aux Palaces par une taxe calculée en pourcentage du prix de la nuitée. Actuellement, ces établissements acquittent environ 5,65 € par personne et par nuit, quel que soit le prix de la chambre. La réforme introduirait un calcul proportionnel, ce qui ferait varier le montant selon le tarif pratiqué. La taxe de séjour est collectée par les hôteliers et reversée à la Ville. Sa structure est encadrée par la législation nationale.",
+    "category": "Budget",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 108
+  },
+  {
+    "id": "CARD_0104",
+    "electionId": "paris-2026",
+    "text": "Conditionnement des subventions municipales sportives à la mixité des clubs",
+    "description": "La mesure consisterait à conditionner l'attribution des subventions municipales aux associations sportives à la promotion de la mixité. Concrètement, les clubs sportifs qui ne proposent que des activités masculines devraient ouvrir des sections féminines ou mixtes pour continuer à bénéficier des aides financières de la ville. Cette conditionnalité des subventions inciterait les clubs à diversifier leurs activités et à favoriser l'accès des femmes à la pratique sportive.",
+    "category": "Culture & Sport",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 109
+  },
+  {
+    "id": "CARD_0105",
+    "electionId": "paris-2026",
+    "text": "Mise en place d'une semaine de découverte culturelle pour tous les élèves de sixième",
+    "description": "La mesure consisterait à organiser chaque année une semaine de découverte culturelle en France pour tous les élèves de sixième scolarisés à Paris. Ces séjours seraient conçus autour de jumelages entre Paris et d'autres territoires français. Actuellement, de telles initiatives peuvent exister de manière ponctuelle, mais ne concernent pas systématiquement l'ensemble d'une classe d'âge.",
+    "category": "Éducation",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 110
+  },
+  {
+    "id": "CARD_0106",
+    "electionId": "paris-2026",
+    "text": "Modulation des subventions aux structures périscolaires privées selon la mixité sociale",
+    "description": "La mesure consisterait à moduler les subventions publiques versées aux structures périscolaires privées (accueil du matin, études, centres de loisirs, activités extrascolaires) en fonction de critères de mixité sociale. Un système de bonus-malus serait appliqué : les structures accueillant une proportion plus importante d’enfants issus de milieux défavorisés recevraient une dotation majorée, tandis que celles présentant une faible diversité sociale verraient leur financement réduit.",
+    "category": "Social",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 111
+  },
+  {
+    "id": "CARD_0107",
+    "electionId": "paris-2026",
+    "text": "Élection au suffrage universel direct d'un maire pour le Grand Paris",
+    "description": "La mesure propose l'élection d'un maire au suffrage universel direct pour la métropole du Grand Paris. Actuellement, le président de la métropole est élu par les conseillers métropolitains, eux-mêmes issus des conseils municipaux des communes membres. L'élection d'un maire au suffrage universel direct modifierait ce mode de désignation. Le Grand Paris est une structure intercommunale qui rassemble Paris et les communes de la petite couronne ainsi que quelques communes de la grande couronne, exerçant des compétences dans des domaines comme l'aménagement, le développement économique et l'environnement.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 112
+  },
+  {
+    "id": "CARD_0108",
+    "electionId": "paris-2026",
+    "text": "Création d'un opérateur métropolitain d'hébergement d'urgence",
+    "description": "La mesure consisterait à créer un opérateur à l’échelle de la métropole dédié à l’hébergement d’urgence. Cet organisme serait chargé de gérer le 115, numéro d’appel gratuit destiné aux personnes sans domicile pour demander un hébergement, en centralisant les demandes et en coordonnant les orientations vers les structures disponibles. Il aurait également pour mission de créer de nouvelles places d’hébergement afin de compléter l’offre existante.",
+    "category": "Logement",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 113
+  },
+  {
+    "id": "CARD_0109",
+    "electionId": "paris-2026",
+    "text": "Transformation de parkings et garages en logements",
+    "description": "La mesure consisterait à faciliter la transformation de parkings et de garages existants en logements. Cela impliquerait une adaptation des règles d'urbanisme afin de permettre la réutilisation de ces espaces. L'objectif serait de créer de nouvelles unités d'habitation à partir de ces infrastructures existantes. La mise en œuvre de cette mesure pourrait passer par une simplification des procédures administratives et une adaptation des normes de construction pour ce type de conversion.",
+    "category": "Logement",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 114
+  },
+  {
+    "id": "CARD_0110",
+    "electionId": "paris-2026",
+    "text": "Création d'un bilan de santé mentale systématique pour les jeunes Parisiens",
+    "description": "La mesure consisterait à proposer un bilan de santé mentale à tous les jeunes Parisiens, probablement via un courrier les informant de cette possibilité. Ce bilan pourrait inclure un protocole de détection des troubles psychiques et un accompagnement personnalisé. La mise en œuvre impliquerait l'organisation de rendez-vous avec des professionnels de santé mentale, la coordination des services existants et la mise en place d'un suivi adapté aux besoins de chaque jeune.",
+    "category": "Social",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 115
+  },
+  {
+    "id": "CARD_0111",
+    "electionId": "paris-2026",
+    "text": "Création d'un revenu de solidarité pour les jeunes sortant de l'ASE",
+    "description": "La mesure consisterait à créer un revenu de solidarité pour les jeunes de 18 à 25 ans sortant de l'Aide Sociale à l'Enfance (ASE). Actuellement, ces jeunes peuvent bénéficier de dispositifs de droit commun comme le RSA jeunes sous certaines conditions.",
+    "category": "Social",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 116
+  },
+  {
+    "id": "CARD_0112",
+    "electionId": "paris-2026",
+    "text": "Doublement du nombre d’arceaux de stationnement pour vélos",
+    "description": "La mesure consisterait à porter à environ 120 000 le nombre d’arceaux de stationnement pour vélos à Paris. Actuellement, la Ville indique disposer d’environ 60 000 arceaux sur voirie. L’objectif impliquerait donc l’installation d’environ 60 000 arceaux supplémentaires, principalement sur l’espace public.\n\nLes arceaux correspondent aux supports métalliques permettant d’attacher un vélo. Ils constituent une partie de l’offre globale de stationnement vélo, distincte des abris sécurisés ou consignes.",
+    "category": "Transports",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 117
+  },
+  {
+    "id": "CARD_0113",
+    "electionId": "paris-2026",
+    "text": "Prise en charge intégrale du Pass Navigo pour les familles monoparentales",
+    "description": "Actuellement, les usagers doivent s'acquitter du paiement de leur abonnement, éventuellement aidés par des dispositifs sociaux existants. La mesure proposée impliquerait un financement direct par la Ville auprès d'Île-de-France Mobilités, l'autorité organisatrice des transports en commun. Les familles monoparentales éligibles n'auraient donc plus à avancer les frais d'abonnement.",
+    "category": "Social",
+    "candidateIds": [
+      "gregoire"
+    ],
+    "opposingCandidateIds": [],
+    "order": 118
+  },
+  {
+    "id": "CARD_0114",
+    "electionId": "paris-2026",
+    "text": "Création d'un fonds de garantie bancaire pour les jeunes repreneurs de commerces",
+    "description": "La mesure consisterait à créer un fonds municipal permettant à la Ville de se porter garante d’une partie des prêts bancaires contractés par des jeunes de moins de 35 ans souhaitant reprendre un commerce de proximité à Paris. Concrètement, la Ville couvrirait jusqu’à 50 % du montant du prêt en cas de défaillance de l’emprunteur.\n\nCela peut faciliter l’obtention d’un crédit, notamment pour des jeunes entrepreneurs qui disposent de peu d’apport personnel.",
+    "category": "Économie",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 119
+  },
+  {
+    "id": "CARD_0115",
+    "electionId": "paris-2026",
+    "text": "Instauration du port obligatoire d'une tenue uniforme dans les écoles parisiennes",
+    "description": "Actuellement, le port de l'uniforme n'est pas généralisé dans les écoles parisiennes. La mise en place de cette mesure impliquerait la définition d'un modèle de tenue standardisé, son acquisition par les familles ou sa fourniture par la municipalité, et l'adaptation du règlement intérieur des établissements scolaires.",
+    "category": "Éducation",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 120
+  },
+  {
+    "id": "CARD_0116",
+    "electionId": "paris-2026",
+    "text": "Plan de végétalisation urbaine par la plantation de 50 000 arbres",
+    "description": "La mesure consisterait à planter 50 000 arbres supplémentaires dans Paris sur la durée du mandat. Selon la Ville de Paris, la capitale compte plus de 200 000 arbres dans les rues, les espaces verts et les équipements municipaux, auxquels s’ajoutent plus de 300 000 arbres dans les bois de Boulogne et de Vincennes, soit plus de 500 000 arbres au total. La plantation de 50 000 arbres représenterait donc environ +25 % sur le stock “intra-muros hors bois”, ou environ +10 % si l’on raisonne sur l’ensemble incluant les bois. La végétalisation relève principalement de la Ville de Paris.",
+    "category": "Environnement",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 121
+  },
+  {
+    "id": "CARD_0117",
+    "electionId": "paris-2026",
+    "text": "Transfert des compétences d'autorisation commerciale et de terrasses aux mairies d'arrondissement",
+    "description": "Actuellement, ces autorisations sont délivrées par la Ville de Paris.  Avec cette proposition, la gestion des demandes et autorisations concernant les terrasses sur l'espace public serait également transférée aux mairies d'arrondissement, qui seraient alors responsables de leur instruction et de leur suivi.",
+    "category": "Urbanisme",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 122
+  },
+  {
+    "id": "CARD_0118",
+    "electionId": "paris-2026",
+    "text": "Création d'une unité municipale spécialisée dans la lutte contre les squats",
+    "description": "La mesure consisterait à créer une unité municipale chargée de traiter les signalements d’occupation illicite de logements et d’intervenir dans un délai de 24 à 48 heures pour constater la situation et accompagner les démarches. Un numéro dédié serait mis en place pour les propriétaires.\n\nAujourd’hui, l’évacuation d’un squat relève principalement de l’État. Le propriétaire doit déposer plainte et saisir le préfet, qui peut engager une procédure administrative d’évacuation forcée sous conditions. La Ville peut intervenir sur la tranquillité publique et orienter les démarches, mais ne dispose pas du pouvoir d’expulsion par la force publique. La mise en œuvre d’une telle brigade impliquerait donc une coordination étroite avec la préfecture.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 123
+  },
+  {
+    "id": "CARD_0119",
+    "electionId": "paris-2026",
+    "text": "Déléguer des pouvoirs de sécurité aux mairies d’arrondissements, par la création d’une « police d’arrondissement",
+    "description": "La mesure consisterait à créer des unités de police au niveau de chaque arrondissement, placées sous l'autorité directe du maire d'arrondissement. Actuellement, la police municipale est gérée de manière centralisée par la Ville de Paris. Le transfert de compétences impliquerait une décentralisation de la gestion de la sécurité, avec des effectifs et des moyens propres à chaque arrondissement.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 124
+  },
+  {
+    "id": "CARD_0120",
+    "electionId": "paris-2026",
+    "text": "Installation de dispositifs de vidéoprotection dans les immeubles de logement social",
+    "description": "La mesure consisterait à installer des caméras de vidéoprotection dans les parties communes des immeubles de logement social, notamment les halls d'entrée et les zones de passage. La mise en œuvre serait conditionnée à un vote préalable des locataires concernés. Actuellement, certains bailleurs sociaux peuvent déjà installer des dispositifs de vidéoprotection, mais cette mesure généraliserait et encadrerait cette pratique.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 125
+  },
+  {
+    "id": "CARD_0121",
+    "electionId": "paris-2026",
+    "text": "Créations d'équipes spécialisées anti-tag chargées de l’identification",
+    "description": "La mesure consisterait à créer des équipes municipales spécialisées dans la lutte contre les tags, chargées d’identifier les auteurs et de constater les infractions. Ces agents interviendraient sur l’espace public pour repérer les dégradations, collecter des éléments d’identification et transmettre les constats aux autorités compétentes.\n\nAujourd’hui, la constatation des infractions et les poursuites relèvent principalement de la police nationale et de l’autorité judiciaire, tandis que la Ville assure l’effacement des tags via ses services de propreté. La création d’une unité spécialisée renforcerait le volet préventif et d’identification au niveau municipal, en complément des dispositifs existants.",
+    "category": "Sécurité",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 126
+  },
+  {
+    "id": "CARD_0122",
+    "electionId": "paris-2026",
+    "text": "Supprimer les allocations municipales pour les familles dont un membre est condamné pour délinquance.",
+    "description": "La mesure consisterait à conditionner l'attribution de certaines aides sociales municipales et l'accès au logement social à l'absence de condamnations pour des faits de délinquance au sein du foyer. En cas de condamnation d'un membre de la famille bénéficiaire, les aides municipales pourraient être supprimées. En cas de récidive, une procédure d'expulsion du logement social serait engagée à l'encontre du foyer.",
+    "category": "Social",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 127
+  },
+  {
+    "id": "CARD_0123",
+    "electionId": "paris-2026",
+    "text": "Relèvement de la vitesse à 50 km/h sur les axes routiers principaux",
+    "description": "La mesure consisterait à augmenter la limitation de vitesse de 30 km/h à 50 km/h sur les principaux axes routiers de la ville. Actuellement, de nombreuses rues de Paris sont limitées à 30 km/h. La mesure modifierait cette limitation sur les artères considérées comme structurantes pour la circulation. La liste précise des axes concernés serait définie par la municipalité.",
+    "category": "Transports",
+    "candidateIds": [
+      "mariani"
+    ],
+    "opposingCandidateIds": [],
+    "order": 128
+  },
+  {
+    "id": "CARD_0124",
+    "electionId": "paris-2026",
+    "text": "Logement social prioritaire pour les professionnels de la petite enfance",
+    "description": "La mesure consisterait à accorder une priorité d'accès au logement social aux professionnels de la petite enfance exerçant à Paris, notamment les agents de terrain travaillant en crèche. Cela modifierait les critères d'attribution des logements sociaux, en créant une catégorie prioritaire pour ces professionnels.",
+    "category": "Logement",
+    "candidateIds": [
+      "dati"
+    ],
+    "opposingCandidateIds": [],
+    "order": 129
+  },
+  {
+    "id": "CARD_0125",
+    "electionId": "paris-2026",
+    "text": "Transparence totale sur l’attribution des places en crèche",
+    "description": "La mesure vise à rendre plus transparent le processus d'attribution des places en crèche à Paris. Actuellement, l'attribution des places peut varier selon les arrondissements et les types de structures (municipales, associatives, privées). La proposition consisterait à mettre en place un système d'information centralisé, potentiellement via une application, permettant aux parents de suivre les critères d'attribution, les disponibilités et l'état d'avancement de leur demande.",
+    "category": "Social",
+    "candidateIds": [
+      "bournazel",
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 130
+  },
+  {
+    "id": "CARD_0126",
+    "electionId": "paris-2026",
+    "text": "Tarification unique du stationnement automobile sans distinction selon le type de véhicule",
+    "description": "La mesure consisterait à appliquer un tarif unique pour le stationnement automobile en surface à Paris, sans distinction liée au type ou au poids du véhicule. Actuellement, la Ville applique des tarifs différenciés selon la catégorie du véhicule : depuis 2024, les véhicules considérés comme lourds ou de grande taille, notamment certains SUV, peuvent être soumis à des montants nettement supérieurs à ceux des voitures légères, avec des tarifs pouvant être multipliés par trois. Une grille tarifaire unique supprimerait cette distinction et appliquerait le même prix horaire à tous les véhicules particuliers.",
+    "category": "Transports",
+    "candidateIds": [
+      "knafo"
+    ],
+    "opposingCandidateIds": [],
+    "order": 131
+  }
+]

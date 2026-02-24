@@ -13,8 +13,10 @@ import Animated, {
   Extrapolation,
   type SharedValue,
 } from "react-native-reanimated";
+import { Ionicons } from "@expo/vector-icons";
 import { useMotionPreference } from "../../hooks/useMotionPreference";
 import { SwipeOverlay } from "./SwipeOverlay";
+import { getCategoryTheme } from "../../utils/categoryTheme";
 import type { StatementCard, SwipeDirection } from "../../data/schema";
 
 const SWIPE_THRESHOLD = 120;
@@ -303,6 +305,8 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
       };
     });
 
+    const theme = getCategoryTheme(card.category || 'Autre');
+
     return (
       <View style={{ width: "100%", position: "absolute", zIndex: isTop ? 10 : 0 }}>
         <GestureDetector gesture={panGesture}>
@@ -321,7 +325,7 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
               {!isTop && (
                 <>
                   <View
-                    className="absolute inset-0 mx-4 rounded-2xl border border-warm-gray/40 shadow-sm"
+                    className="absolute inset-0 mx-4 rounded-3xl shadow-sm"
                     style={{
                       backgroundColor: "#E2E8F0",
                       transform: [{ translateX: 14 }, { translateY: -14 }],
@@ -329,7 +333,7 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
                     }}
                   />
                   <View
-                    className="absolute inset-0 mx-4 rounded-2xl border border-warm-gray/40 shadow-sm"
+                    className="absolute inset-0 mx-4 rounded-3xl shadow-sm"
                     style={{
                       backgroundColor: "#F1F5F9",
                       transform: [{ translateX: 7 }, { translateY: -7 }],
@@ -339,14 +343,36 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
                 </>
               )}
               {/* Main Card */}
-              <View className="mx-4 bg-white rounded-2xl p-8 shadow-elevated border border-warm-gray/40 min-h-[420px]">
+              <View
+                className="mx-4 overflow-hidden rounded-3xl shadow-elevated border border-warm-gray/40 min-h-[440px]"
+                style={{ backgroundColor: theme.bg }}
+              >
+                {/* Category Badge Top Left */}
+                <View className="flex-row items-center pt-6 px-6">
+                  <View
+                    style={{ backgroundColor: 'white' }}
+                    className="flex-row items-center self-start px-3 py-1.5 rounded-full shadow-sm"
+                  >
+                    <Ionicons name={theme.icon as any} size={14} color={theme.bg} />
+                    <Text
+                      className="ml-1.5 font-display-bold text-xs uppercase tracking-widest"
+                      style={{ color: theme.bg }}
+                    >
+                      {card.category}
+                    </Text>
+                  </View>
+                </View>
+
                 {/* Statement text */}
-                <Text
-                  className="font-display-bold text-[22px] text-civic-navy leading-snug flex-1"
-                  accessibilityRole="header"
-                >
-                  {card.text}
-                </Text>
+                <View className="px-6 flex-1 justify-center py-6">
+                  <Text
+                    style={{ color: "white" }}
+                    className="font-display-bold text-[26px] leading-tight"
+                    accessibilityRole="header"
+                  >
+                    {card.text}
+                  </Text>
+                </View>
 
                 {card.description && (
                   <Pressable

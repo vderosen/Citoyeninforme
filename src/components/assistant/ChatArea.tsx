@@ -67,7 +67,7 @@ export function ChatArea({
     messages[messages.length - 1]?.role !== "assistant";
 
   return (
-    <View className="flex-1" style={{ backgroundColor: "#F5F3EF" }}>
+    <View className="flex-1 bg-transparent">
       <FlatList
         ref={flatListRef}
         data={messages}

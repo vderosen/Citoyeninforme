@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { View, Text, KeyboardAvoidingView, Platform, Pressable } from "react-native";
+import { View, Text, KeyboardAvoidingView, Platform, Pressable, ImageBackground } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useNavigation } from "@react-navigation/native";
@@ -150,15 +150,22 @@ export default function AssistantScreen() {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={headerHeight}
     >
-      <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
-        <ChatArea
-          messages={messages}
-          isStreaming={isStreaming}
-          onSend={handleSend}
-          onPromptSelect={handleSend}
-          selectedCandidateId={selectedCandidateId}
-        />
-      </SafeAreaView>
+      <ImageBackground
+        source={require('../../../assets/images/tour-eiffel-drawing.png')}
+        style={{ flex: 1 }}
+        resizeMode="cover"
+        blurRadius={8}
+      >
+        <SafeAreaView className="flex-1" edges={[]}>
+          <ChatArea
+            messages={messages}
+            isStreaming={isStreaming}
+            onSend={handleSend}
+            onPromptSelect={handleSend}
+            selectedCandidateId={selectedCandidateId}
+          />
+        </SafeAreaView>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 }

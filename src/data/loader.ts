@@ -191,9 +191,11 @@ export function loadBundledDataset(): ElectionDataset {
     }
 
     if (!statementMap.has(prop.card_id)) {
+      const category = (prop as any).secteur || (prop as any).Catégorie || 'Autre';
       statementMap.set(prop.card_id, {
         id: prop.card_id,
         electionId,
+        category,
         text: prop.titre_canonique || prop.card_id,
         description: prop.description_canonique_revisitée,
         candidateIds: [],

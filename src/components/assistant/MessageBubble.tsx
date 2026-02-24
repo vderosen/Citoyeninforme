@@ -10,7 +10,7 @@ interface Props {
 }
 
 const USER_BUBBLE_COLOR = "#1E2A44"; // civic-navy
-const ASSISTANT_BUBBLE_COLOR = "rgba(30,42,68,0.05)"; // civic-navy-light
+const ASSISTANT_BUBBLE_COLOR = "#FFFFFF"; // Solid white for legibility
 const BUBBLE_R = 24;
 const POINTED_CORNER_R = 6;
 

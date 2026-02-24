@@ -9,6 +9,7 @@ import { SwipeTutorialOverlay } from "../../components/survey/SwipeTutorialOverl
 import { ProgressBar } from "../../components/survey/ProgressBar";
 import { computeMatching } from "../../services/matching";
 import { balancedShuffle, dailySeed } from "../../utils/shuffle";
+import { getCategoryTheme } from "../../utils/categoryTheme";
 import type { SwipeDirection, StatementCard } from "../../data/schema";
 
 export default function CardsScreen() {
@@ -67,6 +68,7 @@ export default function CardsScreen() {
     }, [markQuestionnaireActive, startQuestionnaire, surveyStatus]);
 
     const isLast = currentIndex >= shuffledCards.length - 1;
+    const theme = getCategoryTheme(selectedCard?.category || 'Autre');
 
     const computeResults = useCallback(() => {
         // We get the absolutely latest answers from the store to avoid stale closures
@@ -212,9 +214,13 @@ export default function CardsScreen() {
                         <View className="p-4 border-t border-warm-gray">
                             <Pressable
                                 onPress={() => setSelectedCardId(null)}
-                                className="bg-civic-navy py-3.5 px-6 rounded-xl active:opacity-80 items-center"
+                                className="py-3.5 px-6 rounded-xl active:opacity-80 items-center"
+                                style={{ backgroundColor: theme.bg }}
                             >
-                                <Text className="font-display-bold text-warm-white text-sm uppercase tracking-wider">
+                                <Text
+                                    className="font-display-bold text-warm-white text-sm uppercase tracking-wider"
+                                    style={{ color: theme.text }}
+                                >
                                     {t("common:close")}
                                 </Text>
                             </Pressable>

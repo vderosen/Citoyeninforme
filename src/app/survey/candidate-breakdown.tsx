@@ -3,8 +3,9 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useElectionStore } from '../../stores/election';
 import { useSurveyStore } from '../../stores/survey';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons';
 import React, { useState, useMemo } from 'react';
+import { getCategoryTheme } from '../../utils/categoryTheme';
 
 export default function CandidateBreakdownScreen() {
     const { candidateId } = useLocalSearchParams<{ candidateId: string }>();
@@ -22,6 +23,7 @@ export default function CandidateBreakdownScreen() {
         () => statementCards.find(c => c.id === selectedCardId),
         [statementCards, selectedCardId]
     );
+    const theme = getCategoryTheme(selectedCard?.category || 'Autre');
 
     if (!candidate || !match) {
         return (
@@ -95,25 +97,56 @@ export default function CandidateBreakdownScreen() {
                 onRequestClose={() => setSelectedCardId(null)}
             >
                 <View className="flex-1 bg-black/50 justify-center items-center p-4">
-                    <View className="bg-warm-white w-full max-w-sm rounded-2xl overflow-hidden shadow-xl max-h-[85vh]">
+                    <View
+                        className="w-full max-w-sm rounded-3xl overflow-hidden shadow-xl max-h-[85vh]"
+                        style={{ backgroundColor: theme.bg }}
+                    >
+                        {/* Category Badge Top Left */}
+                        {selectedCard && (
+                            <View className="flex-row items-center pt-6 px-6">
+                                <View
+                                    style={{ backgroundColor: 'white' }}
+                                    className="flex-row items-center self-start px-3 py-1.5 rounded-full shadow-sm"
+                                >
+                                    <Ionicons name={theme.icon as any} size={14} color={theme.bg} />
+                                    <Text
+                                        className="ml-1.5 font-display-bold text-xs uppercase tracking-widest"
+                                        style={{ color: theme.bg }}
+                                    >
+                                        {selectedCard.category}
+                                    </Text>
+                                </View>
+                            </View>
+                        )}
+
                         <ScrollView className="p-6">
-                            <Text className="font-display-bold text-xl text-civic-navy mb-4 leading-snug">
+                            <Text
+                                className="font-display-bold text-[22px] leading-snug mb-4"
+                                style={{ color: "white" }}
+                            >
                                 {selectedCard?.text}
                             </Text>
 
                             {selectedCard?.description && (
-                                <Text className="font-body-regular text-base text-text-secondary leading-relaxed mb-4">
+                                <Text
+                                    className="font-body-regular text-base leading-relaxed mb-4"
+                                    style={{ color: "white", opacity: 0.9 }}
+                                >
                                     {selectedCard.description}
                                 </Text>
                             )}
                         </ScrollView>
 
-                        <View className="p-4 border-t border-warm-gray">
+                        <View className="p-4 border-t border-white/20">
                             <Pressable
                                 onPress={() => setSelectedCardId(null)}
-                                className="bg-civic-navy py-3.5 px-6 rounded-xl active:opacity-80 items-center"
+                                className="py-3.5 px-6 rounded-xl active:opacity-80 items-center"
+                                style={{ backgroundColor: "white" }}
                             >
-                                <Text className="font-display-bold text-warm-white text-sm uppercase tracking-wider">
+                                <Text
+                                    className="font-display-bold text-sm uppercase tracking-wider"
+                                    style={{ color: theme.bg }}
+                                >
                                     Fermer
                                 </Text>
                             </Pressable>

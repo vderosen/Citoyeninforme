@@ -125,6 +125,7 @@ export type SwipeDirection =
 export interface StatementCard {
   id: string;
   electionId: string;
+  category: string;
   text: string;
   description?: string;
   candidateIds: string[];
