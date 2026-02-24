@@ -1,11 +1,14 @@
 import { View, Text, Pressable, ScrollView } from "react-native";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter, Tabs } from "expo-router";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
 import { AlignmentRanking } from "../../components/survey/AlignmentRanking";
 import { Podium } from "../../components/survey/Podium";
 import { FeedbackAction } from "../../components/shared/FeedbackAction";
+import { ShareResultsModal } from "../../components/survey/ShareResultsModal";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function MatchesScreen() {
     const { t } = useTranslation(["survey", "common"]);
@@ -13,6 +16,34 @@ export default function MatchesScreen() {
     const candidates = useElectionStore((s) => s.candidates);
     const profile = useSurveyStore((s) => s.profile);
     const reset = useSurveyStore((s) => s.reset);
+    const markResultsViewed = useSurveyStore((s) => s.markResultsViewed);
+    const answers = useSurveyStore((s) => s.answers);
+
+    const [triggerCelebration, setTriggerCelebration] = useState(false);
+    const [isShareModalVisible, setIsShareModalVisible] = useState(false);
+
+    useFocusEffect(
+        useCallback(() => {
+            const state = useSurveyStore.getState();
+            const currentProfile = state.profile;
+
+            if (currentProfile && currentProfile.candidateRanking.length >= 3) {
+                // Trigger if it's the very first time, OR if user swiped at least 1 new card
+                if (!state.hasSeenInitialResult || state.cardsSwipedSinceLastResultView >= 1) {
+                    setTriggerCelebration(true);
+                    markResultsViewed();
+                } else {
+                    setTriggerCelebration(false);
+                }
+            } else {
+                setTriggerCelebration(false);
+            }
+
+            return () => {
+                setTriggerCelebration(false);
+            };
+        }, [markResultsViewed])
+    );
 
     if (!profile || profile.candidateRanking.length === 0) {
         return (
@@ -44,19 +75,42 @@ export default function MatchesScreen() {
 
     return (
         <View className="flex-1 bg-warm-white">
+
+            <ShareResultsModal
+                visible={isShareModalVisible}
+                onClose={() => setIsShareModalVisible(false)}
+                ranking={profile.candidateRanking}
+                candidates={candidates}
+                totalVotes={Object.keys(answers).length}
+            />
+
             <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingBottom: 32 }}>
-                <Text
-                    className="font-display-bold text-2xl text-civic-navy mt-6 mb-6"
-                    accessibilityRole="header"
-                >
-                    {t("survey:resultsTitle")}
-                </Text>
+                <View className="flex-row justify-between items-center mt-6 mb-6">
+                    <Text
+                        className="font-display-bold text-2xl text-civic-navy"
+                        accessibilityRole="header"
+                    >
+                        {t("survey:resultsTitle")}
+                    </Text>
+
+                    {profile.candidateRanking.length >= 3 && (
+                        <Pressable
+                            onPress={() => setIsShareModalVisible(true)}
+                            className="bg-warm-gray rounded-full w-10 h-10 items-center justify-center border border-gray-200"
+                            accessibilityRole="button"
+                            accessibilityLabel={t("survey:shareResults")}
+                        >
+                            <Ionicons name="share-outline" size={20} color="#1A202C" />
+                        </Pressable>
+                    )}
+                </View>
 
                 {profile.candidateRanking.length >= 3 && (
                     <Podium
                         ranking={profile.candidateRanking}
                         candidates={candidates}
                         onCandidatePress={handleCandidatePress}
+                        triggerCelebration={triggerCelebration}
                     />
                 )}
 

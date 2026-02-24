@@ -24,6 +24,8 @@ interface SurveyState {
   answers: Record<string, string>;
   profile: UserProfile | null;
   datasetVersion: string | null;
+  cardsSwipedSinceLastResultView: number;
+  hasSeenInitialResult: boolean;
 
   startCivicContext: () => void;
   startQuestionnaire: () => void;
@@ -37,6 +39,7 @@ interface SurveyState {
   complete: () => void;
   reset: () => void;
   isResultsStale: (currentDatasetVersion: string) => boolean;
+  markResultsViewed: () => void;
 }
 
 export const useSurveyStore = create<SurveyState>()(
@@ -47,6 +50,8 @@ export const useSurveyStore = create<SurveyState>()(
       answers: {},
       profile: null,
       datasetVersion: null,
+      cardsSwipedSinceLastResultView: 0,
+      hasSeenInitialResult: false,
 
       startCivicContext: () => set({ status: "civic_context" }),
       startQuestionnaire: () =>
@@ -55,6 +60,7 @@ export const useSurveyStore = create<SurveyState>()(
       answerQuestion: (questionId, optionId) =>
         set((state) => ({
           answers: { ...state.answers, [questionId]: optionId },
+          cardsSwipedSinceLastResultView: state.cardsSwipedSinceLastResultView + 1,
         })),
       nextQuestion: () =>
         set((state) => ({
@@ -70,6 +76,7 @@ export const useSurveyStore = create<SurveyState>()(
           return {
             answers: rest,
             currentQuestionIndex: Math.max(0, state.currentQuestionIndex - 1),
+            cardsSwipedSinceLastResultView: Math.max(0, state.cardsSwipedSinceLastResultView - 1),
           };
         }),
       setComputing: () => set({ status: "computing" }),
@@ -83,11 +90,18 @@ export const useSurveyStore = create<SurveyState>()(
           answers: {},
           profile: null,
           datasetVersion: null,
+          cardsSwipedSinceLastResultView: 0,
+          hasSeenInitialResult: false,
         }),
       isResultsStale: (currentDatasetVersion) => {
         const state = get();
         return state.datasetVersion !== null && state.datasetVersion !== currentDatasetVersion;
       },
+      markResultsViewed: () =>
+        set({
+          hasSeenInitialResult: true,
+          cardsSwipedSinceLastResultView: 0,
+        }),
     }),
     {
       name: "survey-state",

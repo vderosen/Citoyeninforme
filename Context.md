@@ -260,3 +260,4 @@ eas submit --platform ios --latest              # submits to App Store Connect
 - **Asset fix:** Renamed `assets/images/Splash-icon.png` → `splash-icon.png` (case-sensitive Linux EAS build fix).
 - **Store cleanup:** Removed dead `importanceWeights: {}` from `survey.ts` initial state.
 - **Config fixes:** Updated `supportUrl` and `tosUrl` in `app.json` from `lucide.app` to `citoyeninforme.fr`. Fixed privacy policy fallback URL in `settings.tsx`.
+- **Social Sharing:** Added `react-native-view-shot` to generate an image from the podium results on the client device so that it could be shared directly via `expo-sharing`.
