@@ -34,9 +34,7 @@ const mockAppState = {
   lastActiveTab: "index",
   privacyConsentVersion: "1.0",
   consentTimestamp: "2026-01-01T00:00:00.000Z",
-  crashReportingOptIn: false,
   revokePrivacyConsent: jest.fn(),
-  setCrashReportingOptIn: jest.fn(),
 };
 
 const mockSurveyState = {
@@ -105,7 +103,7 @@ describe("data-export", () => {
   test("generateExport produces valid JSON with correct schema", async () => {
     const fileUri = await generateExport();
 
-    expect(fileUri).toMatch(/^\/tmp\/cache\/lucide-data-export-\d{4}-\d{2}-\d{2}\.json$/);
+    expect(fileUri).toMatch(/^\/tmp\/cache\/citoyen-informe-data-export-\d{4}-\d{2}-\d{2}\.json$/);
     expect(FileSystem.writeAsStringAsync).toHaveBeenCalledTimes(1);
 
     const writtenContent = FileSystem.writeAsStringAsync.mock.calls[0][1];
@@ -117,7 +115,6 @@ describe("data-export", () => {
     expect(parsed.consent.policyVersion).toBe("1.0");
     expect(parsed.survey.status).toBe("completed");
     expect(parsed.survey.answers).toEqual({ q1: "a1" });
-    expect(parsed.assistant.mode).toBe("comprendre");
     expect(parsed.assistant.conversations.comprendre).toHaveLength(1);
     expect(parsed.preferences.hasCompletedOnboarding).toBe(true);
     expect(parsed.feedback).toEqual([]);
@@ -125,7 +122,7 @@ describe("data-export", () => {
 
   test("export file name matches expected format", async () => {
     const fileUri = await generateExport();
-    expect(fileUri).toContain("lucide-data-export-");
+    expect(fileUri).toContain("citoyen-informe-data-export-");
     expect(fileUri).toEndWith(".json");
   });
 
@@ -135,7 +132,6 @@ describe("data-export", () => {
     expect(mockSurveyState.reset).toHaveBeenCalled();
     expect(mockAssistantState.resetConversation).toHaveBeenCalled();
     expect(mockAppState.revokePrivacyConsent).toHaveBeenCalled();
-    expect(mockAppState.setCrashReportingOptIn).toHaveBeenCalledWith(false);
     expect(AsyncStorage.multiRemove).toHaveBeenCalledWith([
       'app-state',
       'survey-state',

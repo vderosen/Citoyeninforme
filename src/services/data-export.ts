@@ -47,7 +47,6 @@ export async function generateExport(): Promise<string> {
     preferences: {
       hasCompletedOnboarding: appState.hasCompletedOnboarding,
       lastActiveTab: appState.lastActiveTab,
-      crashReportingOptIn: appState.crashReportingOptIn,
     },
 
     feedback: feedback.map((f) => ({
@@ -71,7 +70,7 @@ export async function generateExport(): Promise<string> {
   }
 
   const dateStr = new Date().toISOString().slice(0, 10);
-  const fileName = `lucide-data-export-${dateStr}.json`;
+  const fileName = `citoyen-informe-data-export-${dateStr}.json`;
   const fileUri = `${cacheDir}${fileName}`;
 
   await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(exportData, null, 2), {
@@ -84,7 +83,7 @@ export async function generateExport(): Promise<string> {
 export async function shareExport(fileUri: string): Promise<void> {
   await Sharing.shareAsync(fileUri, {
     mimeType: "application/json",
-    dialogTitle: "Export Lucide",
+    dialogTitle: "Export Citoyen Informé",
   });
 }
 
@@ -95,7 +94,6 @@ export async function deleteAllUserData(): Promise<void> {
 
   const appStore = useAppStore.getState();
   appStore.revokePrivacyConsent();
-  appStore.setCrashReportingOptIn(false);
 
   await AsyncStorage.multiRemove([
     'app-state',

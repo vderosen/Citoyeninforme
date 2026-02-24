@@ -11,7 +11,7 @@
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFFFFF"
     },
     "ios": {
       "supportsTablet": true,
@@ -43,21 +43,13 @@
           "root": "./src/app"
         }
       ],
-      "expo-localization",
-      [
-        "@sentry/react-native/expo",
-        {
-          "url": "https://sentry.io/",
-          "organization": "lucide",
-          "project": "react-native"
-        }
-      ]
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
-      "privacyPolicyUrl": "https://lucide.app/privacy-policy",
+      "privacyPolicyUrl": "https://citoyeninforme.fr/politique-de-confidentialite",
       "supportUrl": "https://lucide.app/support",
       "tosUrl": "https://lucide.app/terms",
       "router": {

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { LogBox, View } from "react-native";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import * as Sentry from "@sentry/react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useReducedMotion } from "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -25,11 +24,6 @@ import { useSurveyStore } from "../stores/survey";
 import { loadBundledDataset } from "../data/loader";
 import { ErrorBoundary } from "../components/shared/ErrorBoundary";
 import { OfflineBanner } from "../components/shared/OfflineBanner";
-import {
-  updateCrashReportingConsent,
-  captureException,
-} from "../services/crash-reporting";
-import { PRIVACY_POLICY_VERSION } from "./privacy-consent";
 import "../i18n";
 import "../../global.css";
 
@@ -47,7 +41,6 @@ function RootLayout() {
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
   const privacyConsentVersion = useAppStore((s) => s.privacyConsentVersion);
-  const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
   const surveyStatus = useSurveyStore((s) => s.status);
   const router = useRouter();
   const segments = useSegments();
@@ -62,22 +55,6 @@ function RootLayout() {
     Inter_400Regular,
     Inter_500Medium,
   });
-
-  // Sync crash reporting consent (Sentry is already initialized at module level)
-  useEffect(() => {
-    updateCrashReportingConsent(crashReportingOptIn);
-  }, [crashReportingOptIn]);
-
-  // Set up global error handler
-  useEffect(() => {
-    const defaultHandler = ErrorUtils.getGlobalHandler();
-    ErrorUtils.setGlobalHandler((error: Error, isFatal?: boolean) => {
-      captureException(error, { fatal: String(isFatal ?? false) });
-      if (isFatal) {
-        defaultHandler(error, isFatal);
-      }
-    });
-  }, []);
 
   useEffect(() => {
     try {
@@ -94,22 +71,13 @@ function RootLayout() {
     }
   }, [isLoaded, fontsLoaded]);
 
-  // Navigation gate: privacy consent → onboarding → tabs
+  // Navigation gate: onboarding → tabs
   useEffect(() => {
     if (!isLoaded) return;
 
-    const inConsent = segments[0] === "privacy-consent";
     const inOnboarding = segments[0] === "onboarding";
 
-    // Check privacy consent first
-    if (privacyConsentVersion !== PRIVACY_POLICY_VERSION) {
-      if (!inConsent) {
-        router.replace("/privacy-consent");
-      }
-      return;
-    }
-
-    // Check onboarding
+    // Check onboarding (this now handles privacy under the hood)
     if (!hasCompletedOnboarding) {
       if (!inOnboarding) {
         router.replace("/onboarding");
@@ -139,7 +107,7 @@ function RootLayout() {
         }
       }
     }
-  }, [isLoaded, hasCompletedOnboarding, privacyConsentVersion, segments, surveyStatus, initialRouteHandled]);
+  }, [isLoaded, hasCompletedOnboarding, segments, surveyStatus, initialRouteHandled]);
 
   if (!fontsLoaded) {
     return null;
@@ -163,10 +131,6 @@ function RootLayout() {
                   name="onboarding"
                   options={{ headerShown: false }}
                 />
-                <Stack.Screen
-                  name="privacy-consent"
-                  options={{ headerShown: false }}
-                />
                 <Stack.Screen name="survey" options={{ headerShown: false }} />
                 <Stack.Screen
                   name="settings"
@@ -182,4 +146,4 @@ function RootLayout() {
   );
 }
 
-export default Sentry.wrap(RootLayout);
+export default RootLayout;

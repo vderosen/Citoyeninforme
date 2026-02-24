@@ -46,37 +46,67 @@ function loadDotEnv() {
 }
 
 // ---------------------------------------------------------------------------
-// Rate limiter (in-memory fixed-window)
+// Rate Limiter (in-memory multi-window)
 // ---------------------------------------------------------------------------
-const RATE_LIMIT_WINDOW_MS = 60000;
-const RATE_LIMIT_MAX_REQUESTS = 20;
+const RATE_LIMITS = {
+    minute: { window: 60 * 1000, max: 5 },
+    hour: { window: 60 * 60 * 1000, max: 25 },
+    day: { window: 24 * 60 * 60 * 1000, max: 50 }
+};
+
 const rateLimitMap = new Map();
 
 function checkRateLimit(ip) {
     const now = Date.now();
     let entry = rateLimitMap.get(ip);
-    if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
-        entry = { count: 0, windowStart: now };
+
+    if (!entry) {
+        entry = {
+            minute: { count: 0, windowStart: now },
+            hour: { count: 0, windowStart: now },
+            day: { count: 0, windowStart: now }
+        };
         rateLimitMap.set(ip, entry);
     }
-    entry.count++;
-    if (entry.count > RATE_LIMIT_MAX_REQUESTS) {
-        const retryAfter = Math.ceil(
-            (entry.windowStart + RATE_LIMIT_WINDOW_MS - now) / 1000
-        );
-        return { allowed: false, retryAfter };
+
+    // Reset windows if expired
+    for (const [tier, config] of Object.entries(RATE_LIMITS)) {
+        if (now - entry[tier].windowStart > config.window) {
+            entry[tier].count = 0;
+            entry[tier].windowStart = now;
+        }
     }
-    return { allowed: true, retryAfter: 0 };
+
+    // Check limits (most restrictive first for reporting)
+    let blockedTier = null;
+    if (entry.day.count >= RATE_LIMITS.day.max) blockedTier = 'day';
+    else if (entry.hour.count >= RATE_LIMITS.hour.max) blockedTier = 'hour';
+    else if (entry.minute.count >= RATE_LIMITS.minute.max) blockedTier = 'minute';
+
+    if (blockedTier) {
+        const retryAfter = Math.ceil(
+            (entry[blockedTier].windowStart + RATE_LIMITS[blockedTier].window - now) / 1000
+        );
+        return { allowed: false, retryAfter, tier: blockedTier };
+    }
+
+    // Increment all counts
+    entry.minute.count++;
+    entry.hour.count++;
+    entry.day.count++;
+
+    return { allowed: true, retryAfter: 0, tier: null };
 }
 
+// Cleanup stale entries every 1 hour to prevent memory leaks
 setInterval(() => {
     const now = Date.now();
     for (const [ip, entry] of rateLimitMap) {
-        if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+        if (now - entry.day.windowStart > RATE_LIMITS.day.window) {
             rateLimitMap.delete(ip);
         }
     }
-}, 300000);
+}, 60 * 60 * 1000);
 
 // ---------------------------------------------------------------------------
 // CORS

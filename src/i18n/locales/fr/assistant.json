@@ -41,5 +41,7 @@
   "candidatePickerBack": "Retour aux modes",
   "changeCandidate": "Changer de candidat",
   "suggestionsLoading": "Suggestions...",
-  "assistantSubtitle": "Ton assistant civique"
+  "assistantSubtitle": "Ton assistant civique",
+  "emptyTitle": "Ton assistant IA civique",
+  "emptySubtitle": "Pose-moi une question sur les programmes des candidats"
 }

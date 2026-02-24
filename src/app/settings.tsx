@@ -12,7 +12,6 @@ import {
   shareExport,
   deleteAllUserData,
 } from "../services/data-export";
-import { updateCrashReportingConsent } from "../services/crash-reporting";
 
 const PRIVACY_POLICY_URL =
   process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL ??
@@ -107,8 +106,6 @@ function SettingsRow({
 export default function SettingsScreen() {
   const { t } = useTranslation("settings");
   const router = useRouter();
-  const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
-  const setCrashReportingOptIn = useAppStore((s) => s.setCrashReportingOptIn);
   const [exporting, setExporting] = useState(false);
 
   const appVersion = Constants.expoConfig?.version ?? "1.0.0";
@@ -134,18 +131,13 @@ export default function SettingsScreen() {
         onPress: async () => {
           try {
             await deleteAllUserData();
-            router.replace("/privacy-consent");
+            router.replace("/onboarding");
           } catch {
             Alert.alert("Erreur", t("data.deleteError"));
           }
         },
       },
     ]);
-  };
-
-  const handleToggleCrashReporting = (value: boolean) => {
-    setCrashReportingOptIn(value);
-    updateCrashReportingConsent(value);
   };
 
   return (
@@ -185,19 +177,6 @@ export default function SettingsScreen() {
             icon="document-text-outline"
             label={t("about.terms")}
             onPress={() => WebBrowser.openBrowserAsync("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")}
-          />
-          <SettingsRow
-            icon="bug-outline"
-            label={t("about.crashReports")}
-            description={t("about.crashReportsDescription")}
-            trailing={
-              <Switch
-                value={crashReportingOptIn}
-                onValueChange={handleToggleCrashReporting}
-                trackColor={{ false: "#D1D5DB", true: "#1B2A4A" }}
-                accessibilityLabel={t("about.crashReports")}
-              />
-            }
             last
           />
         </SettingsGroup>

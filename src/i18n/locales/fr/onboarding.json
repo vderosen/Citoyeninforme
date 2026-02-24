@@ -1,48 +1,15 @@
 {
   "step1": {
-    "title": "Un Regard Citoyen Informé",
-    "description": "Citoyen Informé vous aide à lire et comparer les programmes municipaux, en restant neutre et en citant les sources.",
-    "cta": "Commencer l'exploration"
+    "title": "Bienvenue sur Citoyen Informé",
+    "description": "Nous décryptons de manière neutre et sourcée les programmes municipaux de Paris 2026.",
+    "privacy": "Confidentialité garantie : aucune de vos données (réponses, conversations) ne quitte votre téléphone. Tout est traité localement.",
+    "cta": "OK"
   },
   "step2": {
-    "title": "Neutre, sourcé, vérifiable.",
-    "bullet1": "Résumés fidèles aux documents publics",
-    "bullet2": "Sources affichées à chaque information",
-    "bullet3": "Questions pour comprendre les arbitrages",
-    "cta": "Continuer"
-  },
-  "step3": {
-    "title": "Trois façons de commencer",
-    "card1": {
-      "title": "Questionnaire citoyen",
-      "description": "Clarifiez vos priorités"
-    },
-    "card2": {
-      "title": "Explorer les candidats",
-      "description": "Comparer thème par thème"
-    },
-    "card3": {
-      "title": "Assistant Citoyen Informé",
-      "description": "Posez vos questions à l'IA. Elle parcourt l'ensemble des programmes pour vous apporter une réponse factuelle."
-    },
-    "cta": "Continuer"
-  },
-  "step4": {
-    "title": "Ce que Citoyen Informé fait –",
-    "titleEmphasis": "et ne fait pas",
-    "does1": "Informations sourcées",
-    "does2": "Expliquer · Sourcer · Mettre en contexte",
-    "doesNot1": "Pas de consigne de vote",
-    "doesNot2": "Pas de scoring partisan",
-    "doesNot3": "Pas de ciblage politique",
-    "cta": "J'ai compris"
-  },
-  "step5": {
-    "title": "Prêt·e ?",
-    "description": "Nous regroupons les programmes complets. L'assistant référence les PDF originaux que vous pouvez consulter vous-même.",
-    "cta": "Démarrer le questionnaire",
-    "secondary1": "Explorer les candidats",
-    "secondary2": "Poser une question"
-  },
-  "progress": "{{current}}/{{total}}"
+    "title": "Comment ça marche ?",
+    "bullet1": "🗳️ Questionnaire : comparez vos idées avec la réalité des programmes.",
+    "bullet2": "🏛️ Exploration : comprendre le fonctionnement de ces élections municipales.",
+    "bullet3": "🤖 Assistant IA : posez vos questions pour comprendre les enjeux sans filtre politique.",
+    "cta": "OK, j'ai compris"
+  }
 }

@@ -9,7 +9,6 @@ import assistant from "./locales/fr/assistant.json";
 import candidates from "./locales/fr/candidates.json";
 import comparison from "./locales/fr/comparison.json";
 import onboarding from "./locales/fr/onboarding.json";
-import privacy from "./locales/fr/privacy.json";
 import settings from "./locales/fr/settings.json";
 import errors from "./locales/fr/errors.json";
 
@@ -19,7 +18,7 @@ i18n.use(initReactI18next).init({
   lng: deviceLanguage.startsWith("fr") ? "fr" : "fr", // French-only for MVP
   fallbackLng: "fr",
   defaultNS: "common",
-  ns: ["common", "home", "survey", "assistant", "candidates", "comparison", "onboarding", "privacy", "settings", "errors"],
+  ns: ["common", "home", "survey", "assistant", "candidates", "comparison", "onboarding", "settings", "errors"],
   resources: {
     fr: {
       common,
@@ -29,7 +28,6 @@ i18n.use(initReactI18next).init({
       candidates,
       comparison,
       onboarding,
-      privacy,
       settings,
       errors,
     },
