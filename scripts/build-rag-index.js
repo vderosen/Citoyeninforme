@@ -4,13 +4,14 @@
  * build-rag-index.js
  *
  * Reads all text_clean/*.json source documents, chunks them into
- * ~500-token segments with overlap, embeds each chunk via OpenAI
- * text-embedding-3-small, and writes the result to rag_index.json.
+ * ~500-token segments with overlap, embeds each chunk via Gemini
+ * gemini-embedding-001, and writes the result to rag_index.json.
  *
- * Memory-efficient: embeds and writes one batch at a time,
- * never holding all embeddings in memory simultaneously.
+ * Memory-efficient: embeds in parallel batches and writes one batch
+ * at a time, never holding all embeddings in memory simultaneously.
  *
  * Usage:  node scripts/build-rag-index.js
+ * Env:    GEMINI_API_KEY
  * Output: data_pipeline/rag_index.json
  */
 
@@ -28,10 +29,12 @@ const SOURCES_FILE = path.join(
 );
 const OUTPUT_FILE = path.join(__dirname, "..", "data_pipeline", "rag_index.json");
 
-const EMBEDDING_MODEL = "text-embedding-3-small";
+const EMBEDDING_MODEL = "gemini-embedding-001";
+const EMBEDDING_DIMENSION = 768;
 const CHUNK_SIZE_CHARS = 1500;
 const CHUNK_OVERLAP_CHARS = 200;
-const EMBEDDING_BATCH_SIZE = 50;
+// Gemini embedding API does not support batching — parallelize individual calls
+const EMBEDDING_BATCH_SIZE = 20;
 
 // ---------------------------------------------------------------------------
 // .env loader
@@ -110,23 +113,29 @@ function chunkText(text, chunkSize, overlap) {
 }
 
 // ---------------------------------------------------------------------------
-// OpenAI Embeddings
+// Gemini Embeddings
 // ---------------------------------------------------------------------------
-async function embedBatch(texts, apiKey) {
-    const response = await fetch("https://api.openai.com/v1/embeddings", {
+async function embedSingle(text, apiKey) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:embedContent?key=${apiKey}`;
+    const response = await fetch(url, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({ model: EMBEDDING_MODEL, input: texts }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            model: `models/${EMBEDDING_MODEL}`,
+            content: { parts: [{ text }] },
+        }),
     });
     if (!response.ok) {
         const errorBody = await response.text();
-        throw new Error(`OpenAI Embeddings API error ${response.status}: ${errorBody}`);
+        throw new Error(`Gemini Embeddings API error ${response.status}: ${errorBody}`);
     }
     const data = await response.json();
-    return data.data.sort((a, b) => a.index - b.index).map((d) => d.embedding);
+    return data.embedding.values;
+}
+
+async function embedBatch(texts, apiKey) {
+    // Gemini doesn't support batching — parallelize individual calls
+    return Promise.all(texts.map((text) => embedSingle(text, apiKey)));
 }
 
 // ---------------------------------------------------------------------------
@@ -134,9 +143,9 @@ async function embedBatch(texts, apiKey) {
 // ---------------------------------------------------------------------------
 async function main() {
     loadDotEnv();
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-        console.error("ERROR: OPENAI_API_KEY not found in .env");
+        console.error("ERROR: GEMINI_API_KEY not found in .env");
         process.exit(1);
     }
 
@@ -181,7 +190,7 @@ async function main() {
 
     // Step 2: Open output file stream and write header
     const fd = fs.openSync(OUTPUT_FILE, "w");
-    const header = `{"model":${JSON.stringify(EMBEDDING_MODEL)},"dimension":1536,"created_at":${JSON.stringify(new Date().toISOString())},"chunk_count":${totalChunks},"candidates":${JSON.stringify(candidates)},"chunks":[`;
+    const header = `{"model":${JSON.stringify(EMBEDDING_MODEL)},"dimension":${EMBEDDING_DIMENSION},"created_at":${JSON.stringify(new Date().toISOString())},"chunk_count":${totalChunks},"candidates":${JSON.stringify(candidates)},"chunks":[`;
     fs.writeSync(fd, header);
 
     // Step 3: Embed in batches and write each chunk immediately (then free memory)
