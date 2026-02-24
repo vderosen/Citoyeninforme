@@ -157,10 +157,10 @@ export default function CardsScreen() {
         return (
             <View className="flex-1 items-center justify-center bg-warm-white p-6">
                 <Text className="font-display-bold text-2xl text-civic-navy mb-4 text-center">
-                    Cartes Swipe terminées !
+                    {t("survey:allCardsDoneTitle")}
                 </Text>
                 <Text className="font-body text-text-body text-center mb-8">
-                    Vous avez swipé toutes les cartes. Allez dans l'onglet Résultats pour voir vos matchs en détail.
+                    {t("survey:allCardsDoneMessage")}
                 </Text>
             </View>
         );
@@ -215,7 +215,7 @@ export default function CardsScreen() {
                                 className="bg-civic-navy py-3.5 px-6 rounded-xl active:opacity-80 items-center"
                             >
                                 <Text className="font-display-bold text-warm-white text-sm uppercase tracking-wider">
-                                    Fermer
+                                    {t("common:close")}
                                 </Text>
                             </Pressable>
                         </View>

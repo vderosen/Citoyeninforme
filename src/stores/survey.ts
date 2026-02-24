@@ -45,7 +45,6 @@ export const useSurveyStore = create<SurveyState>()(
       status: "not_started",
       currentQuestionIndex: 0,
       answers: {},
-      importanceWeights: {},
       profile: null,
       datasetVersion: null,
 

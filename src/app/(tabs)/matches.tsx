@@ -18,10 +18,10 @@ export default function MatchesScreen() {
         return (
             <View className="flex-1 items-center justify-center bg-warm-white p-6">
                 <Text className="font-display-bold text-xl text-civic-navy mb-4 text-center">
-                    Pas encore de résultats
+                    {t("survey:noResultsTitle")}
                 </Text>
                 <Text className="font-body text-text-body text-center">
-                    Allez dans l'onglet Cartes Swipe et swipez quelques cartes pour découvrir avec quels candidats vous vous alignez le plus !
+                    {t("survey:noResultsDescription")}
                 </Text>
             </View>
         );
@@ -71,7 +71,7 @@ export default function MatchesScreen() {
                         {t("survey:whyThisResult")}
                     </Text>
                     <Text className="font-body text-sm text-text-body">
-                        Chaque carte avec laquelle vous êtes d'accord ou en désaccord influence votre score final. Les candidats remportent des points quand vos positions concordent avec les leurs. Cliquez sur un candidat pour voir le détail de ses points !
+                        {t("survey:whyThisResultExplanation")}
                     </Text>
                 </View>
 

@@ -10,6 +10,7 @@
   "close": "Fermer",
   "source": "Source",
   "sources": "Sources",
+  "accessedOn": "Consulté le {{date}}",
   "noData": "Aucune donnée disponible",
   "noPositionDocumented": "Pas de position documentée",
   "noPositionNote": "L'absence de données ne signifie pas l'absence d'opinion.",

@@ -46,5 +46,9 @@
   "tutorialDismiss": "Compris !",
   "undoLabel": "Annuler",
   "undoPreviousQuestion": "Revenir à la question précédente",
-  "cardProgress": "{{current}} / {{total}}"
+  "cardProgress": "{{current}} / {{total}}",
+  "allCardsDoneTitle": "Cartes Swipe terminées !",
+  "allCardsDoneMessage": "Vous avez swipé toutes les cartes. Allez dans l'onglet Résultats pour voir vos matchs en détail.",
+  "noResultsTitle": "Pas encore de résultats",
+  "noResultsDescription": "Allez dans l'onglet Cartes Swipe et swipez quelques cartes pour découvrir avec quels candidats vous vous alignez le plus !"
 }

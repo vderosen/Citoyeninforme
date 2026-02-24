@@ -50,8 +50,8 @@
     },
     "extra": {
       "privacyPolicyUrl": "https://citoyeninforme.fr/politique-de-confidentialite",
-      "supportUrl": "https://lucide.app/support",
-      "tosUrl": "https://lucide.app/terms",
+      "supportUrl": "https://citoyeninforme.fr/support",
+      "tosUrl": "https://citoyeninforme.fr/cgu",
       "router": {
         "root": "./src/app"
       },
