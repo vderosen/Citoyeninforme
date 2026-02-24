@@ -43,5 +43,11 @@
   "suggestionsLoading": "Suggestions...",
   "assistantSubtitle": "Ton assistant civique",
   "emptyTitle": "Ton assistant IA civique",
-  "emptySubtitle": "Pose-moi une question sur les programmes des candidats"
+  "emptySubtitle": "Pose-moi une question sur les programmes des candidats",
+  "infoTitle": "À propos de cet assistant",
+  "infoHow": "Comment ça fonctionne",
+  "infoHowText": "Cet assistant est basé sur l'intelligence artificielle. Il analyse les programmes officiels des candidats aux élections municipales et s'appuie sur ces sources pour répondre à vos questions.",
+  "infoDisclaimer": "Avertissement",
+  "infoDisclaimerText": "Bien que tout le soin ait été apporté pour que les réponses soient précises, non biaisées et utiles, l'IA peut parfois se tromper ou manquer de nuances. Les informations fournies ne constituent pas un avis politique officiel. En cas de doute, consultez directement les programmes officiels des candidats.",
+  "infoClose": "Fermer"
 }

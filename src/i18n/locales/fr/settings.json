@@ -8,9 +8,16 @@
   },
   "about": {
     "title": "À propos",
+    "buttonLabel": "À propos",
+    "description": "Citoyen Informé est une application indépendante conçue pour aider les citoyens à mieux comprendre les programmes des candidats aux élections municipales, grâce à l'intelligence artificielle.",
+    "contactTitle": "Contact",
+    "contactDescription": "Pour toute question ou signalement :",
+    "contactEmail": "support@citoyeninforme.fr",
+    "createdBy": "Application créée par",
+    "creatorName": "Vassili de Rosen",
     "version": "Version",
     "privacy": "Politique de confidentialité",
-    "terms": "Conditions d'Utilisations",
+    "terms": "Conditions d'utilisation",
     "crashReports": "Rapports de crash",
     "crashReportsDescription": "Envoi anonyme pour améliorer l'app",
     "credits": "Conçu pour l'engagement civique"

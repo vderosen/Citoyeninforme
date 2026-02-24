@@ -1,17 +1,12 @@
+import { View, Text, ScrollView, Alert, Pressable, Linking, Modal } from "react-native";
 import { useState } from "react";
-import { View, Text, Switch, ScrollView, Alert, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
 import Constants from "expo-constants";
-import { useAppStore } from "../stores/app";
-import {
-  generateExport,
-  shareExport,
-  deleteAllUserData,
-} from "../services/data-export";
+import { deleteAllUserData } from "../services/data-export";
 
 const PRIVACY_POLICY_URL =
   process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL ??
@@ -101,26 +96,99 @@ function SettingsRow({
   return inner;
 }
 
+/* ── À propos modal ── */
+
+function AboutModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
+  const { t } = useTranslation("settings");
+  const appVersion = Constants.expoConfig?.version ?? "1.0.0";
+
+  return (
+    <Modal visible={visible} animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose}>
+      <SafeAreaView className="flex-1 bg-warm-white">
+        {/* Header */}
+        <View className="flex-row items-center justify-between px-4 pt-4 pb-2 border-b border-black/5">
+          <Text className="font-display-semibold text-lg text-civic-navy">{t("about.title")}</Text>
+          <Pressable
+            onPress={onClose}
+            className="w-8 h-8 rounded-full bg-warm-gray items-center justify-center"
+            accessibilityRole="button"
+            accessibilityLabel="Fermer"
+          >
+            <Ionicons name="close" size={18} color="#1B2A4A" />
+          </Pressable>
+        </View>
+
+        <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingVertical: 24, gap: 24 }}>
+          {/* Description */}
+          <View className="bg-warm-gray rounded-2xl p-4">
+            <Text className="font-body text-sm text-text-body leading-relaxed">
+              {t("about.description")}
+            </Text>
+          </View>
+
+          {/* Contact */}
+          <View>
+            <Text className="font-display-medium text-xs text-text-caption uppercase tracking-wide mb-2 ml-1">
+              {t("about.contactTitle")}
+            </Text>
+            <View className="bg-warm-gray rounded-2xl p-4">
+              <Text className="font-body text-sm text-text-body mb-3">
+                {t("about.contactDescription")}
+              </Text>
+              <Pressable
+                onPress={() => Linking.openURL(`mailto:${t("about.contactEmail")}`)}
+                className="flex-row items-center gap-2"
+                accessibilityRole="link"
+              >
+                <Ionicons name="mail-outline" size={16} color="#0A66C2" />
+                <Text className="font-body-medium text-sm text-blue-600 underline">
+                  {t("about.contactEmail")}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+
+          {/* Créateur */}
+          <View>
+            <Text className="font-display-medium text-xs text-text-caption uppercase tracking-wide mb-2 ml-1">
+              {t("about.createdBy")}
+            </Text>
+            <Pressable
+              onPress={() => Linking.openURL("https://www.linkedin.com/in/vassiliderosen/")}
+              className="bg-warm-gray rounded-2xl p-4 flex-row items-center gap-3"
+              accessibilityRole="link"
+            >
+              <View className="w-9 h-9 rounded-lg items-center justify-center bg-[#0A66C2]">
+                <Ionicons name="logo-linkedin" size={18} color="white" />
+              </View>
+              <View className="flex-1">
+                <Text className="font-body-medium text-sm text-civic-navy">
+                  {t("about.creatorName")}
+                </Text>
+                <Text className="font-body text-xs text-text-caption mt-0.5">linkedin.com/in/vassiliderosen</Text>
+              </View>
+              <Ionicons name="open-outline" size={14} color="#9CA3AF" />
+            </Pressable>
+          </View>
+
+          {/* Version */}
+          <View className="items-center pt-2">
+            <Text className="font-body text-xs text-text-caption">
+              {t("about.version")} {appVersion}
+            </Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </Modal>
+  );
+}
+
 /* ── Screen ── */
 
 export default function SettingsScreen() {
   const { t } = useTranslation("settings");
   const router = useRouter();
-  const [exporting, setExporting] = useState(false);
-
-  const appVersion = Constants.expoConfig?.version ?? "1.0.0";
-
-  const handleExport = async () => {
-    try {
-      setExporting(true);
-      const fileUri = await generateExport();
-      await shareExport(fileUri);
-    } catch {
-      Alert.alert(t("data.exportError"), t("data.exportErrorDetail"));
-    } finally {
-      setExporting(false);
-    }
-  };
+  const [aboutVisible, setAboutVisible] = useState(false);
 
   const confirmDelete = () => {
     Alert.alert(t("data.deleteConfirmTitle"), t("data.deleteConfirmMessage"), [
@@ -146,27 +214,12 @@ export default function SettingsScreen() {
         className="flex-1"
         contentContainerStyle={{ paddingVertical: 16 }}
       >
-        {/* ── Mon compte ── */}
-        <SettingsGroup title={t("account.title")}>
-          <SettingsRow
-            icon="download-outline"
-            label={t("account.export")}
-            description={
-              exporting
-                ? t("account.exporting")
-                : t("account.exportDescription")
-            }
-            onPress={exporting ? undefined : handleExport}
-            last
-          />
-        </SettingsGroup>
-
         {/* ── À propos ── */}
         <SettingsGroup title={t("about.title")}>
           <SettingsRow
             icon="information-circle-outline"
-            label={t("about.version")}
-            value={appVersion}
+            label={t("about.buttonLabel")}
+            onPress={() => setAboutVisible(true)}
           />
           <SettingsRow
             icon="shield-checkmark-outline"
@@ -180,6 +233,8 @@ export default function SettingsScreen() {
             last
           />
         </SettingsGroup>
+
+        <AboutModal visible={aboutVisible} onClose={() => setAboutVisible(false)} />
 
         {/* ── Zone dangereuse ── */}
         <View className="px-4 mt-4">

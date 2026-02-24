@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { View, Text, Pressable, TextInput } from "react-native";
+import { View, Text, Pressable, TextInput, Linking, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { submitFeedback } from "../../services/feedback";
+
+const SUPPORT_EMAIL = "support@citoyeninforme.fr";
 
 interface FeedbackActionProps {
   screen: "candidate" | "assistant" | "comparison" | "survey";
@@ -27,14 +29,49 @@ export function FeedbackAction({ screen, entityId, initiallyOpen = false, onDone
     setText("");
   };
 
-  const handleSubmit = () => {
+  const typeLabels: Record<FeedbackType, string> = {
+    unclear: "Information peu claire",
+    missing: "Information manquante",
+    general: "Commentaire général",
+  };
+
+  const handleSubmit = async () => {
     if (!selectedType) return;
+
+    const subject = encodeURIComponent(
+      `[Citoyen Informé] ${typeLabels[selectedType]} — ${screen}${entityId ? ` (${entityId})` : ""}`
+    );
+    const body = encodeURIComponent(
+      [
+        `Type : ${typeLabels[selectedType]}`,
+        `Écran : ${screen}`,
+        entityId ? `Contexte : ${entityId}` : null,
+        "",
+        text.trim() || "(Aucune description fournie)",
+      ]
+        .filter((line) => line !== null)
+        .join("\n")
+    );
+
+    const mailto = `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
+    const canOpen = await Linking.canOpenURL(mailto);
+
+    if (canOpen) {
+      await Linking.openURL(mailto);
+    } else {
+      Alert.alert(
+        "Pas d'application mail",
+        `Envoyez votre retour à ${SUPPORT_EMAIL}`
+      );
+    }
+
     submitFeedback({
       screen,
       entityId: entityId ?? null,
       type: selectedType,
       text: text.trim() || null,
     });
+
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);

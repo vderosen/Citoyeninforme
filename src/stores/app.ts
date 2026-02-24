@@ -19,11 +19,11 @@ interface AppState {
 export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
-      hasCompletedOnboarding: true,
+      hasCompletedOnboarding: false,
       lastActiveTab: "",
-      privacyConsentVersion: "1.0",
-      consentTimestamp: new Date().toISOString(),
-      hasSeenSwipeTutorial: true,
+      privacyConsentVersion: null,
+      consentTimestamp: null,
+      hasSeenSwipeTutorial: false,
 
       completeOnboarding: () => set({ hasCompletedOnboarding: true }),
       setLastActiveTab: (tab) => set({ lastActiveTab: tab }),

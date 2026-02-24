@@ -9,6 +9,7 @@ import { useAssistantStore, createMessageId } from "../../stores/assistant";
 import { sendChatMessage } from "../../services/chatbot";
 import { AssistantResetHeaderAction } from "../../components/assistant/AssistantResetHeaderAction";
 import { AssistantFeedbackHeaderAction } from "../../components/assistant/AssistantFeedbackHeaderAction";
+import { AssistantInfoHeaderAction } from "../../components/assistant/AssistantInfoHeaderAction";
 import { ChatArea } from "../../components/assistant/ChatArea";
 import { useNetworkStatus } from "../../hooks/useNetworkStatus";
 import type { ChatMessage } from "../../stores/assistant";
@@ -66,7 +67,7 @@ export default function AssistantScreen() {
       headerRight: () => (
         <View className="flex-row items-center">
           <AssistantResetHeaderAction />
-          <AssistantFeedbackHeaderAction />
+          <AssistantInfoHeaderAction />
         </View>
       ),
     });
