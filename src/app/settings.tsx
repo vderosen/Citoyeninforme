@@ -10,7 +10,7 @@ import { deleteAllUserData } from "../services/data-export";
 
 const PRIVACY_POLICY_URL =
   process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL ??
-  "https://lucide.app/privacy-policy";
+  "https://citoyeninforme.fr/politique-de-confidentialite";
 
 /* ── Reusable settings primitives ── */
 

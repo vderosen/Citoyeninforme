@@ -51,7 +51,7 @@
     "extra": {
       "privacyPolicyUrl": "https://citoyeninforme.fr/politique-de-confidentialite",
       "supportUrl": "https://citoyeninforme.fr/support",
-      "tosUrl": "https://citoyeninforme.fr/cgu",
+      "tosUrl": "https://citoyeninforme.fr/conditions-utilisation",
       "router": {
         "root": "./src/app"
       },
