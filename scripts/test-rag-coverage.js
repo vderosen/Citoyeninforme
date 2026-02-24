@@ -79,12 +79,22 @@ async function embedQuery(text, apiKey) {
 // ---------------------------------------------------------------------------
 // Candidate name auto-detection (mirrors rag-proxy.js)
 // ---------------------------------------------------------------------------
+const CLIENT_ID_TO_RAG_NAME = {
+    "pierre-yves-bournazel": "Bournazel",
+    "sophia-chikirou": "Chikirou",
+    "rachida-dati": "Dati",
+    "emmanuel-gregoire": "Gregoire",
+    "sarah-knafo": "Knafo",
+    "thierry-mariani": "Mariani",
+};
+
 const CANDIDATE_ALIASES = {
     bournazel: "Bournazel",
     chikirou: "Chikirou",
     dati: "Dati",
     gregoire: "Gregoire",
     grégoire: "Gregoire",
+    gregorie: "Gregoire",
     knafo: "Knafo",
     mariani: "Mariani",
     sophia: "Chikirou",
@@ -93,13 +103,48 @@ const CANDIDATE_ALIASES = {
     sarah: "Knafo",
     thierry: "Mariani",
     "pierre-yves": "Bournazel",
+    "p.-y.": "Bournazel",
 };
 
+function levenshtein(a, b) {
+    const m = a.length, n = b.length;
+    const dp = Array.from({ length: m + 1 }, () => new Array(n + 1));
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            dp[i][j] = a[i - 1] === b[j - 1]
+                ? dp[i - 1][j - 1]
+                : 1 + Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    return dp[m][n];
+}
+
+function normalize(text) {
+    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function detectCandidateFilter(text) {
-    const lower = text.toLowerCase();
+    const normalizedText = normalize(text);
     const found = new Set();
+
     for (const [alias, name] of Object.entries(CANDIDATE_ALIASES)) {
-        if (lower.includes(alias)) found.add(name);
+        if (normalizedText.includes(normalize(alias))) found.add(name);
+    }
+    if (found.size === 1) return [...found][0];
+    if (found.size > 1) return null;
+
+    const words = normalizedText.split(/[\s,.'"""''!?;:]+/).filter(w => w.length >= 3);
+    for (const word of words) {
+        for (const [alias, name] of Object.entries(CANDIDATE_ALIASES)) {
+            const normalizedAlias = normalize(alias);
+            if (normalizedAlias.length < 4) continue;
+            const dist = levenshtein(word, normalizedAlias);
+            if (dist <= 2 && dist < normalizedAlias.length * 0.5) {
+                found.add(name);
+            }
+        }
     }
     return found.size === 1 ? [...found][0] : null;
 }
@@ -178,6 +223,30 @@ const TEST_CASES = [
 ];
 
 // ---------------------------------------------------------------------------
+// Additional test: client-format candidate_filter IDs
+// ---------------------------------------------------------------------------
+const CLIENT_ID_TESTS = [
+    { clientId: "sarah-knafo", expected: "Knafo", query: "Securite" },
+    { clientId: "rachida-dati", expected: "Dati", query: "Transport" },
+    { clientId: "pierre-yves-bournazel", expected: "Bournazel", query: "Logement" },
+    { clientId: "sophia-chikirou", expected: "Chikirou", query: "Ecologie" },
+    { clientId: "emmanuel-gregoire", expected: "Gregoire", query: "Education" },
+    { clientId: "thierry-mariani", expected: "Mariani", query: "Securite" },
+];
+
+// ---------------------------------------------------------------------------
+// Additional test: fuzzy / typo'd candidate names
+// ---------------------------------------------------------------------------
+const FUZZY_TESTS = [
+    { input: "Que propose Bournazle pour Paris ?", expected: "Bournazel" },
+    { input: "Les propositions de Knaffo", expected: "Knafo" },
+    { input: "Chikiru transport", expected: "Chikirou" },
+    { input: "programme de Grégoir", expected: "Gregoire" },
+    { input: "Marianis sécurité", expected: "Mariani" },
+    { input: "Datii logement", expected: "Dati" },
+];
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 async function main() {
@@ -242,12 +311,41 @@ async function main() {
         console.log();
     }
 
+    // ── Client-format candidate_filter tests ──────────────────────────
+    console.log("\n── Client ID → RAG name mapping ──────────────────────────");
+    for (const { clientId, expected, query } of CLIENT_ID_TESTS) {
+        const resolved = CLIENT_ID_TO_RAG_NAME[clientId] ?? clientId;
+        const idOk = resolved === expected;
+
+        // Also test retrieval with short query + enrichment
+        const enrichedQuery = `${resolved} : ${query}`;
+        const embedding = await embedQuery(enrichedQuery, apiKey);
+        const retrieved = retrieveChunks(ragChunks, embedding, 12, resolved);
+        const topSim = retrieved[0]?.similarity ?? 0;
+        const hitOk = retrieved.length > 0 && retrieved[0].chunk.candidate === expected;
+
+        const status = idOk && hitOk ? "✅ PASS" : "❌ FAIL";
+        console.log(`   ${status}  "${clientId}" → "${resolved}" (expected "${expected}")  query: "${query}"  top-sim: ${topSim.toFixed(3)}  chunks: ${retrieved.length}`);
+
+        if (idOk && hitOk) passed++; else failed++;
+    }
+
+    // ── Fuzzy candidate detection tests ──────────────────────────
+    console.log("\n── Fuzzy / typo detection ──────────────────────────");
+    for (const { input, expected } of FUZZY_TESTS) {
+        const detected = detectCandidateFilter(input);
+        const ok = detected === expected;
+        const status = ok ? "✅ PASS" : "❌ FAIL";
+        console.log(`   ${status}  "${input}" → detected: ${detected ?? "null"} (expected: ${expected})`);
+        if (ok) passed++; else failed++;
+    }
+
     // Summary
-    console.log("═══════════════════════════════════════════");
-    console.log(`RESULTS: ${passed} passed, ${failed} failed (${results.length} total)`);
+    console.log("\n═══════════════════════════════════════════");
+    console.log(`RESULTS: ${passed} passed, ${failed} failed (${passed + failed} total)`);
     console.log();
 
-    // Per-candidate summary
+    // Per-candidate summary (original test cases only)
     for (const { candidate } of TEST_CASES) {
         const caseResults = results.filter((r) => r.candidate === candidate);
         const cPassed = caseResults.filter((r) => r.ok).length;
