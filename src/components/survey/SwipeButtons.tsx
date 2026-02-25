@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { SwipeDirection } from "../../data/schema";
@@ -15,8 +15,8 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
   const o = disabled ? 0.5 : 1;
 
   return (
-    <View className="px-4 py-4" style={{ opacity: o }}>
-      <View className="flex-row items-center justify-between w-full">
+    <View className="px-2 py-4 w-full" style={{ opacity: o }}>
+      <View className="flex-row items-center justify-evenly w-full">
         {/* Double Red Cross (-2) */}
         <PressableScale
           onPress={() => {
@@ -24,10 +24,12 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
             onButtonPress("strongly_disagree");
           }}
           disabled={disabled}
+          testID="btn-strongly-disagree"
           accessibilityRole="button"
           accessibilityLabel={t("swipeStronglyDisagree")}
           className="bg-red-50 border-2 border-red-200 rounded-full items-center justify-center shadow-sm"
           style={{ width: 56, height: 56 }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <View className="flex-row items-center" style={{ marginLeft: -4 }}>
             <Ionicons name="close" size={24} color="#E84855" style={{ marginRight: -12 }} />
@@ -42,10 +44,12 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
             onButtonPress("disagree");
           }}
           disabled={disabled}
+          testID="btn-disagree"
           accessibilityRole="button"
           accessibilityLabel={t("swipeDisagree")}
           className="bg-red-50 border-2 border-red-200 rounded-full items-center justify-center shadow-card"
           style={{ width: 72, height: 72 }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <Ionicons name="close" size={36} color="#E84855" />
         </PressableScale>
@@ -57,10 +61,12 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
             onButtonPress("skip");
           }}
           disabled={disabled}
+          testID="btn-skip"
           accessibilityRole="button"
           accessibilityLabel={t("swipeSkip")}
-          className="bg-gray-50 border-2 border-gray-200 rounded-full items-center justify-center shadow-sm"
+          className="bg-gray-50 border-2 border-gray-200 rounded-full items-center justify-center"
           style={{ width: 56, height: 56 }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <Text style={{ fontSize: 26, transform: [{ translateY: -1 }] }}>🤷‍♂️</Text>
         </PressableScale>
@@ -72,10 +78,12 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
             onButtonPress("agree");
           }}
           disabled={disabled}
+          testID="btn-agree"
           accessibilityRole="button"
           accessibilityLabel={t("swipeAgree")}
           className="bg-green-50 border-2 border-green-200 rounded-full items-center justify-center shadow-card"
           style={{ width: 72, height: 72 }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <Ionicons name="checkmark" size={36} color="#4CAF83" />
         </PressableScale>
@@ -87,10 +95,12 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
             onButtonPress("strongly_agree");
           }}
           disabled={disabled}
+          testID="btn-strongly-agree"
           accessibilityRole="button"
           accessibilityLabel={t("swipeStronglyAgree")}
-          className="bg-green-50 border-2 border-green-200 rounded-full items-center justify-center shadow-sm"
+          className="bg-green-50 border-2 border-green-200 rounded-full items-center justify-center"
           style={{ width: 56, height: 56 }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <Ionicons name="checkmark-done" size={28} color="#4CAF83" />
         </PressableScale>

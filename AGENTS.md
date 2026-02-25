@@ -1,29 +1,28 @@
-# Lucide_v2 Development Guidelines
+# Citoyen Informé — Agent Guidelines
 
-Auto-generated from all feature plans. Last updated: 2026-02-20
+## Quick Start
 
-## Active Technologies
+- Read `Context.md` for architecture, tech stack, and project conventions
+- Read `.specify/memory/constitution.md` for core principles (neutrality, privacy, source-grounded truth)
+- Run `npm test && npm run lint` before committing
 
-- TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + @sentry/react-native, expo-file-system, zustand 5.0.3, @react-native-async-storage/async-storage, expo-router 6.0, react-i18next 15.4.1 (014-fix-critical-bugs)
+## Key Rules
 
-## Project Structure
+- **Branding:** App name is **Citoyen Informé** (not "Lucide")
+- **Language:** French only — all user-facing strings via `t('key')` from react-i18next
+- **Privacy:** All user data stays on-device (AsyncStorage). No server-side user profiles
+- **Neutrality:** No voting recommendations. Survey uses transparent, deterministic scoring
+- **Card order:** Always use `balancedShuffle` — never randomize or hardcode
 
-```text
-src/
-tests/
-```
+## Workflows
 
-## Commands
+See `.agents/workflows/` for step-by-step procedures:
+- `/launch-simulator` — Boot iOS simulator and connect MCP for visual testing
 
-npm test && npm run lint
+## Testing
 
-## Code Style
-
-TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54): Follow standard conventions
-
-## Recent Changes
-
-- 014-fix-critical-bugs: Added TypeScript 5.9.2 on React Native 0.81.5 (Expo SDK 54) + @sentry/react-native, expo-file-system, zustand 5.0.3, @react-native-async-storage/async-storage, expo-router 6.0, react-i18next 15.4.1
-
-<!-- MANUAL ADDITIONS START -->
-<!-- MANUAL ADDITIONS END -->
+| Tool | Purpose | Command |
+|---|---|---|
+| Jest | Unit tests | `npm test` |
+| Detox | E2E native tests | See `e2e/` directory |
+| iOS Simulator MCP | AI visual debugging | See `/launch-simulator` workflow |

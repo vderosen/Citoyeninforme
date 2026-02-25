@@ -34,12 +34,14 @@ export function PressableScale({
     onPressOut?.(e);
   };
 
+  const { testID, ...restProps } = props;
+
   return (
-    <Animated.View style={reduceMotion ? undefined : animatedStyle}>
+    <Animated.View style={reduceMotion ? undefined : animatedStyle} testID={testID}>
       <Pressable
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        {...props}
+        {...restProps}
       >
         {children}
       </Pressable>

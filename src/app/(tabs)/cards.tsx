@@ -7,7 +7,7 @@ import { useSurveyStore } from "../../stores/survey";
 import { SwipeStack } from "../../components/survey/SwipeStack";
 import { SwipeTutorialOverlay } from "../../components/survey/SwipeTutorialOverlay";
 import { ProgressBar } from "../../components/survey/ProgressBar";
-import { computeMatching } from "../../services/matching";
+
 import { balancedShuffle, dailySeed } from "../../utils/shuffle";
 import { getCategoryTheme } from "../../utils/categoryTheme";
 import type { SwipeDirection, StatementCard } from "../../data/schema";
@@ -71,32 +71,15 @@ export default function CardsScreen() {
     const theme = getCategoryTheme(selectedCard?.category || 'Autre');
 
     const computeResults = useCallback(() => {
-        // We get the absolutely latest answers from the store to avoid stale closures
-        const currentAnswers = useSurveyStore.getState().answers;
-
-        // Check if we have answers at all
-        if (Object.keys(currentAnswers).length === 0) {
-            return;
-        }
-
-        const matchingResult = computeMatching({
-            answers: currentAnswers,
-            cards: shuffledCards,
-            candidates: candidates,
-        });
-
-        setResults(
-            {
-                surveyAnswers: currentAnswers,
-                candidateRanking: matchingResult.candidateRanking,
-                completedAt: new Date().toISOString(),
-            },
-            election?.dataVersion ?? "unknown"
+        if (!election) return;
+        useSurveyStore.getState().computeAndSetResults(
+            shuffledCards,
+            candidates,
+            election.dataVersion ?? "unknown"
         );
     }, [
         candidates,
         election,
-        setResults,
         shuffledCards,
     ]);
 

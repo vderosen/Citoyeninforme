@@ -1,0 +1,32 @@
+import { device, element, by, expect, waitFor } from 'detox';
+
+describe('Survey Flow', () => {
+    beforeAll(async () => {
+        await device.launchApp({ newInstance: true, delete: true });
+    });
+
+    it('should complete onboarding and land on the survey', async () => {
+        // Step 1: Dismiss onboarding - tap "OK"
+        await waitFor(element(by.text('OK'))).toBeVisible().withTimeout(15000);
+        await element(by.text('OK')).tap();
+
+        // Step 2: Dismiss onboarding - tap "OK, j'ai compris"
+        await waitFor(element(by.text("OK, j'ai compris"))).toBeVisible().withTimeout(5000);
+        await element(by.text("OK, j'ai compris")).tap();
+
+        // App lands on Home!
+        await waitFor(element(by.text('Citoyen Informé'))).toBeVisible().withTimeout(10000);
+
+        // Navigate to the survey (Cartes Swipe)
+        await element(by.label('Cartes Swipe')).atIndex(0).tap();
+
+        // We just wait for the first card to render completely
+        await waitFor(element(by.id('active-card'))).toExist().withTimeout(15000);
+
+        // Swipe the card right to answer 'Agree', bypassing button hit-testing completely
+        await element(by.id('active-card-overlay')).swipe('right', 'fast', 0.5);
+
+        // Wait for the next card to cycle in
+        await waitFor(element(by.id('active-card'))).toExist().withTimeout(5000);
+    });
+});

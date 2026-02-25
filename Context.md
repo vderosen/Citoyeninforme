@@ -184,10 +184,32 @@ The assistant uses a **RAG proxy** hosted on Railway (`https://lucide-rag-produc
 
 ## Testing
 
+### Unit Tests
 **Runner:** Jest (`jest.config.js`)
 **Command:** `npm test && npm run lint`
+Tests use standard Jest + React Native Testing Library. Component-level specs are located in `docs/specs/`.
 
-Tests use standard Jest + React Native Testing Library. Component-level specs are located in `specs/`.
+### E2E Tests (Detox)
+**Runner:** Detox + Jest (`e2e/`)
+**Tests:** `survey.test.ts`, `podium.test.ts`, `candidates.test.ts`
+Covers onboarding dismissal, tab navigation, survey card swiping (via `testID`), podium rendering, and candidate carousel visibility. Uses `testID` props (`active-card`, `active-card-overlay`, `podium-container`, `podium-rank-1`, etc.) for reliable element targeting.
+
+### Visual Debugging (iOS Simulator MCP)
+**Tool:** `@mseep/ios-simulator-mcp` (configured in `.gemini/antigravity/mcp_config.json`)
+**Purpose:** AI-driven visual inspection of the native iOS app — **not a test framework**. Use for ad-hoc "does this look right?" checks, layout debugging, and exploratory testing during development.
+**Capabilities:** Screenshots (`xcrun simctl`), tap/swipe/accessibility tree (`idb`).
+**Setup notes:**
+- The MCP server PATH must include the `idb` venv: `mcp-server-simulator-ios-idb/venv/bin`
+- Metro must start with `--localhost` flag: `npx expo start --ios --localhost`
+
+### Testing Stack Summary
+| Tool | Purpose | CI-ready |
+|---|---|---|
+| Jest | Unit/component tests | ✅ |
+| Detox | Automated native E2E regression | ✅ |
+| iOS Simulator MCP | Ad-hoc AI visual debugging | ❌ (interactive only) |
+
+Detox and MCP overlap on flow coverage but serve different purposes: Detox gives deterministic pass/fail assertions; MCP gives the AI agent visual eyes into the simulator for aesthetic and layout inspection.
 
 ---
 

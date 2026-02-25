@@ -51,7 +51,7 @@ export function ComparisonView({
   const columnStyle = selectedCandidates.length > 2 ? { width: 240 } : {};
 
   return (
-    <View className="flex-1">
+    <View testID="comparison-view-container" className="flex-1">
       <ScrollView
         horizontal={selectedCandidates.length > 2}
         showsHorizontalScrollIndicator={false}

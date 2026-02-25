@@ -11,7 +11,12 @@ This repository currently ships with the Paris 2026 municipal election dataset (
 - Candidate exploration: gallery, profile pages, theme-based filtering, and source references.
 - Candidate comparison: side-by-side comparison by theme.
 - Civic survey: civic primer, weighted questionnaire, deterministic matching, tie explanation, contradiction detection.
-- Assistant tab with 3 modes:
+- Discover flow on Home: election context, key logistics, trust/neutrality card, and action shortcuts.
+- Candidate exploration: gallery, profile pages, theme-based filtering, and source references.
+- Candidate comparison: side-by-side comparison by theme.
+- Civic survey: civic primer, weighted questionnaire, deterministic matching, tie explanation, contradiction detection.
+- Four-tab navigation: Accueil, Cartes Swipe, Résultats, Assistant IA.
+- Assistant IA with 3 modes:
   - `comprendre` (learn mode),
   - `parler` (candidate persona mode),
   - `debattre` (Socratic trade-off mode).
@@ -52,13 +57,13 @@ src/
   stores/              Zustand stores (app, survey, assistant, election)
   utils/               Helpers (input sanitization, etc.)
 
-scripts/
-  llm-proxy.js         Local chat proxy to OpenAI
-  generate-election-review-md.js
-
-tests/
-  unit/
-  contract/
+scripts/               Data pipeline and local proxy scripts
+docs/
+  specs/               Functional and technical specifications
+  assets/              Legacy design assets
+  legacy/              Archive of old data versions and silos
+tests/                 Unit and contract tests
+e2e/                   Detox end-to-end tests
 ```
 
 ## Quickstart
@@ -116,7 +121,7 @@ npm run android
 npm run web
 ```
 
-For WSL + physical phone testing, see `MOBILE_TESTING_GUIDE.md`.
+For iOS Simulator visual testing via MCP, see `.agents/workflows/launch-simulator.md`.
 
 ## Common commands
 
@@ -161,10 +166,12 @@ eas submit --platform android
 
 All product and implementation context is documented in `specs/`:
 
-- `specs/001-civic-election-app` - MVP functional scope
-- `specs/002-frontend-redesign` - action-first UX redesign
-- `specs/003-ui-polish` - navigation and hierarchy polish
-- `specs/004-neighborhood-pulse-redesign` - visual identity system
-- `specs/005-production-readiness` - privacy, security, resilience, release
-- `specs/006-onboarding-redesign` - 5-step onboarding flow
+All product and implementation context is documented in `docs/specs/`:
+
+- `docs/specs/001-civic-election-app` - MVP functional scope
+- `docs/specs/002-frontend-redesign` - action-first UX redesign
+- `docs/specs/003-ui-polish` - navigation and hierarchy polish
+- `docs/specs/004-neighborhood-pulse-redesign` - visual identity system
+- `docs/specs/005-production-readiness` - privacy, security, resilience, release
+- `docs/specs/006-onboarding-redesign` - 5-step onboarding flow
 

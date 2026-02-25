@@ -28,9 +28,7 @@ import "../i18n";
 import "../../global.css";
 
 SplashScreen.preventAutoHideAsync();
-LogBox.ignoreLogs([
-  "SafeAreaView has been deprecated and will be removed in a future release.",
-]);
+LogBox.ignoreAllLogs(true);
 
 export const unstable_settings = {
   initialRouteName: "(tabs)",

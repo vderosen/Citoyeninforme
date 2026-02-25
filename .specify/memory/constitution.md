@@ -15,7 +15,7 @@ Templates requiring updates:
 Follow-up TODOs: none
 -->
 
-# Lucide Constitution
+# Citoyen Informé Constitution
 
 ## Core Principles
 
@@ -123,10 +123,10 @@ feature addition MUST justify its presence against the core
 user goals: learn about an election and think critically
 about programs.
 
-- The UI consists of three tabs (Accueil, Assistant,
-  Candidats) mapping to the three core user intents:
-  discover, ask, and compare. Additional screens (e.g.,
-  candidate profiles, comparison, survey flow) are
+- The UI consists of four tabs (Accueil, Cartes Swipe, Résultats,
+  and Assistant IA) mapping to the core user intents:
+  discover, survey, results, and AI assistance. Additional
+  screens (e.g., candidate profiles, comparison) are
   presented as stack screens above the tabs. New tabs
   require explicit justification against this constraint.
 - Features MUST be delivered incrementally: each increment
@@ -192,7 +192,7 @@ cause real-world harm to users.
 ## Governance
 
 This constitution is the highest-authority document for
-the Lucide project. All specifications, plans, and
+the Citoyen Informé project. All specifications, plans, and
 implementation decisions MUST comply with these principles.
 
 - **Amendments**: Any change to this constitution MUST be

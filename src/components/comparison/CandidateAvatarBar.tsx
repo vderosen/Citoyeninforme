@@ -49,6 +49,7 @@ export function CandidateAvatarBar({
         onPress={() => {
           if (!isDisabled) onToggle(candidate.id);
         }}
+        testID={`candidate-item-${candidate.id}`}
         accessibilityRole="checkbox"
         accessibilityState={{ checked: isSelected, disabled: isDisabled }}
         accessibilityLabel={candidate.name}
@@ -61,9 +62,8 @@ export function CandidateAvatarBar({
       >
         <CandidateAvatar candidate={candidate} size={44} showRing={isSelected} />
         <Text
-          className={`text-xs text-civic-navy mt-1 text-center ${
-            isSelected ? "font-display-bold" : "font-body-medium"
-          }`}
+          className={`text-xs text-civic-navy mt-1 text-center ${isSelected ? "font-display-bold" : "font-body-medium"
+            }`}
           numberOfLines={1}
         >
           {candidate.name.split(" ").pop()}

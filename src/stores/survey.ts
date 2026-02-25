@@ -10,6 +10,7 @@ export type SurveyStatus =
   | "results_ready"
   | "completed";
 
+import { computeMatching } from "../services/matching";
 import type { CandidateMatchResult } from "../services/matching";
 
 export interface UserProfile {
@@ -40,6 +41,7 @@ interface SurveyState {
   reset: () => void;
   isResultsStale: (currentDatasetVersion: string) => boolean;
   markResultsViewed: () => void;
+  computeAndSetResults: (cards: import("../data/schema").StatementCard[], candidates: import("../data/schema").Candidate[], datasetVersion: string) => void;
 }
 
 export const useSurveyStore = create<SurveyState>()(
@@ -102,6 +104,27 @@ export const useSurveyStore = create<SurveyState>()(
           hasSeenInitialResult: true,
           cardsSwipedSinceLastResultView: 0,
         }),
+      computeAndSetResults: (cards, candidates, datasetVersion) => {
+        const state = get();
+        if (Object.keys(state.answers).length === 0) return;
+
+        // Import `computeMatching` at the top level to avoid bundler issues.
+        const matchingResult = computeMatching({
+          answers: state.answers,
+          cards,
+          candidates,
+        });
+
+        set({
+          status: "results_ready",
+          datasetVersion,
+          profile: {
+            surveyAnswers: state.answers,
+            candidateRanking: matchingResult.candidateRanking,
+            completedAt: new Date().toISOString(),
+          }
+        });
+      },
     }),
     {
       name: "survey-state",

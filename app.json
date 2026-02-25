@@ -43,7 +43,8 @@
           "root": "./src/app"
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      "@config-plugins/detox"
     ],
     "experiments": {
       "typedRoutes": true

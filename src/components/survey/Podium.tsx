@@ -1,10 +1,10 @@
 import { View, Text, Image, Pressable } from "react-native";
-import Animated, { FadeInUp, FadeIn, useReducedMotion, useSharedValue, withSequence, withTiming, withSpring, withDelay, useAnimatedStyle, Easing, interpolate } from "react-native-reanimated";
-import { useEffect } from "react";
+import Animated, { FadeInUp, FadeIn, useReducedMotion, useAnimatedStyle, interpolate } from "react-native-reanimated";
 import type { Candidate } from "../../data/schema";
 import type { CandidateMatchResult } from "../../services/matching";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
-import { getCandidatePartyColor } from "../../utils/candidatePartyColor";
+import { resolvePodiumTies, type PodiumSlot } from "../../utils/rankings";
+import { usePodiumAnimation } from "../../hooks/usePodiumAnimation";
 
 interface PodiumProps {
     ranking: CandidateMatchResult[];
@@ -51,6 +51,7 @@ function PodiumBar({
             className="items-center flex-1"
         >
             <Pressable
+                testID={`podium-rank-${slot.rank}`}
                 onPress={() => onCandidatePress(slot.match.candidateId)}
                 className="items-center w-full"
                 accessibilityRole="button"
@@ -147,103 +148,15 @@ function PodiumBar({
  */
 export function Podium({ ranking, candidates, onCandidatePress, triggerCelebration, isStatic }: PodiumProps) {
     const reduceMotion = useReducedMotion();
-
-    const riseProgress = useSharedValue(reduceMotion || !triggerCelebration ? 1 : 0);
-
-    // -- Animation state for the trophy --
-    const trophyScale = useSharedValue(0);
-    const trophyTranslateY = useSharedValue(20);
-    const trophyRotate = useSharedValue(0);
-
-    const trophyAnimatedStyle = useAnimatedStyle(() => ({
-        transform: [
-            { translateY: trophyTranslateY.value },
-            { scale: trophyScale.value },
-            { rotate: `${trophyRotate.value}deg` }
-        ],
-        opacity: trophyScale.value > 0 ? 1 : 0,
-    }));
-
-    useEffect(() => {
-        if (triggerCelebration && !reduceMotion) {
-            // Reset to hidden
-            riseProgress.value = 0;
-            trophyScale.value = 0;
-            trophyTranslateY.value = 20;
-            trophyRotate.value = 0;
-
-            const startDelay = 500;
-
-            // Rise podium smoothly
-            riseProgress.value = withDelay(
-                100,
-                withTiming(1, { duration: 800, easing: Easing.out(Easing.cubic) })
-            );
-
-            // Sequence: pop up, settle down slightly, tilt right
-            trophyScale.value = withDelay(
-                startDelay,
-                withSpring(1, { damping: 12, stiffness: 100 })
-            );
-
-            // Pop up higher then settle down
-            trophyTranslateY.value = withDelay(
-                startDelay,
-                withSequence(
-                    withTiming(-15, { duration: 300, easing: Easing.out(Easing.back(1.5)) }),
-                    withSpring(0, { damping: 14, stiffness: 120 })
-                )
-            );
-
-            // Tilt right after settling
-            trophyRotate.value = withDelay(
-                startDelay + 400,
-                withSpring(15, { damping: 10, mass: 0.8, stiffness: 150 })
-            );
-        } else if (triggerCelebration && reduceMotion) {
-            // Static if user prefers reduced motion
-            riseProgress.value = 1;
-            trophyScale.value = 1;
-            trophyTranslateY.value = 0;
-            trophyRotate.value = 15;
-        } else {
-            // Show static trophy without animating if no celebration is triggered
-            riseProgress.value = 1;
-            trophyScale.value = 1;
-            trophyTranslateY.value = 0;
-            trophyRotate.value = 15;
-        }
-    }, [triggerCelebration, reduceMotion]);
+    const { riseProgress, trophyAnimatedStyle } = usePodiumAnimation(!!triggerCelebration, isStatic, reduceMotion);
 
     if (ranking.length < 3) return null;
 
-    // Take top 3 from the pre-sorted ranking
-    const top3 = ranking.slice(0, 3);
-
-    // Determine actual ranks accounting for ties
-    const ranks: number[] = [];
-    let currentRank = 1;
-    for (let i = 0; i < top3.length; i++) {
-        if (i > 0 && top3[i].alignmentScore === top3[i - 1].alignmentScore) {
-            ranks.push(ranks[i - 1]);
-        } else {
-            ranks.push(currentRank);
-        }
-        currentRank = i + 2;
-    }
-
-    // Bar heights keyed by rank — tied candidates get the same height
-    const rankToHeight: Record<number, number> = { 1: 150, 2: 110, 3: 80 };
-
-    // Podium visual order: [position-1 (left), position-0 (center), position-2 (right)]
-    const podiumSlots = [
-        { match: top3[1], rank: ranks[1], label: `#${ranks[1]}`, height: rankToHeight[ranks[1]] ?? 80 },
-        { match: top3[0], rank: ranks[0], label: `#${ranks[0]}`, height: rankToHeight[ranks[0]] ?? 150 },
-        { match: top3[2], rank: ranks[2], label: `#${ranks[2]}`, height: rankToHeight[ranks[2]] ?? 80 },
-    ];
+    const podiumSlots = resolvePodiumTies(ranking);
 
     return (
         <Animated.View
+            testID="podium-container"
             entering={isStatic || reduceMotion ? undefined : FadeInUp.duration(600)}
             className="mb-6 w-full"
         >

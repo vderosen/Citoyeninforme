@@ -9,41 +9,17 @@ import { Podium } from "../../components/survey/Podium";
 import { FeedbackAction } from "../../components/shared/FeedbackAction";
 import { ShareResultsModal } from "../../components/survey/ShareResultsModal";
 import { Ionicons } from "@expo/vector-icons";
+import { usePodiumCelebrationTrigger } from "../../hooks/usePodiumCelebrationTrigger";
 
 export default function MatchesScreen() {
     const { t } = useTranslation(["survey", "common"]);
     const router = useRouter();
     const candidates = useElectionStore((s) => s.candidates);
     const profile = useSurveyStore((s) => s.profile);
-    const reset = useSurveyStore((s) => s.reset);
-    const markResultsViewed = useSurveyStore((s) => s.markResultsViewed);
     const answers = useSurveyStore((s) => s.answers);
-
-    const [triggerCelebration, setTriggerCelebration] = useState(false);
+    const reset = useSurveyStore((s) => s.reset);
+    const triggerCelebration = usePodiumCelebrationTrigger(profile);
     const [isShareModalVisible, setIsShareModalVisible] = useState(false);
-
-    useFocusEffect(
-        useCallback(() => {
-            const state = useSurveyStore.getState();
-            const currentProfile = state.profile;
-
-            if (currentProfile && currentProfile.candidateRanking.length >= 3) {
-                // Trigger if it's the very first time, OR if user swiped at least 1 new card
-                if (!state.hasSeenInitialResult || state.cardsSwipedSinceLastResultView >= 1) {
-                    setTriggerCelebration(true);
-                    markResultsViewed();
-                } else {
-                    setTriggerCelebration(false);
-                }
-            } else {
-                setTriggerCelebration(false);
-            }
-
-            return () => {
-                setTriggerCelebration(false);
-            };
-        }, [markResultsViewed])
-    );
 
     if (!profile || profile.candidateRanking.length === 0) {
         return (
