@@ -51,6 +51,9 @@ export function SwipeStack({
     <View className="flex-1">
       {/* Card stack */}
       <View className="justify-center" style={{ minHeight: 480, maxHeight: 630 }}>
+        {/* Background dark blue line */}
+        <View className="absolute bg-civic-navy" style={{ top: '50%', left: -50, right: -50, height: 64, marginTop: -32, zIndex: 0 }} />
+
         {visibleCards.map((card, stackIndex) => {
           const isTop = stackIndex === visibleCards.length - 1;
           return (
@@ -61,7 +64,7 @@ export function SwipeStack({
                   position: "absolute",
                   width: "100%",
                   top: 0,
-                  zIndex: stackIndex,
+                  zIndex: stackIndex + 1,
                 },
                 !isTop && {
                   // Hidden exactly beneath the top card.

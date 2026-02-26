@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable, Modal } from 'react-native';
+import { View, Text, ScrollView, Pressable, Modal, Image } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useElectionStore } from '../../stores/election';
@@ -6,6 +6,8 @@ import { useSurveyStore } from '../../stores/survey';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import React, { useState, useMemo } from 'react';
 import { getCategoryTheme } from '../../utils/categoryTheme';
+import { getCandidatePartyLogo } from '../../utils/candidatePartyLogo';
+import { CandidateInfoModal } from '../../components/candidates/CandidateInfoModal';
 
 export default function CandidateBreakdownScreen() {
     const { candidateId } = useLocalSearchParams<{ candidateId: string }>();
@@ -25,6 +27,9 @@ export default function CandidateBreakdownScreen() {
     );
     const theme = getCategoryTheme(selectedCard?.category || 'Autre');
 
+    // State for candidate info modal
+    const [isCandidateModalVisible, setIsCandidateModalVisible] = useState(false);
+
     if (!candidate || !match) {
         return (
             <View className="flex-1 items-center justify-center p-4 bg-warm-white">
@@ -35,6 +40,8 @@ export default function CandidateBreakdownScreen() {
             </View>
         );
     }
+
+    const partyLogo = getCandidatePartyLogo(candidate?.id ?? '');
 
     return (
         <View className="flex-1 bg-warm-white">
@@ -51,6 +58,25 @@ export default function CandidateBreakdownScreen() {
             </View>
 
             <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingVertical: 16, paddingBottom: 40 }}>
+                {/* Candidate info bar with party logo */}
+                <Pressable
+                    onPress={() => setIsCandidateModalVisible(true)}
+                    className="flex-row items-center bg-white rounded-xl p-3 mb-4 border border-warm-gray shadow-sm active:opacity-70"
+                >
+                    {partyLogo && (
+                        <Image
+                            source={partyLogo}
+                            className="w-10 h-10 rounded-lg mr-3"
+                            resizeMode="contain"
+                        />
+                    )}
+                    <View className="flex-1">
+                        <Text className="font-display-semibold text-base text-civic-navy">{candidate.name}</Text>
+                        <Text className="font-body text-xs text-text-body" numberOfLines={1}>{candidate.party}</Text>
+                    </View>
+                    <Feather name="info" size={20} color="#1C2136" className="ml-2 opacity-50" />
+                </Pressable>
+
                 <Text className="font-body text-sm text-text-body mb-6">
                     Voici l'historique de vos réponses et comment elles ont impacté le score de ce candidat.
                 </Text>
@@ -64,12 +90,26 @@ export default function CandidateBreakdownScreen() {
                         const card = statementCards.find(c => c.id === interaction.cardId);
                         const hasDescription = !!card?.description;
 
+                        const cardTheme = getCategoryTheme(card?.category || 'Autre');
+
                         return (
                             <Pressable
                                 key={`${interaction.cardId}-${index}`}
                                 onPress={hasDescription ? () => setSelectedCardId(interaction.cardId) : undefined}
-                                className="bg-white rounded-xl p-4 mb-3 border border-warm-gray shadow-sm active:opacity-80"
+                                className="bg-white rounded-xl p-4 mb-3 shadow-sm active:opacity-80"
+                                style={{
+                                    borderWidth: 1,
+                                    borderColor: '#E5E7EB', // default border
+                                    borderLeftColor: cardTheme.bg,
+                                    borderLeftWidth: 4,
+                                }}
                             >
+                                <View className="flex-row items-center mb-2">
+                                    <Ionicons name={cardTheme.icon as any} size={14} color={cardTheme.bg} />
+                                    <Text className="ml-1.5 font-display-bold text-xs uppercase tracking-wider" style={{ color: cardTheme.bg }}>
+                                        {card?.category || 'Autre'}
+                                    </Text>
+                                </View>
                                 <View className="flex-row justify-between items-start mb-2">
                                     <Text className="font-display-medium text-sm text-civic-navy flex-1 mr-3 leading-5">
                                         {interaction.cardText}
@@ -154,6 +194,14 @@ export default function CandidateBreakdownScreen() {
                     </View>
                 </View>
             </Modal>
+
+            {/* Candidate Info Modal */}
+            {isCandidateModalVisible && (
+                <CandidateInfoModal
+                    candidate={candidate}
+                    onClose={() => setIsCandidateModalVisible(false)}
+                />
+            )}
         </View>
     );
 }

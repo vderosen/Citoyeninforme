@@ -1,3 +1,4 @@
+import React from "react";
 import { View, Text, Pressable, Image } from "react-native";
 import Animated, { FadeInDown, useReducedMotion } from "react-native-reanimated";
 import { useTranslation } from "react-i18next";
@@ -9,24 +10,32 @@ interface AlignmentRankingProps {
   ranking: CandidateMatchResult[];
   candidates: Candidate[];
   onCandidatePress: (candidateId: string) => void;
+  headerRight?: React.ReactNode;
 }
 
 export function AlignmentRanking({
   ranking,
   candidates,
   onCandidatePress,
+  headerRight,
 }: AlignmentRankingProps) {
   const { t } = useTranslation("survey");
   const reduceMotion = useReducedMotion();
 
   return (
-    <View className="mb-6">
-      <Text
-        className="font-display-semibold text-lg text-civic-navy mb-3"
-        accessibilityRole="header"
-      >
-        {t("alignmentTitle")}
-      </Text>
+    <View
+      className="mb-6 rounded-2xl p-4"
+      style={{ backgroundColor: '#EEF2F7' }}
+    >
+      <View className="flex-row items-center justify-between mb-3">
+        <Text
+          className="font-display-semibold text-lg text-civic-navy"
+          accessibilityRole="header"
+        >
+          {t("alignmentTitle")}
+        </Text>
+        {headerRight}
+      </View>
       {ranking.map((match, index) => {
         const candidate = candidates.find((c) => c.id === match.candidateId);
         if (!candidate) return null;
@@ -40,7 +49,8 @@ export function AlignmentRanking({
           >
             <Pressable
               onPress={() => onCandidatePress(match.candidateId)}
-              className="mb-3 bg-white rounded-xl p-3 shadow-sm border border-warm-gray"
+              className="mb-3 bg-white rounded-xl p-3 shadow-sm border-2"
+              style={{ borderColor: candidate.partyColor || '#E5E7EB' }}
               accessibilityRole="button"
               accessibilityLabel={`${candidate.name}, ${match.alignmentScore} points`}
             >

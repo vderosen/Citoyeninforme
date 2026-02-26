@@ -16,7 +16,7 @@ import { sanitizeUserInput } from "../utils/input-sanitizer";
 const API_BASE_URL =
   process.env.EXPO_PUBLIC_LLM_PROXY_URL ?? "http://localhost:3001";
 const API_KEY = process.env.EXPO_PUBLIC_LLM_PROXY_API_KEY ?? "";
-const FLUSH_INTERVAL_MS = 150;
+const FLUSH_INTERVAL_MS = 32;
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";

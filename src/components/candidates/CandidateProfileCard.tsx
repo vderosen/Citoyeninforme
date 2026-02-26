@@ -7,6 +7,7 @@ import { PositionCard } from "./PositionCard";
 import { ThemeTabBar } from "./ThemeTabBar";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
 import { getCandidatePartyColor } from "../../utils/candidatePartyColor";
+import { getCandidatePartyLogo } from "../../utils/candidatePartyLogo";
 
 interface CandidateProfileCardProps {
   candidate: Candidate;
@@ -25,6 +26,7 @@ export function CandidateProfileCard({
   const [activeThemeId, setActiveThemeId] = useState(themes[0]?.id ?? "");
   const imageSource = getCandidateImageSource(candidate);
   const partyColor = getCandidatePartyColor(candidate.id);
+  const partyLogo = getCandidatePartyLogo(candidate.id);
 
   const activePosition = positions.find((p) => p.themeId === activeThemeId);
 
@@ -55,13 +57,22 @@ export function CandidateProfileCard({
             <Text className="font-display-bold text-lg text-civic-navy">
               {candidate.name}
             </Text>
-            <View
-              className="rounded-full px-3 py-0.5 mt-0.5 self-start"
-              style={{ backgroundColor: partyColor + "1A" }}
-            >
-              <Text className="font-body-medium text-xs" style={{ color: partyColor }}>
-                {candidate.party}
-              </Text>
+            <View className="flex-row items-center mt-0.5">
+              {partyLogo && (
+                <Image
+                  source={partyLogo}
+                  style={{ width: 20, height: 20, marginRight: 6 }}
+                  resizeMode="contain"
+                />
+              )}
+              <View
+                className="rounded-full px-3 py-0.5 self-start"
+                style={{ backgroundColor: partyColor + "1A" }}
+              >
+                <Text className="font-body-medium text-xs" style={{ color: partyColor }}>
+                  {candidate.party}
+                </Text>
+              </View>
             </View>
           </View>
         </View>

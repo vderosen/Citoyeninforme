@@ -28,7 +28,11 @@ function PodiumBar({
     isStatic
 }: any) {
     const avatarSize = isFirst ? 56 : 46;
-    const podiumColor = isFirst ? "#E84855" : "#718096";
+    let podiumColor = candidate.partyColor || "#A0AEC0"; // fallback 3rd place
+    if (!candidate.partyColor) {
+        if (slot.rank === 1) podiumColor = "#E84855"; // fallback 1st place
+        else if (slot.rank === 2) podiumColor = "#718096"; // fallback 2nd place
+    }
 
     // Extra height for #1
     const finalHeight = slot.height + (isFirst ? 20 : 0);
@@ -125,16 +129,16 @@ function PodiumBar({
                         {slot.label}
                     </Text>
                     <Text
-                        className="font-display-medium text-white/90 text-xs text-center px-1"
-                        numberOfLines={2}
+                        className="font-display-medium text-white/90 text-[11px] text-center px-1 w-full"
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.7}
                     >
                         {candidate.name}
                     </Text>
-                    {!isStatic && (
-                        <Text className="font-display-bold text-white text-sm mt-1">
-                            {slot.match.alignmentScore > 0 ? `+${slot.match.alignmentScore}` : slot.match.alignmentScore}
-                        </Text>
-                    )}
+                    <Text className="font-display-bold text-white text-sm mt-1">
+                        {slot.match.alignmentScore > 0 ? `+${slot.match.alignmentScore}` : slot.match.alignmentScore} pts
+                    </Text>
                 </Animated.View>
             </Pressable>
         </Animated.View>

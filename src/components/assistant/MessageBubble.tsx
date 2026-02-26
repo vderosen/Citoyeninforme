@@ -148,29 +148,20 @@ export function MessageBubble({ message, isStreaming }: Props) {
     <View
       className={`mb-3 ${isUser ? "max-w-[85%] self-end" : ""}`}
     >
-      <BubbleShape
-        side={isUser ? "right" : "left"}
-        fillColor={isUser ? USER_BUBBLE_COLOR : ASSISTANT_BUBBLE_COLOR}
-        shadow={
-          isUser
-            ? undefined
-            : {
-              color: "#1B2A4A",
-              offset: { width: 0, height: 2 },
-              opacity: 0.08,
-              radius: 6,
-              elevation: 3,
-            }
-        }
-      >
-        {isUser ? (
+      {isUser ? (
+        <BubbleShape
+          side="right"
+          fillColor={USER_BUBBLE_COLOR}
+        >
           <Text selectable className="font-body text-base text-text-inverse">
             {message.content}
           </Text>
-        ) : (
+        </BubbleShape>
+      ) : (
+        <View className="px-4 py-2">
           <AssistantContent content={message.content} isStreaming={isStreaming} />
-        )}
-      </BubbleShape>
+        </View>
+      )}
     </View>
   );
 }

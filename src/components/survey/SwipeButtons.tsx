@@ -1,5 +1,5 @@
-import { View, Text, Pressable } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text } from "react-native";
+import { Feather, Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { SwipeDirection } from "../../data/schema";
 import { PressableScale } from "../ui/PressableScale";
@@ -27,17 +27,17 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
           testID="btn-strongly-disagree"
           accessibilityRole="button"
           accessibilityLabel={t("swipeStronglyDisagree")}
-          className="bg-red-50 border-2 border-red-200 rounded-full items-center justify-center shadow-sm"
-          style={{ width: 56, height: 56 }}
+          className="bg-white border-2 border-red-500 rounded-full items-center justify-center shadow-sm"
+          style={{ width: 52, height: 52 }}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <View className="flex-row items-center" style={{ marginLeft: -4 }}>
-            <Ionicons name="close" size={24} color="#E84855" style={{ marginRight: -12 }} />
-            <Ionicons name="close" size={24} color="#E84855" />
+            <Feather name="x" size={24} color="#EF4444" strokeWidth={3} style={{ marginRight: -12 }} />
+            <Feather name="x" size={24} color="#EF4444" strokeWidth={3} />
           </View>
         </PressableScale>
 
-        {/* Single Red Cross (-1) -> Slightly bigger */}
+        {/* Single Red Cross (-1) */}
         <PressableScale
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -47,11 +47,11 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
           testID="btn-disagree"
           accessibilityRole="button"
           accessibilityLabel={t("swipeDisagree")}
-          className="bg-red-50 border-2 border-red-200 rounded-full items-center justify-center shadow-card"
-          style={{ width: 72, height: 72 }}
+          className="bg-white border border-red-100 rounded-full items-center justify-center shadow-sm"
+          style={{ width: 68, height: 68 }}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
-          <Ionicons name="close" size={36} color="#E84855" />
+          <Feather name="x" size={32} color="#EF4444" strokeWidth={2.5} />
         </PressableScale>
 
         {/* Neutral Skip (0) */}
@@ -64,14 +64,14 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
           testID="btn-skip"
           accessibilityRole="button"
           accessibilityLabel={t("swipeSkip")}
-          className="bg-gray-50 border-2 border-gray-200 rounded-full items-center justify-center"
-          style={{ width: 56, height: 56 }}
+          className="bg-white border border-gray-200 rounded-full items-center justify-center shadow-sm"
+          style={{ width: 48, height: 48 }}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
-          <Text style={{ fontSize: 26, transform: [{ translateY: -1 }] }}>🤷‍♂️</Text>
+          <Text style={{ fontSize: 20, transform: [{ translateY: -1 }] }}>🤷‍♂️</Text>
         </PressableScale>
 
-        {/* Single Green Tick (+1) -> Slightly bigger */}
+        {/* Single Green Tick (+1) */}
         <PressableScale
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -81,11 +81,11 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
           testID="btn-agree"
           accessibilityRole="button"
           accessibilityLabel={t("swipeAgree")}
-          className="bg-green-50 border-2 border-green-200 rounded-full items-center justify-center shadow-card"
-          style={{ width: 72, height: 72 }}
+          className="bg-white border border-green-100 rounded-full items-center justify-center shadow-sm"
+          style={{ width: 68, height: 68 }}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
-          <Ionicons name="checkmark" size={36} color="#4CAF83" />
+          <Feather name="check" size={32} color="#22C55E" strokeWidth={2.5} />
         </PressableScale>
 
         {/* Double Green Tick (+2) */}
@@ -98,11 +98,11 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
           testID="btn-strongly-agree"
           accessibilityRole="button"
           accessibilityLabel={t("swipeStronglyAgree")}
-          className="bg-green-50 border-2 border-green-200 rounded-full items-center justify-center"
-          style={{ width: 56, height: 56 }}
+          className="bg-white border-2 border-green-500 rounded-full items-center justify-center shadow-sm"
+          style={{ width: 52, height: 52 }}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
-          <Ionicons name="checkmark-done" size={28} color="#4CAF83" />
+          <Ionicons name="checkmark-done" size={28} color="#22C55E" style={{ marginLeft: 2 }} />
         </PressableScale>
       </View>
     </View>

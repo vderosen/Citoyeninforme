@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SwipeStack } from "../../components/survey/SwipeStack";
 import { SwipeTutorialOverlay } from "../../components/survey/SwipeTutorialOverlay";
 import { ProgressBar } from "../../components/survey/ProgressBar";
@@ -15,6 +16,7 @@ import type { SwipeDirection, StatementCard } from "../../data/schema";
 export default function CardsScreen() {
     const { t } = useTranslation(["survey", "common"]);
     const router = useRouter();
+    const insets = useSafeAreaInsets();
     const election = useElectionStore((s) => s.election);
     const statementCards = useElectionStore((s) => s.statementCards);
     const positions = useElectionStore((s) => s.positions);
@@ -152,7 +154,15 @@ export default function CardsScreen() {
     }
 
     return (
-        <View className="flex-1 bg-warm-white">
+        <View className="flex-1 bg-warm-white" style={{ paddingTop: insets.top }}>
+            {/* Header / App Logo */}
+            <View className="items-center justify-center py-4">
+                <Text className="text-[22px] tracking-wide" style={{ fontFamily: 'ArialRoundedMTBold' }}>
+                    <Text style={{ color: '#1A202C' }}>Citoyen </Text>
+                    <Text style={{ color: '#60A5FA' }}>Informé</Text>
+                </Text>
+            </View>
+
             <ProgressBar current={currentIndex} total={shuffledCards.length} />
 
             <SwipeStack
@@ -170,9 +180,14 @@ export default function CardsScreen() {
                 </Text>
             </View>
 
-            {!hasSeenTutorial && (
+            <Modal
+                visible={!hasSeenTutorial}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={dismissTutorial}
+            >
                 <SwipeTutorialOverlay onDismiss={dismissTutorial} />
-            )}
+            </Modal>
 
             <Modal
                 visible={!!selectedCard}

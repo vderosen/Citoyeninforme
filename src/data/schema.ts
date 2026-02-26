@@ -39,6 +39,7 @@ export interface Candidate {
   electionId: string;
   name: string;
   party: string;
+  programName?: string;
   bio: string;
   communicationStyle: string;
   programSourceUrl: string;

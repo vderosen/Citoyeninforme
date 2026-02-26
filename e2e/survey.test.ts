@@ -23,8 +23,12 @@ describe('Survey Flow', () => {
         // We just wait for the first card to render completely
         await waitFor(element(by.id('active-card'))).toExist().withTimeout(15000);
 
-        // Swipe the card right to answer 'Agree', bypassing button hit-testing completely
-        await element(by.id('active-card-overlay')).swipe('right', 'fast', 0.5);
+        // Dismiss the tutorial overlay
+        await waitFor(element(by.id('tutorial-dismiss'))).toBeVisible().withTimeout(5000);
+        await element(by.id('tutorial-dismiss')).tap();
+
+        // Tap the agree button to answer 'Agree', bypassing gesture visibility issues completely
+        await element(by.id('btn-agree')).tap();
 
         // Wait for the next card to cycle in
         await waitFor(element(by.id('active-card'))).toExist().withTimeout(5000);

@@ -61,10 +61,12 @@
     {
       "id": "emmanuel-gregoire",
       "name": "Emmanuel Grégoire",
-      "party": "Union de la gauche et des écologistes",
+      "party": "Parti socialiste (PS)",
+      "programName": "Union de la gauche et des écologistes",
       "bio": "Ancien premier adjoint d’Anne Hidalgo et conseiller de Paris, membre du Parti socialiste. Il s’inscrit dans la continuité de la majorité municipale sortante. Il porte une ligne sociale-démocrate centrée sur les services publics locaux, le logement et la transition écologique.",
       "communicationStyle": "Communication de campagne via site de programme, réunions publiques et canaux sociaux.",
       "programSourceUrl": "https://emmanuel-gregoire-2026.fr/",
+      "partyColor": "#E11D48",
       "positions": [
         {
           "themeId": "logement",
@@ -238,10 +240,12 @@
     {
       "id": "sophia-chikirou",
       "name": "Sophia Chikirou",
-      "party": "La France insoumise (Nouveau Paris Populaire)",
+      "party": "La France insoumise (LFI)",
+      "programName": "Le Nouveau Paris Populaire",
       "bio": "Députée de Paris, membre de La France insoumise. Elle défend une ligne de gauche axée sur le renforcement des services publics municipaux, la régulation du logement et des politiques sociales plus redistributives. Sa candidature se distingue de celle du Parti socialiste au sein de la gauche parisienne.",
       "communicationStyle": "Communication de campagne via site de programme, meeting, conférence de presse et réseaux sociaux.",
       "programSourceUrl": "https://sophiapourparis.fr/",
+      "partyColor": "#9333EA",
       "positions": [
         {
           "themeId": "education",
@@ -326,10 +330,12 @@
     {
       "id": "rachida-dati",
       "name": "Rachida Dati",
-      "party": "Les Républicains / MoDem / UDI",
+      "party": "Les Républicains (LR)",
+      "programName": "Changer Paris",
       "bio": "Maire du 7ᵉ arrondissement et ancienne ministre de la Justice, actuellement ministre de la Culture. Elle est la candidate des Républicains. Elle défend une orientation de droite axée sur la sécurité, la propreté, la maîtrise des dépenses publiques et une gestion plus centralisée de la Ville.",
       "communicationStyle": "Communication de campagne via site dédié, conférences de presse, interviews et programme téléchargeable.",
       "programSourceUrl": "https://rachidadati2026.com/",
+      "partyColor": "#2563EB",
       "positions": [
         {
           "themeId": "transport",
@@ -564,10 +570,12 @@
     {
       "id": "pierre-yves-bournazel",
       "name": "Pierre-Yves Bournazel",
-      "party": "100% Paris",
+      "party": "Horizons",
+      "programName": "Paris apaisé",
       "bio": "Conseiller de Paris et ancien député, soutenu par Horizons et Renaissance. Positionné au centre-droit, il met en avant la sécurité, l’efficacité des services municipaux et une organisation plus déconcentrée vers les arrondissements. Il insiste sur une gestion présentée comme pragmatique.",
       "communicationStyle": "Communication de campagne via site d'engagements thématiques, actualités terrain et mobilisation militante.",
       "programSourceUrl": "https://bournazel.paris/",
+      "partyColor": "#0891B2",
       "positions": [
         {
           "themeId": "securite",
@@ -644,10 +652,12 @@
     {
       "id": "sarah-knafo",
       "name": "Sarah Knafo",
-      "party": "Sarah Knafo pour Paris",
+      "party": "Reconquête",
+      "programName": "Une ville heureuse",
       "bio": "Députée européenne et membre de Reconquête. Elle représente une ligne de droite souverainiste. Elle met l’accent sur les questions de sécurité, de politique migratoire, de fiscalité locale et sur une critique du bilan de la majorité municipale actuelle.",
       "communicationStyle": "Communication de campagne via plateforme numérique, programme détaillé et actions militantes en ligne.",
       "programSourceUrl": "https://sarahpourparis.fr/unevilleheureuse",
+      "partyColor": "#EAB308",
       "positions": [
         {
           "themeId": "securite",
@@ -738,10 +748,12 @@
     {
       "id": "thierry-mariani",
       "name": "Thierry Mariani",
-      "party": "Retrouvons Paris (soutien RN/UDR)",
+      "party": "Rassemblement national (RN)",
+      "programName": "Retrouvons Paris",
       "bio": "Député européen et candidat déclaré aux municipales de Paris 2026 sous l’étiquette RN, avec le soutien de l’UDR. Il représente une droite nationaliste. Ses thèmes de campagne mettent principalement l’accent sur la sécurité, la propreté et la politique migratoire, avec une critique du bilan de la majorité municipale sortante.",
       "communicationStyle": "Communication de campagne via programme publié en ligne, actualités de campagne et espace presse.",
       "programSourceUrl": "https://www.mariani-2026.fr/",
+      "partyColor": "#1E3A8A",
       "positions": [
         {
           "themeId": "securite",

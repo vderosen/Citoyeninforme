@@ -183,12 +183,65 @@ function AboutModal({ visible, onClose }: { visible: boolean; onClose: () => voi
   );
 }
 
+/* ── Méthodologie modal ── */
+
+function MethodologySection({
+  title,
+  body,
+}: {
+  title: string;
+  body: string;
+}) {
+  return (
+    <View className="bg-warm-gray rounded-2xl p-4">
+      <Text className="font-display-semibold text-sm text-civic-navy mb-1.5">
+        {title}
+      </Text>
+      <Text className="font-body text-sm text-text-body leading-relaxed">
+        {body}
+      </Text>
+    </View>
+  );
+}
+
+function MethodologyModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
+  const { t } = useTranslation("settings");
+
+  return (
+    <Modal visible={visible} animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose}>
+      <SafeAreaView className="flex-1 bg-warm-white">
+        {/* Header */}
+        <View className="flex-row items-center justify-between px-4 pt-4 pb-2 border-b border-black/5">
+          <Text className="font-display-semibold text-lg text-civic-navy">{t("methodology.title")}</Text>
+          <Pressable
+            onPress={onClose}
+            className="w-8 h-8 rounded-full bg-warm-gray items-center justify-center"
+            accessibilityRole="button"
+            accessibilityLabel="Fermer"
+          >
+            <Ionicons name="close" size={18} color="#1B2A4A" />
+          </Pressable>
+        </View>
+
+        <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingVertical: 24, gap: 16 }}>
+          <MethodologySection title={t("methodology.motivationTitle")} body={t("methodology.motivationBody")} />
+          <MethodologySection title={t("methodology.sourcesTitle")} body={t("methodology.sourcesBody")} />
+          <MethodologySection title={t("methodology.proposalsTitle")} body={t("methodology.proposalsBody")} />
+          <MethodologySection title={t("methodology.fairnessTitle")} body={t("methodology.fairnessBody")} />
+          <MethodologySection title={t("methodology.aiTitle")} body={t("methodology.aiBody")} />
+        </ScrollView>
+      </SafeAreaView>
+    </Modal>
+  );
+}
+
 /* ── Screen ── */
 
 export default function SettingsScreen() {
   const { t } = useTranslation("settings");
   const router = useRouter();
   const [aboutVisible, setAboutVisible] = useState(false);
+  const [methodologyVisible, setMethodologyVisible] = useState(false);
 
   const confirmDelete = () => {
     Alert.alert(t("data.deleteConfirmTitle"), t("data.deleteConfirmMessage"), [
@@ -234,7 +287,19 @@ export default function SettingsScreen() {
           />
         </SettingsGroup>
 
+        {/* ── Méthodologie ── */}
+        <SettingsGroup title={t("methodology.groupTitle")}>
+          <SettingsRow
+            icon="bulb-outline"
+            label={t("methodology.buttonLabel")}
+            description="Sources, équité et IA"
+            onPress={() => setMethodologyVisible(true)}
+            last
+          />
+        </SettingsGroup>
+
         <AboutModal visible={aboutVisible} onClose={() => setAboutVisible(false)} />
+        <MethodologyModal visible={methodologyVisible} onClose={() => setMethodologyVisible(false)} />
 
         {/* ── Zone dangereuse ── */}
         <View className="px-4 mt-4">

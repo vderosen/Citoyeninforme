@@ -107,16 +107,7 @@ export function ChatArea({
         onPress={handleScrollToBottom}
       />
 
-      <View
-        className="border-t border-warm-gray bg-white"
-        style={{
-          shadowColor: "#1B2A4A",
-          shadowOffset: { width: 0, height: -1 },
-          shadowOpacity: 0.04,
-          shadowRadius: 2,
-          elevation: 1,
-        }}
-      >
+      <View className="bg-transparent">
         <View className="flex-row items-end px-4 pb-4 pt-3 gap-2">
           <TextInput
             className="flex-1 bg-warm-gray rounded-3xl px-5 py-3.5 font-body text-base text-text-body"
@@ -132,14 +123,14 @@ export function ChatArea({
           <Pressable
             onPress={handleSend}
             disabled={isStreaming || !inputText.trim()}
-            className={`w-12 h-12 rounded-full items-center justify-center shadow-sm ${isStreaming || !inputText.trim() ? "bg-warm-gray" : "bg-civic-navy"
+            className={`w-12 h-12 rounded-full items-center justify-center ${isStreaming || !inputText.trim() ? "bg-warm-gray" : "bg-civic-navy"
               }`}
             accessibilityRole="button"
             accessibilityLabel={t("send")}
           >
             <Ionicons
-              name="send"
-              size={20}
+              name="arrow-up"
+              size={24}
               color={isStreaming || !inputText.trim() ? "#6B7280" : "#FFFFFF"}
             />
           </Pressable>

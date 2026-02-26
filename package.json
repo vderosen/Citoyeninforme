@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "postinstall": "node scripts/patch-safe-area-warning.js",
     "chat:proxy": "node --max-old-space-size=2048 scripts/rag-proxy.js",
+    "chat:playground": "open http://localhost:3001/playground",
     "chat:proxy:v1": "node scripts/llm-proxy.js",
     "build:rag-index": "node --max-old-space-size=8192 scripts/build-rag-index.js",
     "chat:tunnel": "bash scripts/proxy-tunnel.sh",

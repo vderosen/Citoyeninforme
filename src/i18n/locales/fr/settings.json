@@ -22,6 +22,21 @@
     "crashReportsDescription": "Envoi anonyme pour améliorer l'app",
     "credits": "Conçu pour l'engagement civique"
   },
+  "methodology": {
+    "groupTitle": "Notre approche",
+    "buttonLabel": "Notre méthodologie",
+    "title": "Comment on a construit l'app",
+    "sourcesTitle": "📄  Sources vérifiées",
+    "sourcesBody": "Toutes les informations proviennent des documents de programme officiels publiés par les candidats eux-mêmes. Aucune interprétation journalistique, aucun éditorial : uniquement ce que les candidats ont écrit.",
+    "proposalsTitle": "✂️  Des propositions concrètes",
+    "proposalsBody": "À partir de ces programmes, nous avons extrait des propositions précises et formulées de manière claire. Chaque carte que vous voyez dans l'application correspond à une mesure réelle issue d'un programme.",
+    "fairnessTitle": "⚖️  Équité entre candidats",
+    "fairnessBody": "Chaque candidat dispose du même nombre de propositions dans le questionnaire. Tous les candidats peuvent donc obtenir autant de points que les autres – aucun n'est avantagé ou désavantagé par la structure de l'app.",
+    "aiTitle": "🤖  Intelligence artificielle",
+    "aiBody": "L'assistant IA utilise un système de RAG (Retrieval-Augmented Generation) : il puise ses réponses directement dans les programmes politiques des candidats. Une couche d'intelligence artificielle vient ensuite formuler des réponses claires et sourcées, sans jamais inventer d'information.",
+    "motivationTitle": "💡  Mot du créateur",
+    "motivationBody": "« Je ne savais absolument pas pour qui voter pour le maire de Paris. En me penchant sur la question, je me suis rendu compte que je n'étais pas du tout informé des propositions réelles des candidats, et que je me faisais énormément influencer par ce qu'on croyait entendre ici et là. Et je me suis vite rendu compte que je n'étais pas le seul dans ce cas.\n\nJ'ai voulu lire les programmes, mais ce n'était pas simple. Alors j'ai décidé de créer cette application, inspirée d'Elyze (sortie en 2022 pour la présidentielle), pour permettre à chacun de s'informer de manière ludique et accessible.\n\nEt franchement, je me suis bien marré à la construire ! »\n\n— Vassili de Rosen"
+  },
   "danger": {
     "delete": "Supprimer toutes mes données",
     "deleteDescription": "Suppression définitive et irréversible"

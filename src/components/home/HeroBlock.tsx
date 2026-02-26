@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
@@ -34,12 +34,10 @@ export function HeroBlock({ election }: HeroBlockProps) {
         {/* Inline header — centered title, settings on right */}
         <View className="flex-row items-center mb-3">
           <View className="w-10" />
-          <View className="flex-1 items-center">
-            <Text
-              className="text-[19px] text-text-inverse tracking-wide"
-              style={{ fontFamily: 'ArialRoundedMTBold' }}
-            >
-              Citoyen Informé
+          <View className="flex-1 flex-row items-center justify-center" style={{ gap: 8 }}>
+            <Text className="text-[22px] tracking-wide" style={{ fontFamily: 'ArialRoundedMTBold' }}>
+              <Text style={{ color: '#FFFFFF' }}>Citoyen </Text>
+              <Text style={{ color: '#60A5FA' }}>Informé</Text>
             </Text>
           </View>
           <Pressable
@@ -60,9 +58,6 @@ export function HeroBlock({ election }: HeroBlockProps) {
         </Text>
         <Text className="font-display-semibold text-lg text-accent-coral mt-1">
           {t("subtitle")}
-        </Text>
-        <Text className="font-body text-[13px] text-text-inverse mt-2 opacity-80 leading-snug">
-          {t("purpose")}
         </Text>
       </View>
 

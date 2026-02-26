@@ -59,5 +59,4 @@ Example: `mcp_ios-simulator_ui_tap(x=147, y=794)` → navigates to Cartes Swipe.
 
 ## Known Issues
 
-- **Tutorial modal touch passthrough:** On the Cartes Swipe screen, the "Comment répondre?" tutorial modal lets taps leak through to the card stack behind it. Tapping "Compris !" advances cards instead of dismissing the modal.
 - **Metro must use `--localhost`:** Without it, the simulator can't reach the bundler (LAN IP doesn't work).

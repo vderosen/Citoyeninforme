@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { View, Text, KeyboardAvoidingView, Platform, Pressable, ImageBackground } from "react-native";
+import { View, Text, Image, KeyboardAvoidingView, Platform, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useNavigation } from "@react-navigation/native";
@@ -44,18 +44,15 @@ export default function AssistantScreen() {
       headerTitleAlign: "left",
       headerTitle: () => (
         <View className="flex-row items-center" style={{ marginTop: -3, marginLeft: 10 }}>
-          <View
-            className="items-center justify-center rounded-full bg-accent-coral"
-            style={{ width: 34, height: 34 }}
-          >
-            <Ionicons name="sparkles" size={17} color="#FAFAF8" />
-          </View>
+          <Image
+            source={require('../../../assets/images/splash-icon.png')}
+            style={{ width: 32, height: 32, borderRadius: 16 }}
+            resizeMode="contain"
+          />
           <View className="ml-2.5" style={{ marginLeft: 11, marginTop: -4 }}>
-            <Text
-              className="text-base text-text-inverse tracking-wide"
-              style={{ fontFamily: 'ArialRoundedMTBold' }}
-            >
-              Citoyen Informé
+            <Text className="text-base tracking-wide" style={{ fontFamily: 'ArialRoundedMTBold' }}>
+              <Text style={{ color: '#FFFFFF' }}>Citoyen </Text>
+              <Text style={{ color: '#60A5FA' }}>Informé</Text>
             </Text>
             <Text className="font-body text-xs text-text-inverse/70">
               {t("assistantSubtitle")}
@@ -150,22 +147,15 @@ export default function AssistantScreen() {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={headerHeight}
     >
-      <ImageBackground
-        source={require('../../../assets/images/tour-eiffel-drawing.png')}
-        style={{ flex: 1 }}
-        resizeMode="cover"
-        blurRadius={8}
-      >
-        <SafeAreaView className="flex-1" edges={[]}>
-          <ChatArea
-            messages={messages}
-            isStreaming={isStreaming}
-            onSend={handleSend}
-            onPromptSelect={handleSend}
-            selectedCandidateId={selectedCandidateId}
-          />
-        </SafeAreaView>
-      </ImageBackground>
+      <SafeAreaView className="flex-1 bg-warm-white" edges={[]}>
+        <ChatArea
+          messages={messages}
+          isStreaming={isStreaming}
+          onSend={handleSend}
+          onPromptSelect={handleSend}
+          selectedCandidateId={selectedCandidateId}
+        />
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }

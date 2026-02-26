@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function TabLayout() {
   const { t } = useTranslation("common");
@@ -20,16 +20,19 @@ export default function TabLayout() {
         headerShadowVisible: false,
         headerRight: undefined,
         lazy: true,
-        tabBarActiveTintColor: "#1E2A44",
-        tabBarInactiveTintColor: "#718096",
+        tabBarActiveTintColor: "#FFFFFF",
+        tabBarInactiveTintColor: "rgba(255, 255, 255, 0.6)",
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 11,
           fontFamily: "Inter_500Medium",
+          marginTop: 4,
         },
         tabBarStyle: {
-          backgroundColor: "#FFFFFF",
-          borderTopWidth: 1,
-          borderTopColor: "#F4F5F7",
+          backgroundColor: "#DC2626", // Red background
+          borderTopWidth: 0,
+          height: 84,         // Reduced height
+          paddingTop: 10,     // Push icons lower
+          paddingBottom: 28,  // Control bottom spacing (home indicator area)
         },
       }}
     >
@@ -48,17 +51,19 @@ export default function TabLayout() {
       <Tabs.Screen
         name="cards"
         options={{
+          headerShown: false,
           title: "Cartes Swipe",
           tabBarLabel: "Cartes Swipe",
           tabBarAccessibilityLabel: "Cartes Swipe",
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name={focused ? "albums" : "albums-outline"} size={size} color={color} />
+            <MaterialCommunityIcons name={focused ? "cards" : "cards-outline"} size={size + 2} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="matches"
         options={{
+          headerShown: false,
           title: "Résultats",
           tabBarLabel: "Résultats",
           tabBarAccessibilityLabel: "Résultats",
@@ -73,7 +78,7 @@ export default function TabLayout() {
           title: t("headers.assistant"),
           tabBarAccessibilityLabel: "Assistant",
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name={focused ? "chatbubble" : "chatbubble-outline"} size={size} color={color} />
+            <Ionicons name={focused ? "chatbubbles" : "chatbubbles-outline"} size={size + 2} color={color} />
           ),
         }}
       />

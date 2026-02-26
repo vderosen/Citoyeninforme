@@ -149,7 +149,7 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
               {!isTop && (
                 <>
                   <View
-                    className="absolute inset-0 mx-4 rounded-3xl shadow-sm"
+                    className="absolute inset-0 mx-8 rounded-3xl shadow-sm"
                     style={{
                       backgroundColor: "#E2E8F0",
                       transform: [{ translateX: 14 }, { translateY: -14 }],
@@ -157,7 +157,7 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
                     }}
                   />
                   <View
-                    className="absolute inset-0 mx-4 rounded-3xl shadow-sm"
+                    className="absolute inset-0 mx-8 rounded-3xl shadow-sm"
                     style={{
                       backgroundColor: "#F1F5F9",
                       transform: [{ translateX: 7 }, { translateY: -7 }],
@@ -168,7 +168,7 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
               )}
               {/* Main Card */}
               <View
-                className="mx-4 overflow-hidden rounded-3xl shadow-elevated border border-warm-gray/40 min-h-[440px]"
+                className="mx-8 overflow-hidden rounded-3xl shadow-elevated border border-warm-gray/40 min-h-[440px]"
                 style={{ backgroundColor: theme.bg }}
               >
                 {/* Category Badge Top Left */}
@@ -201,7 +201,7 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
                 {card.description && (
                   <Pressable
                     onPress={onShowDescription}
-                    className="mt-6 py-3.5 px-6 bg-white rounded-2xl shadow-sm border border-warm-gray/50 items-center justify-center"
+                    className="mb-8 mx-8 py-3.5 px-6 bg-white rounded-full shadow-sm border border-warm-gray/50 items-center justify-center"
                     hitSlop={10}
                   >
                     <Text className="font-display-bold text-sm text-civic-navy uppercase tracking-wider">

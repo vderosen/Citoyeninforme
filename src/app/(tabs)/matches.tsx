@@ -1,4 +1,5 @@
 import { View, Text, Pressable, ScrollView } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter, Tabs } from "expo-router";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,6 +9,7 @@ import { AlignmentRanking } from "../../components/survey/AlignmentRanking";
 import { Podium } from "../../components/survey/Podium";
 import { FeedbackAction } from "../../components/shared/FeedbackAction";
 import { ShareResultsModal } from "../../components/survey/ShareResultsModal";
+import { SwipeAnalyticsModal } from "../../components/survey/SwipeAnalyticsModal";
 import { Ionicons } from "@expo/vector-icons";
 import { usePodiumCelebrationTrigger } from "../../hooks/usePodiumCelebrationTrigger";
 
@@ -15,11 +17,14 @@ export default function MatchesScreen() {
     const { t } = useTranslation(["survey", "common"]);
     const router = useRouter();
     const candidates = useElectionStore((s) => s.candidates);
+    const statementCards = useElectionStore((s) => s.statementCards);
     const profile = useSurveyStore((s) => s.profile);
     const answers = useSurveyStore((s) => s.answers);
     const reset = useSurveyStore((s) => s.reset);
     const triggerCelebration = usePodiumCelebrationTrigger(profile);
     const [isShareModalVisible, setIsShareModalVisible] = useState(false);
+    const [isAnalyticsModalVisible, setIsAnalyticsModalVisible] = useState(false);
+    const insets = useSafeAreaInsets();
 
     if (!profile || profile.candidateRanking.length === 0) {
         return (
@@ -50,7 +55,7 @@ export default function MatchesScreen() {
     };
 
     return (
-        <View className="flex-1 bg-warm-white">
+        <View className="flex-1 bg-warm-white" style={{ paddingTop: insets.top }}>
 
             <ShareResultsModal
                 visible={isShareModalVisible}
@@ -60,8 +65,17 @@ export default function MatchesScreen() {
                 totalVotes={Object.keys(answers).length}
             />
 
+            <SwipeAnalyticsModal
+                visible={isAnalyticsModalVisible}
+                onClose={() => setIsAnalyticsModalVisible(false)}
+                answers={answers}
+                cards={statementCards}
+                candidates={candidates}
+                ranking={profile.candidateRanking}
+            />
+
             <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingBottom: 32 }}>
-                <View className="flex-row justify-between items-center mt-6 mb-6">
+                <View className="flex-row justify-between items-center mt-2 mb-6">
                     <Text
                         className="font-display-bold text-2xl text-civic-navy"
                         accessibilityRole="header"
@@ -72,11 +86,12 @@ export default function MatchesScreen() {
                     {profile.candidateRanking.length >= 3 && (
                         <Pressable
                             onPress={() => setIsShareModalVisible(true)}
-                            className="bg-warm-gray rounded-full w-10 h-10 items-center justify-center border border-gray-200"
+                            className="rounded-full w-10 h-10 items-center justify-center shadow-sm"
+                            style={{ backgroundColor: '#E84855' }}
                             accessibilityRole="button"
                             accessibilityLabel={t("survey:shareResults")}
                         >
-                            <Ionicons name="share-outline" size={20} color="#1A202C" />
+                            <Ionicons name="share-outline" size={20} color="#FFFFFF" />
                         </Pressable>
                     )}
                 </View>
@@ -94,6 +109,16 @@ export default function MatchesScreen() {
                     ranking={profile.candidateRanking}
                     candidates={candidates}
                     onCandidatePress={handleCandidatePress}
+                    headerRight={
+                        <Pressable
+                            onPress={() => setIsAnalyticsModalVisible(true)}
+                            className="bg-white rounded-full w-9 h-9 items-center justify-center border border-gray-200 shadow-sm active:opacity-70"
+                            accessibilityRole="button"
+                            accessibilityLabel="Voir les statistiques"
+                        >
+                            <Ionicons name="bar-chart-outline" size={18} color="#1A202C" />
+                        </Pressable>
+                    }
                 />
 
                 <View className="bg-warm-gray rounded-xl p-4 mb-4 mt-4">

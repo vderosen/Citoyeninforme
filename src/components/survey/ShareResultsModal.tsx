@@ -51,7 +51,10 @@ export function ShareResultsModal({ visible, onClose, ranking, candidates, total
                     <View style={styles.captureContainer} ref={viewRef} collapsable={false}>
                         <View style={styles.card}>
                             <View style={styles.cardHeader}>
-                                <Text style={styles.appName}>Citoyen Informé</Text>
+                                <Text style={[styles.appName, { flexDirection: 'row' }]}>
+                                    <Text style={{ color: '#1A202C' }}>Citoyen </Text>
+                                    <Text style={{ color: '#60A5FA' }}>Informé</Text>
+                                </Text>
                                 <Text style={styles.appHandle}>@citoyeninforme</Text>
                             </View>
 

@@ -89,6 +89,7 @@ export function SwipeTutorialOverlay({ onDismiss }: SwipeTutorialOverlayProps) {
 
             <Pressable
               onPress={onDismiss}
+              testID="tutorial-dismiss"
               accessibilityRole="button"
               accessibilityLabel={t("tutorialDismiss")}
               className="bg-accent-coral rounded-xl py-3 items-center"
