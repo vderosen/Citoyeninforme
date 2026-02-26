@@ -80,13 +80,7 @@ export function SwipeStack({
           );
         })}
 
-        {/* Detox specific overlay that is mathematically perfect for iOS hit-testing */}
-        <View
-          testID="active-card-overlay"
-          style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, zIndex: 999 }}
-          onStartShouldSetResponder={() => true}
-          onResponderRelease={() => handleButtonPress('agree')}
-        />
+
       </View>
 
       {/* Undo — centered link directly under the card */}
