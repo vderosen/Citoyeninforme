@@ -24,6 +24,10 @@ import { useSurveyStore } from "../stores/survey";
 import { loadBundledDataset } from "../data/loader";
 import { ErrorBoundary } from "../components/shared/ErrorBoundary";
 import { OfflineBanner } from "../components/shared/OfflineBanner";
+import {
+  captureException,
+  updateCrashReportingConsent,
+} from "../services/crash-reporting";
 import "../i18n";
 import "../../global.css";
 
@@ -34,11 +38,28 @@ export const unstable_settings = {
   initialRouteName: "(tabs)",
 };
 
+type GlobalErrorHandler = (error: unknown, isFatal?: boolean) => void;
+type ErrorUtilsApi = {
+  getGlobalHandler: () => GlobalErrorHandler;
+  setGlobalHandler: (handler: GlobalErrorHandler) => void;
+};
+type GlobalWithErrorUtils = typeof globalThis & {
+  ErrorUtils?: ErrorUtilsApi;
+};
+
+function toError(error: unknown): Error {
+  if (error instanceof Error) {
+    return error;
+  }
+
+  return new Error(typeof error === "string" ? error : "Unknown error");
+}
+
 function RootLayout() {
   const loadDataset = useElectionStore((s) => s.loadDataset);
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
-  const privacyConsentVersion = useAppStore((s) => s.privacyConsentVersion);
+  const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
   const surveyStatus = useSurveyStore((s) => s.status);
   const router = useRouter();
   const segments = useSegments();
@@ -68,6 +89,32 @@ function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [isLoaded, fontsLoaded]);
+
+  useEffect(() => {
+    updateCrashReportingConsent(crashReportingOptIn);
+  }, [crashReportingOptIn]);
+
+  useEffect(() => {
+    const globalErrorUtils = globalThis as GlobalWithErrorUtils;
+    const errorUtils = globalErrorUtils.ErrorUtils;
+    if (!errorUtils?.getGlobalHandler || !errorUtils?.setGlobalHandler) {
+      return;
+    }
+
+    const previousHandler = errorUtils.getGlobalHandler();
+    const crashReportingHandler: GlobalErrorHandler = (error, isFatal) => {
+      captureException(toError(error), {
+        source: "global-error-handler",
+        isFatal: String(Boolean(isFatal)),
+      });
+      previousHandler(error, isFatal);
+    };
+
+    errorUtils.setGlobalHandler(crashReportingHandler);
+    return () => {
+      errorUtils.setGlobalHandler(previousHandler);
+    };
+  }, []);
 
   // Navigation gate: onboarding → tabs
   useEffect(() => {
@@ -144,4 +191,5 @@ function RootLayout() {
   );
 }
 
+// Keep a plain root export to avoid SDK-level wrappers altering router behavior.
 export default RootLayout;

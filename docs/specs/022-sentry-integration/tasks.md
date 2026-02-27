@@ -42,10 +42,10 @@
 
 **Independent Test**: App compiles with Sentry SDK and preview build is able to upload source maps.
 
-- [ ] T008 [WS2] Add `@sentry/react-native` dependency in `package.json`.
-- [ ] T009 [WS2] Add Expo plugin `@sentry/react-native/expo` to `app.json` plugins (with `organization` and `project`).
-- [ ] T010 [P] [WS2] Update `.env.example` with clear runtime/build-time Sentry variable documentation (`EXPO_PUBLIC_SENTRY_DSN`, token vars location in EAS).
-- [ ] T011 [P] [WS2] Update `README.md` Sentry setup section (local setup, EAS setup, privacy stance, verification steps).
+- [x] T008 [WS2] Add `@sentry/react-native` dependency in `package.json`.
+- [x] T009 [WS2] Add Expo plugin `@sentry/react-native/expo` to `app.json` plugins (with `organization` and `project`).
+- [x] T010 [P] [WS2] Update `.env.example` with clear runtime/build-time Sentry variable documentation (`EXPO_PUBLIC_SENTRY_DSN`, token vars location in EAS).
+- [x] T011 [P] [WS2] Update `README.md` Sentry setup section (local setup, EAS setup, privacy stance, verification steps).
 
 **Checkpoint**: Dependency + build plugin + docs are aligned and actionable.
 
@@ -57,10 +57,10 @@
 
 **Independent Test**: With opt-in off, no events are sent; with opt-in on, sanitized events are sent.
 
-- [ ] T012 [WS2] Create `src/services/crash-reporting.ts` with `initCrashReporting(optIn)`, `updateCrashReportingConsent(optIn)`, `captureException(error, context?)`.
-- [ ] T013 [WS2] In `src/services/crash-reporting.ts`, read DSN from `process.env.EXPO_PUBLIC_SENTRY_DSN`; no-op safely if missing.
-- [ ] T014 [WS2] In `src/services/crash-reporting.ts`, enforce privacy defaults: `sendDefaultPii: false`, no replay integration, no feedback integration.
-- [ ] T015 [WS2] In `src/services/crash-reporting.ts`, implement `beforeSend` sanitization: drop `ui.input` breadcrumbs, remove HTTP request bodies, redact long context strings.
+- [x] T012 [WS2] Create `src/services/crash-reporting.ts` with `initCrashReporting(optIn)`, `updateCrashReportingConsent(optIn)`, `captureException(error, context?)`.
+- [x] T013 [WS2] In `src/services/crash-reporting.ts`, read DSN from `process.env.EXPO_PUBLIC_SENTRY_DSN`; no-op safely if missing.
+- [x] T014 [WS2] In `src/services/crash-reporting.ts`, enforce privacy defaults: `sendDefaultPii: false`, no replay integration, no feedback integration.
+- [x] T015 [WS2] In `src/services/crash-reporting.ts`, implement `beforeSend` sanitization: drop `ui.input` breadcrumbs, remove HTTP request bodies, redact long context strings.
 
 **Checkpoint**: Crash-reporting service exists and enforces privacy contract.
 
@@ -72,9 +72,9 @@
 
 **Independent Test**: Toggle changes state immediately, persists across restart, and effectively gates capture.
 
-- [ ] T016 [WS2] Extend `AppState` in `src/stores/app.ts` with `crashReportingOptIn: boolean` (default `false`) and `setCrashReportingOptIn(optIn: boolean)`.
-- [ ] T017 [WS2] Update `src/app/settings.tsx` to add crash-reporting toggle wired to store and `updateCrashReportingConsent`.
-- [ ] T018 [P] [WS2] Update `src/i18n/locales/fr/settings.json` crash-reporting copy to match actual behavior (anonymous, opt-in).
+- [x] T016 [WS2] Extend `AppState` in `src/stores/app.ts` with `crashReportingOptIn: boolean` (default `false`) and `setCrashReportingOptIn(optIn: boolean)`.
+- [x] T017 [WS2] Update `src/app/settings.tsx` to add crash-reporting toggle wired to store and `updateCrashReportingConsent`.
+- [x] T018 [P] [WS2] Update `src/i18n/locales/fr/settings.json` crash-reporting copy to match actual behavior (anonymous, opt-in).
 
 **Checkpoint**: Opt-in UX and persisted consent state are implemented.
 
@@ -86,10 +86,10 @@
 
 **Independent Test**: Triggered error hits ErrorBoundary fallback and (if opted in) appears in Sentry.
 
-- [ ] T019 [WS2] Update `src/app/_layout.tsx` to sync consent changes via `updateCrashReportingConsent(crashReportingOptIn)` in a `useEffect`.
-- [ ] T020 [WS2] Update `src/app/_layout.tsx` to install global error handler and route exceptions through `captureException`.
-- [ ] T021 [WS2] Update `src/components/shared/ErrorBoundary.tsx` to report errors through `captureException` while preserving existing fallback behavior.
-- [ ] T022 [WS2] Decide and implement root wrapping strategy (`Sentry.wrap(RootLayout)` vs plain export) in `src/app/_layout.tsx` based on SDK guidance and compatibility.
+- [x] T019 [WS2] Update `src/app/_layout.tsx` to sync consent changes via `updateCrashReportingConsent(crashReportingOptIn)` in a `useEffect`.
+- [x] T020 [WS2] Update `src/app/_layout.tsx` to install global error handler and route exceptions through `captureException`.
+- [x] T021 [WS2] Update `src/components/shared/ErrorBoundary.tsx` to report errors through `captureException` while preserving existing fallback behavior.
+- [x] T022 [WS2] Decide and implement root wrapping strategy (`Sentry.wrap(RootLayout)` vs plain export) in `src/app/_layout.tsx` based on SDK guidance and compatibility.
 
 **Checkpoint**: Lifecycle + boundary + global handler are wired end-to-end.
 

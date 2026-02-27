@@ -18,8 +18,8 @@
     "version": "Version",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
-    "crashReports": "Rapports de crash",
-    "crashReportsDescription": "Envoi anonyme pour améliorer l'app",
+    "crashReports": "Rapports de crash anonymes",
+    "crashReportsDescription": "Optionnel : envoi anonyme des erreurs pour améliorer l'app (désactivé par défaut)",
     "credits": "Conçu pour l'engagement civique"
   },
   "methodology": {

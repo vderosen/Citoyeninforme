@@ -58,6 +58,17 @@ WS1 is complete when all evidence below is attached to the PR/issue:
      - high-frequency new issue
      - crash-free drop threshold
 
+## WS1 Sentry Data Region
+
+The Sentry organization uses the **EU/DE data region** (`de.sentry.io`).
+
+Configuration touchpoints:
+
+- `app.json` Expo plugin `url`: `https://de.sentry.io/` — controls where the Sentry CLI uploads source maps and debug symbols during native builds.
+- DSN (in `EXPO_PUBLIC_SENTRY_DSN`): contains the ingest URL for runtime event submission (e.g., `https://<key>@o<org-id>.ingest.de.sentry.io/<project-id>`).
+
+If the organization is migrated to a different region, update both the plugin URL and the DSN.
+
 ## WS1 Execution Evidence (2026-02-27)
 
 - Sentry org slug: `citoyeninforme` (`https://citoyeninforme.sentry.io`)
