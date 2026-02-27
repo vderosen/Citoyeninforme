@@ -94,7 +94,9 @@ function RootLayout() {
   }, [isLoaded, fontsLoaded]);
 
   useEffect(() => {
-    updateCrashReportingConsent(crashReportingOptIn);
+    void updateCrashReportingConsent(crashReportingOptIn).catch((error) => {
+      console.error("Failed to update crash reporting consent:", error);
+    });
   }, [crashReportingOptIn]);
 
   useEffect(() => {

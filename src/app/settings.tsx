@@ -246,7 +246,7 @@ export default function SettingsScreen() {
   const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
   const setCrashReportingOptIn = useAppStore((s) => s.setCrashReportingOptIn);
 
-  const onCrashReportingToggle = (optIn: boolean) => {
+  const onCrashReportingToggle = async (optIn: boolean) => {
     setCrashReportingOptIn(optIn);
   };
 
