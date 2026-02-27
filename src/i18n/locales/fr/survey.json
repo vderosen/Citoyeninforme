@@ -25,6 +25,12 @@
   "tiedScoreExplanation": "Vos priorités ne différencient pas clairement ces candidats. Explorez leurs programmes en détail pour affiner votre choix.",
   "profileTitle": "Votre profil par thème",
   "alignmentTitle": "Classement par alignement",
+  "statsSectionTitle": "Vos stats de swipe",
+  "statsTotalSwipesTitle": "Nombre de propositions swipées",
+  "statsConvictionTitle": "Indice de conviction",
+  "statsConvictionDescription": "Plus vous utilisez « coup de cœur » ou « pas du tout d'accord », plus votre indice monte. Les « pas d'avis » le font baisser.",
+  "statsBreakdownTitle": "Répartition des swipes",
+  "statsNoSwipesYet": "Aucun swipe pour le moment.",
   "tieTitle": "Égalité détectée",
   "tieExplanation": "{{candidates}} obtiennent le même score d'alignement. Cela signifie que vos priorités ne les distinguent pas sur les thèmes évalués.",
   "whyThisResult": "Pourquoi ce résultat ?",
@@ -54,6 +60,7 @@
   "shareResults": "Partager mes résultats",
   "cancel": "Annuler",
   "myResults": "Mes résultats",
+  "shareText": "Mon maire pour Paris d'après Citoyen Informé. Telecharge l'app pour tester:  https://apps.apple.com/us/app/citoyen-inform%C3%A9/id6759607258",
   "shareCardTitle": "Mon maire pour Paris",
   "basedOnCards": "À PARTIR DE {{count}} VOTES"
 }

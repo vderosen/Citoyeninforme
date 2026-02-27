@@ -1,11 +1,10 @@
-import { View, Text, Pressable } from "react-native";
-import { useCallback, useRef, useState } from "react";
+import { View, Text, Pressable, useWindowDimensions } from "react-native";
+import { useCallback, useMemo, useRef, useState } from "react";
 import Animated from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { SwipeCard, type SwipeCardHandle } from "./SwipeCard";
 import { SwipeButtons } from "./SwipeButtons";
-import { useElectionStore } from "../../stores/election";
 import type { StatementCard, SwipeDirection } from "../../data/schema";
 
 interface SwipeStackProps {
@@ -25,7 +24,10 @@ export function SwipeStack({
   onUndo,
   onShowDescription,
 }: SwipeStackProps) {
+  const { width, height: windowHeight } = useWindowDimensions();
+  const isTabletLayout = width >= 768;
   const [isButtonAnimating, setIsButtonAnimating] = useState(false);
+  const [stackHeight, setStackHeight] = useState(0);
   const topCardRef = useRef<SwipeCardHandle>(null);
 
   const handleButtonPress = useCallback(
@@ -47,12 +49,47 @@ export function SwipeStack({
 
   const { t } = useTranslation("survey");
 
+  const cardHeight = useMemo(() => {
+    const fallback = isTabletLayout
+      ? Math.min(Math.max(windowHeight * 0.62, 700), 960)
+      : Math.min(Math.max(windowHeight * 0.56, 480), 630);
+
+    if (!stackHeight) return fallback;
+
+    const controlsHeight = isTabletLayout ? 190 : 170;
+    const undoHeight = onUndo && canUndo ? 36 : 0;
+    const available = stackHeight - controlsHeight - undoHeight - 8;
+    const desired = stackHeight * (isTabletLayout ? 0.74 : 0.62);
+    const hardMin = isTabletLayout ? 560 : 420;
+    const hardMax = isTabletLayout ? 980 : 630;
+    const effectiveMax = available > 0 ? Math.min(hardMax, available) : hardMax;
+    const effectiveMin = Math.min(hardMin, effectiveMax);
+
+    return Math.min(effectiveMax, Math.max(effectiveMin, desired));
+  }, [canUndo, isTabletLayout, onUndo, stackHeight, windowHeight]);
+
   return (
-    <View className="flex-1">
+    <View
+      className="flex-1"
+      onLayout={(event) => setStackHeight(event.nativeEvent.layout.height)}
+    >
       {/* Card stack */}
-      <View className="justify-center" style={{ minHeight: 480, maxHeight: 630 }}>
+      <View
+        className="justify-center"
+        style={{ height: cardHeight + (isTabletLayout ? 28 : 14) }}
+      >
         {/* Background dark blue line */}
-        <View className="absolute bg-civic-navy" style={{ top: '50%', left: -50, right: -50, height: 64, marginTop: -32, zIndex: 0 }} />
+        <View
+          className="absolute bg-civic-navy"
+          style={{
+            top: "50%",
+            left: isTabletLayout ? -36 : -50,
+            right: isTabletLayout ? -36 : -50,
+            height: isTabletLayout ? 72 : 64,
+            marginTop: isTabletLayout ? -36 : -32,
+            zIndex: 0,
+          }}
+        />
 
         {visibleCards.map((card, stackIndex) => {
           const isTop = stackIndex === visibleCards.length - 1;
@@ -78,6 +115,7 @@ export function SwipeStack({
                 onSwipe={onSwipe}
                 onShowDescription={onShowDescription ? () => onShowDescription(card.id) : undefined}
                 isTop={isTop}
+                cardHeight={cardHeight}
               />
             </Animated.View>
           );
@@ -102,7 +140,7 @@ export function SwipeStack({
         </Pressable>
       )}
 
-      <View className="flex-1" />
+      <View style={{ flex: isTabletLayout ? 0.2 : 1 }} />
 
       {/* Button controls */}
       <SwipeButtons

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ActivityIndicator } from "react-native";
+import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ActivityIndicator, Share } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 import { useTranslation } from "react-i18next";
@@ -27,10 +27,24 @@ export function ShareResultsModal({ visible, onClose, ranking, candidates, total
                 format: "png",
                 quality: 1,
             });
-            await Sharing.shareAsync(uri, {
-                dialogTitle: t("survey:myResults"),
-                mimeType: "image/png",
-            });
+
+            const shareMessage = t("survey:shareText");
+
+            // First attempt: send image + text/link together for apps that support mixed payloads.
+            // Fallback preserves existing image-only behavior.
+            try {
+                await Share.share({
+                    message: shareMessage,
+                    url: uri,
+                    title: t("survey:myResults"),
+                });
+            } catch {
+                await Sharing.shareAsync(uri, {
+                    dialogTitle: t("survey:myResults"),
+                    mimeType: "image/png",
+                });
+            }
+
             onClose();
         } catch (error) {
             console.error("Error capturing or sharing view:", error);

@@ -25,11 +25,13 @@ interface SwipeCardProps {
   onSwipe: (cardId: string, direction: SwipeDirection) => void;
   onShowDescription?: () => void;
   isTop: boolean;
+  cardHeight: number;
 }
 
 export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
-  function SwipeCard({ card, onSwipe, onShowDescription, isTop }, ref) {
+  function SwipeCard({ card, onSwipe, onShowDescription, isTop, cardHeight }, ref) {
     const { width, height } = useWindowDimensions();
+    const isTabletLayout = width >= 768;
     const { shouldAnimate } = useMotionPreference();
     const lastTapTime = useRef(0);
 
@@ -129,6 +131,9 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
     });
 
     const theme = getCategoryTheme(card.category || 'Autre');
+    const sideInset = isTabletLayout ? 14 : 32;
+    const statementFontSize = isTabletLayout ? 48 : 26;
+    const statementLineHeight = isTabletLayout ? 58 : 34;
 
     return (
       <View style={{ width: "100%", position: "absolute", zIndex: isTop ? 10 : 0 }}>
@@ -149,16 +154,18 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
               {!isTop && (
                 <>
                   <View
-                    className="absolute inset-0 mx-8 rounded-3xl shadow-sm"
+                    className="absolute inset-0 rounded-3xl shadow-sm"
                     style={{
+                      marginHorizontal: sideInset,
                       backgroundColor: "#E2E8F0",
                       transform: [{ translateX: 14 }, { translateY: -14 }],
                       zIndex: -2
                     }}
                   />
                   <View
-                    className="absolute inset-0 mx-8 rounded-3xl shadow-sm"
+                    className="absolute inset-0 rounded-3xl shadow-sm"
                     style={{
+                      marginHorizontal: sideInset,
                       backgroundColor: "#F1F5F9",
                       transform: [{ translateX: 7 }, { translateY: -7 }],
                       zIndex: -1
@@ -168,19 +175,34 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
               )}
               {/* Main Card */}
               <View
-                className="mx-8 overflow-hidden rounded-3xl shadow-elevated border border-warm-gray/40 min-h-[440px]"
-                style={{ backgroundColor: theme.bg }}
+                className="overflow-hidden rounded-3xl shadow-elevated border border-warm-gray/40"
+                style={{
+                  backgroundColor: theme.bg,
+                  marginHorizontal: sideInset,
+                  height: cardHeight,
+                  minHeight: cardHeight,
+                }}
               >
                 {/* Category Badge Top Left */}
-                <View className="flex-row items-center pt-6 px-6">
+                <View
+                  className="flex-row items-center"
+                  style={{
+                    paddingTop: isTabletLayout ? 28 : 24,
+                    paddingHorizontal: isTabletLayout ? 28 : 24,
+                  }}
+                >
                   <View
                     style={{ backgroundColor: 'white' }}
                     className="flex-row items-center self-start px-3 py-1.5 rounded-full shadow-sm"
                   >
-                    <Ionicons name={theme.icon as any} size={14} color={theme.bg} />
+                    <Ionicons
+                      name={theme.icon as any}
+                      size={isTabletLayout ? 18 : 14}
+                      color={theme.bg}
+                    />
                     <Text
-                      className="ml-1.5 font-display-bold text-xs uppercase tracking-widest"
-                      style={{ color: theme.bg }}
+                      className="ml-1.5 font-display-bold uppercase tracking-widest"
+                      style={{ color: theme.bg, fontSize: isTabletLayout ? 13 : 12 }}
                     >
                       {card.category}
                     </Text>
@@ -188,10 +210,23 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
                 </View>
 
                 {/* Statement text */}
-                <View className="px-6 flex-1 justify-center py-6">
+                <View
+                  className="flex-1 justify-center"
+                  style={{
+                    paddingHorizontal: isTabletLayout ? 40 : 24,
+                    paddingVertical: isTabletLayout ? 32 : 24,
+                  }}
+                >
                   <Text
-                    style={{ color: "white" }}
-                    className="font-display-bold text-[26px] leading-tight"
+                    className="font-display-bold"
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.72}
+                    numberOfLines={isTabletLayout ? 6 : 7}
+                    style={{
+                      color: "white",
+                      fontSize: statementFontSize,
+                      lineHeight: statementLineHeight,
+                    }}
                     accessibilityRole="header"
                   >
                     {card.text}
@@ -201,10 +236,19 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
                 {card.description && (
                   <Pressable
                     onPress={onShowDescription}
-                    className="mb-8 mx-8 py-3.5 px-6 bg-white rounded-full shadow-sm border border-warm-gray/50 items-center justify-center"
+                    className="bg-white rounded-full shadow-sm border border-warm-gray/50 items-center justify-center"
+                    style={{
+                      marginHorizontal: isTabletLayout ? 40 : 32,
+                      marginBottom: isTabletLayout ? 24 : 32,
+                      paddingVertical: isTabletLayout ? 16 : 14,
+                      paddingHorizontal: 24,
+                    }}
                     hitSlop={10}
                   >
-                    <Text className="font-display-bold text-sm text-civic-navy uppercase tracking-wider">
+                    <Text
+                      className="font-display-bold text-civic-navy uppercase tracking-wider"
+                      style={{ fontSize: isTabletLayout ? 17 : 14 }}
+                    >
                       + EN SAVOIR PLUS
                     </Text>
                   </Pressable>
