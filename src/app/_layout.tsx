@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LogBox, View } from "react-native";
-import { Stack, useRouter, useSegments } from "expo-router";
+import { Stack, useRouter, useSegments, useNavigationContainerRef } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { useReducedMotion } from "react-native-reanimated";
@@ -24,6 +24,12 @@ import { useSurveyStore } from "../stores/survey";
 import { loadBundledDataset } from "../data/loader";
 import { ErrorBoundary } from "../components/shared/ErrorBoundary";
 import { OfflineBanner } from "../components/shared/OfflineBanner";
+import * as Sentry from "@sentry/react-native";
+import {
+  captureException,
+  updateCrashReportingConsent,
+  navigationIntegration,
+} from "../services/crash-reporting";
 import "../i18n";
 import "../../global.css";
 
@@ -34,14 +40,32 @@ export const unstable_settings = {
   initialRouteName: "(tabs)",
 };
 
+type GlobalErrorHandler = (error: unknown, isFatal?: boolean) => void;
+type ErrorUtilsApi = {
+  getGlobalHandler: () => GlobalErrorHandler;
+  setGlobalHandler: (handler: GlobalErrorHandler) => void;
+};
+type GlobalWithErrorUtils = typeof globalThis & {
+  ErrorUtils?: ErrorUtilsApi;
+};
+
+function toError(error: unknown): Error {
+  if (error instanceof Error) {
+    return error;
+  }
+
+  return new Error(typeof error === "string" ? error : "Unknown error");
+}
+
 function RootLayout() {
   const loadDataset = useElectionStore((s) => s.loadDataset);
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
-  const privacyConsentVersion = useAppStore((s) => s.privacyConsentVersion);
+  const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
   const surveyStatus = useSurveyStore((s) => s.status);
   const router = useRouter();
   const segments = useSegments();
+  const navigationRef = useNavigationContainerRef();
   const [initialRouteHandled, setInitialRouteHandled] = useState(false);
 
   const reduceMotion = useReducedMotion();
@@ -68,6 +92,40 @@ function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [isLoaded, fontsLoaded]);
+
+  useEffect(() => {
+    void updateCrashReportingConsent(crashReportingOptIn).catch((error) => {
+      console.error("Failed to update crash reporting consent:", error);
+    });
+  }, [crashReportingOptIn]);
+
+  useEffect(() => {
+    if (navigationRef) {
+      navigationIntegration.registerNavigationContainer(navigationRef);
+    }
+  }, [navigationRef]);
+
+  useEffect(() => {
+    const globalErrorUtils = globalThis as GlobalWithErrorUtils;
+    const errorUtils = globalErrorUtils.ErrorUtils;
+    if (!errorUtils?.getGlobalHandler || !errorUtils?.setGlobalHandler) {
+      return;
+    }
+
+    const previousHandler = errorUtils.getGlobalHandler();
+    const crashReportingHandler: GlobalErrorHandler = (error, isFatal) => {
+      captureException(toError(error), {
+        source: "global-error-handler",
+        isFatal: String(Boolean(isFatal)),
+      });
+      previousHandler(error, isFatal);
+    };
+
+    errorUtils.setGlobalHandler(crashReportingHandler);
+    return () => {
+      errorUtils.setGlobalHandler(previousHandler);
+    };
+  }, []);
 
   // Navigation gate: onboarding → tabs
   useEffect(() => {
@@ -144,4 +202,4 @@ function RootLayout() {
   );
 }
 
-export default RootLayout;
+export default Sentry.wrap(RootLayout);

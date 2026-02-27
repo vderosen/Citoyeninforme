@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Pressable } from "react-native";
 import { router } from "expo-router";
-
+import { captureException } from "../../services/crash-reporting";
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -27,6 +27,10 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+    captureException(error, {
+      source: "react-error-boundary",
+      componentStack: errorInfo.componentStack ?? "",
+    });
     console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 

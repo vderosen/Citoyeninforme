@@ -43,6 +43,14 @@
           "root": "./src/app"
         }
       ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "citoyeninforme",
+          "project": "citoyen-informe-mobile",
+          "url": "https://de.sentry.io/"
+        }
+      ],
       "expo-localization",
       "@config-plugins/detox"
     ],

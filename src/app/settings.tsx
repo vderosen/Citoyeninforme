@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Alert, Pressable, Linking, Modal } from "react-native";
+import { View, Text, ScrollView, Alert, Pressable, Linking, Modal, Switch } from "react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
 import Constants from "expo-constants";
 import { deleteAllUserData } from "../services/data-export";
+import { useAppStore } from "../stores/app";
 
 const PRIVACY_POLICY_URL =
   process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL ??
@@ -242,6 +243,12 @@ export default function SettingsScreen() {
   const router = useRouter();
   const [aboutVisible, setAboutVisible] = useState(false);
   const [methodologyVisible, setMethodologyVisible] = useState(false);
+  const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
+  const setCrashReportingOptIn = useAppStore((s) => s.setCrashReportingOptIn);
+
+  const onCrashReportingToggle = async (optIn: boolean) => {
+    setCrashReportingOptIn(optIn);
+  };
 
   const confirmDelete = () => {
     Alert.alert(t("data.deleteConfirmTitle"), t("data.deleteConfirmMessage"), [
@@ -278,6 +285,20 @@ export default function SettingsScreen() {
             icon="shield-checkmark-outline"
             label={t("about.privacy")}
             onPress={() => WebBrowser.openBrowserAsync(PRIVACY_POLICY_URL)}
+          />
+          <SettingsRow
+            icon="bug-outline"
+            label={t("about.crashReports")}
+            description={t("about.crashReportsDescription")}
+            trailing={
+              <Switch
+                value={crashReportingOptIn}
+                onValueChange={onCrashReportingToggle}
+                trackColor={{ false: "#D1D5DB", true: "#34D399" }}
+                thumbColor="#FFFFFF"
+                accessibilityLabel={t("about.crashReports")}
+              />
+            }
           />
           <SettingsRow
             icon="document-text-outline"

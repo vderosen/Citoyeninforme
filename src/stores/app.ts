@@ -8,12 +8,14 @@ interface AppState {
   privacyConsentVersion: string | null;
   consentTimestamp: string | null;
   hasSeenSwipeTutorial: boolean;
+  crashReportingOptIn: boolean;
 
   completeOnboarding: () => void;
   setLastActiveTab: (tab: string) => void;
   acceptPrivacyPolicy: (version: string) => void;
   revokePrivacyConsent: () => void;
   markSwipeTutorialSeen: () => void;
+  setCrashReportingOptIn: (optIn: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -24,6 +26,7 @@ export const useAppStore = create<AppState>()(
       privacyConsentVersion: null,
       consentTimestamp: null,
       hasSeenSwipeTutorial: false,
+      crashReportingOptIn: true,
 
       completeOnboarding: () => set({ hasCompletedOnboarding: true }),
       setLastActiveTab: (tab) => set({ lastActiveTab: tab }),
@@ -38,6 +41,7 @@ export const useAppStore = create<AppState>()(
           consentTimestamp: null,
         }),
       markSwipeTutorialSeen: () => set({ hasSeenSwipeTutorial: true }),
+      setCrashReportingOptIn: (optIn) => set({ crashReportingOptIn: optIn }),
     }),
     {
       name: "app-state",

@@ -92,8 +92,22 @@ Recommended for proxy auth:
 
 Optional:
 
-- `SENTRY_DSN` and `EXPO_PUBLIC_SENTRY_DSN`
+- `EXPO_PUBLIC_SENTRY_DSN` (runtime crash reporting DSN)
 - `EXPO_PUBLIC_PRIVACY_POLICY_URL`
+- Crash reporting is disabled by default and only enabled after explicit opt-in in Settings.
+
+Required for EAS builds with Sentry source-map/release integration (set as EAS secrets):
+
+- `SENTRY_AUTH_TOKEN`
+- `SENTRY_ORG`
+- `SENTRY_PROJECT`
+- `EXPO_PUBLIC_SENTRY_DSN`
+
+Privacy stance:
+
+- No default PII is sent to Sentry.
+- Crash reports are opt-in only.
+- User-generated content is sanitized before sending.
 
 ### 3. Start the LLM proxy
 
@@ -162,6 +176,22 @@ eas submit --platform ios
 eas submit --platform android
 ```
 
+### Sentry release/dist policy (WS1)
+
+- Release format: `com.vderosen.citoyeninforme@<appVersion>+<buildNumber>`
+- Dist mapping:
+  - iOS: `CFBundleVersion` (build number)
+  - Android: `versionCode`
+- Use deterministic release/dist values across preview and production builds.
+- WS1 setup/completion evidence is documented in `docs/specs/022-sentry-integration/runbook.md`.
+
+### Sentry runtime verification (WS2)
+
+1. Launch the app and keep crash reporting disabled in `Paramètres`.
+2. Trigger a controlled exception and verify no event is sent.
+3. Enable `Rapports de crash anonymes` in `Paramètres`.
+4. Trigger the same exception and verify an issue appears in Sentry with environment/release tags.
+
 ## Specs index
 
 All product and implementation context is documented in `specs/`:
@@ -174,4 +204,3 @@ All product and implementation context is documented in `docs/specs/`:
 - `docs/specs/004-neighborhood-pulse-redesign` - visual identity system
 - `docs/specs/005-production-readiness` - privacy, security, resilience, release
 - `docs/specs/006-onboarding-redesign` - 5-step onboarding flow
-
