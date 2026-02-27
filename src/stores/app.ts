@@ -26,7 +26,7 @@ export const useAppStore = create<AppState>()(
       privacyConsentVersion: null,
       consentTimestamp: null,
       hasSeenSwipeTutorial: false,
-      crashReportingOptIn: false,
+      crashReportingOptIn: true,
 
       completeOnboarding: () => set({ hasCompletedOnboarding: true }),
       setLastActiveTab: (tab) => set({ lastActiveTab: tab }),
