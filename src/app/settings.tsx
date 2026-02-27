@@ -247,9 +247,13 @@ export default function SettingsScreen() {
   const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
   const setCrashReportingOptIn = useAppStore((s) => s.setCrashReportingOptIn);
 
-  const onCrashReportingToggle = (optIn: boolean) => {
+  const onCrashReportingToggle = async (optIn: boolean) => {
     setCrashReportingOptIn(optIn);
-    updateCrashReportingConsent(optIn);
+    try {
+      await updateCrashReportingConsent(optIn);
+    } catch (error) {
+      console.error("Failed to update crash reporting consent", error);
+    }
   };
 
   const confirmDelete = () => {
