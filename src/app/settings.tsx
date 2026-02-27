@@ -8,7 +8,6 @@ import * as WebBrowser from "expo-web-browser";
 import Constants from "expo-constants";
 import { deleteAllUserData } from "../services/data-export";
 import { useAppStore } from "../stores/app";
-import { updateCrashReportingConsent } from "../services/crash-reporting";
 
 const PRIVACY_POLICY_URL =
   process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL ??
@@ -249,11 +248,6 @@ export default function SettingsScreen() {
 
   const onCrashReportingToggle = async (optIn: boolean) => {
     setCrashReportingOptIn(optIn);
-    try {
-      await updateCrashReportingConsent(optIn);
-    } catch (error) {
-      console.error("Failed to update crash reporting consent", error);
-    }
   };
 
   const confirmDelete = () => {
