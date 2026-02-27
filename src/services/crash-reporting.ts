@@ -1,11 +1,16 @@
 import * as Sentry from "@sentry/react-native";
 import Constants from "expo-constants";
+import { isRunningInExpoGo } from "expo";
 
 type CrashContext = Record<string, string>;
 type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
 
 const SENTRY_DSN = process.env.EXPO_PUBLIC_SENTRY_DSN?.trim() ?? "";
 const MAX_CONTEXT_STRING_LENGTH = 200;
+
+export const navigationIntegration = Sentry.reactNavigationIntegration({
+  enableTimeToInitialDisplay: !isRunningInExpoGo(),
+});
 
 let hasConsent = false;
 let isInitialized = false;
@@ -107,6 +112,13 @@ function initializeSdkIfNeeded(): void {
     environment: __DEV__ ? "development" : (process.env.EXPO_PUBLIC_APP_ENV ?? "production"),
     release,
     dist,
+    tracesSampleRate: __DEV__ ? 1.0 : 0.1,
+    attachScreenshot: true,
+    attachViewHierarchy: true,
+    enableNativeFramesTracking: !isRunningInExpoGo(),
+    enableAppHangTracking: true,
+    enableWatchdogTerminationTracking: true,
+    integrations: [navigationIntegration],
   });
 
   isInitialized = true;
@@ -119,10 +131,13 @@ export function initCrashReporting(optIn: boolean): void {
   }
 }
 
-export function updateCrashReportingConsent(optIn: boolean): void {
+export async function updateCrashReportingConsent(optIn: boolean): Promise<void> {
   hasConsent = optIn;
   if (optIn) {
     initializeSdkIfNeeded();
+  } else if (isInitialized) {
+    await Sentry.close();
+    isInitialized = false;
   }
 }
 

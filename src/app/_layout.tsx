@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LogBox, View } from "react-native";
-import { Stack, useRouter, useSegments } from "expo-router";
+import { Stack, useRouter, useSegments, useNavigationContainerRef } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { useReducedMotion } from "react-native-reanimated";
@@ -24,9 +24,11 @@ import { useSurveyStore } from "../stores/survey";
 import { loadBundledDataset } from "../data/loader";
 import { ErrorBoundary } from "../components/shared/ErrorBoundary";
 import { OfflineBanner } from "../components/shared/OfflineBanner";
+import * as Sentry from "@sentry/react-native";
 import {
   captureException,
   updateCrashReportingConsent,
+  navigationIntegration,
 } from "../services/crash-reporting";
 import "../i18n";
 import "../../global.css";
@@ -63,6 +65,7 @@ function RootLayout() {
   const surveyStatus = useSurveyStore((s) => s.status);
   const router = useRouter();
   const segments = useSegments();
+  const navigationRef = useNavigationContainerRef();
   const [initialRouteHandled, setInitialRouteHandled] = useState(false);
 
   const reduceMotion = useReducedMotion();
@@ -93,6 +96,12 @@ function RootLayout() {
   useEffect(() => {
     updateCrashReportingConsent(crashReportingOptIn);
   }, [crashReportingOptIn]);
+
+  useEffect(() => {
+    if (navigationRef) {
+      navigationIntegration.registerNavigationContainer(navigationRef);
+    }
+  }, [navigationRef]);
 
   useEffect(() => {
     const globalErrorUtils = globalThis as GlobalWithErrorUtils;
@@ -191,5 +200,4 @@ function RootLayout() {
   );
 }
 
-// Keep a plain root export to avoid SDK-level wrappers altering router behavior.
-export default RootLayout;
+export default Sentry.wrap(RootLayout);
