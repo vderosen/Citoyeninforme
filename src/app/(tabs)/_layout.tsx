@@ -2,6 +2,10 @@ import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
+export const unstable_settings = {
+  initialRouteName: "cards",
+};
+
 export default function TabLayout() {
   const { t } = useTranslation("common");
 

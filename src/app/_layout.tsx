@@ -20,7 +20,6 @@ import {
 } from "@expo-google-fonts/inter";
 import { useElectionStore } from "../stores/election";
 import { useAppStore } from "../stores/app";
-import { useSurveyStore } from "../stores/survey";
 import { loadBundledDataset } from "../data/loader";
 import { ErrorBoundary } from "../components/shared/ErrorBoundary";
 import { OfflineBanner } from "../components/shared/OfflineBanner";
@@ -62,7 +61,6 @@ function RootLayout() {
   const isLoaded = useElectionStore((s) => s.isLoaded);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
   const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
-  const surveyStatus = useSurveyStore((s) => s.status);
   const router = useRouter();
   const segments = useSegments();
   const navigationRef = useNavigationContainerRef();
@@ -127,13 +125,12 @@ function RootLayout() {
     };
   }, []);
 
-  // Navigation gate: onboarding → tabs
+  // Navigation gate: first launch -> onboarding, otherwise always land on cards.
   useEffect(() => {
     if (!isLoaded) return;
 
     const inOnboarding = segments[0] === "onboarding";
 
-    // Check onboarding (this now handles privacy under the hood)
     if (!hasCompletedOnboarding) {
       if (!inOnboarding) {
         router.replace("/onboarding");
@@ -141,29 +138,20 @@ function RootLayout() {
       return;
     }
 
-    // User has completed onboarding
     if (inOnboarding) {
-      // Just finished onboarding, redirect to home
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/cards");
       setInitialRouteHandled(true);
       return;
     }
 
-    // Smart routing on app launch for returning users
+    // Force cards as default entry route for returning users.
     if (!initialRouteHandled && segments.length > 0) {
       setInitialRouteHandled(true);
-
-      // Only redirect if they landed on the default tabs index
-      if (segments[0] === "(tabs)" && segments.length === 1) {
-        const isSurveyFinished = surveyStatus === "results_ready" || surveyStatus === "completed";
-        if (!isSurveyFinished) {
-          router.replace("/(tabs)/cards");
-        } else {
-          router.replace("/(tabs)/matches");
-        }
+      if (segments[0] === "(tabs)" && segments[1] !== "cards") {
+        router.replace("/(tabs)/cards");
       }
     }
-  }, [isLoaded, hasCompletedOnboarding, segments, surveyStatus, initialRouteHandled]);
+  }, [isLoaded, hasCompletedOnboarding, segments, initialRouteHandled]);
 
   if (!fontsLoaded) {
     return null;

@@ -52,16 +52,16 @@ export function SwipeStack({
   const cardHeight = useMemo(() => {
     const fallback = isTabletLayout
       ? Math.min(Math.max(windowHeight * 0.62, 700), 960)
-      : Math.min(Math.max(windowHeight * 0.56, 480), 630);
+      : Math.min(Math.max(windowHeight * 0.6, 500), 660);
 
     if (!stackHeight) return fallback;
 
-    const controlsHeight = isTabletLayout ? 190 : 170;
+    const controlsHeight = isTabletLayout ? 190 : 150;
     const undoHeight = onUndo && canUndo ? 36 : 0;
     const available = stackHeight - controlsHeight - undoHeight - 8;
-    const desired = stackHeight * (isTabletLayout ? 0.74 : 0.62);
+    const desired = stackHeight * (isTabletLayout ? 0.74 : 0.66);
     const hardMin = isTabletLayout ? 560 : 420;
-    const hardMax = isTabletLayout ? 980 : 630;
+    const hardMax = isTabletLayout ? 980 : 660;
     const effectiveMax = available > 0 ? Math.min(hardMax, available) : hardMax;
     const effectiveMin = Math.min(hardMin, effectiveMax);
 

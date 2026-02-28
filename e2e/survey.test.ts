@@ -14,13 +14,7 @@ describe('Survey Flow', () => {
         await waitFor(element(by.text("OK, j'ai compris"))).toBeVisible().withTimeout(5000);
         await element(by.text("OK, j'ai compris")).tap();
 
-        // App lands on Home!
-        await waitFor(element(by.text('Citoyen Informé'))).toBeVisible().withTimeout(10000);
-
-        // Navigate to the survey (Cartes Swipe)
-        await element(by.label('Cartes Swipe')).atIndex(0).tap();
-
-        // We just wait for the first card to render completely
+        // After onboarding the app now lands directly on Cartes Swipe.
         await waitFor(element(by.id('active-card'))).toExist().withTimeout(15000);
 
         // Dismiss the tutorial overlay

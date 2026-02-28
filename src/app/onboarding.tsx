@@ -20,7 +20,7 @@ export default function OnboardingScreen() {
       setStep(2);
     } else {
       completeOnboarding();
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/cards");
     }
   };
 

@@ -6,19 +6,17 @@ describe('Podium Verification', () => {
     });
 
     it('should navigate to results tab', async () => {
-        // If onboarding appears, dismiss it
-        try {
-            await waitFor(element(by.text('OK'))).toBeVisible().withTimeout(3000);
-            await element(by.text('OK')).tap();
-            await waitFor(element(by.text("OK, j'ai compris"))).toBeVisible().withTimeout(3000);
-            await element(by.text("OK, j'ai compris")).tap();
-        } catch (e) {
-            // Onboarding already completed
-        }
+        // Dismiss onboarding
+        await waitFor(element(by.text('OK'))).toBeVisible().withTimeout(15000);
+        await element(by.text('OK')).tap();
+        await waitFor(element(by.text("OK, j'ai compris"))).toBeVisible().withTimeout(10000);
+        await element(by.text("OK, j'ai compris")).tap();
+        await waitFor(element(by.id('tutorial-dismiss'))).toBeVisible().withTimeout(10000);
+        await element(by.id('tutorial-dismiss')).tap();
 
         // Wait for data to load, then navigate to Résultats tab
-        await waitFor(element(by.text('Résultats'))).toBeVisible().withTimeout(10000);
-        await element(by.text('Résultats')).tap();
+        await waitFor(element(by.label('Résultats')).atIndex(0)).toBeVisible().withTimeout(15000);
+        await element(by.label('Résultats')).atIndex(0).tap();
     });
 
     it('should show the results screen content', async () => {

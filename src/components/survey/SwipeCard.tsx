@@ -28,6 +28,25 @@ interface SwipeCardProps {
   cardHeight: number;
 }
 
+function getStatementTypography(text: string, isTabletLayout: boolean): { fontSize: number; lineHeight: number } {
+  const normalizedText = text.trim();
+  const statementLength = normalizedText.length;
+  const words = normalizedText.split(/\s+/);
+  const longestWordLength = words.reduce((max, word) => Math.max(max, word.length), 0);
+
+  if (isTabletLayout) {
+    if (statementLength > 160 || longestWordLength > 20) return { fontSize: 38, lineHeight: 47 };
+    if (statementLength > 125 || longestWordLength > 17) return { fontSize: 41, lineHeight: 50 };
+    if (statementLength > 90) return { fontSize: 44, lineHeight: 54 };
+    return { fontSize: 48, lineHeight: 58 };
+  }
+
+  if (statementLength > 160 || longestWordLength > 20) return { fontSize: 24, lineHeight: 31 };
+  if (statementLength > 125 || longestWordLength > 17) return { fontSize: 26, lineHeight: 33 };
+  if (statementLength > 90) return { fontSize: 28, lineHeight: 35 };
+  return { fontSize: 30, lineHeight: 38 };
+}
+
 export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
   function SwipeCard({ card, onSwipe, onShowDescription, isTop, cardHeight }, ref) {
     const { width, height } = useWindowDimensions();
@@ -132,8 +151,10 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
 
     const theme = getCategoryTheme(card.category || 'Autre');
     const sideInset = isTabletLayout ? 14 : 32;
-    const statementFontSize = isTabletLayout ? 48 : 26;
-    const statementLineHeight = isTabletLayout ? 58 : 34;
+    const { fontSize: statementFontSize, lineHeight: statementLineHeight } = getStatementTypography(
+      card.text,
+      isTabletLayout
+    );
 
     return (
       <View style={{ width: "100%", position: "absolute", zIndex: isTop ? 10 : 0 }}>
@@ -211,17 +232,16 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
 
                 {/* Statement text */}
                 <View
-                  className="flex-1 justify-center"
+                  className="flex-1 justify-start"
                   style={{
                     paddingHorizontal: isTabletLayout ? 40 : 24,
-                    paddingVertical: isTabletLayout ? 32 : 24,
+                    paddingTop: isTabletLayout ? 36 : 26,
+                    paddingBottom: isTabletLayout ? 24 : 12,
                   }}
                 >
                   <Text
                     className="font-display-bold"
-                    adjustsFontSizeToFit
-                    minimumFontScale={0.72}
-                    numberOfLines={isTabletLayout ? 6 : 7}
+                    numberOfLines={isTabletLayout ? 6 : 8}
                     style={{
                       color: "white",
                       fontSize: statementFontSize,
@@ -239,7 +259,7 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
                     className="bg-white rounded-full shadow-sm border border-warm-gray/50 items-center justify-center"
                     style={{
                       marginHorizontal: isTabletLayout ? 40 : 32,
-                      marginBottom: isTabletLayout ? 24 : 32,
+                      marginBottom: isTabletLayout ? 24 : 24,
                       paddingVertical: isTabletLayout ? 16 : 14,
                       paddingHorizontal: 24,
                     }}
