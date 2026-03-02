@@ -6,6 +6,7 @@
 
 import type { StatementCard, Candidate } from "../data/schema";
 import type { CandidateMatchResult } from "../services/matching";
+import { extractAnswerSuffix, getAnswerMeta } from "./swipeAnswer";
 
 // ── Types ──────────────────────────────────────────────────────────
 
@@ -67,13 +68,15 @@ export function computeGlobalAnalytics(
     };
 
     for (const [cardId, answerId] of entries) {
-        const suffix = answerId.replace(`${cardId}-`, "") as keyof SwipeBreakdown;
-        if (suffix in breakdown) {
-            breakdown[suffix]++;
+        const suffix = extractAnswerSuffix(cardId, answerId);
+        const answerMeta = getAnswerMeta(suffix);
+
+        if (answerMeta) {
+            breakdown[answerMeta.breakdownKey]++;
         }
     }
 
-    // Conviction index: strong swipes = +3, normal = +1, skip = -1
+    // Conviction index: x2 swipes = +3, normal = +1, skip = -1
     // Apply a square-root curve so the score rises fast and plateaus at the top
     const weightedTotal =
         (breakdown.strongly_agree + breakdown.strongly_disagree) * 3 +

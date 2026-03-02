@@ -1,8 +1,10 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { useMotionPreference } from "../../hooks/useMotionPreference";
+import { AppText as Text } from "../ui/AppText";
+import { PressableScale } from "../ui/PressableScale";
 
 interface SwipeTutorialOverlayProps {
   onDismiss: () => void;
@@ -10,41 +12,45 @@ interface SwipeTutorialOverlayProps {
 
 const GESTURES: {
   i18nKey: string;
-  actionKey: string;
+  detailKey: string;
   icon: keyof typeof Ionicons.glyphMap;
   color: string;
 }[] = [
     {
       i18nKey: "tutorialSwipeRight",
-      actionKey: "swipeAgree",
+      detailKey: "swipeAgree",
       icon: "arrow-forward",
       color: "#16a34a",
     },
     {
       i18nKey: "tutorialSwipeLeft",
-      actionKey: "swipeDisagree",
+      detailKey: "swipeDisagree",
       icon: "arrow-back",
       color: "#dc2626",
     },
     {
-      i18nKey: "tutorialButtonStrongAgree",
-      actionKey: "swipeStronglyAgree",
-      icon: "checkmark-done",
+      i18nKey: "tutorialButtonAgree",
+      detailKey: "swipeAgree",
+      icon: "checkmark",
       color: "#16a34a",
     },
-
     {
       i18nKey: "tutorialButtonSkip",
-      actionKey: "swipeSkip",
+      detailKey: "swipeSkip",
       icon: "remove-outline",
       color: "#9ca3af",
     },
-
     {
-      i18nKey: "tutorialButtonStrongDisagree",
-      actionKey: "swipeStronglyDisagree",
-      icon: "close-circle",
+      i18nKey: "tutorialButtonDisagree",
+      detailKey: "swipeDisagree",
+      icon: "close",
       color: "#dc2626",
+    },
+    {
+      i18nKey: "tutorialToggleX2",
+      detailKey: "tutorialToggleX2Detail",
+      icon: "flash-outline",
+      color: "#f59e0b",
     },
   ];
 
@@ -77,28 +83,29 @@ export function SwipeTutorialOverlay({ onDismiss }: SwipeTutorialOverlayProps) {
                   >
                     <Ionicons name={gesture.icon} size={18} color={gesture.color} />
                   </View>
-                  <Text className="font-body text-sm text-civic-navy" numberOfLines={1} style={{ flexShrink: 1 }}>
+                  <Text className="font-body text-sm text-civic-navy" style={{ flexShrink: 1 }}>
                     <Text style={{ color: gesture.color }} className="font-semibold">
                       {t(gesture.i18nKey)}
                     </Text>
-                    <Text>{" = " + t(gesture.actionKey)}</Text>
+                    <Text>{" = " + t(gesture.detailKey)}</Text>
                   </Text>
                 </View>
               ))}
             </View>
 
-            <Pressable
+            <PressableScale
               onPress={onDismiss}
               testID="tutorial-dismiss"
               accessibilityRole="button"
               accessibilityLabel={t("tutorialDismiss")}
               className="bg-accent-coral rounded-xl py-3 items-center"
               style={{ minHeight: 48 }}
+              ensureMinTouchTarget
             >
               <Text className="font-heading text-base text-white">
                 {t("tutorialDismiss")}
               </Text>
-            </Pressable>
+            </PressableScale>
           </View>
         </Animated.View>
       </Pressable>

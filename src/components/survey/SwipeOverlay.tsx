@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import Animated, {
   useAnimatedStyle,
   interpolate,
@@ -6,130 +6,55 @@ import Animated, {
   type SharedValue,
 } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 
 const SWIPE_THRESHOLD = 120;
 
 interface SwipeOverlayProps {
   translationX: SharedValue<number>;
-  translationY: SharedValue<number>;
   skipProgress: SharedValue<number>;
 }
 
 const DIRECTIONS = {
   agree: {
     icon: "checkmark" as keyof typeof Ionicons.glyphMap,
-    label: "D'accord",
     color: "rgba(34, 197, 94, 1)",
     bg: "rgba(34, 197, 94, 0.25)",
     border: "rgba(34, 197, 94, 0.6)",
   },
   disagree: {
     icon: "close" as keyof typeof Ionicons.glyphMap,
-    label: "Pas d'accord",
-    color: "rgba(239, 68, 68, 1)",
-    bg: "rgba(239, 68, 68, 0.25)",
-    border: "rgba(239, 68, 68, 0.6)",
-  },
-  strongly_agree: {
-    icon: "checkmark-done" as keyof typeof Ionicons.glyphMap,
-    label: "Totalement",
-    color: "rgba(34, 197, 94, 1)",
-    bg: "rgba(34, 197, 94, 0.25)",
-    border: "rgba(34, 197, 94, 0.6)",
-  },
-  strongly_disagree: {
-    icon: "double-close", // Handled specially in render
-    label: "Pas du tout",
     color: "rgba(239, 68, 68, 1)",
     bg: "rgba(239, 68, 68, 0.25)",
     border: "rgba(239, 68, 68, 0.6)",
   },
 };
 
-export function SwipeOverlay({
-  translationX,
-  translationY,
-  skipProgress,
-}: SwipeOverlayProps) {
-  // Agree (right)
-  const agreeStyle = useAnimatedStyle(() => {
-    const absX = Math.abs(translationX.value);
-    const absY = Math.abs(translationY.value);
-    const isHorizontal = absX >= absY;
-    const isRight = translationX.value > 0;
-    const active = isHorizontal && isRight;
-
-    return {
-      opacity: active
+export function SwipeOverlay({ translationX, skipProgress }: SwipeOverlayProps) {
+  const { t } = useTranslation("survey");
+  const agreeStyle = useAnimatedStyle(() => ({
+    opacity:
+      translationX.value > 0
         ? interpolate(
-          translationX.value,
-          [0, SWIPE_THRESHOLD],
-          [0, 1],
-          Extrapolation.CLAMP
-        )
+            translationX.value,
+            [0, SWIPE_THRESHOLD],
+            [0, 1],
+            Extrapolation.CLAMP
+          )
         : 0,
-    };
-  });
+  }));
 
-  // Disagree (left)
-  const disagreeStyle = useAnimatedStyle(() => {
-    const absX = Math.abs(translationX.value);
-    const absY = Math.abs(translationY.value);
-    const isHorizontal = absX >= absY;
-    const isLeft = translationX.value < 0;
-    const active = isHorizontal && isLeft;
-
-    return {
-      opacity: active
+  const disagreeStyle = useAnimatedStyle(() => ({
+    opacity:
+      translationX.value < 0
         ? interpolate(
-          translationX.value,
-          [0, -SWIPE_THRESHOLD],
-          [0, 1],
-          Extrapolation.CLAMP
-        )
+            translationX.value,
+            [0, -SWIPE_THRESHOLD],
+            [0, 1],
+            Extrapolation.CLAMP
+          )
         : 0,
-    };
-  });
-
-  // Strongly agree (up)
-  const stronglyAgreeStyle = useAnimatedStyle(() => {
-    const absX = Math.abs(translationX.value);
-    const absY = Math.abs(translationY.value);
-    const isVertical = absY > absX;
-    const isUp = translationY.value < 0;
-    const active = isVertical && isUp;
-
-    return {
-      opacity: active
-        ? interpolate(
-          translationY.value,
-          [0, -SWIPE_THRESHOLD],
-          [0, 1],
-          Extrapolation.CLAMP
-        )
-        : 0,
-    };
-  });
-
-  // Strongly disagree (down)
-  const stronglyDisagreeStyle = useAnimatedStyle(() => {
-    const absX = Math.abs(translationX.value);
-    const absY = Math.abs(translationY.value);
-    const isVertical = absY > absX;
-    const isDown = translationY.value > 0;
-    const active = isVertical && isDown;
-
-    return {
-      opacity: active
-        ? interpolate(
-          translationY.value,
-          [0, SWIPE_THRESHOLD],
-          [0, 1],
-          Extrapolation.CLAMP
-        )
-        : 0,
-    };
-  });
+  }));
 
   const skipStyle = useAnimatedStyle(() => ({
     opacity: skipProgress.value,
@@ -143,14 +68,7 @@ export function SwipeOverlay({
           (typeof DIRECTIONS)[keyof typeof DIRECTIONS],
         ][]
       ).map(([key, dir]) => {
-        const style =
-          key === "agree"
-            ? agreeStyle
-            : key === "disagree"
-              ? disagreeStyle
-              : key === "strongly_agree"
-                ? stronglyAgreeStyle
-                : stronglyDisagreeStyle;
+        const style = key === "agree" ? agreeStyle : disagreeStyle;
 
         return (
           <Animated.View
@@ -173,14 +91,7 @@ export function SwipeOverlay({
             ]}
             pointerEvents="none"
           >
-            {dir.icon === "double-close" ? (
-              <View className="flex-row items-center" style={{ marginLeft: -12 }}>
-                <Ionicons name="close" size={56} color={dir.color} style={{ marginRight: -24 }} />
-                <Ionicons name="close" size={56} color={dir.color} />
-              </View>
-            ) : (
-              <Ionicons name={dir.icon as any} size={56} color={dir.color} />
-            )}
+            <Ionicons name={dir.icon as any} size={56} color={dir.color} />
             <Text
               style={{
                 color: dir.color,
@@ -189,13 +100,12 @@ export function SwipeOverlay({
                 marginTop: 8,
               }}
             >
-              {dir.label}
+              {key === "agree" ? t("swipeAgree") : t("swipeDisagree")}
             </Text>
           </Animated.View>
         );
       })}
 
-      {/* Skip overlay — gray */}
       <Animated.View
         style={[
           skipStyle,
@@ -224,7 +134,7 @@ export function SwipeOverlay({
             marginTop: 8,
           }}
         >
-          Je ne sais pas
+          {t("swipeSkip")}
         </Text>
       </Animated.View>
     </>

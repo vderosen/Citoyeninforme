@@ -3,6 +3,7 @@ import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ActivityIndicat
 import { captureRef } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
 import { Podium } from "./Podium";
 import type { CandidateMatchResult } from "../../services/matching";
 import type { Candidate } from "../../data/schema";
@@ -69,7 +70,10 @@ export function ShareResultsModal({ visible, onClose, ranking, candidates, total
                                     <Text style={{ color: '#1A202C' }}>Citoyen </Text>
                                     <Text style={{ color: '#60A5FA' }}>Informé</Text>
                                 </Text>
-                                <Text style={styles.appHandle}>@citoyeninforme</Text>
+                                <View style={styles.appHandleRow}>
+                                    <Ionicons name="logo-instagram" size={14} color="#E1306C" />
+                                    <Text style={styles.appHandle}>@Citoyen.Informe</Text>
+                                </View>
                             </View>
 
                             <Text style={styles.resultsTitle}>{t("survey:shareCardTitle")}</Text>
@@ -154,6 +158,11 @@ const styles = StyleSheet.create({
         fontFamily: "Inter_400Regular",
         fontSize: 14,
         color: "#718096",
+    },
+    appHandleRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
         marginTop: 2,
     },
     resultsTitle: {

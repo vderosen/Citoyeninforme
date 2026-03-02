@@ -5,6 +5,7 @@
  */
 
 import type { Candidate, StatementCard } from "../data/schema";
+import { extractAnswerSuffix, getAnswerMeta } from "../utils/swipeAnswer";
 
 export interface MatchingInput {
   answers: Record<string, string>; // cardId -> `${cardId}-agree` | `${cardId}-disagree` | etc
@@ -29,23 +30,6 @@ export interface MatchingOutput {
   candidateRanking: CandidateMatchResult[];
 }
 
-// Points awarded based on the answer suffix from `swipe-adapter.ts`
-const SCORE_MAP: Record<string, number> = {
-  "agree": 1,
-  "disagree": -1,
-  "strongly_agree": 2,
-  "strongly_disagree": -2,
-  "skip": 0,
-};
-
-const ANSWER_TEXT_MAP: Record<string, string> = {
-  "agree": "D'accord",
-  "disagree": "Pas d'accord",
-  "strongly_agree": "Coup de cœur",
-  "strongly_disagree": "Pas du tout d'accord",
-  "skip": "Je ne sais pas",
-};
-
 export function computeMatching(input: MatchingInput): MatchingOutput {
   const { answers, cards, candidates } = input;
 
@@ -64,9 +48,12 @@ export function computeMatching(input: MatchingInput): MatchingOutput {
     if (!card) continue;
 
     // Extract the suffix (e.g., "agree" from "q_CARD_0001-agree")
-    const answerSuffix = answerId.replace(`${cardId}-`, '');
-    const points = SCORE_MAP[answerSuffix] ?? 0;
-    const answerText = ANSWER_TEXT_MAP[answerSuffix] ?? "Inconnu";
+    const answerSuffix = extractAnswerSuffix(cardId, answerId);
+    const answerMeta = getAnswerMeta(answerSuffix);
+    if (!answerMeta) continue;
+
+    const points = answerMeta.points;
+    const answerText = answerMeta.userAnswerText;
 
     if (points === 0) continue; // Skip if no points awarded
 

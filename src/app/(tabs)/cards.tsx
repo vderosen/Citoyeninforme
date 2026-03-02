@@ -1,9 +1,10 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { View, Text, Modal, ScrollView, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
+import { useAppStore } from "../../stores/app";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SwipeStack } from "../../components/survey/SwipeStack";
 import { SwipeTutorialOverlay } from "../../components/survey/SwipeTutorialOverlay";
@@ -23,10 +24,13 @@ export default function CardsScreen() {
     const statementCards = useElectionStore((s) => s.statementCards);
     const candidates = useElectionStore((s) => s.candidates);
 
-    const [hasSeenTutorial, setHasSeenTutorial] = useState(false);
-    const dismissTutorial = useCallback(() => setHasSeenTutorial(true), []);
+    const hasSeenSwipeTutorial = useAppStore((s) => s.hasSeenSwipeTutorial);
+    const markSwipeTutorialSeen = useAppStore((s) => s.markSwipeTutorialSeen);
     const [isResultsReminderVisible, setIsResultsReminderVisible] = useState(false);
     const [lastResultsReminderSwipeCount, setLastResultsReminderSwipeCount] = useState(-1);
+    const [showSwipeHint, setShowSwipeHint] = useState(false);
+    const swipeHintIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const shouldTrackFirstActionRef = useRef(false);
 
     const currentIndex = useSurveyStore((s) => s.currentQuestionIndex);
     const surveyStatus = useSurveyStore((s) => s.status);
@@ -47,11 +51,31 @@ export default function CardsScreen() {
     const nextQuestion = useSurveyStore((s) => s.nextQuestion);
     const clearAnswer = useSurveyStore((s) => s.clearAnswer);
 
-    // Shuffle cards with candidate-balanced interleaving
+    // Shuffle cards with candidate-balanced interleaving.
+    // Include opposing candidates in exposure balancing because they are scored on this card too.
     const [shuffleSeed] = useState(() => dailySeed());
+    const cardsForShuffle = useMemo(
+        () =>
+            statementCards.map((card) => ({
+                id: card.id,
+                candidateIds: Array.from(
+                    new Set([...(card.candidateIds ?? []), ...(card.opposingCandidateIds ?? [])])
+                ),
+            })),
+        [statementCards]
+    );
+    const shuffledCardIds = useMemo(
+        () => balancedShuffle(cardsForShuffle, shuffleSeed).map((card) => card.id),
+        [cardsForShuffle, shuffleSeed]
+    );
     const shuffledCards = useMemo(
-        () => balancedShuffle(statementCards, shuffleSeed),
-        [statementCards, shuffleSeed]
+        () => {
+            const byId = new Map(statementCards.map((card) => [card.id, card]));
+            return shuffledCardIds
+                .map((cardId) => byId.get(cardId))
+                .filter((card): card is StatementCard => !!card);
+        },
+        [shuffledCardIds, statementCards]
     );
 
     // Track swiped cards for undo (current session only)
@@ -124,8 +148,23 @@ export default function CardsScreen() {
         shuffledCards,
     ]);
 
+    const clearSwipeHintIdleTimer = useCallback(() => {
+        if (swipeHintIdleTimerRef.current) {
+            clearTimeout(swipeHintIdleTimerRef.current);
+            swipeHintIdleTimerRef.current = null;
+        }
+    }, []);
+
+    const registerFirstCardAction = useCallback(() => {
+        if (!shouldTrackFirstActionRef.current) return;
+        shouldTrackFirstActionRef.current = false;
+        clearSwipeHintIdleTimer();
+        setShowSwipeHint(false);
+    }, [clearSwipeHintIdleTimer]);
+
     const handleSwipe = useCallback(
         (cardId: string, direction: SwipeDirection, isX2Enabled: boolean) => {
+            registerFirstCardAction();
             const optionId = buildAnswerId(cardId, direction, isX2Enabled);
             answerQuestion(cardId, optionId);
 
@@ -149,18 +188,21 @@ export default function CardsScreen() {
             computeResults,
             isLast,
             nextQuestion,
+            registerFirstCardAction,
             shuffledCards,
         ]
     );
 
     const handleToggleX2 = useCallback((cardId: string) => {
+        registerFirstCardAction();
         setX2ByCardId((prev) => ({
             ...prev,
             [cardId]: !prev[cardId],
         }));
-    }, []);
+    }, [registerFirstCardAction]);
 
     const handleUndo = useCallback(() => {
+        registerFirstCardAction();
         if (currentIndex <= 0) return;
 
         const previousCard = shuffledCards[currentIndex - 1];
@@ -171,20 +213,47 @@ export default function CardsScreen() {
 
         // recompute results
         setTimeout(computeResults, 50);
-    }, [clearAnswer, currentIndex, shuffledCards, computeResults]);
+    }, [clearAnswer, computeResults, currentIndex, registerFirstCardAction, shuffledCards]);
 
     const handleOpenResults = useCallback(() => {
+        registerFirstCardAction();
         setIsResultsReminderVisible(false);
         setLastResultsReminderSwipeCount(currentIndex);
         markResultsTabVisited();
         router.push("/(tabs)/matches");
-    }, [currentIndex, markResultsTabVisited, router]);
+    }, [currentIndex, markResultsTabVisited, registerFirstCardAction, router]);
 
     const handleDismissResultsReminder = useCallback(() => {
+        registerFirstCardAction();
         setIsResultsReminderVisible(false);
         setLastResultsReminderSwipeCount(currentIndex);
         dismissResultsReminder();
-    }, [currentIndex, dismissResultsReminder]);
+    }, [currentIndex, dismissResultsReminder, registerFirstCardAction]);
+
+    const handleShowDescription = useCallback((cardId: string) => {
+        registerFirstCardAction();
+        setSelectedCardId(cardId);
+    }, [registerFirstCardAction]);
+
+    const dismissTutorial = useCallback(() => {
+        markSwipeTutorialSeen();
+        setShowSwipeHint(false);
+        shouldTrackFirstActionRef.current = true;
+        clearSwipeHintIdleTimer();
+        swipeHintIdleTimerRef.current = setTimeout(() => {
+            if (shouldTrackFirstActionRef.current && currentIndex < shuffledCards.length) {
+                setShowSwipeHint(true);
+            }
+            swipeHintIdleTimerRef.current = null;
+        }, 1000);
+    }, [clearSwipeHintIdleTimer, currentIndex, markSwipeTutorialSeen, shuffledCards.length]);
+
+    useEffect(() => {
+        return () => {
+            shouldTrackFirstActionRef.current = false;
+            clearSwipeHintIdleTimer();
+        };
+    }, [clearSwipeHintIdleTimer]);
 
     if (shuffledCards.length === 0) {
         return (
@@ -229,8 +298,9 @@ export default function CardsScreen() {
                 swipedCards={swipedCards}
                 x2ByCardId={x2ByCardId}
                 onToggleX2={handleToggleX2}
+                showSwipeHint={showSwipeHint}
                 onUndo={handleUndo}
-                onShowDescription={setSelectedCardId}
+                onShowDescription={handleShowDescription}
             />
 
             <View className="pb-6 px-6">
@@ -240,7 +310,7 @@ export default function CardsScreen() {
             </View>
 
             <Modal
-                visible={!hasSeenTutorial}
+                visible={!hasSeenSwipeTutorial}
                 transparent={true}
                 animationType="fade"
                 onRequestClose={dismissTutorial}
@@ -249,7 +319,7 @@ export default function CardsScreen() {
             </Modal>
 
             <Modal
-                visible={hasSeenTutorial && isResultsReminderVisible}
+                visible={hasSeenSwipeTutorial && isResultsReminderVisible}
                 transparent={true}
                 animationType="fade"
                 onRequestClose={handleDismissResultsReminder}
