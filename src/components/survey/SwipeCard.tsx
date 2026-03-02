@@ -95,7 +95,7 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
     const maxTitleFontSize = deviceMaxTitleFontSize;
     const [titleAreaHeight, setTitleAreaHeight] = useState(0);
     const [titleAreaWidth, setTitleAreaWidth] = useState(0);
-    const [statementFontSize, setStatementFontSize] = useState(maxTitleFontSize);
+    const [statementFontSize, setStatementFontSize] = useState(absoluteMinTitleFontSize);
     const availableTitleTextWidth = Math.max(
       1,
       titleAreaWidth - statementHorizontalPadding * 2 - 2,
@@ -203,14 +203,12 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
     useEffect(() => {
       fitLowerBoundRef.current = absoluteMinTitleFontSize;
       fitUpperBoundRef.current = maxTitleFontSize;
-      setStatementFontSize(maxTitleFontSize);
+      setStatementFontSize(absoluteMinTitleFontSize);
     }, [
       absoluteMinTitleFontSize,
       card.id,
       card.text,
       maxTitleFontSize,
-      titleAreaHeight,
-      titleAreaWidth,
     ]);
 
     const handleStatementContainerLayout = useCallback(
