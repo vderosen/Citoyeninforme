@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { zustandStorage } from "./storage";
+import { migrateSurveyPersistedState } from "./surveyMigration";
 
 export type SurveyStatus =
   | "not_started"
@@ -144,6 +145,13 @@ export const useSurveyStore = create<SurveyState>()(
     }),
     {
       name: "survey-state",
+      version: 2,
+      migrate: (persistedState, version) => {
+        if (version < 2) {
+          return migrateSurveyPersistedState(persistedState) as SurveyState;
+        }
+        return persistedState as SurveyState;
+      },
       storage: createJSONStorage(() => zustandStorage),
     }
   )

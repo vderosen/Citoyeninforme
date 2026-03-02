@@ -105,6 +105,7 @@ export default function CardsScreen() {
     }, [markQuestionnaireActive, startQuestionnaire, surveyStatus]);
 
     const isLast = currentIndex >= shuffledCards.length - 1;
+    const showProgressBar = currentIndex >= 11;
     const theme = getCategoryTheme(selectedCard?.category || 'Autre');
     const resultsReminderThreshold = resultsReminderDismissCount === 0 ? 10 : 25;
     const canShowResultsReminder = useMemo(() => {
@@ -289,19 +290,30 @@ export default function CardsScreen() {
                 </Text>
             </View>
 
-            <ProgressBar current={currentIndex} total={shuffledCards.length} />
+            <View className="z-20 mb-2">
+                {showProgressBar ? (
+                    <ProgressBar current={currentIndex} total={shuffledCards.length} />
+                ) : (
+                    // Keep identical spacing before the bar appears.
+                    <View className="px-5 py-1">
+                        <View className="h-1.5" />
+                    </View>
+                )}
+            </View>
 
-            <SwipeStack
-                cards={shuffledCards}
-                currentIndex={currentIndex}
-                onSwipe={handleSwipe}
-                swipedCards={swipedCards}
-                x2ByCardId={x2ByCardId}
-                onToggleX2={handleToggleX2}
-                showSwipeHint={showSwipeHint}
-                onUndo={handleUndo}
-                onShowDescription={handleShowDescription}
-            />
+            <View className="flex-1" style={{ paddingTop: 4 }}>
+                <SwipeStack
+                    cards={shuffledCards}
+                    currentIndex={currentIndex}
+                    onSwipe={handleSwipe}
+                    swipedCards={swipedCards}
+                    x2ByCardId={x2ByCardId}
+                    onToggleX2={handleToggleX2}
+                    showSwipeHint={showSwipeHint}
+                    onUndo={handleUndo}
+                    onShowDescription={handleShowDescription}
+                />
+            </View>
 
             <View className="pb-6 px-6">
                 <Text className="font-body text-xs text-text-caption text-center">

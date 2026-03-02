@@ -82,6 +82,22 @@ interface ProposalItem {
   description_canonique_revisitée: string;
 }
 
+const VS_SUFFIX = " VS";
+
+function isVsCardId(cardId: string): boolean {
+  return cardId.endsWith(VS_SUFFIX);
+}
+
+function toBaseCardId(vsCardId: string): string {
+  return vsCardId.slice(0, -VS_SUFFIX.length);
+}
+
+function pushUnique(target: string[], value: string): void {
+  if (!target.includes(value)) {
+    target.push(value);
+  }
+}
+
 // Cast JSON imports to their file schema types
 const electionFile = electionFileRaw as unknown as ElectionFileSchema;
 const candidatesFile = candidatesFileRaw as unknown as CandidatesFileSchema;
@@ -162,9 +178,11 @@ export function loadBundledDataset(): ElectionDataset {
     // Basic validation
     if (!prop.card_id || !prop.candidat || prop.candidat === "Anonyme") return;
 
-    // Check if it's an opposing candidate (e.g. "Anne Hidalgo VS")
-    const isOpposing = prop.candidat.endsWith(" VS");
-    const cleanCandidat = prop.candidat.replace(" VS", "").trim();
+    // Legacy support: some datasets encode opposition in the candidate label.
+    const isOpposing = prop.candidat.endsWith(VS_SUFFIX);
+    const cleanCandidat = isOpposing
+      ? prop.candidat.slice(0, -VS_SUFFIX.length).trim()
+      : prop.candidat;
 
     // Resolve candidate ID
     const normalizedTarget = normalizeName(cleanCandidat);
@@ -209,15 +227,46 @@ export function loadBundledDataset(): ElectionDataset {
     // Add candidate to the correct array
     if (isOpposing) {
       if (!card.opposingCandidateIds) card.opposingCandidateIds = [];
-      if (!card.opposingCandidateIds.includes(candidateId)) {
-        card.opposingCandidateIds.push(candidateId);
-      }
-    } else {
-      if (!card.candidateIds.includes(candidateId)) {
-        card.candidateIds.push(candidateId);
-      }
+      pushUnique(card.opposingCandidateIds, candidateId);
+      return;
     }
+
+    pushUnique(card.candidateIds, candidateId);
   });
+
+  // Merge hidden "... VS" cards into their base card:
+  // - base card remains visible in the swipe deck
+  // - VS candidates become opposingCandidateIds on the base card
+  const vsCardIds = Array.from(statementMap.keys()).filter(isVsCardId);
+  for (const vsCardId of vsCardIds) {
+    const vsCard = statementMap.get(vsCardId);
+    if (!vsCard) continue;
+
+    const baseCardId = toBaseCardId(vsCardId);
+    const baseCard = statementMap.get(baseCardId);
+    if (!baseCard) {
+      continue;
+    }
+
+    if (!baseCard.opposingCandidateIds) {
+      baseCard.opposingCandidateIds = [];
+    }
+
+    for (const candidateId of vsCard.candidateIds ?? []) {
+      pushUnique(baseCard.opposingCandidateIds, candidateId);
+    }
+
+    // Handle the edge case where a VS row itself is marked as opposing.
+    for (const candidateId of vsCard.opposingCandidateIds ?? []) {
+      pushUnique(baseCard.candidateIds, candidateId);
+    }
+
+    baseCard.opposingCandidateIds = baseCard.opposingCandidateIds.filter(
+      (candidateId) => !baseCard.candidateIds.includes(candidateId)
+    );
+
+    statementMap.delete(vsCardId);
+  }
 
   const statementCards = Array.from(statementMap.values());
 
