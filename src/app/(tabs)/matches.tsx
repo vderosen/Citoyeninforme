@@ -1,7 +1,7 @@
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
@@ -21,10 +21,17 @@ export default function MatchesScreen() {
     const profile = useSurveyStore((s) => s.profile);
     const answers = useSurveyStore((s) => s.answers);
     const reset = useSurveyStore((s) => s.reset);
+    const markResultsTabVisited = useSurveyStore((s) => s.markResultsTabVisited);
     const triggerCelebration = usePodiumCelebrationTrigger(profile);
     const [isShareModalVisible, setIsShareModalVisible] = useState(false);
     const [isConvictionExpanded, setIsConvictionExpanded] = useState(false);
     const insets = useSafeAreaInsets();
+
+    useFocusEffect(
+        useCallback(() => {
+            markResultsTabVisited();
+        }, [markResultsTabVisited])
+    );
 
     if (!profile || profile.candidateRanking.length === 0) {
         return (

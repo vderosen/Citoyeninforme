@@ -27,6 +27,8 @@ interface SurveyState {
   datasetVersion: string | null;
   cardsSwipedSinceLastResultView: number;
   hasSeenInitialResult: boolean;
+  resultsReminderDismissCount: number;
+  hasVisitedResultsTab: boolean;
 
   startCivicContext: () => void;
   startQuestionnaire: () => void;
@@ -41,6 +43,8 @@ interface SurveyState {
   reset: () => void;
   isResultsStale: (currentDatasetVersion: string) => boolean;
   markResultsViewed: () => void;
+  dismissResultsReminder: () => void;
+  markResultsTabVisited: () => void;
   computeAndSetResults: (cards: import("../data/schema").StatementCard[], candidates: import("../data/schema").Candidate[], datasetVersion: string) => void;
 }
 
@@ -54,6 +58,8 @@ export const useSurveyStore = create<SurveyState>()(
       datasetVersion: null,
       cardsSwipedSinceLastResultView: 0,
       hasSeenInitialResult: false,
+      resultsReminderDismissCount: 0,
+      hasVisitedResultsTab: false,
 
       startCivicContext: () => set({ status: "civic_context" }),
       startQuestionnaire: () =>
@@ -94,6 +100,8 @@ export const useSurveyStore = create<SurveyState>()(
           datasetVersion: null,
           cardsSwipedSinceLastResultView: 0,
           hasSeenInitialResult: false,
+          resultsReminderDismissCount: 0,
+          hasVisitedResultsTab: false,
         }),
       isResultsStale: (currentDatasetVersion) => {
         const state = get();
@@ -103,6 +111,14 @@ export const useSurveyStore = create<SurveyState>()(
         set({
           hasSeenInitialResult: true,
           cardsSwipedSinceLastResultView: 0,
+        }),
+      dismissResultsReminder: () =>
+        set((state) => ({
+          resultsReminderDismissCount: Math.min(2, state.resultsReminderDismissCount + 1),
+        })),
+      markResultsTabVisited: () =>
+        set({
+          hasVisitedResultsTab: true,
         }),
       computeAndSetResults: (cards, candidates, datasetVersion) => {
         const state = get();
