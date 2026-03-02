@@ -13,6 +13,7 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
 
   return (
     <View
+      testID="survey-progress-bar"
       className="px-5 py-1"
       style={{ zIndex: 30, elevation: 30 }}
       accessibilityRole="progressbar"
