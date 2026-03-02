@@ -40,14 +40,14 @@ npx expo start
 - **Modified**: `src/components/assistant/ChatArea.tsx` — reads from new API
 - **Modified**: `src/services/data-export.ts` — exports all conversations
 - **Verify**:
-  1. Send a message in "Comprendre" mode
+  1. Send a message in "Comprendre" context
   2. Switch to "Parler" with a candidate — different (empty) conversation
   3. Switch back to "Comprendre" — original message still there
   4. Close and reopen app — all conversations persist
 
 ### 4. Candidates Gallery Redesigned
-- **Modified**: `src/app/(tabs)/candidates.tsx` — removed ThemeFilter, added compare mode state
-- **Modified**: `src/components/candidates/CandidateGallery.tsx` — uniform cards, selectable mode
+- **Modified**: `src/app/(tabs)/candidates.tsx` — removed ThemeFilter, added compare context state
+- **Modified**: `src/components/candidates/CandidateGallery.tsx` — uniform cards, selectable context
 - **Verify**:
   1. Open Candidates tab — no theme filter toolbar, all cards same height
   2. Tap "Comparer" FAB — cards become selectable
@@ -55,7 +55,7 @@ npx expo start
 
 ### 5. Candidate Detail Streamlined
 - **Modified**: `src/app/candidate/[id].tsx` or `src/components/candidates/CandidateProfileCard.tsx`
-- **Verify**: Open any candidate — only "Debattre" button visible, no "Comparer" or "Poser une question"
+- **Verify**: Open any candidate — only "assistant" button visible, no "Comparer" or "Poser une question"
 
 ## Key Files
 
@@ -63,7 +63,7 @@ npx expo start
 |------|------|
 | `src/stores/assistant.ts` | Conversation state management (most complex change) |
 | `src/app/(tabs)/index.tsx` | Home page layout |
-| `src/app/(tabs)/candidates.tsx` | Candidates gallery + compare mode |
+| `src/app/(tabs)/candidates.tsx` | Candidates gallery + compare context |
 | `src/app/(tabs)/_layout.tsx` | Tab layout (header cleanup) |
 | `src/app/candidate/[id].tsx` | Candidate detail page |
 | `src/components/candidates/CandidateGallery.tsx` | Card grid rendering |
@@ -81,21 +81,21 @@ npm run lint
 # Manual test checklist:
 # □ Home: only 3 elements visible
 # □ Home: survey CTA label adapts to survey status
-# □ Assistant: conversations isolated per mode
-# □ Assistant: conversations isolated per candidate in "parler" mode
+# □ Assistant: conversations isolated per context
+# □ Assistant: conversations isolated per candidate in "candidate" context
 # □ Assistant: conversations persist after app restart
 # □ Candidates: no theme filter toolbar
 # □ Candidates: all cards uniform height
-# □ Candidates: compare mode works (select 2-4, navigate to comparison)
-# □ Candidate detail: only "Debattre" button
-# □ Candidate detail: "Debattre" opens correct isolated conversation
+# □ Candidates: compare context works (select 2-4, navigate to comparison)
+# □ Candidate detail: only "assistant" button
+# □ Candidate detail: "assistant" opens correct isolated conversation
 # □ No language switcher visible anywhere
-# □ Migration: existing chat history migrated to "comprendre" key
+# □ Migration: existing chat history migrated to "general" key
 ```
 
 ## Migration Notes
 
 **Assistant store migration (v0 → v1)**:
-- Existing users with chat history will have their flat `messages[]` migrated to the `"comprendre"` conversation key on first app load
-- This is a best-guess migration since the original messages were not tagged by mode
+- Existing users with chat history will have their flat `messages[]` migrated to the `"general"` conversation key on first app load
+- This is a best-guess migration since the original messages were not tagged by context
 - No user action required — migration is automatic and transparent

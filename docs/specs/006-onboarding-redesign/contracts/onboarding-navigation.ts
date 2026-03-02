@@ -11,7 +11,7 @@
 export type OnboardingStepKey =
   | "purpose"
   | "neutrality"
-  | "modes"
+  | "contexts"
   | "trust"
   | "ready";
 

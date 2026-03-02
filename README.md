@@ -11,15 +11,8 @@ This repository currently ships with the Paris 2026 municipal election dataset (
 - Candidate exploration: gallery, profile pages, theme-based filtering, and source references.
 - Candidate comparison: side-by-side comparison by theme.
 - Civic survey: civic primer, weighted questionnaire, deterministic matching, tie explanation, contradiction detection.
-- Discover flow on Home: election context, key logistics, trust/neutrality card, and action shortcuts.
-- Candidate exploration: gallery, profile pages, theme-based filtering, and source references.
-- Candidate comparison: side-by-side comparison by theme.
-- Civic survey: civic primer, weighted questionnaire, deterministic matching, tie explanation, contradiction detection.
 - Four-tab navigation: Accueil, Cartes Swipe, Résultats, Assistant IA.
-- Assistant IA with 3 modes:
-  - `comprendre` (learn mode),
-  - `parler` (candidate persona mode),
-  - `debattre` (Socratic trade-off mode).
+- Assistant IA as a single chat experience, with optional candidate-focused context when entering from a candidate profile.
 - 5-step onboarding carousel with branching final entry point.
 - Production-readiness features:
   - privacy consent gate,

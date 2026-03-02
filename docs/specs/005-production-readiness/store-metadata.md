@@ -16,10 +16,10 @@ Lucide est votre compagnon impartial pour les élections municipales. Conçue po
 
 **Découvrir** — Explorez les positions de chaque candidat sur les thèmes qui comptent pour vous : transport, logement, environnement, sécurité, éducation et plus encore. Chaque information est sourcée et vérifiable.
 
-**Comprendre** — Posez vos questions à un assistant neutre qui s'appuie uniquement sur les données électorales vérifiées. Trois modes de conversation :
-- Mode Apprendre : obtenez des réponses factuelles sur les programmes
-- Mode Candidat : dialoguez avec un candidat simulé qui ne parle qu'à partir de ses positions documentées
-- Mode Débat : affinez votre réflexion grâce à la méthode socratique
+**Comprendre** — Posez vos questions à un assistant neutre qui s'appuie uniquement sur les données électorales vérifiées. Trois contexts de conversation :
+- Context Apprendre : obtenez des réponses factuelles sur les programmes
+- Context Candidat : dialoguez avec un candidat simulé qui ne parle qu'à partir de ses positions documentées
+- Context Débat : affinez votre réflexion grâce à la méthode socratique
 
 **Comparer** — Remplissez un questionnaire sur vos priorités et découvrez votre alignement avec chaque candidat. L'algorithme est transparent et ne recommande jamais un candidat.
 
@@ -33,10 +33,10 @@ Lucide is your impartial companion for municipal elections. Designed to promote 
 
 **Discover** — Explore each candidate's positions on the topics that matter to you: transportation, housing, environment, safety, education and more. Every piece of information is sourced and verifiable.
 
-**Understand** — Ask questions to a neutral assistant that relies exclusively on verified election data. Three conversation modes:
-- Learn Mode: Get factual answers about candidate platforms
-- Candidate Mode: Chat with a simulated candidate who only speaks from documented positions
-- Debate Mode: Sharpen your thinking through the Socratic method
+**Understand** — Ask questions to a neutral assistant that relies exclusively on verified election data. Three conversation contexts:
+- Learn Context: Get factual answers about candidate platforms
+- Candidate Context: Chat with a simulated candidate who only speaks from documented positions
+- Debate Context: Sharpen your thinking through the Socratic method
 
 **Compare** — Complete a questionnaire about your priorities and discover your alignment with each candidate. The algorithm is transparent and never recommends a candidate.
 

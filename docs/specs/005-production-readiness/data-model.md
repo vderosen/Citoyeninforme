@@ -68,7 +68,7 @@ interface UserDataExport {
   };
 
   assistant: {
-    mode: string;
+    context: string;
     selectedCandidateId: string | null;
     messages: Array<{
       id: string;
@@ -159,7 +159,7 @@ RateLimitEntry (proxy memory)
 When the user triggers "Delete all my data":
 
 1. **SurveyStore**: Call `useSurveyStore.getState().reset()` — resets all survey state
-2. **AssistantStore**: Call `useAssistantStore.getState().resetConversation()` — clears messages and mode
+2. **AssistantStore**: Call `useAssistantStore.getState().resetConversation()` — clears messages and context
 3. **AppState**: Reset to initial values (including clearing consent, which triggers re-consent on next launch)
 4. **Feedback entries**: Call `clearFeedbackEntries()` from `src/services/feedback.ts`
 5. **AsyncStorage**: Clear all keys via `AsyncStorage.clear()` as a safety net

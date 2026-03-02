@@ -75,8 +75,8 @@ Fixes should be applied in dependency order. Later fixes depend on earlier ones 
 
 **File**: `tests/unit/data-export.test.ts`
 
-1. Change mock from `messages: [...]` to `conversations: { comprendre: [...] }`
-2. Change assertion from `parsed.assistant.messages` to `parsed.assistant.conversations.comprendre`
+1. Change mock from `messages: [...]` to `conversations: { general: [...] }`
+2. Change assertion from `parsed.assistant.messages` to `parsed.assistant.conversations.general`
 
 **Verify**: `npm test -- --testPathPattern=data-export`
 

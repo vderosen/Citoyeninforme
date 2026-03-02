@@ -19,13 +19,13 @@ A user opens the candidates page and sees a "Compare" action button centered at 
 
 1. **Given** the candidates page is displayed with 2 or more candidates, **When** the user views the page, **Then** the "Compare" button is horizontally centered at the bottom of the screen.
 2. **Given** fewer than 2 candidates are available, **When** the user views the page, **Then** no compare button is displayed.
-3. **Given** the compare mode is active, **When** the user views the page, **Then** the compare button is hidden (replaced by the confirmation bar).
+3. **Given** the compare context is active, **When** the user views the page, **Then** the compare button is hidden (replaced by the confirmation bar).
 
 ---
 
 ### User Story 2 - Overlay Confirmation Bar (Priority: P1)
 
-A user taps the compare button and enters compare mode. A confirmation bar appears overlaid at the bottom of the screen, in the same visual zone where the compare button was. This creates a smooth visual transition: the button disappears and the bar takes its place. There is no empty gap between the candidate grid and the confirmation bar.
+A user taps the compare button and enters compare context. A confirmation bar appears overlaid at the bottom of the screen, in the same visual zone where the compare button was. This creates a smooth visual transition: the button disappears and the bar takes its place. There is no empty gap between the candidate grid and the confirmation bar.
 
 **Why this priority**: The empty space between the grid and the confirmation bar is a usability issue that breaks the visual flow. Fixing it together with the FAB centering delivers a coherent experience.
 
@@ -56,14 +56,14 @@ A user taps the compare button and enters compare mode. A confirmation bar appea
 - **FR-004**: The confirmation bar MUST NOT cause the candidate grid to reflow or shift when it appears or disappears.
 - **FR-005**: The confirmation bar MUST remain at the bottom of the screen regardless of grid content height.
 - **FR-006**: The visual transition between the compare button and the confirmation bar MUST feel continuous (same bottom-of-screen zone).
-- **FR-007**: All existing compare mode functionality MUST be preserved (selection, count display, cancel, confirm, max 4 candidates, min 2 to confirm).
+- **FR-007**: All existing compare context functionality MUST be preserved (selection, count display, cancel, confirm, max 4 candidates, min 2 to confirm).
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
 - **SC-001**: The compare button is horizontally centered on the screen (equal horizontal margins on both sides).
-- **SC-002**: No empty vertical gap is visible between the candidate grid and the confirmation bar when compare mode is activated.
+- **SC-002**: No empty vertical gap is visible between the candidate grid and the confirmation bar when compare context is activated.
 - **SC-003**: The full compare flow (tap button, select candidates, confirm) completes without any layout shift or content jump.
 - **SC-004**: The compare button and confirmation bar are fully visible and tappable on screens as small as 320x568 points.
 
@@ -73,7 +73,7 @@ A user taps the compare button and enters compare mode. A confirmation bar appea
 
 - Repositioning the compare FAB button from bottom-right to bottom-center
 - Changing the confirmation bar from in-flow layout to bottom overlay positioning
-- Preserving all existing compare mode behavior
+- Preserving all existing compare context behavior
 
 ### Out of Scope
 

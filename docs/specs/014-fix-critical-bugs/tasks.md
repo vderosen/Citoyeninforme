@@ -69,7 +69,7 @@
 ### Implementation for User Story 3
 
 - [X] T005 [P] [US3] Change `process.env.SENTRY_DSN` to `process.env.EXPO_PUBLIC_SENTRY_DSN` and add `mobileReplayIntegration: jest.fn(() => ({}))` and `feedbackIntegration: jest.fn(() => ({}))` to the Sentry mock in `tests/unit/crash-reporting.test.ts`
-- [X] T006 [P] [US3] Update mock data from `messages: [...]` to `conversations: { comprendre: [...] }` and update assertions from `parsed.assistant.messages` to `parsed.assistant.conversations.comprendre` in `tests/unit/data-export.test.ts`
+- [X] T006 [P] [US3] Update mock data from `messages: [...]` to `conversations: { general: [...] }` and update assertions from `parsed.assistant.messages` to `parsed.assistant.conversations.general` in `tests/unit/data-export.test.ts`
 - [X] T007 [US3] Run full test suite (`npm test -- --runInBand`) and verify all tests pass with zero failures
 
 **Checkpoint**: Full test suite passes. Safety net restored.

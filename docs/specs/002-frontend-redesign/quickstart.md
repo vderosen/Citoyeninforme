@@ -37,7 +37,7 @@ npm test
 # Run specific test file
 npx jest tests/component/CandidateGallery.test.tsx
 
-# Run tests in watch mode
+# Run tests in watch context
 npx jest --watch
 ```
 
@@ -84,8 +84,8 @@ Ensure `EXPO_PUBLIC_LLM_PROXY_URL=http://localhost:3001` is set (default in the 
 - **No new dependencies**: The redesign uses existing packages. No additional npm packages are needed.
 - **Services unchanged**: `matching.ts`, `contradiction.ts`, `chatbot.ts` remain as-is. Only import paths may change.
 - **Data layer unchanged**: `schema.ts`, `loader.ts`, `database.*.ts`, and bundled JSON are not modified.
-- **Store renames**: `chatbot.ts` → `assistant.ts` (mode names: comprendre/parler/debattre instead of learn/candidate/debate).
-- **Prompt renames**: `learn-mode.ts` → `comprendre-mode.ts`, `candidate-mode.ts` → `parler-mode.ts`, `debate-mode.ts` → `debattre-mode.ts`. Content unchanged; only file names and mode identifiers.
+- **Store renames**: `chatbot.ts` → `assistant.ts` (context names: general/candidate/assistant instead of learn/candidate/debate).
+- **Prompt renames**: `learn-context.ts` → `scripts/rag-proxy.js`, `candidate-context.ts` → `scripts/rag-proxy.js`, `debate-context.ts` → `scripts/rag-proxy.js`. Content unchanged; only file names and context identifiers.
 
 ## Validation Checklist (during development)
 
@@ -95,7 +95,7 @@ Ensure `EXPO_PUBLIC_LLM_PROXY_URL=http://localhost:3001` is set (default in the 
 - [ ] Candidate profile shows positions with source badges
 - [ ] Comparison view shows equal columns for 2+ candidates
 - [ ] Survey preserves progress across app restarts
-- [ ] Assistant mode selector switches between all 3 modes
+- [ ] Assistant assistant context controls switches between all single chat
 - [ ] Deep links pass context correctly (candidate → assistant, theme → candidates)
 - [ ] Trust badges are consistent across all screens
 - [ ] Empty/loading/error states display correctly

@@ -15,10 +15,7 @@ The end goal is to provide citizens with tools for election learning and critica
 1. **Discover Flow:** Context, key logistics, and shortcuts.
 2. **Candidate Exploration & Comparison:** Side-by-side theme comparisons and structured candidate profiles.
 3. **Civic Survey (Cartes Swipe):** A deterministic questionnaire where users compare their preferences to candidates' actual positions, resulting in a weighted match and contradiction analysis.
-4. **Assistant IA:** A local-first proxy AI that can:
-   - *Comprendre*: Answer questions neutrally using the election dataset.
-   - *Parler*: Adopt a candidate's persona but strictly limited to their documented program.
-   - *Débattre*: Act as a Socratic agent to challenge the user's survey results and explore political trade-offs.
+4. **Assistant IA:** A single civic chat powered by a local-first proxy AI. It answers questions neutrally from the election dataset and can optionally keep candidate-focused conversation context.
 
 ---
 
@@ -55,7 +52,7 @@ All tab screens live under `src/app/(tabs)/`. Additional screens are stacked on 
 | `/candidates` | `(tabs)/candidates.tsx` | Candidate grid + comparison selector; deep dives into per-candidate profiles |
 | `/cards` | `(tabs)/cards.tsx` | Cartes Swipe (survey card deck) |
 | `/matches` | `(tabs)/matches.tsx` | Results podium + candidate breakdown |
-| `/assistant` | `(tabs)/assistant.tsx` | Assistant IA (Comprendre / Parler / Débattre modes) |
+| `/assistant` | `(tabs)/assistant.tsx` | Assistant IA (single chat experience) |
 | `/survey/intro` | `survey/intro.tsx` | Pre-survey intro screen |
 | `/survey/candidate-breakdown` | `survey/candidate-breakdown.tsx` | Per-candidate card-by-card score breakdown |
 | `/onboarding` | `onboarding.tsx` | First-launch onboarding flow |
@@ -112,8 +109,7 @@ Persisted. Drives the entire survey flow.
 
 ### `assistant` (key: `assistant-state`)
 Partially persisted.
-- `mode`: `comprendre | parler | débattre`
-- `selectedCandidateId`: active candidate for Parler mode
+- `selectedCandidateId`: optional candidate context for chat
 - `conversations`: `Record<conversationKey, ChatMessage[]>`
 
 ---
@@ -255,6 +251,12 @@ The pipeline transforms raw source documents into structured data used by the ap
 - Primary language: French
 - Platform: iOS
 - EAS project ID: `d5072e7c-4376-4909-a6dc-9e87cfeef99a`
+
+## Update Strategy (Always Apply This First)
+
+- Use **OTA** (`eas update`) for JS/content/UI fixes (for example fonts, colors, text, logic in `src/**`).
+- Use **Store release** (`eas build` + `eas submit`) for native/binary changes (`app.json`, native dependencies, `ios/**`, `android/**` when tracked).
+- Full playbook and examples: `docs/release-strategy.md`.
 
 **EAS Build config (`eas.json`):**
 - Production profile: iOS App Bundle (AAB), auto-increment build number

@@ -35,4 +35,4 @@
 - The "Context & Design Decisions" section goes beyond the standard template but adds valuable context by documenting the user's confirmed design choices and the 7 guiding principles.
 - FR-001 through FR-030 are all testable via visual inspection or automated accessibility testing.
 - SC-001 through SC-010 are all measurable without referencing specific technologies.
-- No [NEEDS CLARIFICATION] markers — all design decisions were resolved by the user before spec generation (color: navy+coral, typography: Space Grotesk, shapes: subtle, mode: light only).
+- No [NEEDS CLARIFICATION] markers — all design decisions were resolved by the user before spec generation (color: navy+coral, typography: Space Grotesk, shapes: subtle, context: light only).

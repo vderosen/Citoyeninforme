@@ -5,7 +5,7 @@
 
 ## Summary
 
-Harden the Lucide civic election app for App Store and Play Store submission. This feature adds privacy consent (GDPR), LLM proxy security (CORS + auth + rate limiting), global error boundaries with opt-in Sentry crash reporting, offline mode detection, data export/deletion, a settings screen, EAS build configuration, store metadata, and prompt injection guardrails. No new cloud dependencies — the app remains local-first.
+Harden the Lucide civic election app for App Store and Play Store submission. This feature adds privacy consent (GDPR), LLM proxy security (CORS + auth + rate limiting), global error boundaries with opt-in Sentry crash reporting, offline context detection, data export/deletion, a settings screen, EAS build configuration, store metadata, and prompt injection guardrails. No new cloud dependencies — the app remains local-first.
 
 ## Technical Context
 
@@ -87,9 +87,9 @@ src/
 │   ├── data-export.ts           # NEW: Export/delete all user data
 │   ├── network.ts               # NEW: Network connectivity monitoring
 │   └── prompts/
-│       ├── comprendre-mode.ts   # MODIFY: Add anti-injection guardrails
-│       ├── parler-mode.ts       # MODIFY: Add anti-injection guardrails
-│       └── debattre-mode.ts     # MODIFY: Add anti-injection guardrails
+│       ├── scripts/rag-proxy.js   # MODIFY: Add anti-injection guardrails
+│       ├── scripts/rag-proxy.js       # MODIFY: Add anti-injection guardrails
+│       └── scripts/rag-proxy.js     # MODIFY: Add anti-injection guardrails
 ├── stores/
 │   ├── app.ts                   # MODIFY: Add privacyConsentVersion, consentTimestamp, crashReportingOptIn
 │   └── (others unchanged)

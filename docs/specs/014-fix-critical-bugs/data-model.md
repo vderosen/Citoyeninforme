@@ -28,7 +28,7 @@ The test fix (R5) requires the mock to match the current store shape after migra
 
 ```typescript
 interface AssistantState {
-  mode: "comprendre" | "parler" | "debattre";
+  conversation_key: "general" | "candidate:<id>";
   selectedCandidateId: string | null;
   conversations: Record<string, ChatMessage[]>;  // v1 — NOT messages[]
   isStreaming: boolean;
@@ -36,7 +36,7 @@ interface AssistantState {
 }
 ```
 
-**Migration**: v0 (`messages: ChatMessage[]`) → v1 (`conversations: Record<string, ChatMessage[]>`). The v0 `messages` array is wrapped into `{ comprendre: messages }`.
+**Migration**: v0 (`messages: ChatMessage[]`) → v1 (`conversations: Record<string, ChatMessage[]>`). The v0 `messages` array is wrapped into `{ general: messages }`.
 
 ### Sentry Configuration (Before → After)
 

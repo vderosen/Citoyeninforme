@@ -2,7 +2,7 @@
   "expo": {
     "name": "Citoyen Informé",
     "slug": "citoyen-informe",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "citoyeninforme",
@@ -68,6 +68,14 @@
         "projectId": "24bbb912-a478-4a47-86de-91c40499e870"
       }
     },
-    "owner": "vderosen"
+    "owner": "vderosen",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/24bbb912-a478-4a47-86de-91c40499e870",
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
+    }
   }
 }

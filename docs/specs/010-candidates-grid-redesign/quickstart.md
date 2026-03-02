@@ -10,14 +10,14 @@ Redesigns the candidates page from a scrollable 2-column grid with square images
 
 | File | Change |
 |------|--------|
-| `src/components/candidates/CandidateGallery.tsx` | **Major rewrite** — Replace FlatList with View-based 3-column grid, replace DistrictBlockCard + square images with circular avatars, add party color ring, adapt compare mode indicators, center incomplete last row |
+| `src/components/candidates/CandidateGallery.tsx` | **Major rewrite** — Replace FlatList with View-based 3-column grid, replace DistrictBlockCard + square images with circular avatars, add party color ring, adapt compare context indicators, center incomplete last row |
 | `src/utils/candidatePartyColor.ts` | **New file** — Party color map keyed by candidate ID (mirrors candidateImageSource.ts pattern) |
 
 ## Files NOT Modified
 
 | File | Reason |
 |------|--------|
-| `src/app/(tabs)/candidates.tsx` | Compare mode logic, FAB button, and confirmation bar are untouched. Only `CandidateGallery` internals change. |
+| `src/app/(tabs)/candidates.tsx` | Compare context logic, FAB button, and confirmation bar are untouched. Only `CandidateGallery` internals change. |
 | `src/utils/candidateImageSource.ts` | Image source lookup unchanged. |
 | `src/utils/shuffle.ts` | Shuffle algorithm unchanged. |
 | `src/data/schema.ts` | Candidate interface unchanged. |

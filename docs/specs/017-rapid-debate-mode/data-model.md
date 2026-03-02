@@ -1,6 +1,6 @@
-# Data Model: Rapid Debate Mode
+# Data Model: Rapid Debate Context
 
-**Feature**: 017-rapid-debate-mode
+**Feature**: 017-rapid-debate-context
 **Date**: 2026-02-20
 
 ## Entities

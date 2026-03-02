@@ -77,17 +77,17 @@
 
 ---
 
-## Phase 6: User Story 4 — Quick Access to Debate Mode (Priority: P2)
+## Phase 6: User Story 4 — Quick Access to Debate Context (Priority: P2)
 
-**Goal**: Debate button on single-candidate profile launches assistant in debate mode
+**Goal**: Debate button on single-candidate profile launches assistant in assistant personalization flow
 
-**Independent Test**: Select a candidate → tap debate button → assistant opens in "parler" mode with that candidate. In comparison mode → no debate button visible.
+**Independent Test**: Select a candidate → tap debate button → assistant opens in "candidate" context with that candidate. In comparison context → no debate button visible.
 
 ### Implementation for User Story 4
 
-- [x] T006 [US4] In `src/app/(tabs)/candidates.tsx`, implement `handleDebate` callback: import `useAssistantStore` and `useRouter`, call `selectMode("parler")` → `selectCandidate(selectedIds[0])` → `router.push("/(tabs)/assistant")`. Pass `handleDebate` as the `onDebate` prop to `CandidateProfileCard` (replacing the `undefined` from T003).
+- [x] T006 [US4] In `src/app/(tabs)/candidates.tsx`, implement `handleDebate` callback: import `useAssistantStore` and `useRouter`, call `selectMode("candidate")` → `selectCandidate(selectedIds[0])` → `router.push("/(tabs)/assistant")`. Pass `handleDebate` as the `onDebate` prop to `CandidateProfileCard` (replacing the `undefined` from T003).
 
-**Checkpoint**: Debate launches correctly from profile view. Button is absent in comparison mode (naturally, since CandidateProfileCard only renders in single-selection mode).
+**Checkpoint**: Debate launches correctly from profile view. Button is absent in comparison context (naturally, since CandidateProfileCard only renders in single-selection context).
 
 ---
 
@@ -110,7 +110,7 @@
 **Purpose**: Cleanup and final validation
 
 - [x] T012 Remove deprecated i18n keys from `src/i18n/locales/fr/candidates.json`: `gallery`, `compare`, `compareConfirm`, `compareCancel`, `compareCount`, `emptyGallery`, `emptyGalleryDescription`
-- [x] T013 Run quickstart.md verification checklist: empty state, profile mode, comparison mode, deselect, max selection (5th dimmed), theme navigation, debate launch
+- [x] T013 Run quickstart.md verification checklist: empty state, profile context, comparison context, deselect, max selection (5th dimmed), theme navigation, debate launch
 
 ---
 

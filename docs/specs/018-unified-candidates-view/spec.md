@@ -27,7 +27,7 @@ A user opens the "Candidats" tab and sees all candidates displayed as selectable
 
 A user wants to compare two or more candidates. They tap a first candidate, see their profile, then tap a second candidate. The view transitions from a single profile to a side-by-side comparison. The theme navigation bar remains visible, allowing the user to compare positions across all themes. The user can select up to four candidates and deselect any of them at any time.
 
-**Why this priority**: Comparison is the second core use case and is equally essential — the whole point of the unified view is enabling seamless transition between single-profile and comparison modes.
+**Why this priority**: Comparison is the second core use case and is equally essential — the whole point of the unified view is enabling seamless transition between single-profile and comparison contexts.
 
 **Independent Test**: Can be tested by selecting two candidates and verifying the side-by-side comparison appears, then toggling themes and verifying both candidates' positions update.
 
@@ -55,18 +55,18 @@ A user opens the "Candidats" tab for the first time or deselects all candidates.
 
 ---
 
-### User Story 4 - Quick Access to Debate Mode (Priority: P2)
+### User Story 4 - Quick Access to Debate Context (Priority: P2)
 
-When viewing a single candidate's profile, the user sees an action button to start a debate with that candidate. Tapping it launches the assistant in debate mode with the selected candidate pre-loaded.
+When viewing a single candidate's profile, the user sees an action button to start a debate with that candidate. Tapping it launches the assistant in assistant personalization flow with the selected candidate pre-loaded.
 
-**Why this priority**: Debate mode is a key engagement feature that links candidate exploration to deeper interaction, but it depends on the single-candidate profile view (P1) being implemented first.
+**Why this priority**: Debate context is a key engagement feature that links candidate exploration to deeper interaction, but it depends on the single-candidate profile view (P1) being implemented first.
 
 **Independent Test**: Can be tested by selecting a candidate, tapping the debate button, and verifying the assistant opens with the correct candidate context.
 
 **Acceptance Scenarios**:
 
-1. **Given** the user is viewing a single candidate's profile, **When** they tap the "Debate" action button, **Then** the assistant opens in debate mode with that candidate pre-selected.
-2. **Given** two or more candidates are selected (comparison mode), **When** the user views the comparison, **Then** no debate button is shown (debate is single-candidate only).
+1. **Given** the user is viewing a single candidate's profile, **When** they tap the "Debate" action button, **Then** the assistant opens in assistant personalization flow with that candidate pre-selected.
+2. **Given** two or more candidates are selected (comparison context), **When** the user views the comparison, **Then** no debate button is shown (debate is single-candidate only).
 
 ---
 
@@ -89,8 +89,8 @@ When viewing a single candidate's profile, the user sees an action button to sta
 - **FR-006**: The system MUST display a theme navigation bar when one or more candidates are selected, allowing users to switch between policy themes.
 - **FR-007**: The system MUST enforce a maximum of four selected candidates simultaneously.
 - **FR-008**: When no candidate is selected, the system MUST display an empty state with a guidance message.
-- **FR-009**: The system MUST provide a "Debate" action button when viewing a single candidate's profile that launches the assistant in debate mode.
-- **FR-010**: The system MUST remove the separate comparison tab/mode and the candidate grid — all functionality is consolidated into the single unified view.
+- **FR-009**: The system MUST provide a "Debate" action button when viewing a single candidate's profile that launches the assistant in assistant personalization flow.
+- **FR-010**: The system MUST remove the separate comparison tab/context and the candidate grid — all functionality is consolidated into the single unified view.
 - **FR-011**: The system MUST remove the standalone candidate profile page navigation — the profile is now displayed inline within the Candidats tab.
 - **FR-012**: Transitions between states (empty, single profile, comparison) MUST be visually smooth, not jarring.
 
@@ -99,7 +99,7 @@ When viewing a single candidate's profile, the user sees an action button to sta
 - **Candidate**: A person running for election. Key attributes: name, party, photo, biography, communication style.
 - **Theme**: A policy domain (e.g., Housing, Transport, Ecology). Key attributes: name, icon (emoji), display order.
 - **Position**: A candidate's stance on a theme. Key attributes: summary, details, source references.
-- **Selection State**: The set of currently selected candidates (0 to 4). Determines which view mode is active.
+- **Selection State**: The set of currently selected candidates (0 to 4). Determines which view context is active.
 
 ## Success Criteria *(mandatory)*
 
@@ -116,7 +116,7 @@ When viewing a single candidate's profile, the user sees an action button to sta
 - The existing candidate dataset (7 candidates for Paris 2026) remains unchanged.
 - The avatar bar layout (two rows: 4+3) from the current comparison page is reusable and already handles the visual design.
 - The existing CandidateProfileCard, ComparisonView, and ThemeTabBar components can be reused with minimal modifications.
-- The debate action button behavior (navigating to assistant in debate mode) follows the existing pattern from the current candidate profile page.
+- The debate action button behavior (navigating to assistant in assistant personalization flow) follows the existing pattern from the current candidate profile page.
 - Selection state is ephemeral (not persisted across sessions) — users start fresh each time they open the tab.
 
 ## Scope Boundaries
@@ -127,7 +127,7 @@ When viewing a single candidate's profile, the user sees an action button to sta
 - Inline profile display for single selection
 - Inline comparison display for multi-selection
 - Empty state with guidance
-- Debate mode access from single-candidate view
+- Debate context access from single-candidate view
 - Removal of redundant pages and navigation
 
 **Out of scope**:

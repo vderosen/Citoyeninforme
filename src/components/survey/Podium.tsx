@@ -1,10 +1,11 @@
-import { View, Text, Image, Pressable } from "react-native";
+import { View, Image, Pressable } from "react-native";
 import Animated, { FadeInUp, FadeIn, useReducedMotion, useAnimatedStyle, interpolate } from "react-native-reanimated";
 import type { Candidate } from "../../data/schema";
 import type { CandidateMatchResult } from "../../services/matching";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
 import { resolvePodiumTies, type PodiumSlot } from "../../utils/rankings";
 import { usePodiumAnimation } from "../../hooks/usePodiumAnimation";
+import { AppText as Text } from "../ui/AppText";
 
 interface PodiumProps {
     ranking: CandidateMatchResult[];
@@ -58,6 +59,7 @@ function PodiumBar({
                 testID={`podium-rank-${slot.rank}`}
                 onPress={() => onCandidatePress(slot.match.candidateId)}
                 className="items-center w-full"
+                hitSlop={8}
                 accessibilityRole="button"
                 accessibilityLabel={`${candidate.name}, ${slot.label}`}
             >
@@ -129,10 +131,9 @@ function PodiumBar({
                         {slot.label}
                     </Text>
                     <Text
-                        className="font-display-medium text-white/90 text-[11px] text-center px-1 w-full"
+                        className="font-display-medium text-white/90 text-xs text-center px-1 w-full"
                         numberOfLines={1}
-                        adjustsFontSizeToFit
-                        minimumFontScale={0.7}
+                        maxFontSizeMultiplier={1.15}
                     >
                         {candidate.name}
                     </Text>

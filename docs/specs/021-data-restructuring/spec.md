@@ -119,7 +119,7 @@ Le projet contient du code d'infrastructure pour une base de donnees SQLite qui 
 - **Measure** (nouveau) : Proposition concrete dans une position. Contient un texte descriptif et des references vers des sources.
 - **Source** : Reference documentaire (titre, URL, type, date d'acces). Stockee une seule fois dans un dictionnaire normalise, referencee par identifiant.
 - **SurveyQuestion** : Question du quiz interactif avec options et scoring par theme. Stockee dans le fichier interactif.
-- **StatementCard** : Carte d'affirmation pour le mode swipe. Stockee dans le fichier interactif.
+- **StatementCard** : Carte d'affirmation pour le context swipe. Stockee dans le fichier interactif.
 
 ## Success Criteria *(mandatory)*
 

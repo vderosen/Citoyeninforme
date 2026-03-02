@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { View, Text, Image, ScrollView, Platform, Pressable } from "react-native";
+import { View, Image, ScrollView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -17,6 +17,8 @@ import { deterministicShuffle, dailySeed } from "../../utils/shuffle";
 import { CandidateInfoModal } from "../../components/candidates/CandidateInfoModal";
 import type { Candidate } from "../../data/schema";
 import { useCandidateSelection } from "../../hooks/useCandidateSelection";
+import { AppText as Text } from "../../components/ui/AppText";
+import { PressableScale } from "../../components/ui/PressableScale";
 
 const MAX_SELECTED = 4;
 
@@ -53,7 +55,7 @@ export default function CandidatesScreen() {
     [candidates]
   );
 
-  const handleDebate = useCallback(() => {
+  const handleOpenAssistant = useCallback(() => {
     if (selectedIds.length !== 1) return;
     selectCandidate(selectedIds[0]);
     router.push("/(tabs)/assistant");
@@ -108,7 +110,7 @@ export default function CandidatesScreen() {
               </View>
             )}
             <View className="flex-1 ml-2" style={{ minWidth: 0 }}>
-              <Text className={nameClass} numberOfLines={1}>
+              <Text className={nameClass} numberOfLines={1} maxFontSizeMultiplier={options.compact ? 1.1 : 1.25}>
                 {candidate.name}
               </Text>
               {!options.compact && (
@@ -120,6 +122,7 @@ export default function CandidatesScreen() {
                     className="font-body-medium text-xs"
                     style={{ color: partyColor }}
                     numberOfLines={1}
+                    maxFontSizeMultiplier={1.15}
                   >
                     {candidate.party}
                   </Text>
@@ -127,11 +130,12 @@ export default function CandidatesScreen() {
               )}
             </View>
             {options.onLearnMore && (
-              <Pressable
+              <PressableScale
                 onPress={options.onLearnMore}
                 className="items-center pl-2"
                 accessibilityRole="button"
                 accessibilityLabel={t("learnMore")}
+                ensureMinTouchTarget
               >
                 <Ionicons
                   name="information-circle-outline"
@@ -141,7 +145,7 @@ export default function CandidatesScreen() {
                 <Text className="font-body text-xs text-civic-navy mt-0.5">
                   {t("learnMore")}
                 </Text>
-              </Pressable>
+              </PressableScale>
             )}
           </View>
           {options.showBio && candidate.bio ? (
@@ -216,7 +220,7 @@ export default function CandidatesScreen() {
               candidate={selectedCandidates[0]}
               activeThemeId={activeThemeId}
               positions={positions}
-              onDebatePress={handleDebate}
+              onOpenAssistantPress={handleOpenAssistant}
             />
           ) : (
             <View className="mt-3 pb-6 flex-1 px-4">

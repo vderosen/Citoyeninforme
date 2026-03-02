@@ -11,7 +11,7 @@ Represents one screen in the 5-step onboarding flow. Defined as a TypeScript typ
 
 | Field | Type | Description |
 |-------|------|-------------|
-| key | string | Unique identifier (e.g., "purpose", "neutrality", "modes", "trust", "ready") |
+| key | string | Unique identifier (e.g., "purpose", "neutrality", "contexts", "trust", "ready") |
 | index | number (0-4) | Position in the flow, used for progress display (shown as index+1 of 5) |
 | component | React component | The content component to render for this step |
 

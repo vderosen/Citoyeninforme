@@ -5,9 +5,9 @@
 
 ## Summary
 
-Redesign the assistant chat page across 10 UI/UX improvements: enriched empty state with mode-specific icons/descriptions/integrated prompts, modernized input bar with icon send button and controlled clearing, mode selector with icons, animated typing indicator (bouncing dots via reanimated), new conversation button with confirmation, enhanced assistant message bubbles (white bg + shadow + avatar + timestamps), markdown rendering for assistant responses, scroll-to-bottom FAB, feedback action repositioned to toolbar, and visually distinct context prompt chips.
+Redesign the assistant chat page across 10 UI/UX improvements: enriched empty state with context-specific icons/descriptions/integrated prompts, modernized input bar with icon send button and controlled clearing, assistant context controls with icons, animated typing indicator (bouncing dots via reanimated), new conversation button with confirmation, enhanced assistant message bubbles (white bg + shadow + avatar + timestamps), markdown rendering for assistant responses, scroll-to-bottom FAB, feedback action repositioned to toolbar, and visually distinct context prompt chips.
 
-One new dependency: `react-native-markdown-display`. Four new components: `EmptyState`, `TypingIndicator`, `ChatToolbar`, `ScrollToBottomButton`. Five modified components: `ChatArea`, `MessageBubble`, `ModeSelector`, `ContextPrompts`, `assistant.tsx`.
+One new dependency: `react-native-markdown-display`. Four new components: `EmptyState`, `TypingIndicator`, `ChatToolbar`, `ScrollToBottomButton`. Five modified components: `ChatArea`, `MessageBubble`, `AssistantContextControls`, `ContextPrompts`, `assistant.tsx`.
 
 ## Technical Context
 
@@ -27,10 +27,10 @@ One new dependency: `react-native-markdown-display`. Four new components: `Empty
 
 | Principle | Status | Assessment |
 |-----------|--------|------------|
-| I. Neutrality & Non-Prescription | PASS | Pure UI redesign. No content changes. Empty state descriptions use existing neutral i18n keys. Mode icons are generic metaphors (book, chat, scale) — no political connotation. Context prompts are unchanged. |
+| I. Neutrality & Non-Prescription | PASS | Pure UI redesign. No content changes. Empty state descriptions use existing neutral i18n keys. Context icons are generic metaphors (book, chat, scale) — no political connotation. Context prompts are unchanged. |
 | II. Source-Grounded Truth | PASS | Source display (TrustBadge) remains unchanged. Markdown rendering displays the same LLM output — only visual presentation changes. No new factual claims introduced. |
-| III. City-Agnostic Architecture | PASS | All changes are in generic UI components. No Paris-specific content. Mode descriptions, icons, and prompts are election-agnostic. |
-| IV. Critical Thinking Over Persuasion | PASS | No changes to conversation logic, prompts, or system behavior. The debate mode and Socratic questioning are untouched. |
+| III. City-Agnostic Architecture | PASS | All changes are in generic UI components. No Paris-specific content. Context descriptions, icons, and prompts are election-agnostic. |
+| IV. Critical Thinking Over Persuasion | PASS | No changes to conversation logic, prompts, or system behavior. The assistant personalization flow and Socratic questioning are untouched. |
 | V. Structured Data as Single Source of Truth | PASS | No new data sources. Existing i18n keys, ChatMessage schema, and election dataset used as-is. |
 | VI. Simplicity & MVP Discipline | PASS | All changes are within the existing Assistant tab. No new tabs, screens, or navigation routes. One new dependency (markdown renderer) — justified by FR-019 requirement. Four new components are small, focused, and single-purpose. |
 | VII. Privacy & Trust | PASS | No new data collection. Feedback action is repositioned, not modified. No new analytics or tracking. |
@@ -66,10 +66,10 @@ src/
 │   └── assistant/
 │       ├── ChatArea.tsx               # MODIFY — controlled input, send icon, separator, scroll FAB, empty state
 │       ├── MessageBubble.tsx          # MODIFY — white bg + shadow, avatar, timestamps, markdown rendering
-│       ├── ModeSelector.tsx           # MODIFY — add icons, increase text size
+│       ├── AssistantContextControls.tsx           # MODIFY — add icons, increase text size
 │       ├── ContextPrompts.tsx         # MODIFY — outlined chips, arrow icon, flex-wrap layout
 │       ├── CandidateSelector.tsx      # UNCHANGED
-│       ├── EmptyState.tsx             # NEW — mode icon, title, description, integrated prompts
+│       ├── EmptyState.tsx             # NEW — context icon, title, description, integrated prompts
 │       ├── TypingIndicator.tsx        # NEW — animated 3-dot bouncing dots (reanimated)
 │       ├── ChatToolbar.tsx            # NEW — new conversation + feedback icon row
 │       └── ScrollToBottomButton.tsx   # NEW — floating FAB with animated visibility
@@ -90,8 +90,8 @@ src/
 ### 1. Component Architecture
 
 **EmptyState** (new)
-- Receives: `mode`, `context`, `onPromptSelect`, `selectedCandidateId`
-- Renders: mode icon (Ionicons), mode title (i18n `{mode}Mode`), description (i18n `{mode}ModeDescription`), and `ContextPrompts` chips
+- Receives: `context`, `context`, `onPromptSelect`, `selectedCandidateId`
+- Renders: context icon (Ionicons), context title (i18n `{context}Context`), description (i18n `{context}ModeDescription`), and `ContextPrompts` chips
 - Used as `ListEmptyComponent` in ChatArea's FlatList
 - Replaces: the separate `ContextPrompts` rendering in `assistant.tsx` AND the plain text `ListEmptyComponent` in `ChatArea.tsx`
 
@@ -105,7 +105,7 @@ src/
 - Horizontal row: left side = new conversation icon button (visible only when messages exist), right side = feedback icon button
 - `new conversation` uses `refresh-outline` icon + `Alert.alert()` confirmation with i18n keys `newConversation` / `resetConfirm`
 - `feedback` uses `flag-outline` icon → opens the existing `FeedbackAction` component inline (expanded below the toolbar)
-- Positioned between ModeSelector and ChatArea in `assistant.tsx`
+- Positioned between AssistantContextControls and ChatArea in `assistant.tsx`
 
 **ScrollToBottomButton** (new)
 - Absolute-positioned circular button (40x40) with `chevron-down` icon
@@ -122,7 +122,7 @@ The `ChatArea` component receives the most changes:
 - **Scroll tracking**: Add `onScroll` handler to FlatList to track `isAtBottom` state
 - **Empty state**: Replace `ListEmptyComponent` text with `<EmptyState>` component
 - **Typing indicator**: Show as a special rendered item when streaming + last message is empty assistant message
-- **Props expansion**: Receives new props for `mode`, `context`, `onPromptSelect`, `selectedCandidateId` (for EmptyState) and `onNewConversation` is handled at the toolbar level
+- **Props expansion**: Receives new props for `context`, `context`, `onPromptSelect`, `selectedCandidateId` (for EmptyState) and `onNewConversation` is handled at the toolbar level
 
 ### 3. MessageBubble Enhancement
 
@@ -132,7 +132,7 @@ The `ChatArea` component receives the most changes:
 - **Markdown**: Assistant messages rendered via `<Markdown>` from `react-native-markdown-display` with custom style rules matching the app's typography (Inter font, civic-navy headings, text-body for content)
 - **User messages**: Continue rendering as plain `<Text>` (FR-020)
 
-### 4. ModeSelector Enhancement
+### 4. AssistantContextControls Enhancement
 
 - **Icons**: Add `<Ionicons>` before each label — `book-outline` / `chatbubble-ellipses-outline` / `scale-outline`
 - **Text size**: `text-xs` → `text-sm` for readability

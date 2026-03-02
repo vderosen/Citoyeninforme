@@ -17,7 +17,7 @@ Rebuild the civic election app frontend from a 2-page layout (Home + Learn) with
 **Project Type**: Mobile (Expo managed workflow)
 **Performance Goals**: Interactive within 3 seconds on standard mobile connection, 60 fps scrolling, smooth tab switching with preserved state
 **Constraints**: Offline-capable for browsing/survey (assistant requires network), all data local-only, French-first UI, WCAG 2.1 AA accessibility
-**Scale/Scope**: ~15 screens/views (3 tabs + candidate profile + comparison + survey flow + onboarding + assistant modes), 4 candidates, 8 themes, ~20 survey questions
+**Scale/Scope**: ~15 screens/views (3 tabs + candidate profile + comparison + survey flow + onboarding + assistant contexts), 4 candidates, 8 themes, ~20 survey questions
 
 ## Constitution Check
 
@@ -28,7 +28,7 @@ Rebuild the civic election app frontend from a 2-page layout (Home + Learn) with
 | I. Neutrality & Non-Prescription | PASS | Candidate gallery uses equal-weight cards with alphabetical/randomized order (FR-010). Comparison uses equal columns (FR-015). Assistant never recommends candidates (FR-032). Survey matching remains deterministic with no hidden weighting (FR-025). |
 | II. Source-Grounded Truth | PASS | Source badges on all factual content (FR-034). "Non documente" and "Incertain" markers for missing/uncertain data (FR-027). Source references in candidate profiles (FR-011) and assistant answers (FR-027). |
 | III. City-Agnostic Architecture | PASS | Existing data schema and services are city-agnostic. Redesign uses the same `Election`, `Candidate`, `Theme`, `Position` entities. Top context bar reads city/year from election data, not hardcoded (FR-002). |
-| IV. Critical Thinking Over Persuasion | PASS | Debate mode uses Socratic questioning (FR-029). Contradiction detection preserved (FR-021). Mode guardrails prevent cross-mode confusion (FR-033). |
+| IV. Critical Thinking Over Persuasion | PASS | Debate context uses Socratic questioning (FR-029). Contradiction detection preserved (FR-021). Context guardrails prevent cross-context confusion (FR-033). |
 | V. Structured Data as Single Source of Truth | PASS | All screens draw from the same election store (FR-036). No shadow data sources introduced. |
 | VI. Simplicity & MVP Discipline | PASS | The 3-tab navigation (Accueil, Assistant, Candidats) maps directly to the three core user intents. Stack screens for candidate profiles, comparison, and survey are presented above tabs. No feature bloat beyond the core user goals. |
 | VII. Privacy & Trust | PASS | All data local-only (FR-024). No server-side storage. Trust card explains data practices (FR-007). Feedback stored locally (spec Assumptions). |
@@ -58,7 +58,7 @@ src/
 │   ├── (tabs)/
 │   │   ├── _layout.tsx              # 3-tab bottom navigation layout
 │   │   ├── index.tsx                # Accueil (Home) tab
-│   │   ├── assistant.tsx            # Assistant tab (chat UI with mode selector)
+│   │   ├── assistant.tsx            # Assistant tab (chat UI with assistant context controls)
 │   │   └── candidates.tsx           # Candidats tab (gallery)
 │   ├── candidate/
 │   │   └── [id].tsx                 # Candidate profile (stack screen)
@@ -81,11 +81,11 @@ src/
 │   │   ├── ResumeCard.tsx           # "Continue where you left off"
 │   │   └── ThemeFeed.tsx            # Lightweight theme exploration
 │   ├── assistant/
-│   │   ├── ModeSelector.tsx         # Comprendre / Parler / Debattre tabs
+│   │   ├── AssistantContextControls.tsx         # chat assistant unique tabs
 │   │   ├── ChatArea.tsx             # Message list with streaming
 │   │   ├── MessageBubble.tsx        # Message display (reuse/refactor)
 │   │   ├── ContextPrompts.tsx       # Context-aware starter prompts
-│   │   └── CandidateSelector.tsx    # Pick candidate for Parler mode
+│   │   └── CandidateSelector.tsx    # Pick candidate for assistant avec contexte candidat
 │   ├── candidates/
 │   │   ├── CandidateGallery.tsx     # Equal-weight photo grid
 │   │   ├── CandidateProfileCard.tsx # Profile summary + actions
@@ -119,9 +119,9 @@ src/
 │   ├── matching.ts                  # Unchanged
 │   ├── contradiction.ts             # Unchanged
 │   └── prompts/
-│       ├── comprendre-mode.ts       # Renamed from learn-mode.ts
-│       ├── parler-mode.ts           # Renamed from candidate-mode.ts
-│       └── debattre-mode.ts         # Renamed from debate-mode.ts
+│       ├── scripts/rag-proxy.js       # Renamed from learn-context.ts
+│       ├── scripts/rag-proxy.js           # Renamed from candidate-context.ts
+│       └── scripts/rag-proxy.js         # Renamed from debate-context.ts
 ├── data/                            # Unchanged
 ├── i18n/
 │   └── locales/fr/
@@ -144,7 +144,7 @@ tests/
 ├── component/
 │   ├── CandidateGallery.test.tsx    # New
 │   ├── TrustBadge.test.tsx          # New
-│   ├── ModeSelector.test.tsx        # New
+│   ├── AssistantContextControls.test.tsx        # New
 │   ├── ComparisonView.test.tsx      # New
 │   ├── PrimaryShortcuts.test.tsx    # New
 │   └── EmptyState.test.tsx          # New

@@ -100,7 +100,7 @@ eas submit --platform android
 4. **LLM proxy hardening** — security before any public testing
 5. **Settings screen** — houses consent info, data controls, crash reporting toggle
 6. **Data export & deletion** — GDPR compliance
-7. **Offline mode** — UX improvement
+7. **Offline context** — UX improvement
 8. **Prompt injection guardrails** — defense hardening
 9. **Store metadata** — final submission preparation
 
@@ -113,7 +113,7 @@ eas submit --platform android
 | Services | `crash-reporting.ts`, `data-export.ts`, `network.ts` | `chatbot.ts` |
 | Stores | — | `app.ts` |
 | Hooks | `useNetworkStatus.ts` | — |
-| Prompts | — | `comprendre-mode.ts`, `parler-mode.ts`, `debattre-mode.ts` |
+| Prompts | — | `scripts/rag-proxy.js`, `scripts/rag-proxy.js`, `scripts/rag-proxy.js` |
 | Utils | `input-sanitizer.ts` | — |
 | i18n | `privacy.json`, `settings.json`, `errors.json` | — |
 | Proxy | — | `llm-proxy.js` |

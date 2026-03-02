@@ -54,7 +54,7 @@ export interface UserDataExport {
 
   /** Chat assistant data: conversation history */
   assistant: {
-    mode: string;
+    context: string;
     selectedCandidateId: string | null;
     messages: Array<{
       id: string;

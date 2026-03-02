@@ -53,7 +53,7 @@
 
 ## R5: Test Suite — Conversations vs Messages Mock Shape
 
-**Decision**: Update `data-export.test.ts` mock from `messages: [...]` to `conversations: { comprendre: [...] }` and update assertion from `parsed.assistant.messages` to `parsed.assistant.conversations`.
+**Decision**: Update `data-export.test.ts` mock from `messages: [...]` to `conversations: { general: [...] }` and update assertion from `parsed.assistant.messages` to `parsed.assistant.conversations`.
 
 **Rationale**: The assistant store migrated from v0 (`messages` array) to v1 (`conversations` dict) in a previous feature. The data-export service now iterates `Object.entries(assistantState.conversations)`. The test mock was never updated to reflect this migration.
 
@@ -108,7 +108,7 @@
 **Rationale**: Fail-open is a security footgun. A deployer who forgets to set the env var unknowingly exposes the proxy to the internet. The safe default is to reject requests and log a clear warning at startup.
 
 **Alternatives considered**:
-- Allow a `--dev` flag or `NODE_ENV=development` to override → Spec assumption allows this: "The LLM proxy in development mode may optionally allow requests without a key if an explicit development mode flag is set." However, for simplicity, the initial fix will just be fail-closed. A development convenience flag can be added later if needed.
+- Allow a `--dev` flag or `NODE_ENV=development` to override → Spec assumption allows this: "The LLM proxy in development context may optionally allow requests without a key if an explicit development context flag is set." However, for simplicity, the initial fix will just be fail-closed. A development convenience flag can be added later if needed.
 
 **Implementation details**:
 - Change `checkAuth()` to return `false` when `expectedKey` is undefined

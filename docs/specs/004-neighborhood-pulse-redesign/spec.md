@@ -17,7 +17,7 @@ The app is currently functional but visually generic — system fonts, one blue 
 | Display typography | Space Grotesk | Distinctive, slightly technical/editorial, strong personality |
 | Body typography | Inter | Maximum readability at small sizes, excellent language support |
 | District-block shapes | Subtle | Gentle corner clips and stepped dividers, not aggressive geometry |
-| Theme mode | Light mode only | No dark mode for MVP |
+| Theme context | Light context only | No dark context for MVP |
 
 ### Design Guidelines (7 Principles)
 
@@ -135,7 +135,7 @@ A user who relies on accessibility features (screen readers, keyboard navigation
 - **FR-002**: The app MUST load and display Space Grotesk as the display/headline font family with Bold, SemiBold, and Medium weights available.
 - **FR-003**: The app MUST load and display Inter as the body/reading font family with Regular and Medium weights available.
 - **FR-004**: The app MUST use a 4-tier color architecture: warm off-white base (#FAFAF8), warm gray surfaces (#F0EDE8), deep navy primary (#1B2A4A), vibrant coral accent (#E8553A), and muted signal colors (green/amber/red).
-- **FR-005**: The app MUST display in light mode only; no dark mode theme or toggle.
+- **FR-005**: The app MUST display in light context only; no dark context theme or toggle.
 
 #### Visual Signature
 

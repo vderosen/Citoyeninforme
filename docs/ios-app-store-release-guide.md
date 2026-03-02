@@ -6,6 +6,8 @@
 npm test
 npm run lint
 npx detox test -c ios.sim.debug --cleanup
+npx detox test -c ios.sim.debug.small --cleanup
+npx detox test -c ios.sim.debug.large --cleanup
 ```
 
 ## 2) Build for App Store Connect

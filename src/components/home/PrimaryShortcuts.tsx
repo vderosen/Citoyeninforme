@@ -1,7 +1,9 @@
-import { View, Text, Pressable } from "react-native";
+import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import type { SurveyStatus } from "../../stores/survey";
+import { AppText as Text } from "../ui/AppText";
+import { PressableScale } from "../ui/PressableScale";
 
 interface PrimaryShortcutsProps {
   surveyStatus: SurveyStatus;
@@ -32,12 +34,13 @@ export function PrimaryShortcuts({
       : 0;
 
   return (
-    <Pressable
+    <PressableScale
       onPress={onStartSurvey}
       className="mx-4 bg-accent-coral shadow-elevated rounded-xl px-5 py-4"
       accessibilityRole="button"
       accessibilityLabel={surveyLabel}
       accessibilityHint={t("startSurveyHint")}
+      ensureMinTouchTarget
     >
       <View className="flex-row items-center gap-3">
         <Ionicons name="checkbox-outline" size={20} color="#FAFAF8" />
@@ -63,6 +66,6 @@ export function PrimaryShortcuts({
           </Text>
         </View>
       )}
-    </Pressable>
+    </PressableScale>
   );
 }

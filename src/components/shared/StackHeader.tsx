@@ -1,10 +1,12 @@
-import { View, Text, Pressable } from "react-native";
+import { View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import { AppText as Text } from "../ui/AppText";
+import { PressableScale } from "../ui/PressableScale";
 
 export function StackHeader({ options }: NativeStackHeaderProps) {
   const { t } = useTranslation("common");
@@ -26,14 +28,15 @@ export function StackHeader({ options }: NativeStackHeaderProps) {
 
       <View className="h-11 flex-row items-center">
         {showBack ? (
-          <Pressable
+          <PressableScale
             onPress={() => router.back()}
             accessibilityRole="button"
             accessibilityLabel={t("back")}
             className="ml-4 p-2 relative z-10"
+            ensureMinTouchTarget
           >
             <Ionicons name="chevron-back" size={22} color="#FFFFFF" />
-          </Pressable>
+          </PressableScale>
         ) : (
           <View style={{ width: 38 }} className="ml-4" />
         )}
@@ -43,6 +46,7 @@ export function StackHeader({ options }: NativeStackHeaderProps) {
             fontFamily: options.title === 'Citoyen Informé' ? 'ArialRoundedMTBold' : 'SpaceGrotesk_700Bold'
           }}
           numberOfLines={1}
+          maxFontSizeMultiplier={1.2}
         >
           {options.title}
         </Text>

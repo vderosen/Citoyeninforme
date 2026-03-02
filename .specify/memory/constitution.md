@@ -1,11 +1,17 @@
 <!--
 === Sync Impact Report ===
-Version change: 1.0.0 → 1.1.0
+Version change: 1.1.0 → 1.1.1
 Modified principles:
-  - Principle VI: Simplicity & MVP Discipline
-    Changed: UI structure from "two pages (Home, Learn) and one persistent chatbot layer"
-    to "three tabs (Accueil, Assistant, Candidats)" reflecting the redesigned navigation
-    model from feature 002-frontend-redesign.
+  - Principle I: Neutrality & Non-Prescription
+    Changed: removed references to deprecated "candidate bots" and "debate coach" modes.
+  - Principle III: City-Agnostic Architecture
+    Changed: replaced "chatbot modes" wording with generic "assistant interactions".
+  - Principle IV: Critical Thinking Over Persuasion
+    Changed: replaced "debate coach" wording with generic assistant behavior.
+  - Principle V: Structured Data as Single Source of Truth
+    Changed: removed deprecated mode terminology.
+  - Development Workflow
+    Changed: evaluation scope from mode-based to question-type-based.
 Added sections: N/A
 Removed sections: N/A
 Templates requiring updates:
@@ -28,10 +34,12 @@ presentation quality.
 
 - Survey matching MUST use a transparent, deterministic
   algorithm. No hidden weighting or editorial bias.
-- Candidate bots MUST defend only documented positions
-  and MUST NOT editorialize or rank candidates.
-- The Socratic debate coach MUST challenge reasoning
-  without steering users toward any political outcome.
+- Assistant responses about specific candidates MUST
+  defend only documented positions and MUST NOT
+  editorialize or rank candidates.
+- The assistant MAY challenge reasoning with neutral
+  questions, but MUST NOT steer users toward any
+  political outcome.
 - UI ordering of candidates MUST be alphabetical or
   randomized per session—never ranked by editorial choice.
 
@@ -68,7 +76,7 @@ code changes to core logic.
 - Election-specific data (candidates, rules, propositions,
   logistics) MUST be isolated in a structured dataset layer,
   separate from application logic.
-- UI components, survey engine, chatbot modes, and matching
+- UI components, survey engine, assistant interactions, and matching
   algorithms MUST operate on generic data schemas, not
   Paris-specific structures.
 - Configuration (city name, election type, voting rules,
@@ -83,9 +91,10 @@ new deployment, defeating the purpose.
 Every interactive feature MUST aim to strengthen the user's
 reasoning capacity rather than convince them of any position.
 
-- The debate coach MUST use Socratic questioning: surface
-  contradictions, highlight trade-offs, and ask the user to
-  resolve tensions—never assert what the "right" answer is.
+- The assistant SHOULD use Socratic questioning when relevant:
+  surface contradictions, highlight trade-offs, and ask the
+  user to resolve tensions—never assert what the "right"
+  answer is.
 - Contradiction and trade-off detection MUST be based on
   logical analysis of stated preferences, not on editorial
   judgment of political positions.
@@ -99,8 +108,8 @@ would undermine autonomy and trust.
 
 ### V. Structured Data as Single Source of Truth
 
-All application features—survey matching, Learn page,
-candidate bots, debate mode, neutral assistant—MUST derive
+All application features—survey matching, informational pages,
+and the assistant chat—MUST derive
 their content from a single, curated election dataset.
 
 - There MUST be exactly one authoritative dataset per
@@ -179,9 +188,10 @@ cause real-world harm to users.
 - Code MUST be tested before merge. Unit tests for logic,
   integration tests for data flow, and contract tests for
   API boundaries.
-- Chatbot responses MUST be evaluated against a curated
-  test set of questions covering each mode (Learn, Candidate,
-  Debate) before deployment.
+- Assistant responses MUST be evaluated against a curated
+  test set of questions covering general election questions,
+  candidate-specific questions, and comparative questions
+  before deployment.
 - Accessibility (WCAG 2.1 AA) MUST be maintained for all
   user-facing interfaces. Civic tools must be usable by
   everyone.
@@ -210,4 +220,4 @@ implementation decisions MUST comply with these principles.
   feature MUST be redesigned, or a constitution amendment
   MUST be proposed and approved first.
 
-**Version**: 1.1.0 | **Ratified**: 2026-02-13 | **Last Amended**: 2026-02-15
+**Version**: 1.1.1 | **Ratified**: 2026-02-13 | **Last Amended**: 2026-03-02

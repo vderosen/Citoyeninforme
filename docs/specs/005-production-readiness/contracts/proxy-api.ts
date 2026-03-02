@@ -67,7 +67,7 @@ export interface HealthResponse {
  * Request body:
  * {
  *   "messages": [{ "role": "system"|"user"|"assistant", "content": string }],
- *   "mode": "comprendre"|"parler"|"debattre"  (optional, for logging)
+ *   "context": "general"|"candidate"|"assistant"  (optional, for logging)
  *   "candidateId": string  (optional)
  * }
  *
@@ -82,7 +82,7 @@ export interface ChatRequest {
     role: "system" | "user" | "assistant";
     content: string;
   }>;
-  mode?: "comprendre" | "parler" | "debattre";
+  context?: "general" | "candidate" | "assistant";
   candidateId?: string;
 }
 
@@ -159,7 +159,7 @@ export interface ProxyErrorResponse {
  *   No Access-Control-Allow-Origin header (native apps don't need CORS)
  *   Browser requests are effectively blocked
  *
- * All modes:
+ * All contexts:
  *   Access-Control-Allow-Methods: GET, POST, OPTIONS
  *   Access-Control-Allow-Headers: Content-Type, X-API-Key
  */

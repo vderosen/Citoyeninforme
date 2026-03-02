@@ -16,7 +16,7 @@ Transform the app's visual identity from generic Tailwind defaults to the "Neigh
 **Target Platform**: iOS, Android, Web (Expo managed workflow)
 **Project Type**: Mobile (single project, Expo Router file-based routing)
 **Performance Goals**: 60fps animations, <100ms touch feedback, font loading before first paint
-**Constraints**: No dark mode (light only), coral text only for large text (WCAG AA), reduce-motion preference respected
+**Constraints**: No dark context (light only), coral text only for large text (WCAG AA), reduce-motion preference respected
 **Scale/Scope**: 12 screens, 31 components, 7 i18n namespaces — all require visual updates
 
 ## Constitution Check
@@ -28,7 +28,7 @@ Transform the app's visual identity from generic Tailwind defaults to the "Neigh
 | I. Neutrality & Non-Prescription | PASS | Visual redesign only. No changes to candidate ordering, matching algorithm, or content presentation logic. All candidates continue to receive equal visual treatment (same card design, same typography, same layout). Party color bars come from existing dataset — no editorial color choices. |
 | II. Source-Grounded Truth | PASS | No data layer changes. All source references and citations remain intact. |
 | III. City-Agnostic Architecture | PASS | Design tokens are generic — no Paris-specific visual elements. Color palette, typography, and shapes work for any city/election. The hero tagline uses i18n strings (already city-parameterized). |
-| IV. Critical Thinking Over Persuasion | PASS | Visual changes do not affect reasoning features. Survey matching, debate mode, and contradiction detection are untouched. |
+| IV. Critical Thinking Over Persuasion | PASS | Visual changes do not affect reasoning features. Survey matching, assistant personalization flow, and contradiction detection are untouched. |
 | V. Structured Data as Single Source of Truth | PASS | No data changes. Design tokens are configuration, not election data. |
 | VI. Simplicity & MVP Discipline | PASS | Keeps existing 3-tab structure (Accueil, Assistant, Candidats). No new screens or features added. The language switcher (FR/EN header toggle) is the only new UI element — it surfaces existing i18n infrastructure, not a new feature. |
 | VII. Privacy & Trust | PASS | No data handling changes. No new analytics, storage, or network requests. |

@@ -1,6 +1,6 @@
-# Tasks: Rapid Debate Mode
+# Tasks: Rapid Debate Context
 
-**Input**: Design documents from `/specs/017-rapid-debate-mode/`
+**Input**: Design documents from `/specs/017-rapid-debate-context/`
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/
 
 **Tests**: Not requested in the specification. No test tasks included.
@@ -26,9 +26,9 @@
 **Purpose**: Types, state management, prompt builder, service, and base UI component that ALL user stories depend on
 
 - [x] T002 Add debate types (DebateTurn, DebateOption, DebateSource, DebateSummary, CandidateProximityEntry) and debate state slice (debateTurns, isDebateActive, isGeneratingTurn, debateStartThemeId) with actions (startDebate, selectDebateOption, addDebateTurn, setGeneratingTurn, endDebate, resetDebate) to src/stores/assistant.ts — exclude debate fields from persistence partialize per FR-012
-- [x] T003 [P] Create buildDebateTurnPrompt() function in src/services/prompts/debattre-mode.ts — instructs LLM to respond exclusively in JSON matching the DebateTurn schema, includes JSON schema definition, example response, turn number injection (for conclusion suggestion at turn 5-7), user profile context (contradictions + themeScores), and election data (candidates + positions + themes)
+- [x] T003 [P] Create buildDebateTurnPrompt() function in src/services/prompts/scripts/rag-proxy.js — instructs LLM to respond exclusively in JSON matching the DebateTurn schema, includes JSON schema definition, example response, turn number injection (for conclusion suggestion at turn 5-7), user profile context (contradictions + themeScores), and election data (candidates + positions + themes)
 - [x] T004 [P] Create DebateOptionButton component in src/components/assistant/DebateOptionButton.tsx — wraps PressableScale with letter prefix display (a/b/c/d), three visual states (selectable/selected/disabled), onPress handler, and NativeWind styling consistent with app design
-- [x] T005 Create debate service with generateDebateTurn() in src/services/debate.ts — sends POST to existing /api/chat SSE endpoint, accumulates SSE text chunks into complete response string, strips SSE event markers, parses JSON, validates structure (2-4 options for non-conclusion, required fields present, correct types), retries once on parse failure, throws typed error on second failure. Uses buildDebateTurnPrompt() from debattre-mode.ts
+- [x] T005 Create debate service with generateDebateTurn() in src/services/debate.ts — sends POST to existing /api/chat SSE endpoint, accumulates SSE text chunks into complete response string, strips SSE event markers, parses JSON, validates structure (2-4 options for non-conclusion, required fields present, correct types), retries once on parse failure, throws typed error on second failure. Uses buildDebateTurnPrompt() from scripts/rag-proxy.js
 
 **Checkpoint**: Foundation ready — all debate types defined, store extended, service operational, base UI component available
 
@@ -36,15 +36,15 @@
 
 ## Phase 3: User Story 1 — Rapid Debate via Multiple-Choice (Priority: P1)
 
-**Goal**: A user with a completed survey can enter "Debattre" mode and engage in a fast-paced Socratic debate by tapping options. Each turn builds on the full history. The debate flows with loading indicators and a "Terminer" button.
+**Goal**: A user with a completed survey can enter "assistant" context and engage in a fast-paced Socratic debate by tapping options. Each turn builds on the full history. The debate flows with loading indicators and a "Terminer" button.
 
-**Independent Test**: Select "Debattre" mode with a completed survey, complete 5 turns using only tap interactions, verify each turn presents a coherent argument and contextually relevant options, verify loading indicator appears between turns.
+**Independent Test**: Select "assistant" context with a completed survey, complete 5 turns using only tap interactions, verify each turn presents a coherent argument and contextually relevant options, verify loading indicator appears between turns.
 
 ### Implementation
 
 - [x] T006 [US1] Create DebateTurnCard component in src/components/assistant/DebateTurnCard.tsx — displays AI statement text bubble and a list of DebateOptionButton components for the current (unanswered) turn; for past turns, shows statement + only the selected option text in a distinct muted style with checkmark icon
 - [x] T007 [US1] Create DebateArea component in src/components/assistant/DebateArea.tsx — main debate container with: (1) auto-start logic that calls generateDebateTurn using survey profile contradictions as startThemeId when isDebateActive is false and user has profile, (2) FlatList rendering DebateTurnCards from debateTurns store array, (3) option selection handler that calls selectDebateOption then triggers generateDebateTurn for next turn, (4) loading indicator (ActivityIndicator + i18n text) shown when isGeneratingTurn is true, (5) "Terminer le debat" button visible when debate is active and turnCount >= 1
-- [x] T008 [US1] Modify src/app/(tabs)/assistant.tsx to conditionally render DebateArea instead of ChatArea when mode is "debattre" — import DebateArea, add mode check in render logic, hide TextInput/send area for debate mode
+- [x] T008 [US1] Modify src/app/(tabs)/assistant.tsx to conditionally render DebateArea instead of ChatArea when context is "assistant" — import DebateArea, add context check in render logic, hide TextInput/send area for assistant personalization flow
 
 **Checkpoint**: Core debate loop functional — user can start debate (with survey), select options across multiple turns, see loading state, and tap "Terminer"
 
@@ -54,7 +54,7 @@
 
 **Goal**: Users without a completed survey see a grid of 8 election themes and can tap one to start a debate focused on that theme.
 
-**Independent Test**: As a new user (no survey data), enter "Debattre" mode, verify theme grid displays 8 themes with icons, tap a theme, verify first AI turn is relevant to that theme.
+**Independent Test**: As a new user (no survey data), enter "assistant" context, verify theme grid displays 8 themes with icons, tap a theme, verify first AI turn is relevant to that theme.
 
 ### Implementation
 
@@ -73,10 +73,10 @@
 
 ### Implementation
 
-- [x] T011 [P] [US3] Add buildConclusionPrompt() function in src/services/prompts/debattre-mode.ts — instructs LLM to generate conclusion JSON with themesExplored array, keyInsight paragraph, and optional candidateProximity entries; includes instruction that proximity must reference specific debate positions matched to documented candidate positions; includes "never recommend, only inform" directive per Constitution Principle I
+- [x] T011 [P] [US3] Add buildConclusionPrompt() function in src/services/prompts/scripts/rag-proxy.js — instructs LLM to generate conclusion JSON with themesExplored array, keyInsight paragraph, and optional candidateProximity entries; includes instruction that proximity must reference specific debate positions matched to documented candidate positions; includes "never recommend, only inform" directive per Constitution Principle I
 - [x] T012 [US3] Add generateConclusion() function to src/services/debate.ts — sends full debate history with conclusion instruction, parses conclusion JSON, validates summary structure (themesExplored non-empty, keyInsight non-empty, candidateProximity entries reference valid candidateIds), same retry-once strategy as generateDebateTurn
 - [x] T013 [P] [US3] Create DebateConclusionCard component in src/components/assistant/DebateConclusionCard.tsx — displays: section header, themes explored as horizontal chips/tags, key insight as styled paragraph, candidate proximity entries (each with candidate name + avatar via existing CandidateAvatar component + justification text), "Nouveau debat" primary button and "Retour" secondary button at bottom
-- [x] T014 [US3] Integrate conclusion flow into DebateArea in src/components/assistant/DebateArea.tsx — when endDebate is called or user selects a conclusion option: set isGeneratingTurn, call generateConclusion, add conclusion turn to debateTurns; render DebateConclusionCard when last turn has isConclusion=true; handle "Nouveau debat" (resetDebate → restart) and "Retour" (resetDebate → switch mode to "comprendre")
+- [x] T014 [US3] Integrate conclusion flow into DebateArea in src/components/assistant/DebateArea.tsx — when endDebate is called or user selects a conclusion option: set isGeneratingTurn, call generateConclusion, add conclusion turn to debateTurns; render DebateConclusionCard when last turn has isConclusion=true; handle "Nouveau debat" (resetDebate → restart) and "Retour" (resetDebate → switch context to "general")
 
 **Checkpoint**: Full debate lifecycle complete — start, turns, conclusion with candidate proximity, restart or exit
 
@@ -84,16 +84,16 @@
 
 ## Phase 6: User Story 4 — Debate History Within a Session (Priority: P4)
 
-**Goal**: Past turns are clearly visible with the selected option highlighted. History is scrollable. Debate state clears on mode switch.
+**Goal**: Past turns are clearly visible with the selected option highlighted. History is scrollable. Debate state clears on context switch.
 
-**Independent Test**: Complete 3+ turns, scroll up, verify past turns show AI statement + selected option only (not all options) in distinct style. Switch modes and verify debate state clears.
+**Independent Test**: Complete 3+ turns, scroll up, verify past turns show AI statement + selected option only (not all options) in distinct style. Switch contexts and verify debate state clears.
 
 ### Implementation
 
 - [x] T015 [US4] Enhance DebateTurnCard past-turn rendering in src/components/assistant/DebateTurnCard.tsx — ensure past turns show only the selected option text (not all options that were available), use muted background color and checkmark icon for selected option, add subtle separator between turns, auto-scroll FlatList to bottom on new turn
-- [x] T016 [US4] Implement debate state clearing on mode switch in src/app/(tabs)/assistant.tsx — call resetDebate() when user switches away from "debattre" mode via ModeSelector, ensuring a fresh start when returning to debate mode
+- [x] T016 [US4] Implement debate state clearing on context switch in src/app/(tabs)/assistant.tsx — call resetDebate() when user switches away from "assistant" context via AssistantContextControls, ensuring a fresh start when returning to assistant personalization flow
 
-**Checkpoint**: History polish complete — clean visual hierarchy, auto-scroll, mode-switch clearing
+**Checkpoint**: History polish complete — clean visual hierarchy, auto-scroll, context-switch clearing
 
 ---
 
@@ -103,7 +103,7 @@
 
 - [x] T017 Implement context summarization for long debates (>10 turns) in src/services/debate.ts — when building the LLM prompt, summarize the first N-5 turns into a single "conversation so far" system message to keep within context limits; full turn history remains in UI (only the prompt sent to LLM is shortened)
 - [x] T018 Add error handling UI in src/components/assistant/DebateArea.tsx — display user-friendly error message with "Reassayer" button when generateDebateTurn or generateConclusion throws after retry; show 15-second timeout message if generation exceeds threshold; handle option count validation failure gracefully
-- [ ] T019 Run quickstart.md manual testing checklist (manual — requires running app) — verify all 10 scenarios from specs/017-rapid-debate-mode/quickstart.md testing section
+- [ ] T019 Run quickstart.md manual testing checklist (manual — requires running app) — verify all 10 scenarios from specs/017-rapid-debate-context/quickstart.md testing section
 
 ---
 
@@ -144,7 +144,7 @@
 
 ```bash
 # These two tasks can run simultaneously (different files, no dependencies):
-Task T003: "Create buildDebateTurnPrompt() in src/services/prompts/debattre-mode.ts"
+Task T003: "Create buildDebateTurnPrompt() in src/services/prompts/scripts/rag-proxy.js"
 Task T004: "Create DebateOptionButton in src/components/assistant/DebateOptionButton.tsx"
 
 # Then T005 depends on T003:
@@ -155,7 +155,7 @@ Task T005: "Create debate service in src/services/debate.ts"
 
 ```bash
 # These two tasks can run simultaneously (different files):
-Task T011: "Add buildConclusionPrompt() in src/services/prompts/debattre-mode.ts"
+Task T011: "Add buildConclusionPrompt() in src/services/prompts/scripts/rag-proxy.js"
 Task T013: "Create DebateConclusionCard in src/components/assistant/DebateConclusionCard.tsx"
 
 # Then T012 depends on T011, and T014 depends on T012 + T013:

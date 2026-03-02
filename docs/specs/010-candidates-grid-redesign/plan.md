@@ -5,7 +5,7 @@
 
 ## Summary
 
-Redesign the candidates page gallery from a 2-column scrollable grid with square images and DistrictBlockCard wrappers to a compact 3-column grid with 72px circular avatars, party-colored border rings, fixed card heights, and centered incomplete rows — all fitting on a single screen without scrolling. The change is isolated to `CandidateGallery.tsx` (major rewrite) plus a new party color utility. The candidates screen, data layer, shuffle logic, and compare mode behavior are preserved.
+Redesign the candidates page gallery from a 2-column scrollable grid with square images and DistrictBlockCard wrappers to a compact 3-column grid with 72px circular avatars, party-colored border rings, fixed card heights, and centered incomplete rows — all fitting on a single screen without scrolling. The change is isolated to `CandidateGallery.tsx` (major rewrite) plus a new party color utility. The candidates screen, data layer, shuffle logic, and compare context behavior are preserved.
 
 ## Technical Context
 

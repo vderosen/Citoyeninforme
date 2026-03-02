@@ -5,7 +5,7 @@
 
 ## Summary
 
-Streamline the app's UI across all three tabs and the candidate detail page. Remove the non-functional language switcher, reduce the home page to 3 essential elements (survey CTA, VotingInfoCard, TrustCard), refactor the assistant store to support isolated conversations keyed by mode and candidate, redesign the candidates gallery with uniform cards and an inline compare selection flow, and simplify the candidate detail page to a single "Debattre" CTA.
+Streamline the app's UI across all three tabs and the candidate detail page. Remove the non-functional language switcher, reduce the home page to 3 essential elements (survey CTA, VotingInfoCard, TrustCard), refactor the assistant store to support isolated conversations keyed by context and candidate, redesign the candidates gallery with uniform cards and an inline compare selection flow, and simplify the candidate detail page to a single "assistant" CTA.
 
 ## Technical Context
 
@@ -15,9 +15,9 @@ Streamline the app's UI across all three tabs and the candidate detail page. Rem
 **Testing**: Jest + React Native Testing Library
 **Target Platform**: iOS, Android, Web (Expo managed workflow)
 **Project Type**: Mobile (cross-platform)
-**Performance Goals**: 60 fps scroll on candidate gallery, instant mode/candidate switching in assistant
+**Performance Goals**: 60 fps scroll on candidate gallery, instant context/candidate switching in assistant
 **Constraints**: Offline-capable (all data local), conversation history must persist across app restarts
-**Scale/Scope**: 7 candidates, 8 themes, 3 assistant modes, ~50 screens/components affected by changes
+**Scale/Scope**: 7 candidates, 8 themes, 3 assistant contexts, ~50 screens/components affected by changes
 
 ## Constitution Check
 
@@ -28,7 +28,7 @@ Streamline the app's UI across all three tabs and the candidate detail page. Rem
 | I. Neutrality & Non-Prescription | PASS | Candidate card ordering remains randomized daily (dailySeed shuffle). No editorial ranking introduced. Compare selection is user-driven. |
 | II. Source-Grounded Truth | PASS | Candidate detail page retains all source references. No factual content removed. |
 | III. City-Agnostic Architecture | PASS | No Paris-specific logic introduced. Conversation keys use generic candidateId, not city-specific data. |
-| IV. Critical Thinking Over Persuasion | PASS | "Debattre" CTA preserved as the single action from candidate detail, maintaining the debate-first approach. |
+| IV. Critical Thinking Over Persuasion | PASS | "assistant" CTA preserved as the single action from candidate detail, maintaining the debate-first approach. |
 | V. Structured Data as Single Source of Truth | PASS | No new data sources introduced. All candidate/theme data still from single election dataset. |
 | VI. Simplicity & MVP Discipline | PASS | This feature explicitly reduces clutter. Three-tab structure preserved. No new tabs or screens added. Compare flow reuses existing comparison page. |
 | VII. Privacy & Trust | PASS | Conversation data remains local-only (AsyncStorage/localStorage). No server-side storage. TrustCard preserved on home page. |
@@ -57,8 +57,8 @@ src/
 │   │   ├── _layout.tsx          # MODIFY: Remove LanguageSwitcher from headers
 │   │   ├── index.tsx            # MODIFY: Strip to 3 elements (survey CTA, VotingInfoCard, TrustCard)
 │   │   ├── assistant.tsx        # MODIFY: Use new conversation-keyed store API
-│   │   └── candidates.tsx       # MODIFY: Remove ThemeFilter, add compare mode
-│   ├── candidate/[id].tsx       # MODIFY: Single "Debattre" CTA, remove Compare/Ask buttons
+│   │   └── candidates.tsx       # MODIFY: Remove ThemeFilter, add compare context
+│   ├── candidate/[id].tsx       # MODIFY: Single "assistant" CTA, remove Compare/Ask buttons
 │   └── comparison.tsx           # MINOR: Accept selectedIds from candidates page navigation
 │
 ├── components/
@@ -72,14 +72,14 @@ src/
 │   │   ├── VotingInfoCard.tsx    # KEEP: No changes
 │   │   └── TrustCard.tsx         # KEEP: No changes
 │   ├── assistant/
-│   │   ├── ModeSelector.tsx      # MODIFY: Redesign for clarity
+│   │   ├── AssistantContextControls.tsx      # MODIFY: Redesign for clarity
 │   │   ├── CandidateSelector.tsx # KEEP: Minor adjustments
 │   │   ├── ChatArea.tsx          # MODIFY: Read from getCurrentMessages()
 │   │   ├── ContextPrompts.tsx    # KEEP: No changes
 │   │   └── MessageBubble.tsx     # KEEP: No changes
 │   └── candidates/
 │       ├── ThemeFilter.tsx       # UNUSED: No longer imported from candidates page
-│       ├── CandidateGallery.tsx  # MODIFY: Uniform cards, selectable compare mode
+│       ├── CandidateGallery.tsx  # MODIFY: Uniform cards, selectable compare context
 │       ├── CandidateProfileCard.tsx # MODIFY: Remove Compare/Ask action buttons
 │       ├── ComparisonView.tsx    # KEEP: No changes
 │       └── PositionCard.tsx      # KEEP: No changes
@@ -93,7 +93,7 @@ src/
 └── i18n/locales/fr/
     ├── home.json                # MODIFY: Remove unused keys, update survey CTA labels
     ├── assistant.json           # MODIFY: Add conversation-related labels
-    └── candidates.json          # MODIFY: Add compare mode labels
+    └── candidates.json          # MODIFY: Add compare context labels
 ```
 
 **Structure Decision**: Existing mobile project structure preserved. No new directories. Changes are modifications to existing files with 1 file deletion (LanguageSwitcher) and 3 files becoming unused (HeroBlock, ResumeCard, ThemeFeed — kept in tree but no longer imported, to be cleaned up later if desired).

@@ -4,31 +4,31 @@
 
 ## R1: Assistant Conversation Isolation — Store Architecture
 
-**Decision**: Refactor `useAssistantStore` to use a `conversations` record keyed by composite string `${mode}` or `${mode}:${candidateId}`.
+**Decision**: Refactor `useAssistantStore` to use a `conversations` record keyed by composite string `${context}` or `${context}:${candidateId}`.
 
 **Rationale**:
-- Current state has a flat `messages: ChatMessage[]` shared across all modes and candidates
+- Current state has a flat `messages: ChatMessage[]` shared across all contexts and candidates
 - A keyed record allows O(1) lookup for any conversation and avoids message mixing
 - Zustand persist can serialize the full record to AsyncStorage without special handling
-- The composite key pattern (`"comprendre"`, `"parler:david-belliard"`, `"debattre"`) is simple, readable, and collision-free
+- The composite key pattern (`"general"`, `"candidate:david-belliard"`, `"assistant"`) is simple, readable, and collision-free
 
 **Alternatives considered**:
-- **Separate stores per mode**: Rejected — introduces 3 stores with duplicated logic, harder to persist and export
+- **Separate stores per context**: Rejected — introduces 3 stores with duplicated logic, harder to persist and export
 - **Array with conversation metadata**: Rejected — requires filtering on every render, O(n) lookups
 - **Database (SQLite) for conversations**: Rejected — over-engineered for MVP; AsyncStorage is sufficient for the expected conversation count (<30 threads)
 
 **Key implementation details**:
-- Conversation key formula: `mode === "parler" ? \`parler:${candidateId}\` : mode`
-- `getCurrentMessages()` selector derives from current mode + selectedCandidateId
+- Conversation key formula: `context === "candidate" ? \`candidate:${candidateId}\` : context`
+- `getCurrentMessages()` selector derives from current context + selectedCandidateId
 - `addMessage()` appends to the correct conversation key automatically
 - `resetConversation()` clears only the current conversation key
-- Migration: on first load after upgrade, move existing `messages[]` to `"comprendre"` key (best-guess migration)
+- Migration: on first load after upgrade, move existing `messages[]` to `"general"` key (best-guess migration)
 
 ---
 
-## R2: Compare Mode UX on Candidates Page
+## R2: Compare Context UX on Candidates Page
 
-**Decision**: Add a floating "Comparer" FAB button on the candidates page. Tapping it toggles compare mode, which overlays selection checkboxes on candidate cards. A bottom bar shows selection count and a "Voir la comparaison" confirm button.
+**Decision**: Add a floating "Comparer" FAB button on the candidates page. Tapping it toggles compare context, which overlays selection checkboxes on candidate cards. A bottom bar shows selection count and a "Voir la comparaison" confirm button.
 
 **Rationale**:
 - FAB is a well-established mobile pattern for secondary actions
@@ -83,13 +83,13 @@
 
 ## R5: Candidate Detail Page — CTA Consolidation
 
-**Decision**: Remove "Comparer" and "Poser une question" action buttons from `CandidateProfileCard`. Keep only "Debattre" which navigates to the assistant in "parler" mode with the candidate pre-selected.
+**Decision**: Remove "Comparer" and "Poser une question" action buttons from `CandidateProfileCard`. Keep only "assistant" which navigates to the assistant in "candidate" context with the candidate pre-selected.
 
 **Rationale**:
 - "Comparer" is moved to the candidates gallery page (R2)
 - "Poser une question" duplicates the Assistant tab functionality
 - Single CTA reduces decision paralysis and aligns with the page's primary purpose
-- The existing `handleDebate` function already does the right thing: `selectMode("parler")` + `selectCandidate(id)` + `router.push("/(tabs)/assistant")`
+- The existing `handleDebate` function already does the right thing: `selectMode("candidate")` + `selectCandidate(id)` + `router.push("/(tabs)/assistant")`
 
 **Implementation note**:
 - After conversation isolation (R1), `handleDebate` will automatically create or resume the isolated conversation for that candidate — no additional logic needed

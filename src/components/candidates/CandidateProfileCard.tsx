@@ -13,14 +13,14 @@ interface CandidateProfileCardProps {
   candidate: Candidate;
   positions: Position[];
   themes: Theme[];
-  onDebate: () => void;
+  onOpenAssistant: () => void;
 }
 
 export function CandidateProfileCard({
   candidate,
   positions,
   themes,
-  onDebate,
+  onOpenAssistant,
 }: CandidateProfileCardProps) {
   const { t } = useTranslation(["candidates", "common"]);
   const [activeThemeId, setActiveThemeId] = useState(themes[0]?.id ?? "");
@@ -124,7 +124,7 @@ export function CandidateProfileCard({
       {/* Action button — outlined, centered */}
       <View className="px-4 pt-5 pb-4 items-center">
         <Pressable
-          onPress={onDebate}
+          onPress={onOpenAssistant}
           className="rounded-xl py-3 px-8 flex-row items-center justify-center"
           style={{
             minHeight: 48,
@@ -132,11 +132,11 @@ export function CandidateProfileCard({
             borderColor: "#1B2A4A",
           }}
           accessibilityRole="button"
-          accessibilityLabel={t("candidates:debate")}
+          accessibilityLabel={t("candidates:openAssistant")}
         >
           <Ionicons name="chatbubble-outline" size={18} color="#1B2A4A" style={{ marginRight: 8 }} />
           <Text className="font-display-medium text-sm text-civic-navy">
-            {t("candidates:debate")}
+            {t("candidates:openAssistant")}
           </Text>
         </Pressable>
       </View>

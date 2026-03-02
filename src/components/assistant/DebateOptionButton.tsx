@@ -1,6 +1,7 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { PressableScale } from "../ui/PressableScale";
+import { AppText as Text } from "../ui/AppText";
 
 interface DebateOptionButtonProps {
   /** The option prefix letter (e.g. "a", "b", "c", "d") */
@@ -37,6 +38,7 @@ export function DebateOptionButton({
             : "bg-warm-white border-civic-navy-light"
       }`}
       style={{ minHeight: 48 }}
+      ensureMinTouchTarget
     >
       {/* Letter circle or checkmark */}
       <View

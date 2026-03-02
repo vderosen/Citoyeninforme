@@ -43,16 +43,16 @@
 
 **Decision**: Use Expo Router's `router.push()` with route params for cross-tab deep links. For "Ask about this" from candidate/theme to Assistant, use the assistant store's `setPreloadedContext()` method before navigating.
 
-**Rationale**: Expo Router supports passing params via `router.push('/assistant?context=candidate-a&mode=comprendre')`. However, for complex context (full candidate data, theme details), storing context in the Zustand assistant store before navigation is cleaner than URL params. The assistant tab reads preloaded context on mount/focus.
+**Rationale**: Expo Router supports passing params via `router.push('/assistant?context=candidate-a&context=general')`. However, for complex context (full candidate data, theme details), storing context in the Zustand assistant store before navigation is cleaner than URL params. The assistant tab reads preloaded context on mount/focus.
 
 **Alternatives considered**:
 - **URL search params only**: Rejected for complex objects. Would work for simple IDs but not for pre-filled prompt text.
 - **React Context across tabs**: Rejected because Zustand already manages cross-component state and adding a Context provider adds unnecessary layering.
 
 **Key implementation details**:
-- "Ask about this" action: `useAssistantStore.setState({ preloadedContext, mode })` then `router.push('/(tabs)/assistant')`
+- "Ask about this" action: `useAssistantStore.setState({ preloadedContext, context })` then `router.push('/(tabs)/assistant')`
 - "Comparer" action from candidate profile: `router.push('/comparison?candidates=id1,id2')`
-- "Debattre" action from candidate profile: `useAssistantStore.setState({ mode: 'debattre', selectedCandidateId })` then `router.push('/(tabs)/assistant')`
+- "assistant" action from candidate profile: `useAssistantStore.setState({ context: 'assistant', selectedCandidateId })` then `router.push('/(tabs)/assistant')`
 
 ---
 
@@ -78,15 +78,15 @@
 
 **Decision**: Replace the floating ChatbotFAB + ChatbotPanel overlay with a dedicated full-screen Assistant tab. The chatbot store is renamed to assistant store and gains conversation persistence.
 
-**Rationale**: The spec explicitly calls for a center tab (FR-026) with a visible mode selector. A floating panel is inherently secondary and hidden behind a FAB button. A full tab gives the assistant equal weight with the other two intents, matches the "3 simple user intents" design philosophy, and provides more screen real estate for chat, mode selection, and source references.
+**Rationale**: The spec explicitly calls for a center tab (FR-026) with a visible assistant context controls. A floating panel is inherently secondary and hidden behind a FAB button. A full tab gives the assistant equal weight with the other two intents, matches the "3 simple user intents" design philosophy, and provides more screen real estate for chat, context selection, and source references.
 
 **Alternatives considered**:
 - **Keep floating panel + also add tab**: Rejected as confusing (two entry points to the same feature). The tab alone is sufficient and cleaner.
-- **Bottom sheet instead of tab**: Rejected because it still treats the assistant as secondary and doesn't provide persistent mode selector visibility.
+- **Bottom sheet instead of tab**: Rejected because it still treats the assistant as secondary and doesn't provide persistent assistant context controls visibility.
 
 **Key implementation details**:
 - Remove `ChatbotFAB.tsx` and `ChatbotPanel.tsx`
-- Create `(tabs)/assistant.tsx` as full-screen chat with mode selector at top
+- Create `(tabs)/assistant.tsx` as full-screen chat with assistant context controls at top
 - Rename `chatbot.ts` store to `assistant.ts`, add MMKV persistence for conversation history
 - Preserve SSE streaming architecture in chatbot service (no changes to API layer)
 
@@ -137,7 +137,7 @@
 
 ## R-009: Feedback Storage Strategy
 
-**Decision**: Store feedback signals in MMKV as a JSON array. Each feedback entry contains: timestamp, screen context (candidate ID / theme ID / assistant mode), feedback type ("unclear" | "missing" | "general"), and optional user text. No server-side submission in MVP.
+**Decision**: Store feedback signals in MMKV as a JSON array. Each feedback entry contains: timestamp, screen context (candidate ID / theme ID / assistant context), feedback type ("unclear" | "missing" | "general"), and optional user text. No server-side submission in MVP.
 
 **Rationale**: The spec states feedback is stored locally for later aggregation (Assumptions section). MMKV is already available and handles JSON serialization. The feedback is lightweight (text + metadata) and accumulates slowly (user-initiated action), so storage size is not a concern.
 

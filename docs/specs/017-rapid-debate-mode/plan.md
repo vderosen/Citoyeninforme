@@ -1,11 +1,11 @@
-# Implementation Plan: Rapid Debate Mode
+# Implementation Plan: Rapid Debate Context
 
-**Branch**: `017-rapid-debate-mode` | **Date**: 2026-02-20 | **Spec**: [spec.md](./spec.md)
-**Input**: Feature specification from `/specs/017-rapid-debate-mode/spec.md`
+**Branch**: `017-rapid-debate-context` | **Date**: 2026-02-20 | **Spec**: [spec.md](./spec.md)
+**Input**: Feature specification from `/specs/017-rapid-debate-context/spec.md`
 
 ## Summary
 
-Replace the free-text chat in "Débattre" mode with a structured rapid debate: the LLM generates an argument + 2-4 response options as JSON each turn, the user taps one option to advance, and the debate concludes with a summary including candidate proximity. The existing SSE streaming endpoint is reused by collecting the full response and parsing JSON client-side. No backend changes required.
+Replace the free-text chat in "assistant" context with a structured rapid debate: the LLM generates an argument + 2-4 response options as JSON each turn, the user taps one option to advance, and the debate concludes with a summary including candidate proximity. The existing SSE streaming endpoint is reused by collecting the full response and parsing JSON client-side. No backend changes required.
 
 ## Technical Context
 
@@ -16,7 +16,7 @@ Replace the free-text chat in "Débattre" mode with a structured rapid debate: t
 **Target Platform**: iOS, Android, Web (Expo managed workflow)
 **Project Type**: Mobile app (single project)
 **Performance Goals**: <5s per debate turn generation (SC-002), 95% successful JSON parsing (SC-003)
-**Constraints**: No streaming for debate mode (full JSON response awaited), no keyboard interaction (100% tap-based), no backend proxy changes
+**Constraints**: No streaming for assistant personalization flow (full JSON response awaited), no keyboard interaction (100% tap-based), no backend proxy changes
 **Scale/Scope**: 8 themes, 7 candidates, 15 documented positions, ~5-10 turns per debate session
 
 ## Constitution Check
@@ -30,7 +30,7 @@ Replace the free-text chat in "Débattre" mode with a structured rapid debate: t
 | III. City-Agnostic Architecture | PASS | All debate logic operates on generic `Theme`, `Position`, `Candidate` schemas. No Paris-specific hardcoding. Theme grid populated from election dataset. |
 | IV. Critical Thinking Over Persuasion | PASS | Core purpose is Socratic questioning. Options present trade-offs, not leading answers. Conclusion highlights reasoning patterns, not "correct" positions. |
 | V. Structured Data as Single Source of Truth | PASS | All debate content derives from the election dataset (positions, themes, candidates). No shadow data sources. |
-| VI. Simplicity & MVP Discipline | PASS | No new tabs — replaces existing debate mode within Assistant tab. Reuses existing components (PressableScale, ModeSelector). Minimal new entities. |
+| VI. Simplicity & MVP Discipline | PASS | No new tabs — replaces existing assistant personalization flow within Assistant tab. Reuses existing components (PressableScale, AssistantContextControls). Minimal new entities. |
 | VII. Privacy & Trust | PASS | Debate history is ephemeral (not persisted). No server-side storage of debate choices. Survey profile accessed locally only. |
 
 **Post-Phase 1 re-check**: All gates still pass. The data model introduces no persistence of debate data. The JSON contract adds no new server-side state. Candidate proximity in conclusions is factual and source-justified per Principle I and II.
@@ -40,7 +40,7 @@ Replace the free-text chat in "Débattre" mode with a structured rapid debate: t
 ### Documentation (this feature)
 
 ```text
-specs/017-rapid-debate-mode/
+specs/017-rapid-debate-context/
 ├── plan.md              # This file
 ├── spec.md              # Feature specification
 ├── research.md          # Phase 0: Research decisions
@@ -60,8 +60,8 @@ specs/017-rapid-debate-mode/
 src/
 ├── components/
 │   └── assistant/
-│       ├── ChatArea.tsx                # EXISTING — unchanged (comprendre/parler)
-│       ├── ModeSelector.tsx            # EXISTING — unchanged (already supports debattre)
+│       ├── ChatArea.tsx                # EXISTING — unchanged (general/candidate chat contexts)
+│       ├── AssistantContextControls.tsx            # EXISTING — unchanged (already supports assistant)
 │       ├── EmptyState.tsx              # EXISTING — unchanged
 │       ├── DebateArea.tsx              # NEW — main debate container
 │       ├── DebateTurnCard.tsx          # NEW — single turn: statement + options/selected
@@ -72,7 +72,7 @@ src/
 │   ├── chatbot.ts                     # EXISTING — unchanged (SSE streaming)
 │   ├── debate.ts                      # NEW — debate turn generation + JSON parsing
 │   └── prompts/
-│       └── debattre-mode.ts           # MODIFIED — add buildDebateTurnPrompt()
+│       └── scripts/rag-proxy.js           # MODIFIED — add buildDebateTurnPrompt()
 ├── stores/
 │   └── assistant.ts                   # MODIFIED — add debate state slice
 ├── i18n/

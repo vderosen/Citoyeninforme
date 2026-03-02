@@ -9,14 +9,14 @@ interface SinglePositionViewProps {
     candidate: Candidate;
     activeThemeId: string;
     positions: Position[];
-    onDebatePress: () => void;
+    onOpenAssistantPress: () => void;
 }
 
 export function SinglePositionView({
     candidate,
     activeThemeId,
     positions,
-    onDebatePress,
+    onOpenAssistantPress,
 }: SinglePositionViewProps) {
     const { t } = useTranslation("candidates");
 
@@ -40,10 +40,10 @@ export function SinglePositionView({
                 </View>
             )}
 
-            {/* Debate button */}
+            {/* Assistant button */}
             <View className="pt-5 pb-4 items-center">
                 <Pressable
-                    onPress={onDebatePress}
+                    onPress={onOpenAssistantPress}
                     className="rounded-xl py-3 px-8 flex-row items-center justify-center"
                     style={{
                         minHeight: 48,
@@ -51,7 +51,7 @@ export function SinglePositionView({
                         borderColor: "#1B2A4A",
                     }}
                     accessibilityRole="button"
-                    accessibilityLabel={t("debate")}
+                    accessibilityLabel={t("openAssistant")}
                 >
                     <Ionicons
                         name="chatbubble-outline"
@@ -60,7 +60,7 @@ export function SinglePositionView({
                         style={{ marginRight: 8 }}
                     />
                     <Text className="font-display-medium text-sm text-civic-navy">
-                        {t("debate")}
+                        {t("openAssistant")}
                     </Text>
                 </Pressable>
             </View>

@@ -44,18 +44,18 @@
 ### Stores
 
 - [x] T012 [P] Create `src/stores/app.ts` with AppStore (hasCompletedOnboarding: boolean, lastActiveTab: string) persisted via MMKV zustandStorage per contracts/store-interfaces.md
-- [x] T013 [P] Rename `src/stores/chatbot.ts` to `src/stores/assistant.ts` and refactor to AssistantStore interface: add mode ("comprendre"/"parler"/"debattre"), preloadedContext, conversation persistence via MMKV, consumePreloadedContext(), resetConversation() per contracts/store-interfaces.md. Update all import references in `src/services/chatbot.ts` and any other files importing the old store
+- [x] T013 [P] Rename `src/stores/chatbot.ts` to `src/stores/assistant.ts` and refactor to AssistantStore interface: add context ("general"/"candidate"/"assistant"), preloadedContext, conversation persistence via MMKV, consumePreloadedContext(), resetConversation() per contracts/store-interfaces.md. Update all import references in `src/services/chatbot.ts` and any other files importing the old store
 - [x] T014 [P] Modify `src/stores/survey.ts` to persist in-progress state (status, currentQuestionIndex, answers, importanceWeights) via MMKV and add datasetVersion field + isResultsStale(currentVersion) method per contracts/store-interfaces.md
 
 ### Services
 
 - [x] T015 [P] Create `src/services/feedback.ts` with submitFeedback(), getFeedbackEntries(), clearFeedbackEntries() using direct MMKV access per contracts/store-interfaces.md
-- [x] T016 [P] Rename prompt files: `src/services/prompts/learn-mode.ts` → `comprendre-mode.ts`, `src/services/prompts/candidate-mode.ts` → `parler-mode.ts`, `src/services/prompts/debate-mode.ts` → `debattre-mode.ts`. Update mode identifiers inside each file
+- [x] T016 [P] Rename prompt files: `src/services/prompts/learn-context.ts` → `scripts/rag-proxy.js`, `src/services/prompts/candidate-context.ts` → `scripts/rag-proxy.js`, `src/services/prompts/debate-context.ts` → `scripts/rag-proxy.js`. Update context identifiers inside each file
 - [x] T017 Update `src/services/chatbot.ts` import references to use renamed prompt files from T016 (service logic itself unchanged)
 
 ### i18n
 
-- [x] T018 [P] Rename `src/i18n/locales/fr/chatbot.json` to `src/i18n/locales/fr/assistant.json` and update keys for new mode names (comprendre/parler/debattre)
+- [x] T018 [P] Rename `src/i18n/locales/fr/chatbot.json` to `src/i18n/locales/fr/assistant.json` and update keys for new context names (general/candidate/assistant)
 - [x] T019 [P] Create `src/i18n/locales/fr/candidates.json` with candidate gallery, profile, filter, and action labels
 - [x] T020 [P] Create `src/i18n/locales/fr/comparison.json` with comparison view labels and states
 - [x] T021 [P] Create `src/i18n/locales/fr/onboarding.json` with onboarding flow copy
@@ -108,11 +108,11 @@
 ### Implementation for User Story 2
 
 - [x] T038 [P] [US2] Create `src/components/candidates/CandidateGallery.tsx` as 2-column FlatList grid with equal-weight cards, candidate photos, deterministic shuffle (daily seed via `src/utils/shuffle.ts`), and optional theme position snippets per contracts/component-interfaces.md and research.md R-006
-- [x] T039 [P] [US2] Create `src/components/candidates/CandidateProfileCard.tsx` with photo+name+party header, "En bref" summary, positions by theme (collapsible), source references, missing position labels, and Comparer/Debattre action buttons per contracts/component-interfaces.md
+- [x] T039 [P] [US2] Create `src/components/candidates/CandidateProfileCard.tsx` with photo+name+party header, "En bref" summary, positions by theme (collapsible), source references, missing position labels, and Comparer/assistant action buttons per contracts/component-interfaces.md
 - [x] T040 [P] [US2] Refactor `src/components/candidates/PositionCard.tsx` to integrate TrustBadge from `src/components/shared/TrustBadge.tsx` and SourceReference from `src/components/shared/SourceReference.tsx` for source/non_documente/incertain display
 - [x] T041 [P] [US2] Move `src/components/ui/ThemeFilter.tsx` to `src/components/candidates/ThemeFilter.tsx` and refactor for new card-based design. Update all import references
 - [x] T042 [US2] Implement Candidates tab screen in `src/app/(tabs)/candidates.tsx` with CandidateGallery, ThemeFilter, and theme query param handling (`?theme=themeId` auto-applies filter) per contracts/navigation.md
-- [x] T043 [US2] Implement candidate profile screen in `src/app/candidate/[id].tsx` with CandidateProfileCard, deep link actions (Comparer → `/comparison?selected=id`, Debattre → assistant store + navigate, Ask about this → assistant context + navigate) per contracts/navigation.md
+- [x] T043 [US2] Implement candidate profile screen in `src/app/candidate/[id].tsx` with CandidateProfileCard, deep link actions (Comparer → `/comparison?selected=id`, assistant → assistant store + navigate, Ask about this → assistant context + navigate) per contracts/navigation.md
 - [x] T044 [US2] Populate `src/i18n/locales/fr/candidates.json` with all candidate gallery, profile, filter, action, and empty state copy
 
 **Checkpoint**: Candidates tab shows equal-weight gallery. Tapping a candidate opens full profile with positions, sources, and actions. Theme filter works. Deep link actions navigate correctly.
@@ -162,39 +162,39 @@
 
 ## Phase 7: User Story 5 - Ask Neutral Questions About the Election (Priority: P5)
 
-**Goal**: Assistant tab with Comprendre mode: chat with source references, missing/uncertain markers, context-aware prompts, and off-topic redirection.
+**Goal**: Assistant tab with Comprendre context: chat with source references, missing/uncertain markers, context-aware prompts, and off-topic redirection.
 
-**Independent Test**: Open Assistant tab, verify Comprendre mode default, ask election questions, verify source references, test missing/uncertain markers, test off-topic redirection, test contextual entry from candidate profile.
+**Independent Test**: Open Assistant tab, verify Comprendre context default, ask election questions, verify source references, test missing/uncertain markers, test off-topic redirection, test contextual entry from candidate profile.
 
 ### Implementation for User Story 5
 
-- [x] T058 [P] [US5] Create `src/components/assistant/ModeSelector.tsx` as segmented control with Comprendre/Parler avec un candidat/Debattre buttons, `accessibilityRole="tablist"` per contracts/component-interfaces.md
+- [x] T058 [P] [US5] Create `src/components/assistant/AssistantContextControls.tsx` as segmented control with Comprendre/assistant avec contexte candidat/assistant buttons, `accessibilityRole="tablist"` per contracts/component-interfaces.md
 - [x] T059 [P] [US5] Create `src/components/assistant/ChatArea.tsx` with scrollable message list, text input, auto-scroll on new messages, and streaming typing indicator per contracts/component-interfaces.md
 - [x] T060 [P] [US5] Move and refactor `src/components/chatbot/MessageBubble.tsx` to `src/components/assistant/MessageBubble.tsx` integrating TrustBadge for inline source/non_documente/incertain display
-- [x] T061 [P] [US5] Create `src/components/assistant/ContextPrompts.tsx` displaying context-aware starter prompts based on preloadedContext and mode per contracts/component-interfaces.md
-- [x] T062 [US5] Implement Assistant tab screen in `src/app/(tabs)/assistant.tsx` for Comprendre mode: compose ModeSelector, ChatArea, ContextPrompts; consume preloadedContext from assistant store; connect to chatbot service SSE streaming; display source references and missing/uncertain markers per spec FR-026 and FR-027
-- [x] T063 [US5] Populate `src/i18n/locales/fr/assistant.json` with mode labels, placeholder text, source display labels, missing/uncertain marker text, and off-topic redirection message
+- [x] T061 [P] [US5] Create `src/components/assistant/ContextPrompts.tsx` displaying context-aware starter prompts based on preloadedContext and context per contracts/component-interfaces.md
+- [x] T062 [US5] Implement Assistant tab screen in `src/app/(tabs)/assistant.tsx` for Comprendre context: compose AssistantContextControls, ChatArea, ContextPrompts; consume preloadedContext from assistant store; connect to chatbot service SSE streaming; display source references and missing/uncertain markers per spec FR-026 and FR-027
+- [x] T063 [US5] Populate `src/i18n/locales/fr/assistant.json` with context labels, placeholder text, source display labels, missing/uncertain marker text, and off-topic redirection message
 
-**Checkpoint**: Assistant tab defaults to Comprendre mode. Chat works with SSE streaming. Source references display on factual answers. Missing/uncertain markers show correctly. Contextual entry from other screens works.
+**Checkpoint**: Assistant tab defaults to Comprendre context. Chat works with SSE streaming. Source references display on factual answers. Missing/uncertain markers show correctly. Contextual entry from other screens works.
 
 ---
 
 ## Phase 8: User Story 6 - Engage with Candidate Perspectives and Debate (Priority: P6)
 
-**Goal**: Parler mode with candidate-bound responses and Debattre mode with survey-aware Socratic questioning. Mode guardrails prevent cross-mode confusion.
+**Goal**: assistant avec contexte candidat with candidate-bound responses and assistant context with survey-aware Socratic questioning. Context guardrails prevent cross-context confusion.
 
-**Independent Test**: Switch to Parler, select candidate, verify responses stay within candidate positions. Switch to Debattre with/without survey results, verify trade-off questions and no candidate recommendations.
+**Independent Test**: Switch to Parler, select candidate, verify responses stay within candidate positions. Switch to assistant with/without survey results, verify trade-off questions and no candidate recommendations.
 
 **Depends on**: US5 (assistant tab foundation)
 
 ### Implementation for User Story 6
 
-- [x] T064 [P] [US6] Create `src/components/assistant/CandidateSelector.tsx` as horizontal list of candidate photos/names for Parler mode per contracts/component-interfaces.md
-- [x] T065 [US6] Extend `src/app/(tabs)/assistant.tsx` with Parler mode: show CandidateSelector when mode is "parler", enforce selectedCandidateId requirement, pass candidate-specific system prompt to chatbot service per spec FR-028
-- [x] T066 [US6] Extend `src/app/(tabs)/assistant.tsx` with Debattre mode: integrate survey profile from survey store into system prompt when available, implement fallback non-personalized debate path when no survey results, adapt to position changes per spec FR-029
-- [x] T067 [US6] Implement mode guardrails in `src/stores/assistant.ts` and `src/app/(tabs)/assistant.tsx`: prevent debate-style challenges in Comprendre mode, require candidate selection in Parler mode, confirm mode switch with clear indicator per spec FR-033
+- [x] T064 [P] [US6] Create `src/components/assistant/CandidateSelector.tsx` as horizontal list of candidate photos/names for assistant avec contexte candidat per contracts/component-interfaces.md
+- [x] T065 [US6] Extend `src/app/(tabs)/assistant.tsx` with assistant avec contexte candidat: show CandidateSelector when context is "candidate", enforce selectedCandidateId requirement, pass candidate-specific system prompt to chatbot service per spec FR-028
+- [x] T066 [US6] Extend `src/app/(tabs)/assistant.tsx` with assistant context: integrate survey profile from survey store into system prompt when available, implement fallback non-personalized debate path when no survey results, adapt to position changes per spec FR-029
+- [x] T067 [US6] Implement context guardrails in `src/stores/assistant.ts` and `src/app/(tabs)/assistant.tsx`: prevent debate-style challenges in Comprendre context, require candidate selection in assistant avec contexte candidat, confirm context switch with clear indicator per spec FR-033
 
-**Checkpoint**: All 3 assistant modes work correctly. Parler stays within candidate positions. Debattre uses survey profile when available. Mode switches are clean with no behavioral confusion. No candidate recommendations in any mode.
+**Checkpoint**: All 3 assistant contexts work correctly. Parler stays within candidate positions. assistant uses survey profile when available. Context switches are clean with no behavioral confusion. No candidate recommendations in any context.
 
 ---
 
@@ -223,7 +223,7 @@
 
 **Purpose**: Final verification, cleanup, and cross-story integration testing.
 
-- [x] T074 [P] Verify all deep link contracts per contracts/navigation.md: candidate→assistant ("Ask about this"), candidate→comparison ("Comparer"), candidate→assistant ("Debattre"), home→survey (status-aware), home→candidates, home→assistant, theme feed→candidates (filtered)
+- [x] T074 [P] Verify all deep link contracts per contracts/navigation.md: candidate→assistant ("Ask about this"), candidate→comparison ("Comparer"), candidate→assistant ("assistant"), home→survey (status-aware), home→candidates, home→assistant, theme feed→candidates (filtered)
 - [x] T075 [P] Verify tab state preservation per research.md R-002: scroll positions, conversation history, and form state persist across tab switches with `unmountOnBlur: false`
 - [x] T076 Delete unused old files: `src/components/chatbot/` directory (remaining files after T011), `src/components/candidates/CandidateCard.tsx`, `src/components/candidates/CandidateList.tsx`, `src/components/survey/ResultsChart.tsx`, `src/components/ui/` directory (empty after moves), `src/i18n/locales/fr/learn.json`
 - [x] T077 Verify all import paths across codebase are correct for renamed/moved files (assistant store, prompt files, component relocations) and no broken imports remain
@@ -248,7 +248,7 @@
 - **US3 - Comparison (P3)**: Can start after Phase 2. Integrates with US2 for navigation flow (Comparer action) but is independently testable with direct URL access.
 - **US4 - Survey (P4)**: Can start after Phase 2. No dependencies on other stories.
 - **US5 - Assistant Comprendre (P5)**: Can start after Phase 2. No dependencies on other stories.
-- **US6 - Parler + Debattre (P6)**: Depends on **US5** (extends the assistant tab foundation).
+- **US6 - Parler + assistant (P6)**: Depends on **US5** (extends the assistant tab foundation).
 - **US7 - Trust & Accessibility (P7)**: Depends on **all previous stories** (cross-cutting audit of existing screens).
 
 ### Within Each User Story
@@ -320,7 +320,7 @@ Task: "Implement candidate profile in src/app/candidate/[id].tsx"
 4. Add US3 (Comparison) → Test independently → Deploy/Demo
 5. Add US4 (Survey) → Test independently → Deploy/Demo
 6. Add US5 (Assistant Comprendre) → Test independently → Deploy/Demo
-7. Add US6 (Parler + Debattre) → Test independently → Deploy/Demo
+7. Add US6 (Parler + assistant) → Test independently → Deploy/Demo
 8. Add US7 (Trust & Accessibility) → Audit all screens → Deploy/Demo
 9. Polish → Final cleanup and verification
 
@@ -330,7 +330,7 @@ With multiple developers after Phase 2 completes:
 
 - Developer A: US1 (Home) → US4 (Survey)
 - Developer B: US2 (Candidates) → US3 (Comparison)
-- Developer C: US5 (Assistant Comprendre) → US6 (Parler + Debattre)
+- Developer C: US5 (Assistant Comprendre) → US6 (Parler + assistant)
 - All together: US7 (Trust & Accessibility) → Polish
 
 ---

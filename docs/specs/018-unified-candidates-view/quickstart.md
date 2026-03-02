@@ -45,7 +45,7 @@ Replace the entire content. The new screen structure:
 
 Key callbacks:
 - `toggleCandidate(id)`: Add/remove from `selectedIds` (max 4)
-- `handleDebate()`: `selectMode("parler")` → `selectCandidate(id)` → `router.push("/(tabs)/assistant")`
+- `handleDebate()`: `selectMode("candidate")` → `selectCandidate(id)` → `router.push("/(tabs)/assistant")`
 
 Use `LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)` before updating `selectedIds` for smooth transitions.
 
@@ -68,12 +68,12 @@ Verify no other files import it (should only be the old `candidates.tsx`).
 ### Step 5: Verify and test
 
 1. **Empty state**: Open Candidats tab → see avatar bar + guidance message
-2. **Profile mode**: Tap one candidate → profile appears below with debate button
-3. **Comparison mode**: Tap second candidate → side-by-side comparison appears
+2. **Profile context**: Tap one candidate → profile appears below with debate button
+3. **Comparison context**: Tap second candidate → side-by-side comparison appears
 4. **Deselect**: Tap selected candidate → returns to previous state
 5. **Max selection**: With 4 selected, 5th candidate appears dimmed
-6. **Theme navigation**: Switch themes in both profile and comparison modes
-7. **Debate launch**: Tap debate button → assistant opens in "parler" mode
+6. **Theme navigation**: Switch themes in both profile and comparison contexts
+7. **Debate launch**: Tap debate button → assistant opens in "candidate" context
 
 ## Key Files Reference
 
@@ -103,4 +103,4 @@ Verify no other files import it (should only be the old `candidates.tsx`).
 - **No new stores**: Selection state is local `useState`, ephemeral by design
 - **No new dependencies**: All required packages are already installed
 - **Shuffle compliance**: Use `deterministicShuffle(candidates, dailySeed())` from `src/utils/shuffle.ts` for Constitution I compliance
-- **Debate navigation**: Follow existing pattern from `candidate/[id].tsx` → `selectMode("parler")` → `selectCandidate(id)` → `router.push("/(tabs)/assistant")`
+- **Debate navigation**: Follow existing pattern from `candidate/[id].tsx` → `selectMode("candidate")` → `selectCandidate(id)` → `router.push("/(tabs)/assistant")`

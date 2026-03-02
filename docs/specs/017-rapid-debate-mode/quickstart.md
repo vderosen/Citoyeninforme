@@ -1,7 +1,7 @@
-# Quickstart: Rapid Debate Mode
+# Quickstart: Rapid Debate Context
 
-**Feature**: 017-rapid-debate-mode
-**Branch**: `017-rapid-debate-mode`
+**Feature**: 017-rapid-debate-context
+**Branch**: `017-rapid-debate-context`
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 ## Setup
 
 ```bash
-git checkout 017-rapid-debate-mode
+git checkout 017-rapid-debate-context
 npm install    # No new dependencies expected
 npx expo start # Start dev server
 ```
@@ -24,8 +24,8 @@ npx expo start # Start dev server
 | File | Change |
 |------|--------|
 | `src/stores/assistant.ts` | Add debate state fields (`debateTurns`, `isDebateActive`, `isGeneratingTurn`, `debateStartThemeId`) and actions (`startDebate`, `selectDebateOption`, `addDebateTurn`, `endDebate`, `resetDebate`). Exclude debate fields from persistence. |
-| `src/app/(tabs)/assistant.tsx` | Conditionally render `DebateArea` instead of `ChatArea` when mode is `"debattre"`. Wire up debate actions. |
-| `src/services/prompts/debattre-mode.ts` | Add `buildDebateTurnPrompt()` function that instructs JSON-structured output. Keep existing `buildDebateModePrompt()` as fallback. |
+| `src/app/(tabs)/assistant.tsx` | Conditionally render `DebateArea` instead of `ChatArea` when context is `"assistant"`. Wire up debate actions. |
+| `src/services/prompts/scripts/rag-proxy.js` | Add `buildDebateTurnPrompt()` function that instructs JSON-structured output. Keep existing `buildDebateModePrompt()` as fallback. |
 | `src/i18n/locales/fr/assistant.json` | Add debate-specific translation keys (theme grid title, loading text, conclusion labels, button labels). |
 
 ### New Files
@@ -41,8 +41,8 @@ npx expo start # Start dev server
 
 ### Not Changed
 
-- `src/components/assistant/ChatArea.tsx` — untouched, still used for "comprendre" and "parler"
-- `src/components/assistant/ModeSelector.tsx` — already supports "debattre" mode
+- `src/components/assistant/ChatArea.tsx` — untouched, still used for "general" and "candidate"
+- `src/components/assistant/AssistantContextControls.tsx` — already supports "assistant" context
 - `src/services/chatbot.ts` — existing streaming service, not modified (debate service is separate)
 - Backend proxy — no changes needed
 
@@ -52,10 +52,10 @@ npx expo start # Start dev server
 ┌─────────────────────────────────────────────┐
 │ assistant.tsx                                │
 │                                             │
-│  ModeSelector (existing)                    │
-│  ├── mode=comprendre → ChatArea (existing)  │
-│  ├── mode=parler     → ChatArea (existing)  │
-│  └── mode=debattre   → DebateArea (NEW)     │
+│  AssistantContextControls (existing)                    │
+│  ├── context=general → ChatArea (existing)  │
+│  ├── context=candidate     → ChatArea (existing)  │
+│  └── context=assistant   → DebateArea (NEW)     │
 │                                             │
 │  DebateArea                                 │
 │  ├── !isDebateActive && !hasProfile         │
@@ -95,13 +95,13 @@ npm test -- --grep debate   # Run debate-specific tests
 
 ### Manual Testing Checklist
 
-1. Select "Débattre" mode with survey completed → debate auto-starts
-2. Select "Débattre" mode without survey → theme grid appears
+1. Select "assistant" context with survey completed → debate auto-starts
+2. Select "assistant" context without survey → theme grid appears
 3. Tap a theme → first debate turn generated
 4. Tap an option → next turn generated, previous choice shown in history
 5. Complete 5+ turns → "conclude" option appears
 6. Tap "Terminer le débat" → conclusion generated
 7. Conclusion shows themes + insight + candidate proximity (if applicable)
 8. Tap "Nouveau débat" → resets to start
-9. Switch to another mode and back → debate state cleared
+9. Switch to another context and back → debate state cleared
 10. Kill and reopen app → no persisted debate state

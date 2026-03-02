@@ -75,7 +75,7 @@
 - [x] T029 [US1] Create CandidateList component in `src/components/candidates/CandidateList.tsx` — renders candidates from election store, applies deterministic shuffle (FR-005), filters by selected theme, handles "no position documented" state (Edge Case 1)
 - [x] T030 [US1] Create ComparisonView component in `src/components/candidates/ComparisonView.tsx` — side-by-side display of 2+ candidates on a selected theme with equal visual weight (FR-004), shows "Pas de position documentee" when missing
 - [x] T031 [US1] Create Home screen in `src/app/index.tsx` — election header (city + year from dataset), purpose explanation, "Start the survey" CTA, navigation links to Learn and Chatbot, neutrality statement (FR-001)
-- [x] T032 [US1] Create Learn screen in `src/app/learn.tsx` — integrates ThemeFilter, CandidateList, PositionCard; supports candidate comparison mode; displays election logistics section with key dates, eligibility, voting methods (FR-002, FR-003, FR-006)
+- [x] T032 [US1] Create Learn screen in `src/app/learn.tsx` — integrates ThemeFilter, CandidateList, PositionCard; supports candidate comparison context; displays election logistics section with key dates, eligibility, voting methods (FR-002, FR-003, FR-006)
 
 **Checkpoint**: User Story 1 fully functional — users can browse, filter, read, and compare candidate positions with sourced information. App is a useful standalone election guide.
 
@@ -113,33 +113,33 @@
 
 ---
 
-## Phase 5: User Story 3 — Learn Mode Chatbot (Priority: P3)
+## Phase 5: User Story 3 — Learn Context Chatbot (Priority: P3)
 
-**Goal**: Users can open a floating chatbot from any screen, select Learn mode, and ask questions about candidates/positions/elections grounded in the dataset with source citations.
+**Goal**: Users can open a floating chatbot from any screen, select Learn context, and ask questions about candidates/positions/elections grounded in the dataset with source citations.
 
-**Independent Test**: A user opens the chatbot, selects Learn mode, asks about candidates, requests comparisons, and receives source-grounded answers — without having completed the survey.
+**Independent Test**: A user opens the chatbot, selects Learn context, asks about candidates, requests comparisons, and receives source-grounded answers — without having completed the survey.
 
 **Dependencies**: Requires Phase 2 (election data for context injection).
 
 ### Tests for User Story 3
 
-- [ ] T047 [P] [US3] Write component tests for ChatbotPanel in `tests/component/ChatbotPanel.test.tsx` — test message rendering, mode selection, streaming state, source citation display
-- [ ] T048 [P] [US3] Write E2E test for chatbot learn mode in `tests/e2e/chatbot-learn.test.ts` — test opening chatbot, selecting learn mode, asking question, receiving sourced response
+- [ ] T047 [P] [US3] Write component tests for ChatbotPanel in `tests/component/ChatbotPanel.test.tsx` — test message rendering, context selection, streaming state, source citation display
+- [ ] T048 [P] [US3] Write E2E test for chatbot learn context in `tests/e2e/chatbot-learn.test.ts` — test opening chatbot, selecting learn context, asking question, receiving sourced response
 
 
 ### Implementation for User Story 3
 
 - [x] T049 [US3] Create chatbot Zustand store in `src/stores/chatbot.ts` — manages chatbot state per `contracts/chatbot.ts` (ChatbotState, ChatbotStatus, ChatbotMode), conversation history, streaming state, preloaded context
-- [x] T050 [US3] Create Learn mode system prompt in `src/services/prompts/learn-mode.ts` — system prompt template that injects relevant election context, enforces source citation, handles "information unavailable" responses (FR-012, FR-016), ensures neutral assistant behavior; includes off-topic query redirect per Edge Case 4
+- [x] T050 [US3] Create Learn context system prompt in `src/services/prompts/learn-context.ts` — system prompt template that injects relevant election context, enforces source citation, handles "information unavailable" responses (FR-012, FR-016), ensures neutral assistant behavior; includes off-topic query redirect per Edge Case 4
 - [x] T051 [US3] Implement chatbot service in `src/services/chatbot.ts` — handles LLM proxy API calls per `contracts/chatbot.ts` (ChatRequest → ChatStreamEvent SSE), builds ElectionContext from election store, manages streaming response parsing, extracts cited sources
 - [x] T052 [P] [US3] Create ChatbotFAB component in `src/components/chatbot/ChatbotFAB.tsx` — floating action button visible on all screens, opens chatbot panel, shows unread indicator, accessible label
 - [x] T053 [P] [US3] Create MessageBubble component in `src/components/chatbot/MessageBubble.tsx` — renders user and assistant messages, displays inline source citations using SourceReference component, handles streaming text with cursor
-- [x] T054 [US3] Create ModeSelector component in `src/components/chatbot/ModeSelector.tsx` — displays Learn/Candidate/Debate mode options, shows lock icon on Debate mode if survey not completed, handles mode switching
-- [x] T055 [US3] Create ChatbotPanel component in `src/components/chatbot/ChatbotPanel.tsx` — full chat interface: ModeSelector, message list with MessageBubble, text input, send button, streaming indicator; handles "Ask about this in chat" preloaded context (FR-010)
+- [x] T054 [US3] Create AssistantContextControls component in `src/components/chatbot/AssistantContextControls.tsx` — displays Learn/Candidate/Debate context options, shows lock icon on Debate context if survey not completed, handles context switching
+- [x] T055 [US3] Create ChatbotPanel component in `src/components/chatbot/ChatbotPanel.tsx` — full chat interface: AssistantContextControls, message list with MessageBubble, text input, send button, streaming indicator; handles "Ask about this in chat" preloaded context (FR-010)
 - [x] T056 [US3] Integrate chatbot overlay into root layout in `src/app/_layout.tsx` — add ChatbotFAB and ChatbotPanel as persistent overlay rendered above all screens, manage open/close state
 - [x] T057 [US3] Add "Ask about this in chat" integration on Learn page — tappable action on PositionCard in `src/components/candidates/PositionCard.tsx` that opens chatbot with preloaded context (FR-010, spec US3 scenario 6)
 
-**Checkpoint**: User Story 3 fully functional — users can access the chatbot from any screen, ask questions in Learn mode, and receive source-grounded responses.
+**Checkpoint**: User Story 3 fully functional — users can access the chatbot from any screen, ask questions in Learn context, and receive source-grounded responses.
 
 ---
 
@@ -147,33 +147,33 @@
 
 **Goal**: Users can select a specific candidate in the chatbot and interact with a bot that speaks strictly within that candidate's documented positions, maintaining their communication style.
 
-**Independent Test**: A user selects a candidate bot, asks questions about policies, and receives responses sourced from that candidate's program — without needing the survey or debate mode.
+**Independent Test**: A user selects a candidate bot, asks questions about policies, and receives responses sourced from that candidate's program — without needing the survey or assistant personalization flow.
 
 **Dependencies**: Requires Phase 5 (chatbot infrastructure: store, service, panel, FAB).
 
 ### Implementation for User Story 4
 
-- [x] T058 [US4] Create Candidate mode system prompt in `src/services/prompts/candidate-mode.ts` — system prompt template that constrains responses to selected candidate's positions only, uses candidate's communicationStyle for tone, enforces "no documented position" for missing topics (FR-013), declines cross-candidate comparisons; includes off-topic query redirect per Edge Case 4
-- [x] T059 [US4] Add candidate selection UI to ModeSelector in `src/components/chatbot/ModeSelector.tsx` — when Candidate mode is selected, show candidate picker list from election store, set selectedCandidateId in chatbot store
-- [x] T060 [US4] Extend chatbot service for Candidate mode in `src/services/chatbot.ts` — filter ElectionContext to include only the selected candidate's positions, pass candidateId in ChatRequest, handle mode-specific system prompt selection
+- [x] T058 [US4] Create Candidate context system prompt in `src/services/prompts/candidate-context.ts` — system prompt template that constrains responses to selected candidate's positions only, uses candidate's communicationStyle for tone, enforces "no documented position" for missing topics (FR-013), declines cross-candidate comparisons; includes off-topic query redirect per Edge Case 4
+- [x] T059 [US4] Add candidate selection UI to AssistantContextControls in `src/components/chatbot/AssistantContextControls.tsx` — when Candidate context is selected, show candidate picker list from election store, set selectedCandidateId in chatbot store
+- [x] T060 [US4] Extend chatbot service for Candidate context in `src/services/chatbot.ts` — filter ElectionContext to include only the selected candidate's positions, pass candidateId in ChatRequest, handle context-specific system prompt selection
 
-**Checkpoint**: User Story 4 fully functional — users can talk to individual candidate bots that stay in character and only cite their own documented positions.
+**Checkpoint**: User Story 4 fully functional — users can talk to individual candidate-focused assistant responses that stay in character and only cite their own documented positions.
 
 ---
 
 ## Phase 7: User Story 5 — Socratic Debate (Priority: P5)
 
-**Goal**: Users who completed the survey can enter Debate mode where a Socratic agent challenges their preferences, detects contradictions, highlights trade-offs, and helps refine their thinking — without prescribing outcomes.
+**Goal**: Users who completed the survey can enter Debate context where a Socratic agent challenges their preferences, detects contradictions, highlights trade-offs, and helps refine their thinking — without prescribing outcomes.
 
-**Independent Test**: A user who completed the survey enters Debate mode, receives challenges based on their preference profile, and refines their positions — without needing Learn page or candidate bots.
+**Independent Test**: A user who completed the survey enters Debate context, receives challenges based on their preference profile, and refines their positions — without needing Learn page or candidate-focused assistant responses.
 
 **Dependencies**: Requires Phase 4 (survey results for user profile) and Phase 5 (chatbot infrastructure).
 
 ### Implementation for User Story 5
 
-- [x] T061 [US5] Create Debate mode system prompt in `src/services/prompts/debate-mode.ts` — system prompt template that loads user's themeScores, importanceWeights, and contradictions (per UserProfileSummary in contracts/chatbot.ts); uses Socratic questioning only (FR-014); never steers toward specific candidate; references dataset sources for trade-offs; includes off-topic query redirect per Edge Case 4
-- [x] T062 [US5] Extend chatbot service for Debate mode in `src/services/chatbot.ts` — build UserProfileSummary from survey store, include in ChatRequest, handle survey-not-completed guard (redirect to survey or offer general debate)
-- [x] T063 [US5] Update ModeSelector for Debate mode gating in `src/components/chatbot/ModeSelector.tsx` — check survey store status, show "Complete survey first" prompt if status is not "completed", enable Debate mode selection when survey is done
+- [x] T061 [US5] Create Debate context system prompt in `src/services/prompts/debate-context.ts` — system prompt template that loads user's themeScores, importanceWeights, and contradictions (per UserProfileSummary in contracts/chatbot.ts); uses Socratic questioning only (FR-014); never steers toward specific candidate; references dataset sources for trade-offs; includes off-topic query redirect per Edge Case 4
+- [x] T062 [US5] Extend chatbot service for Debate context in `src/services/chatbot.ts` — build UserProfileSummary from survey store, include in ChatRequest, handle survey-not-completed guard (redirect to survey or offer general debate)
+- [x] T063 [US5] Update AssistantContextControls for Debate context gating in `src/components/chatbot/AssistantContextControls.tsx` — check survey store status, show "Complete survey first" prompt if status is not "completed", enable Debate context selection when survey is done
 
 **Checkpoint**: User Story 5 fully functional — users with survey results can engage in Socratic debate that challenges their thinking without prescribing answers.
 
@@ -187,7 +187,7 @@
 - [ ] T065 [P] Performance optimization — verify <100ms screen transitions, <2s cold start, 60fps scrolling, <3s chatbot first-token response; optimize SQLite queries and list rendering with FlashList if needed
 - [ ] T066 Add OTA dataset update capability in `src/data/loader.ts` — check remote endpoint for dataset version changes, download updated JSON, re-load into SQLite without app store update (Edge Case 2)
 - [x] T067 [P] Handle partial dataset gracefully — display clear indicators when candidate data is incomplete, disable comparison for missing candidates (Edge Case 5), show "Pas de position documentee" for missing positions (Edge Case 1)
-- [ ] T068 [P] Create chatbot evaluation test set and run against all 3 modes — curated questions per mode (Learn, Candidate, Debate) covering source citation accuracy, off-topic redirect, neutrality, and "information unavailable" responses (Constitution: Development Workflow)
+- [ ] T068 [P] Create chatbot evaluation test set and run against all single chat — curated questions per context (general, candidate, and comparison) covering source citation accuracy, off-topic redirect, neutrality, and "information unavailable" responses (Constitution: Development Workflow)
 - [ ] T069 Run full E2E test suite with Detox and validate against quickstart.md setup instructions; verify no hardcoded French strings (all UI text through i18n per FR-019)
 
 ---
@@ -225,7 +225,7 @@ Phase 3 (US1: Learn)   Phase 4 (US2: Survey)   Phase 5 (US3: Chatbot Learn)
     │                      └──────────────────────────────────────┐│
     │                                                             ▼▼
     │                                                     Phase 7 (US5:
-    │                                                     Debate Mode)
+    │                                                     Debate Context)
     │                                                             │
     └─────────────────────────────────────────────────────────────┤
                                                                   ▼
@@ -295,7 +295,7 @@ Task: "Contradiction detection in src/services/contradiction.ts"
 1. Setup + Foundational → Foundation ready
 2. Add US1 (Learn page) → Test independently → Deploy (MVP!)
 3. Add US2 (Survey + matching) → Test independently → Deploy
-4. Add US3 (Chatbot Learn mode) → Test independently → Deploy
+4. Add US3 (Chatbot Learn context) → Test independently → Deploy
 5. Add US4 (Candidate bots) → Test independently → Deploy
 6. Add US5 (Socratic debate) → Test independently → Deploy
 7. Polish → Final validation → Release
@@ -306,7 +306,7 @@ Sequential execution in priority order:
 1. Phase 1 → Phase 2 → Phase 3 (US1) → **validate MVP**
 2. Phase 4 (US2) → **validate survey flow**
 3. Phase 5 (US3) → Phase 6 (US4) → **validate chatbot**
-4. Phase 7 (US5) → **validate debate mode**
+4. Phase 7 (US5) → **validate assistant personalization flow**
 5. Phase 8 → **final polish and release**
 
 ---

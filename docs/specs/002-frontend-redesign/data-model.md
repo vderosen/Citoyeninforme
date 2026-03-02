@@ -40,12 +40,12 @@ Tracks application-level state that persists across sessions.
 
 ### AssistantState (`assistant.ts`)
 
-Manages the assistant tab's conversation state and mode-specific behavior. Persisted via MMKV.
+Manages the assistant tab's conversation state and context-specific behavior. Persisted via MMKV.
 
 | Field | Type | Default | Persisted | Description |
 |-------|------|---------|-----------|-------------|
-| mode | "comprendre" \| "parler" \| "debattre" | "comprendre" | Yes (MMKV) | Active assistant mode |
-| selectedCandidateId | string \| null | null | Yes (MMKV) | Selected candidate for "parler" mode |
+| context | "general" \| "candidate" \| "assistant" | "general" | Yes (MMKV) | Active assistant context |
+| selectedCandidateId | string \| null | null | Yes (MMKV) | Selected candidate for "candidate" context |
 | messages | ChatMessage[] | [] | Yes (MMKV) | Full conversation history |
 | isStreaming | boolean | false | No | Whether SSE stream is active |
 | preloadedContext | AssistantContext \| null | null | No | Context passed from deep link navigation |
@@ -69,10 +69,10 @@ Manages the assistant tab's conversation state and mode-specific behavior. Persi
 | timestamp | string | ISO 8601 timestamp |
 | sources | SourceReference[] | Sources cited in this message (assistant only) |
 
-**State transitions for mode**:
-- Any mode → Any mode (user selects via ModeSelector)
-- On mode switch: conversation history is preserved, assistant behavior changes
-- "parler" mode requires `selectedCandidateId` to be set
+**State transitions for context**:
+- Any context → Any context (user selects via AssistantContextControls)
+- On context switch: conversation history is preserved, assistant behavior changes
+- "candidate" context requires `selectedCandidateId` to be set
 
 ---
 
@@ -145,6 +145,6 @@ All existing validation rules from feature 001 remain in effect:
 
 New validation rules for client state:
 
-- AssistantState in "parler" mode MUST have a non-null `selectedCandidateId` that references a valid Candidate ID
+- AssistantState in "candidate" context MUST have a non-null `selectedCandidateId` that references a valid Candidate ID
 - SurveyState `datasetVersion` MUST match the current Election's `dataVersion` for results to be considered current; mismatches trigger a "results may be outdated" warning
 - FeedbackEntry `screen` MUST be one of the defined screen values

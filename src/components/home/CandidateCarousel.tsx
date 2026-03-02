@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, FlatList, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import type { Candidate } from "../../data/schema";
@@ -7,6 +7,7 @@ import { CandidateAvatar } from "../candidates/CandidateAvatar";
 import { CandidateInfoModal } from "../candidates/CandidateInfoModal";
 import { getCandidatePartyColor } from "../../utils/candidatePartyColor";
 import { deterministicShuffle, dailySeed } from "../../utils/shuffle";
+import { AppText as Text } from "../ui/AppText";
 
 interface CandidateCarouselProps {
     candidates: Candidate[];
@@ -53,6 +54,7 @@ export function CandidateCarousel({ candidates }: CandidateCarouselProps) {
                     <Text
                         className="font-display-semibold text-sm text-civic-navy mt-3 text-center"
                         numberOfLines={1}
+                        maxFontSizeMultiplier={1.2}
                     >
                         {item.name}
                     </Text>
@@ -64,6 +66,7 @@ export function CandidateCarousel({ candidates }: CandidateCarouselProps) {
                             className="font-body-medium text-xs text-center"
                             style={{ color: partyColor }}
                             numberOfLines={1}
+                            maxFontSizeMultiplier={1.15}
                         >
                             {item.party}
                         </Text>

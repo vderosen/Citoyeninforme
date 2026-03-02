@@ -206,16 +206,16 @@ interface ThemeFeedProps {
 
 ## Assistant Components
 
-### ModeSelector
+### AssistantContextControls
 
 ```typescript
-interface ModeSelectorProps {
+interface AssistantContextControlsProps {
   activeMode: AssistantMode;
-  onModeChange: (mode: AssistantMode) => void;
+  onModeChange: (context: AssistantMode) => void;
 }
 ```
 
-**Displays**: 3 segmented buttons: Comprendre | Parler avec un candidat | Debattre. Active mode highlighted.
+**Displays**: 3 segmented buttons: chat assistant unique. Active context highlighted.
 
 **Accessibility**: `accessibilityRole="tablist"`, each button is `accessibilityRole="tab"` with `accessibilityState={{ selected }}`.
 
@@ -240,7 +240,7 @@ interface ChatAreaProps {
 ```typescript
 interface ContextPromptsProps {
   context: AssistantContext | null;
-  mode: AssistantMode;
+  context: AssistantMode;
   onPromptSelect: (text: string) => void;
 }
 ```
@@ -259,7 +259,7 @@ interface CandidateSelectorProps {
 }
 ```
 
-**Displays**: Horizontal list of candidate photos/names. Shown only in "parler" mode. Selecting a candidate updates the assistant store.
+**Displays**: Horizontal list of candidate photos/names. Shown only in "candidate" context. Selecting a candidate updates the assistant store.
 
 ---
 
@@ -298,7 +298,7 @@ interface CandidateProfileCardProps {
 1. Photo + name + party header
 2. "En bref" summary (bio)
 3. Positions by theme (collapsible sections)
-4. Action buttons: Comparer, Debattre
+4. Action buttons: Comparer, assistant
 5. FeedbackAction at bottom
 
 ---

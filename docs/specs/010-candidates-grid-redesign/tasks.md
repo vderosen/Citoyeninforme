@@ -42,13 +42,13 @@
 
 ## Phase 3: US3 — Navigate to Candidate Detail (Priority: P2)
 
-**Goal**: Tapping a candidate card in normal mode navigates to their detail page.
+**Goal**: Tapping a candidate card in normal context navigates to their detail page.
 
 **Independent Test**: Tap any candidate → navigates to detail page; navigate back → returns to grid.
 
 ### Implementation
 
-- [x] T004 [US3] Wire tap navigation in `CandidateCardItem` — in normal mode (`compareMode` is false/undefined), `onPress` calls `onCandidatePress(item.id)`; wrap card in `Pressable` with `accessibilityRole="button"`, `accessibilityLabel="{name}, {party}"`, minimum touch target 44px in `src/components/candidates/CandidateGallery.tsx`
+- [x] T004 [US3] Wire tap navigation in `CandidateCardItem` — in normal context (`compareMode` is false/undefined), `onPress` calls `onCandidatePress(item.id)`; wrap card in `Pressable` with `accessibilityRole="button"`, `accessibilityLabel="{name}, {party}"`, minimum touch target 44px in `src/components/candidates/CandidateGallery.tsx`
 
 **Checkpoint**: Tap navigation works — US3 acceptance scenarios pass
 
@@ -56,15 +56,15 @@
 
 ## Phase 4: US4 — Compare Candidates (Priority: P2)
 
-**Goal**: Compare mode selection indicators adapted to circular avatar layout.
+**Goal**: Compare context selection indicators adapted to circular avatar layout.
 
-**Independent Test**: Tap Compare FAB → grid enters compare mode → tap candidates to select/deselect → confirm navigates to comparison view.
+**Independent Test**: Tap Compare FAB → grid enters compare context → tap candidates to select/deselect → confirm navigates to comparison view.
 
 ### Implementation
 
-- [x] T005 [US4] Implement compare mode indicators in `CandidateCardItem` — when `compareMode` is active: show checkmark-circle badge (16px, Ionicons) at bottom-right of avatar overlapping the edge, swap party color ring for accent-coral ring when selected, apply `bg-accent-coral-light` background tint on selected card; on tap call `onToggleCompare(item.id)`; add `accessibilityState={{ selected: isSelected }}` in `src/components/candidates/CandidateGallery.tsx`
+- [x] T005 [US4] Implement compare context indicators in `CandidateCardItem` — when `compareMode` is active: show checkmark-circle badge (16px, Ionicons) at bottom-right of avatar overlapping the edge, swap party color ring for accent-coral ring when selected, apply `bg-accent-coral-light` background tint on selected card; on tap call `onToggleCompare(item.id)`; add `accessibilityState={{ selected: isSelected }}` in `src/components/candidates/CandidateGallery.tsx`
 
-**Checkpoint**: Compare mode works end-to-end with new layout — US4 acceptance scenarios pass
+**Checkpoint**: Compare context works end-to-end with new layout — US4 acceptance scenarios pass
 
 ---
 
@@ -73,7 +73,7 @@
 **Purpose**: Animation, final validation
 
 - [x] T006 Add `FadeInDown` entrance animation with staggered delay (`index * 50ms`, 400ms duration) and press scale animation (0.97 on press in, 1 on press out via `withTiming`) using react-native-reanimated; respect `useReducedMotion` to skip animations when enabled in `src/components/candidates/CandidateGallery.tsx`
-- [x] T007 Run quickstart.md validation — verify all 6 scenarios: (1) all 7 candidates visible without scrolling, (2) all cards same size + avatars same circular size, (3) party color rings visible, (4) tap navigates to detail, (5) compare mode selection + confirm works, (6) fits on 360x640 screen
+- [x] T007 Run quickstart.md validation — verify all 6 scenarios: (1) all 7 candidates visible without scrolling, (2) all cards same size + avatars same circular size, (3) party color rings visible, (4) tap navigates to detail, (5) compare context selection + confirm works, (6) fits on 360x640 screen
 
 ---
 
@@ -84,7 +84,7 @@
 - **Setup (Phase 1)**: No dependencies — can start immediately
 - **US1+US2 (Phase 2)**: Depends on T001 (party color utility)
 - **US3 (Phase 3)**: Depends on Phase 2 (card must exist to add navigation)
-- **US4 (Phase 4)**: Depends on Phase 3 (card with navigation must exist to add compare mode)
+- **US4 (Phase 4)**: Depends on Phase 3 (card with navigation must exist to add compare context)
 - **Polish (Phase 5)**: Depends on Phase 4 (all functionality in place before adding animation + validation)
 
 ### Within Phases
@@ -126,7 +126,7 @@ Task: "Create party color utility in src/utils/candidatePartyColor.ts"
 1. T001 → Party color utility ready
 2. T002–T003 → Grid renders correctly (MVP!)
 3. T004 → Tap navigation works
-4. T005 → Compare mode works
+4. T005 → Compare context works
 5. T006 → Animations polished
 6. T007 → Full validation
 

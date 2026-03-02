@@ -64,10 +64,10 @@
 
 ## Decision 4: Feedback Action Repositioning
 
-**Decision**: Move feedback into a header toolbar row (icon button) between the ModeSelector and chat content
+**Decision**: Move feedback into a header toolbar row (icon button) between the AssistantContextControls and chat content
 
 **Rationale**:
-- A thin toolbar row between the mode selector and chat area is the natural place for secondary actions (new conversation + feedback)
+- A thin toolbar row between the assistant context controls and chat area is the natural place for secondary actions (new conversation + feedback)
 - Uses a small icon button (e.g., `flag-outline` or `ellipsis-horizontal`) — discoverable via standard iconography, doesn't require learning a gesture
 - Keeps feedback accessible in 1 tap (vs. long-press which is undiscoverable without a tooltip)
 - Pairs well with the "new conversation" button on the opposite side of the same toolbar row
@@ -107,7 +107,7 @@
 **Rationale**:
 - The spec requires suggested prompts to be part of the empty state (FR-003), not a separate section above the chat
 - Currently `ContextPrompts` is rendered outside `ChatArea` in `assistant.tsx` (lines 129-135), creating a visual disconnect
-- A unified `EmptyState` component that receives mode, context, and `onPromptSelect` can render the icon, title, description, and prompt chips as a cohesive unit
+- A unified `EmptyState` component that receives context, context, and `onPromptSelect` can render the icon, title, description, and prompt chips as a cohesive unit
 - This component is rendered as the `ListEmptyComponent` of the FlatList, ensuring it fills the available space and disappears automatically when messages arrive (FR-004)
 
 **Alternatives Considered**:
@@ -118,15 +118,15 @@
 
 ---
 
-## Decision 7: Mode Selector Icon Choices
+## Decision 7: Context Selector Icon Choices
 
 **Decision**: Use Ionicons (already available via `@expo/vector-icons`)
 
-| Mode | Icon Name | Rationale |
+| Context | Icon Name | Rationale |
 |------|-----------|-----------|
 | Comprendre | `book-outline` | Universal "learn/read" metaphor |
 | Parler | `chatbubble-ellipses-outline` | Chat/conversation metaphor |
-| Débattre | `scale-outline` | Balance/weighing ideas metaphor |
+| assistant | `scale-outline` | Balance/weighing ideas metaphor |
 
 These same icons are reused in the empty state for consistency.
 
@@ -139,7 +139,7 @@ These same icons are reused in the empty state for consistency.
 **Rationale**:
 - `bg-white` (#FFFFFF) on the `bg-warm-white` (#FAFAF8) page background provides a subtle but distinct contrast
 - Adding `shadow-card` (already defined in tailwind.config: `0 1px 3px rgba(27,42,74,0.08)`) gives depth without heavy borders
-- This clearly differentiates assistant bubbles from `bg-warm-gray` used by the input field, mode selector, and other UI elements
+- This clearly differentiates assistant bubbles from `bg-warm-gray` used by the input field, assistant context controls, and other UI elements
 - `sparkles-outline` as avatar conveys "AI assistant" without being tied to any brand — fits the neutral civic tool identity
 - Avatar displayed in a small `bg-civic-navy` circle (24x24) to the left of the bubble
 

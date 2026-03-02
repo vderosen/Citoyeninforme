@@ -3,23 +3,23 @@
 **Feature Branch**: `008-assistant-chat-redesign`
 **Created**: 2026-02-19
 **Status**: Draft
-**Input**: UI/UX improvements for the assistant chat page — enriched empty state, modernized input bar, mode selector with icons, animated typing indicator, new conversation button, enhanced message bubbles, repositioned feedback action, markdown rendering, scroll-to-bottom button, visual context prompts.
+**Input**: UI/UX improvements for the assistant chat page — enriched empty state, modernized input bar, assistant context controls with icons, animated typing indicator, new conversation button, enhanced message bubbles, repositioned feedback action, markdown rendering, scroll-to-bottom button, visual context prompts.
 
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 — First Contact with the Assistant (Priority: P1)
 
-A user opens the assistant tab for the first time (or after clearing a conversation). Instead of seeing a blank screen with placeholder text, they see an engaging empty state that explains the current mode, shows an icon, a brief description of what the mode does, and suggested prompts to get started. The user taps a suggested prompt and the conversation begins immediately.
+A user opens the assistant tab for the first time (or after clearing a conversation). Instead of seeing a blank screen with placeholder text, they see an engaging empty state that explains the current context, shows an icon, a brief description of what the context does, and suggested prompts to get started. The user taps a suggested prompt and the conversation begins immediately.
 
 **Why this priority**: The empty state is the first impression. A confusing or empty screen causes abandonment. This change directly addresses user onboarding within the assistant and leverages existing unused i18n keys (`comprendreModeDescription`, `parlerModeDescription`, `debattreModeDescription`).
 
-**Independent Test**: Can be tested by opening the assistant tab in each mode with no prior messages. Verifiable by visual inspection and interaction with suggested prompts.
+**Independent Test**: Can be tested by opening the assistant tab in each context with no prior messages. Verifiable by visual inspection and interaction with suggested prompts.
 
 **Acceptance Scenarios**:
 
-1. **Given** the user has no messages in "Comprendre" mode, **When** they open the assistant tab, **Then** they see a mode-specific icon, the mode title, a 1-2 line description, and 2-3 suggested prompt chips.
-2. **Given** the user has no messages in "Parler avec un candidat" mode and has selected a candidate, **When** they view the chat, **Then** the empty state shows context-specific prompts related to the selected candidate.
-3. **Given** the user has no messages in "Débattre" mode, **When** they view the chat, **Then** the empty state shows debate-oriented suggested prompts.
+1. **Given** the user has no messages in "Comprendre" context, **When** they open the assistant tab, **Then** they see a context-specific icon, the context title, a 1-2 line description, and 2-3 suggested prompt chips.
+2. **Given** the user has no messages in "assistant avec contexte candidat" context and has selected a candidate, **When** they view the chat, **Then** the empty state shows context-specific prompts related to the selected candidate.
+3. **Given** the user has no messages in "assistant" context, **When** they view the chat, **Then** the empty state shows debate-oriented suggested prompts.
 4. **Given** the user taps a suggested prompt chip, **When** the prompt fires, **Then** the empty state disappears and the conversation begins with that prompt as the first user message.
 5. **Given** the user has existing messages in a conversation, **When** they view the assistant tab, **Then** the empty state is not shown — only the conversation is visible.
 
@@ -42,19 +42,19 @@ A user types a message in the chat input and sends it using a visually modern in
 
 ---
 
-### User Story 3 — Understanding and Switching Modes (Priority: P2)
+### User Story 3 — Understanding and Switching Contexts (Priority: P2)
 
-A user looks at the mode selector and can quickly identify each mode thanks to distinct icons and readable text. When they switch modes, the active mode is clearly highlighted.
+A user looks at the assistant context controls and can quickly identify each context thanks to distinct icons and readable text. When they switch contexts, the active context is clearly highlighted.
 
-**Why this priority**: The mode selector is how users access the three core experiences. Adding icons makes modes instantly distinguishable and prevents the truncation issue with long labels like "Parler avec un candidat".
+**Why this priority**: The assistant context controls is how users access the three core experiences. Adding icons makes contexts instantly distinguishable and prevents the truncation issue with long labels like "assistant avec contexte candidat".
 
-**Independent Test**: Can be tested by tapping each mode tab and verifying visual distinctiveness and correct mode switching.
+**Independent Test**: Can be tested by tapping each context tab and verifying visual distinctiveness and correct context switching.
 
 **Acceptance Scenarios**:
 
-1. **Given** the mode selector is visible, **When** the user looks at it, **Then** each mode shows a distinct icon alongside its label.
-2. **Given** a mode is active, **When** the user views the selector, **Then** the active tab is clearly highlighted and distinguishable from inactive tabs.
-3. **Given** the user taps a different mode, **When** the mode switches, **Then** the chat area updates to show the conversation for that mode and the empty state updates if no messages exist.
+1. **Given** the assistant context controls is visible, **When** the user looks at it, **Then** each context shows a distinct icon alongside its label.
+2. **Given** a context is active, **When** the user views the selector, **Then** the active tab is clearly highlighted and distinguishable from inactive tabs.
+3. **Given** the user taps a different context, **When** the context switches, **Then** the chat area updates to show the conversation for that context and the empty state updates if no messages exist.
 
 ---
 
@@ -76,7 +76,7 @@ A user sends a message and waits for the assistant to respond. They see an anima
 
 ### User Story 5 — Starting a Fresh Conversation (Priority: P2)
 
-A user who has been chatting wants to start over. They tap a "new conversation" button, confirm the action, and the conversation resets to the empty state for the current mode.
+A user who has been chatting wants to start over. They tap a "new conversation" button, confirm the action, and the conversation resets to the empty state for the current context.
 
 **Why this priority**: Users currently have no way to clear a conversation. The i18n keys exist but no UI surfaces them. This is a basic chat feature.
 
@@ -84,9 +84,9 @@ A user who has been chatting wants to start over. They tap a "new conversation" 
 
 **Acceptance Scenarios**:
 
-1. **Given** the user has messages in the current conversation, **When** they look at the screen, **Then** a "new conversation" button is visible (in the header area or near the mode selector).
+1. **Given** the user has messages in the current conversation, **When** they look at the screen, **Then** a "new conversation" button is visible (in the header area or near the assistant context controls).
 2. **Given** the user taps the new conversation button, **When** the confirmation prompt appears, **Then** the user sees a clear message asking if they want to clear the current conversation.
-3. **Given** the user confirms the reset, **When** the conversation clears, **Then** the chat returns to the enriched empty state for the current mode.
+3. **Given** the user confirms the reset, **When** the conversation clears, **Then** the chat returns to the enriched empty state for the current context.
 4. **Given** the user has no messages in the current conversation, **When** they view the screen, **Then** the new conversation button is hidden.
 
 ---
@@ -95,13 +95,13 @@ A user who has been chatting wants to start over. They tap a "new conversation" 
 
 A user reads the assistant's responses in visually distinct bubbles that include a small assistant avatar icon and are styled differently from other gray UI elements. Timestamps are shown to give temporal context.
 
-**Why this priority**: Currently assistant bubbles use the same gray as the mode selector, input field, and context prompts — they blend in. Adding an avatar and distinct color improves readability and gives the assistant a visual identity.
+**Why this priority**: Currently assistant bubbles use the same gray as the assistant context controls, input field, and context prompts — they blend in. Adding an avatar and distinct color improves readability and gives the assistant a visual identity.
 
 **Independent Test**: Can be tested by having a conversation and verifying assistant messages have distinct styling, an avatar icon, and timestamps.
 
 **Acceptance Scenarios**:
 
-1. **Given** the assistant sends a response, **When** the user views the message, **Then** the assistant bubble has a background color distinct from the input field and mode selector backgrounds.
+1. **Given** the assistant sends a response, **When** the user views the message, **Then** the assistant bubble has a background color distinct from the input field and assistant context controls backgrounds.
 2. **Given** the assistant sends a response, **When** the user views the message, **Then** a small assistant avatar or icon is visible next to the bubble.
 3. **Given** a conversation has messages, **When** the user views the chat, **Then** timestamps are visible (either per-message or grouped by time block).
 
@@ -157,7 +157,7 @@ A user wants to signal a problem with an assistant response without the feedback
 
 ### Edge Cases
 
-- What happens when the user switches modes while the assistant is streaming a response? The streaming should stop or continue in the background without affecting the new mode's conversation.
+- What happens when the user switches contexts while the assistant is streaming a response? The streaming should stop or continue in the background without affecting the new context's conversation.
 - What happens when the user taps "new conversation" while the assistant is streaming? The reset should wait for streaming to stop, or cancel the stream before clearing.
 - What happens when the markdown renderer encounters malformed markdown? It should fall back to displaying plain text without crashing.
 - What happens when the user rapidly sends multiple messages? The input should clear after each send and messages should queue correctly.
@@ -169,8 +169,8 @@ A user wants to signal a problem with an assistant response without the feedback
 ### Functional Requirements
 
 **Empty State**
-- **FR-001**: System MUST display a mode-specific icon when no messages exist in the current conversation.
-- **FR-002**: System MUST display the mode title and description text when no messages exist.
+- **FR-001**: System MUST display a context-specific icon when no messages exist in the current conversation.
+- **FR-002**: System MUST display the context title and description text when no messages exist.
 - **FR-003**: System MUST display suggested prompt chips as part of the empty state (not as a separate section above the chat).
 - **FR-004**: System MUST hide the empty state when at least one message exists in the current conversation.
 
@@ -180,9 +180,9 @@ A user wants to signal a problem with an assistant response without the feedback
 - **FR-007**: System MUST visually separate the input bar from the message list (border or shadow).
 - **FR-008**: System MUST disable the send button and input field while the assistant is streaming.
 
-**Mode Selector**
-- **FR-009**: System MUST display a distinct icon alongside each mode label in the mode selector.
-- **FR-010**: System MUST display mode labels at a readable size (not truncated for any mode name).
+**Context Selector**
+- **FR-009**: System MUST display a distinct icon alongside each context label in the assistant context controls.
+- **FR-010**: System MUST display context labels at a readable size (not truncated for any context name).
 
 **Typing Indicator**
 - **FR-011**: System MUST display an animated typing indicator while the assistant is generating a response (during streaming).
@@ -218,7 +218,7 @@ A user wants to signal a problem with an assistant response without the feedback
 
 ### Assumptions
 
-- The existing three-mode architecture (Comprendre / Parler / Débattre) and per-conversation persistence remain unchanged.
+- The existing three-context architecture (chat assistant unique) and per-conversation persistence remain unchanged.
 - The assistant's streaming SSE mechanism is not modified — only the visual presentation changes.
 - Existing i18n keys (`comprendreModeDescription`, `parlerModeDescription`, `debattreModeDescription`, `newConversation`, `resetConfirm`) will be used as-is.
 - Icon choices (Ionicons icon names) are implementation details left to the plan phase.
@@ -229,11 +229,11 @@ A user wants to signal a problem with an assistant response without the feedback
 
 ### Measurable Outcomes
 
-- **SC-001**: Users understand the purpose of each mode within 5 seconds of viewing the empty state (mode name, description, and icon are visible without scrolling).
+- **SC-001**: Users understand the purpose of each context within 5 seconds of viewing the empty state (context name, description, and icon are visible without scrolling).
 - **SC-002**: Users can send their first message within 10 seconds of opening the assistant tab (via tapping a suggested prompt or typing).
 - **SC-003**: The input field visually clears within 200ms of sending a message, providing immediate feedback.
 - **SC-004**: Users perceive the assistant is "working" during response generation thanks to a visible animated indicator.
-- **SC-005**: Users can start a new conversation in any mode without navigating away from the assistant tab.
+- **SC-005**: Users can start a new conversation in any context without navigating away from the assistant tab.
 - **SC-006**: Assistant responses with formatting (lists, bold, headings) are visually distinct and readable, not displayed as raw markdown syntax.
 - **SC-007**: Users can return to the latest message from any scroll position with a single tap.
 - **SC-008**: The feedback mechanism is accessible without consuming permanent screen space in the chat interface.

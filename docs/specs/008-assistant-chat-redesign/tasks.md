@@ -34,18 +34,18 @@
 
 ## Phase 3: User Story 1 — First Contact with the Assistant / Empty State (Priority: P1) 🎯 MVP
 
-**Goal**: Replace the blank empty state with an engaging mode-specific display showing icon, title, description, and integrated suggested prompt chips.
+**Goal**: Replace the blank empty state with an engaging context-specific display showing icon, title, description, and integrated suggested prompt chips.
 
-**Independent Test**: Open the assistant tab in each mode with no prior messages. Verify mode icon, title, description, and 2-3 prompt chips are visible. Tap a prompt chip and verify the conversation begins.
+**Independent Test**: Open the assistant tab in each context with no prior messages. Verify context icon, title, description, and 2-3 prompt chips are visible. Tap a prompt chip and verify the conversation begins.
 
 ### Implementation for User Story 1
 
 - [x] T003 [P] [US1] Redesign ContextPrompts with outlined chips (`border-accent-coral`, `bg-warm-white`), `arrow-forward` icon, and `flex-row flex-wrap` layout in `src/components/assistant/ContextPrompts.tsx`
-- [x] T004 [P] [US1] Create EmptyState component displaying mode icon (Ionicons: `book-outline`/`chatbubble-ellipses-outline`/`scale-outline`), mode title (i18n `{mode}Mode`), mode description (i18n `{mode}ModeDescription`), and integrated ContextPrompts in `src/components/assistant/EmptyState.tsx`
-- [x] T005 [US1] Refactor ChatArea to accept `mode`, `context`, `onPromptSelect`, `selectedCandidateId` props and use EmptyState as `ListEmptyComponent` (replacing the plain text placeholder) in `src/components/assistant/ChatArea.tsx`
-- [x] T006 [US1] Update assistant screen to pass mode/context/prompt props to ChatArea and remove standalone `<ContextPrompts>` rendering from outside ChatArea in `src/app/(tabs)/assistant.tsx`
+- [x] T004 [P] [US1] Create EmptyState component displaying context icon (Ionicons: `book-outline`/`chatbubble-ellipses-outline`/`scale-outline`), context title (i18n `{context}Context`), context description (i18n `{context}ModeDescription`), and integrated ContextPrompts in `src/components/assistant/EmptyState.tsx`
+- [x] T005 [US1] Refactor ChatArea to accept `context`, `context`, `onPromptSelect`, `selectedCandidateId` props and use EmptyState as `ListEmptyComponent` (replacing the plain text placeholder) in `src/components/assistant/ChatArea.tsx`
+- [x] T006 [US1] Update assistant screen to pass context/context/prompt props to ChatArea and remove standalone `<ContextPrompts>` rendering from outside ChatArea in `src/app/(tabs)/assistant.tsx`
 
-**Checkpoint**: Empty state is fully functional with mode-specific icon, title, description, and tappable prompt chips integrated in the chat area.
+**Checkpoint**: Empty state is fully functional with context-specific icon, title, description, and tappable prompt chips integrated in the chat area.
 
 ---
 
@@ -65,17 +65,17 @@
 
 ---
 
-## Phase 5: User Story 3 — Understanding and Switching Modes (Priority: P2)
+## Phase 5: User Story 3 — Understanding and Switching Contexts (Priority: P2)
 
-**Goal**: Add distinct icons to each mode tab and increase label readability.
+**Goal**: Add distinct icons to each context tab and increase label readability.
 
-**Independent Test**: View the mode selector and verify each tab shows a unique icon alongside its label. Switch modes and verify active state highlighting.
+**Independent Test**: View the assistant context controls and verify each tab shows a unique icon alongside its label. Switch contexts and verify active state highlighting.
 
 ### Implementation for User Story 3
 
-- [x] T010 [US3] Add Ionicons to each mode tab (`book-outline` for comprendre, `chatbubble-ellipses-outline` for parler, `scale-outline` for debattre), increase text from `text-xs` to `text-sm`, and remove `numberOfLines={1}` in `src/components/assistant/ModeSelector.tsx`
+- [x] T010 [US3] Add Ionicons to each context tab (`book-outline` for general chat, `chatbubble-ellipses-outline` for candidate context, `scale-outline` for debate context), increase text from `text-xs` to `text-sm`, and remove `numberOfLines={1}` in `src/components/assistant/AssistantContextControls.tsx`
 
-**Checkpoint**: Mode selector shows distinct icons with readable labels. Active mode is clearly highlighted.
+**Checkpoint**: Context selector shows distinct icons with readable labels. Active context is clearly highlighted.
 
 ---
 
@@ -103,7 +103,7 @@
 ### Implementation for User Story 5
 
 - [x] T013 [US5] Create ChatToolbar component with a "new conversation" icon button (`refresh-outline`) on the left side, visible only when `messages.length > 0`, that calls `Alert.alert()` using i18n keys `newConversation` / `resetConfirm` and invokes `resetConversation()` on confirm in `src/components/assistant/ChatToolbar.tsx`
-- [x] T014 [US5] Add ChatToolbar to assistant screen between ModeSelector and ChatArea, passing `messages` and `onNewConversation` (wired to store's `resetConversation`) in `src/app/(tabs)/assistant.tsx`
+- [x] T014 [US5] Add ChatToolbar to assistant screen between AssistantContextControls and ChatArea, passing `messages` and `onNewConversation` (wired to store's `resetConversation`) in `src/app/(tabs)/assistant.tsx`
 
 **Checkpoint**: New conversation button visible when messages exist, hidden when empty. Confirmation dialog works. Chat resets to enriched empty state.
 
@@ -192,7 +192,7 @@
 - **Foundational (Phase 2)**: Empty — no blocking prerequisites
 - **US1 (Phase 3)**: Depends on Setup — can start immediately after npm install
 - **US2 (Phase 4)**: Depends on Setup — can run in parallel with US1 (different areas of ChatArea)
-- **US3 (Phase 5)**: Depends on Setup — independent (different component: ModeSelector)
+- **US3 (Phase 5)**: Depends on Setup — independent (different component: AssistantContextControls)
 - **US4 (Phase 6)**: Depends on Setup — independent (new component: TypingIndicator)
 - **US5 (Phase 7)**: Depends on Setup — independent (new component: ChatToolbar)
 - **US6 (Phase 8)**: Depends on Setup — independent (different area of MessageBubble)
@@ -206,7 +206,7 @@
 ```
 Setup ─┬─→ US1 (Empty State) ──────────────────→ ┐
        ├─→ US2 (Input Bar) ────────────────────→ │
-       ├─→ US3 (Mode Selector) ────────────────→ │
+       ├─→ US3 (Context Selector) ────────────────→ │
        ├─→ US4 (Typing Indicator) ─────────────→ │
        ├─→ US5 (New Conversation) ──→ US9 ─────→ ├─→ Polish
        ├─→ US6 (Message Bubbles) ──→ US7 ──────→ │
@@ -269,7 +269,7 @@ Task: T006 "Update assistant.tsx to pass props and remove standalone ContextProm
 ### Incremental Delivery
 
 1. Setup → US1 + US2 → **MVP with modern empty state + input** ✅
-2. Add US3 (mode icons) + US4 (typing indicator) + US5 (new conversation) → **P2 features complete** ✅
+2. Add US3 (context icons) + US4 (typing indicator) + US5 (new conversation) → **P2 features complete** ✅
 3. Add US6 (bubbles) → US7 (markdown) + US8 (scroll) + US9 (feedback) → **Full redesign** ✅
 4. Polish → **Production ready** ✅
 

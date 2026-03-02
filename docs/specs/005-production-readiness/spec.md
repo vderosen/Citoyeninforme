@@ -36,7 +36,7 @@ The app's chatbot feature relies on a proxy server that forwards requests to an 
 
 **Acceptance Scenarios**:
 
-1. **Given** the proxy is running in production mode, **When** a request arrives from an unauthorized origin, **Then** the request is rejected with a CORS error.
+1. **Given** the proxy is running in production context, **When** a request arrives from an unauthorized origin, **Then** the request is rejected with a CORS error.
 2. **Given** the proxy is running, **When** a request arrives without valid authentication credentials, **Then** the request is rejected with a 401 response.
 3. **Given** an authenticated client, **When** they exceed the rate limit (e.g., more than 20 requests per minute per client), **Then** subsequent requests are rejected with a 429 response until the window resets.
 4. **Given** the proxy health endpoint, **When** queried, **Then** it does NOT expose whether an API key is configured or any internal configuration details.
@@ -62,13 +62,13 @@ When an unexpected error occurs anywhere in the app (a component crash, a failed
 
 ---
 
-### User Story 4 - Offline Mode & Network Awareness (Priority: P2)
+### User Story 4 - Offline Context & Network Awareness (Priority: P2)
 
 A user opens the app while on the subway or in an area with poor connectivity. The election data (candidates, themes, positions) is available because it's bundled with the app. However, the chatbot feature requires network access. The user sees a clear indicator when they're offline, and the chatbot interface explains that it requires an internet connection rather than showing a cryptic error. When connectivity returns, the app resumes normal operation automatically.
 
 **Why this priority**: Many users will access the app in transit or areas with spotty coverage. Without offline handling, the chatbot screen will fail silently, causing confusion and poor reviews.
 
-**Independent Test**: Can be tested by enabling airplane mode and navigating through the app, verifying all local features work and the chatbot shows an appropriate offline message.
+**Independent Test**: Can be tested by enabling airplane context and navigating through the app, verifying all local features work and the chatbot shows an appropriate offline message.
 
 **Acceptance Scenarios**:
 

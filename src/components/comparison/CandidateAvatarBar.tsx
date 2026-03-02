@@ -1,8 +1,9 @@
 import { useState, useCallback } from "react";
-import { View, Text, LayoutChangeEvent } from "react-native";
+import { View, LayoutChangeEvent } from "react-native";
 import type { Candidate } from "../../data/schema";
 import { CandidateAvatar } from "../candidates/CandidateAvatar";
 import { PressableScale } from "../ui/PressableScale";
+import { AppText as Text } from "../ui/AppText";
 
 const ITEM_WIDTH = 68;
 const ITEM_HEIGHT = 80;
@@ -59,12 +60,14 @@ export function CandidateAvatarBar({
           height: ITEM_HEIGHT,
           opacity: isDisabled ? 0.3 : isSelected ? 1 : 0.55,
         }}
+        ensureMinTouchTarget
       >
         <CandidateAvatar candidate={candidate} size={44} showRing={isSelected} />
         <Text
           className={`text-xs text-civic-navy mt-1 text-center ${isSelected ? "font-display-bold" : "font-body-medium"
             }`}
           numberOfLines={1}
+          maxFontSizeMultiplier={1.15}
         >
           {candidate.name.split(" ").pop()}
         </Text>

@@ -21,7 +21,7 @@ This feature uses only existing packages. No `npm install` of new packages is re
 | `src/components/onboarding/OnboardingStep.tsx` | Shared layout wrapper: title, illustration, content slot, CTA, progress |
 | `src/components/onboarding/StepPurpose.tsx` | Screen 1 content: app introduction |
 | `src/components/onboarding/StepNeutrality.tsx` | Screen 2 content: checkmark bullet list |
-| `src/components/onboarding/StepModes.tsx` | Screen 3 content: three mode cards |
+| `src/components/onboarding/StepModes.tsx` | Screen 3 content: three context cards |
 | `src/components/onboarding/StepTrust.tsx` | Screen 4 content: does/doesn't check-X list |
 | `src/components/onboarding/StepReady.tsx` | Screen 5 content: branching CTAs |
 

@@ -1,6 +1,6 @@
-# Research: Rapid Debate Mode
+# Research: Rapid Debate Context
 
-**Feature**: 017-rapid-debate-mode
+**Feature**: 017-rapid-debate-context
 **Date**: 2026-02-20
 
 ## R1: Streaming vs Non-Streaming for Structured JSON Responses
@@ -38,28 +38,28 @@
 **Decision**: Extend the existing `assistant.ts` Zustand store with debate-specific state fields. Do NOT persist debate state to AsyncStorage.
 
 **Rationale**:
-- The assistant store already handles mode switching, streaming state, and conversations per mode
+- The assistant store already handles context switching, streaming state, and conversations per context
 - Adding debate state alongside existing state avoids a separate store and the cross-store synchronization it would require
 - Debate history is explicitly ephemeral (FR-012) — exclude from `partialize` persistence
-- The `conversations["debattre"]` key from the old chat-based debate can be ignored/cleared
+- The `conversations["assistant"]` key from the old chat-based debate can be ignored/cleared
 
 **Alternatives Considered**:
-- Separate `debate.ts` store: cleaner separation but requires cross-store coordination for mode switching. Rejected for MVP.
+- Separate `debate.ts` store: cleaner separation but requires cross-store coordination for context switching. Rejected for MVP.
 - Persisting debate state: spec explicitly requires ephemeral history. Rejected.
 
 ## R4: UI Architecture — DebateArea vs ChatArea
 
-**Decision**: Create a new `DebateArea` component that replaces `ChatArea` when mode is `"debattre"`. Conditional rendering in `assistant.tsx`.
+**Decision**: Create a new `DebateArea` component that replaces `ChatArea` when context is `"assistant"`. Conditional rendering in `assistant.tsx`.
 
 **Rationale**:
 - ChatArea is built around TextInput + MessageBubble — fundamentally different from the debate's option-card UI
 - Attempting to add debate logic to ChatArea would create excessive branching and coupling
-- A separate component keeps each mode's UI self-contained and testable
-- The existing `ModeSelector` already handles mode switching — only the content area below it changes
+- A separate component keeps each context's UI self-contained and testable
+- The existing `AssistantContextControls` already handles context switching — only the content area below it changes
 
 **Alternatives Considered**:
-- Adding mode-conditional branches inside ChatArea: violates single responsibility, makes ChatArea harder to maintain. Rejected.
-- Full-screen debate flow (separate route): loses the tab context and mode-switching UX. Rejected.
+- Adding context-conditional branches inside ChatArea: violates single responsibility, makes ChatArea harder to maintain. Rejected.
+- Full-screen debate flow (separate route): loses the tab context and context-switching UX. Rejected.
 
 ## R5: Debate Turn Validation and Error Handling
 

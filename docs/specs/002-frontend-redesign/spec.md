@@ -39,7 +39,7 @@ A citizen wants to learn about the candidates running in the election. They open
 2. **Given** a user taps a candidate card, **When** the profile opens, **Then** they see an "En bref" summary, positions organized by theme, source references for each claim, and "Position non documentee" labels where data is missing.
 3. **Given** a user on the Candidates tab, **When** they select a theme filter, **Then** only positions related to that theme are shown for all candidates.
 4. **Given** a candidate has no documented position on a theme, **When** the user views that theme section, **Then** a clear "Position non documentee" marker is displayed instead of empty space.
-5. **Given** a user views a candidate profile, **When** they look at the action options, **Then** they see "Comparer" and "Debattre" buttons.
+5. **Given** a user views a candidate profile, **When** they look at the action options, **Then** they see "Comparer" and "assistant" buttons.
 
 ---
 
@@ -83,16 +83,16 @@ A citizen wants to understand which candidates align with their values. They sta
 
 ### User Story 5 - Ask Neutral Questions About the Election (Priority: P5)
 
-A citizen has a question about the election, a candidate's position, or a policy topic. They open the Assistant tab, which defaults to "Comprendre" mode. They type their question and receive a concise answer with visible source references. If the information is missing, they see "Information non documentee." If uncertain, they see "Information incertaine." Context-aware prompts help them start a conversation based on where they came from (e.g., a specific candidate or theme). Off-topic questions are politely redirected to the election scope.
+A citizen has a question about the election, a candidate's position, or a policy topic. They open the Assistant tab, which defaults to "Comprendre" context. They type their question and receive a concise answer with visible source references. If the information is missing, they see "Information non documentee." If uncertain, they see "Information incertaine." Context-aware prompts help them start a conversation based on where they came from (e.g., a specific candidate or theme). Off-topic questions are politely redirected to the election scope.
 
-**Why this priority**: The assistant is the second most natural interaction after browsing. "Comprendre" mode is the safest, most universally useful mode and the foundation for the other two modes.
+**Why this priority**: The assistant is the second most natural interaction after browsing. "Comprendre" context is the safest, most universally useful context and the foundation for the other two contexts.
 
 **Independent Test**: Can be fully tested by opening the Assistant, asking election-related questions, verifying source references, testing missing/uncertain markers, trying off-topic questions, and testing contextual entry from a candidate profile.
 
 **Acceptance Scenarios**:
 
-1. **Given** a user opens the Assistant tab, **When** the tab loads, **Then** it defaults to "Comprendre" mode with a visible mode selector showing all three modes.
-2. **Given** a user asks a factual question in Comprendre mode, **When** the answer is generated, **Then** it includes visible source references for each factual claim.
+1. **Given** a user opens the Assistant tab, **When** the tab loads, **Then** it defaults to "Comprendre" context with a visible assistant context controls showing all single chat.
+2. **Given** a user asks a factual question in Comprendre context, **When** the answer is generated, **Then** it includes visible source references for each factual claim.
 3. **Given** no information exists for the user's question, **When** the answer is generated, **Then** an explicit "Information non documentee" message is displayed.
 4. **Given** information exists but with low confidence, **When** the answer is generated, **Then** an "Information incertaine" marker is shown.
 5. **Given** a user navigates to the Assistant from a candidate profile via "Ask about this," **When** the chat opens, **Then** the candidate context is prefilled and the first prompt references that candidate.
@@ -102,21 +102,21 @@ A citizen has a question about the election, a candidate's position, or a policy
 
 ### User Story 6 - Engage with Candidate Perspectives and Debate (Priority: P6)
 
-A citizen wants to go deeper: either hear a candidate "speak" about a topic ("Parler avec un candidat" mode) or challenge their own views through a structured debate ("Debattre" mode). In "Parler" mode, the assistant responds strictly from one candidate's documented positions. In "Debattre" mode, the assistant uses the citizen's survey results (if available) to ask thought-provoking questions, surface trade-offs, and adapt to the citizen's evolving positions - without ever recommending a candidate. If no survey exists, a non-personalized debate path is offered.
+A citizen wants to go deeper: either hear a candidate "speak" about a topic ("assistant avec contexte candidat" context) or challenge their own views through a structured debate ("assistant" context). In "assistant avec contexte candidat", the assistant responds strictly from one candidate's documented positions. In "assistant" context, the assistant uses the citizen's survey results (if available) to ask thought-provoking questions, surface trade-offs, and adapt to the citizen's evolving positions - without ever recommending a candidate. If no survey exists, a non-personalized debate path is offered.
 
-**Why this priority**: These advanced modes are the app's highest-value differentiators for critical thinking, but they depend on the assistant foundation (P5) and candidate data (P2), and "Debattre" benefits from survey results (P4).
+**Why this priority**: These advanced contexts are the app's highest-value differentiators for critical thinking, but they depend on the assistant foundation (P5) and candidate data (P2), and "assistant" benefits from survey results (P4).
 
-**Independent Test**: Can be fully tested by switching to "Parler" mode, selecting a candidate, verifying responses stay within that candidate's positions; then switching to "Debattre" mode with and without survey results, verifying trade-off questions and absence of candidate recommendations.
+**Independent Test**: Can be fully tested by switching to "assistant avec contexte candidat", selecting a candidate, verifying responses stay within that candidate's positions; then switching to "assistant" context with and without survey results, verifying trade-off questions and absence of candidate recommendations.
 
 **Acceptance Scenarios**:
 
-1. **Given** a user switches to "Parler avec un candidat" mode, **When** they select a candidate and ask a question, **Then** the response draws exclusively from that candidate's documented positions and sources.
-2. **Given** a user is in "Parler" mode, **When** the candidate has no documented position on the topic, **Then** the response explicitly states the position is not documented rather than speculating.
-3. **Given** a user switches to "Debattre" mode with completed survey results, **When** the debate begins, **Then** the assistant references the user's survey profile and asks clarifying questions about their positions.
-4. **Given** a user switches to "Debattre" mode without survey results, **When** the debate begins, **Then** the assistant offers a non-personalized debate path with general trade-off questions.
+1. **Given** a user switches to "assistant avec contexte candidat" context, **When** they select a candidate and ask a question, **Then** the response draws exclusively from that candidate's documented positions and sources.
+2. **Given** a user is in "assistant avec contexte candidat", **When** the candidate has no documented position on the topic, **Then** the response explicitly states the position is not documented rather than speculating.
+3. **Given** a user switches to "assistant" context with completed survey results, **When** the debate begins, **Then** the assistant references the user's survey profile and asks clarifying questions about their positions.
+4. **Given** a user switches to "assistant" context without survey results, **When** the debate begins, **Then** the assistant offers a non-personalized debate path with general trade-off questions.
 5. **Given** a debate is active, **When** the user shifts their position during conversation, **Then** the assistant adapts its questions to the user's updated stance.
-6. **Given** any assistant mode is active, **When** the user reaches a decision point, **Then** the assistant never recommends or endorses a specific candidate.
-7. **Given** a user switches between modes, **When** mode guardrails activate, **Then** the system prevents cross-mode confusion (e.g., debate-style questions do not appear in "Comprendre" mode).
+6. **Given** any assistant context is active, **When** the user reaches a decision point, **Then** the assistant never recommends or endorses a specific candidate.
+7. **Given** a user switches between contexts, **When** context guardrails activate, **Then** the system prevents cross-context confusion (e.g., debate-style questions do not appear in "Comprendre" context).
 
 ---
 
@@ -148,7 +148,7 @@ A citizen needs confidence that the information is neutral, sourced, and transpa
 - What happens when a user selects only 1 candidate for comparison? The comparison view should prompt them to select at least one more candidate.
 - What happens when all candidates have missing positions on a given theme? The comparison for that theme should display a "No candidates have documented positions on this theme" message.
 - What happens when the assistant receives a request that could be interpreted as seeking a voting recommendation? The assistant should firmly but politely restate its neutrality commitment and redirect to factual exploration.
-- What happens when the user rapidly switches between assistant modes mid-conversation? The system should confirm mode switch and clearly indicate the new mode's behavior, preserving conversation history but adjusting response style.
+- What happens when the user rapidly switches between assistant contexts mid-conversation? The system should confirm context switch and clearly indicate the new context's behavior, preserving conversation history but adjusting response style.
 
 ## Requirements *(mandatory)*
 
@@ -174,7 +174,7 @@ A citizen needs confidence that the information is neutral, sourced, and transpa
 - **FR-010**: The Candidates tab MUST display all candidates in a visual gallery with photos, using equal card size and weight with no editorial ranking or visual favoritism.
 - **FR-011**: Each candidate profile MUST include: an "En bref" summary, positions organized by theme, source references for each documented claim, and "Position non documentee" labels for missing positions.
 - **FR-012**: The Candidates tab MUST provide theme-based filters that display one topic's positions across all candidates.
-- **FR-013**: Each candidate profile MUST offer "Comparer" and "Debattre" actions that navigate to the comparison view or assistant debate mode respectively, with that candidate preselected.
+- **FR-013**: Each candidate profile MUST offer "Comparer" and "assistant" actions that navigate to the comparison view or assistant assistant personalization flow respectively, with that candidate preselected.
 
 **Comparison**
 
@@ -196,14 +196,14 @@ A citizen needs confidence that the information is neutral, sourced, and transpa
 
 **Assistant**
 
-- **FR-026**: The Assistant tab MUST display a mode selector with three modes always visible: Comprendre, Parler avec un candidat, and Debattre, defaulting to Comprendre.
-- **FR-027**: In Comprendre mode, every factual answer MUST include visible source references. Missing information MUST display "Information non documentee." Uncertain information MUST display "Information incertaine."
-- **FR-028**: In Parler avec un candidat mode, responses MUST draw exclusively from the selected candidate's documented positions and MUST NOT speculate beyond documented sources.
-- **FR-029**: In Debattre mode, the assistant MUST use the user's survey profile (if available) to ask clarifying questions and surface trade-offs. If no survey exists, it MUST offer a non-personalized debate path.
+- **FR-026**: The Assistant tab MUST display a assistant context controls with single chat always visible: Comprendre, assistant avec contexte candidat, and assistant, defaulting to Comprendre.
+- **FR-027**: In Comprendre context, every factual answer MUST include visible source references. Missing information MUST display "Information non documentee." Uncertain information MUST display "Information incertaine."
+- **FR-028**: In assistant avec contexte candidat context, responses MUST draw exclusively from the selected candidate's documented positions and MUST NOT speculate beyond documented sources.
+- **FR-029**: In assistant context, the assistant MUST use the user's survey profile (if available) to ask clarifying questions and surface trade-offs. If no survey exists, it MUST offer a non-personalized debate path.
 - **FR-030**: The assistant MUST provide context-aware starter prompts based on the user's navigation origin (candidate, theme, or survey result).
 - **FR-031**: The assistant MUST politely redirect off-topic requests to the election scope.
-- **FR-032**: The assistant MUST never recommend, endorse, or express preference for any candidate in any mode.
-- **FR-033**: Mode guardrails MUST prevent cross-mode behavioral confusion (e.g., debate-style challenges must not appear in Comprendre mode).
+- **FR-032**: The assistant MUST never recommend, endorse, or express preference for any candidate in any context.
+- **FR-033**: Context guardrails MUST prevent cross-context behavioral confusion (e.g., debate-style challenges must not appear in Comprendre context).
 
 **Trust, Transparency & Accessibility**
 
@@ -237,7 +237,7 @@ A citizen needs confidence that the information is neutral, sourced, and transpa
 - **Survey Question**: A question presented during the civic survey. Attributes: question text, associated theme, answer options. Each question maps to one theme.
 - **Survey Response**: A user's answer to a survey question. Attributes: selected opinion, assigned importance level. Responses are stored locally on device.
 - **Survey Result**: The computed outcome of a completed survey. Attributes: personal profile by theme, candidate alignment scores, ranking, contradiction flags, methodology explanation. Results are deterministic given the same inputs.
-- **Conversation**: An assistant chat session. Attributes: list of messages, active mode (Comprendre/Parler/Debattre), selected candidate (for Parler mode), navigation context origin. Stored locally on device.
+- **Conversation**: An assistant chat session. Attributes: list of messages, active context (chat assistant unique), selected candidate (for assistant avec contexte candidat), navigation context origin. Stored locally on device.
 
 ## Success Criteria *(mandatory)*
 
@@ -251,10 +251,10 @@ A citizen needs confidence that the information is neutral, sourced, and transpa
 - **SC-006**: All candidate comparison views display equal visual column width and text density across all selected candidates.
 - **SC-007**: All screens pass WCAG 2.1 AA contrast and minimum target size (44x44 pt) audits.
 - **SC-008**: 90% of users who view the trust card report understanding the app's neutrality commitment (measured via optional micro-survey).
-- **SC-009**: Users can switch between all 3 assistant modes without losing conversation history.
+- **SC-009**: Users can switch between all 3 assistant contexts without losing conversation history.
 - **SC-010**: The app becomes interactive within 3 seconds on a standard mobile connection.
 - **SC-011**: 70% of users who start the survey complete it in full.
-- **SC-012**: Zero instances of candidate recommendation or endorsement detected in assistant responses across all modes.
+- **SC-012**: Zero instances of candidate recommendation or endorsement detected in assistant responses across all contexts.
 
 ## Assumptions
 
@@ -264,5 +264,5 @@ A citizen needs confidence that the information is neutral, sourced, and transpa
 - The "multi-election content switch" mentioned in the feature description is a future capability. This redesign focuses on a single election (city + year) at a time.
 - Survey questions and their mapping to themes are part of the bundled election dataset, not user-generated.
 - Feedback signals ("unclear/missing info") are stored locally for later aggregation; no real-time feedback processing is required for MVP.
-- The debate mode's "adapt to user position changes" means the assistant acknowledges and incorporates shifts in the user's stated views within the same conversation, not across sessions.
+- The assistant personalization flow's "adapt to user position changes" means the assistant acknowledges and incorporates shifts in the user's stated views within the same conversation, not across sessions.
 - The candidate gallery ordering is alphabetical or randomized - never ranked by popularity, alignment, or editorial preference.

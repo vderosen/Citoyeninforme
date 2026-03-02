@@ -1,6 +1,7 @@
-import { View, Text, Pressable, Linking } from "react-native";
+import { Pressable, Linking } from "react-native";
 import { useTranslation } from "react-i18next";
 import type { SourceReference as SourceReferenceType } from "../../data/schema";
+import { AppText as Text } from "../ui/AppText";
 
 interface SourceReferenceProps {
   source: SourceReferenceType;
@@ -21,6 +22,7 @@ export function SourceReference({ source, compact = false }: SourceReferenceProp
         accessibilityRole="link"
         accessibilityLabel={`${t("source")}: ${source.title}`}
         hitSlop={8}
+        style={{ minHeight: 44, justifyContent: "center" }}
       >
         <Text className="font-body text-civic-navy text-xs underline" numberOfLines={1}>
           {source.title}
@@ -35,6 +37,8 @@ export function SourceReference({ source, compact = false }: SourceReferenceProp
       accessibilityRole="link"
       accessibilityLabel={`${t("source")}: ${source.title}`}
       className="flex-row items-center py-1"
+      hitSlop={8}
+      style={{ minHeight: 44 }}
     >
       <Text className="font-body text-civic-navy text-sm underline flex-1">
         {source.title}

@@ -76,7 +76,7 @@ The following data structures remain untouched:
 - **Election dataset** (`src/data/schema.ts`): Candidates, propositions, themes, sources
 - **Survey store** (`src/stores/survey.ts`): Question responses, importance weights, results
 - **App store** (`src/stores/app.ts`): Onboarding state, preferences
-- **Assistant store** (`src/stores/assistant.ts`): Chat history, mode selection
+- **Assistant store** (`src/stores/assistant.ts`): Chat history, context selection
 - **Election store** (`src/stores/election.ts`): Loaded dataset, derived computations
 
 No new entities, no schema migrations, no storage changes.

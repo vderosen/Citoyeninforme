@@ -9,7 +9,7 @@
 
 ### User Story 1 - Seamless comparison from candidate selection (Priority: P1)
 
-A user browses the candidates gallery, enters compare mode, selects 2-4 candidates, and taps "Voir la comparaison." The comparison screen opens with those exact candidates already selected and their positions displayed side-by-side for the first theme. The user can immediately start reading and comparing without any additional steps.
+A user browses the candidates gallery, enters compare context, selects 2-4 candidates, and taps "Voir la comparaison." The comparison screen opens with those exact candidates already selected and their positions displayed side-by-side for the first theme. The user can immediately start reading and comparing without any additional steps.
 
 **Why this priority**: This is the core comparison flow. Currently it is broken — selected candidates are not carried over to the comparison screen, forcing users to re-select them manually. This makes the entire comparison feature feel unusable.
 
@@ -17,8 +17,8 @@ A user browses the candidates gallery, enters compare mode, selects 2-4 candidat
 
 **Acceptance Scenarios**:
 
-1. **Given** a user has selected 2 candidates in compare mode, **When** they tap "Voir la comparaison," **Then** the comparison screen opens with those 2 candidates already selected and their positions displayed for the first theme.
-2. **Given** a user has selected 4 candidates in compare mode, **When** they tap "Voir la comparaison," **Then** the comparison screen opens with all 4 candidates pre-selected.
+1. **Given** a user has selected 2 candidates in compare context, **When** they tap "Voir la comparaison," **Then** the comparison screen opens with those 2 candidates already selected and their positions displayed for the first theme.
+2. **Given** a user has selected 4 candidates in compare context, **When** they tap "Voir la comparaison," **Then** the comparison screen opens with all 4 candidates pre-selected.
 3. **Given** a user arrives on the comparison screen with pre-selected candidates, **When** they look at the candidate selector pills, **Then** the pre-selected candidates are visually highlighted (distinct from unselected ones).
 
 ---

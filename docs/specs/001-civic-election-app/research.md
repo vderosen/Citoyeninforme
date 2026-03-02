@@ -39,7 +39,7 @@ This app has no custom native module requirements (LLM calls are HTTP-based, sto
 **Rationale**: Zustand provides minimal-boilerplate state management with built-in persist middleware (integrates with MMKV for local storage). Three stores cover the app's needs:
 1. `election` store — loaded election dataset (candidates, themes, positions)
 2. `survey` store — survey answers, results, user profile (persisted to MMKV)
-3. `chatbot` store — conversation history, active mode, selected candidate
+3. `chatbot` store — conversation history, active context, selected candidate
 
 Zustand's ~3KB bundle size aligns with the <50MB constraint. No provider wrapping needed, which simplifies the component tree.
 
@@ -105,16 +105,16 @@ French is the default and fallback language. Translation files live in `src/i18n
 
 **Decision**: OpenAI GPT API via a lightweight backend proxy
 
-**Rationale**: The chatbot requires an LLM for three modes (Learn, Candidate, Debate). Key design:
+**Rationale**: The chatbot requires an LLM for single chat (general, candidate, and comparison). Key design:
 - **Provider**: OpenAI GPT (GPT-4o or latest available model) — strong conversational French, excellent instruction-following for system prompts (critical for neutrality constraints), supports long context for the election dataset. The user has free OpenAI credits, making this the pragmatic choice.
 - **Architecture**: API keys must NOT be embedded in the mobile app. A minimal backend proxy (serverless function on Cloudflare Workers or AWS Lambda) forwards requests to the OpenAI API. The proxy adds the API key, enforces rate limiting, and strips sensitive headers.
 - **Streaming**: Server-Sent Events for real-time token streaming to the mobile client — essential for chatbot UX. OpenAI's streaming API returns SSE-compatible chunks natively.
-- **Context management**: Each chatbot mode has a dedicated system prompt. The election dataset relevant context is injected into the system prompt. Conversation history is maintained per-session in the Zustand chatbot store.
+- **Context management**: Each chatbot context has a dedicated system prompt. The election dataset relevant context is injected into the system prompt. Conversation history is maintained per-session in the Zustand chatbot store.
 
 **Alternatives considered**:
 - Anthropic Claude: Strong instruction-following and French. Viable alternative if switching providers later, since the proxy architecture is provider-agnostic.
 - Direct API calls from mobile: Security risk — API key would be extractable from the app binary. The proxy is a necessary architectural addition.
-- On-device LLM: Not feasible for the quality required by the Socratic debate mode. On-device models lack the reasoning capability needed.
+- On-device LLM: Not feasible for the quality required by the Socratic assistant personalization flow. On-device models lack the reasoning capability needed.
 
 **Note on Principle VI**: The backend proxy is the one server-side component. It is stateless, has no database, and serves only as an API key vault + rate limiter. This is the simplest architecture that satisfies the security constraint.
 

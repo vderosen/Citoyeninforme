@@ -14,19 +14,19 @@ A conversation is an independent message thread identified by a composite key.
 
 **Key formula**:
 ```
-mode === "parler" ? `parler:${candidateId}` : mode
+context === "candidate" ? `candidate:${candidateId}` : context
 ```
 
 **Examples**:
-- `"comprendre"` — single conversation for factual questions
-- `"parler:david-belliard"` — conversation with candidate David Belliard
-- `"parler:rachida-dati"` — conversation with candidate Rachida Dati
-- `"debattre"` — single conversation for debate mode
+- `"general"` — single conversation for factual questions
+- `"candidate:david-belliard"` — conversation with candidate David Belliard
+- `"candidate:rachida-dati"` — conversation with candidate Rachida Dati
+- `"assistant"` — single conversation for assistant personalization flow
 
 **Attributes**:
 | Field | Type | Description |
 |-------|------|-------------|
-| key | string | Composite key (mode or mode:candidateId) |
+| key | string | Composite key (context or context:candidateId) |
 | messages | ChatMessage[] | Ordered list of messages in this conversation |
 
 Each `ChatMessage` retains its existing shape (no changes):
@@ -58,7 +58,7 @@ Transient UI state for the multi-select compare flow on the candidates page. Not
 
 ```typescript
 interface AssistantState {
-  mode: AssistantMode;
+  context: AssistantMode;
   selectedCandidateId: string | null;
   messages: ChatMessage[];           // ← Flat array, shared across all contexts
   isStreaming: boolean;
@@ -69,7 +69,7 @@ interface AssistantState {
 **Persistence (BEFORE)**:
 ```typescript
 partialize: (state) => ({
-  mode: state.mode,
+  context: state.context,
   selectedCandidateId: state.selectedCandidateId,
   messages: state.messages,           // ← Single flat array persisted
 })
@@ -79,14 +79,14 @@ partialize: (state) => ({
 
 ```typescript
 interface AssistantState {
-  mode: AssistantMode;
+  context: AssistantMode;
   selectedCandidateId: string | null;
   conversations: Record<string, ChatMessage[]>;  // ← Keyed by composite key
   isStreaming: boolean;
   preloadedContext: AssistantContext | null;
 
   // Existing actions (modified)
-  selectMode: (mode: AssistantMode) => void;
+  selectMode: (context: AssistantMode) => void;
   selectCandidate: (candidateId: string) => void;
   clearCandidate: () => void;
   addMessage: (message: ChatMessage) => void;
@@ -105,7 +105,7 @@ interface AssistantState {
 **Persistence (AFTER)**:
 ```typescript
 partialize: (state) => ({
-  mode: state.mode,
+  context: state.context,
   selectedCandidateId: state.selectedCandidateId,
   conversations: state.conversations,   // ← Full record persisted
 })
@@ -115,11 +115,10 @@ partialize: (state) => ({
 ```typescript
 migrate: (persistedState: any, version: number) => {
   if (version === 0 && persistedState.messages) {
-    // Move flat messages to "comprendre" conversation
+    // Move flat messages to "general" conversation
     return {
       ...persistedState,
-      conversations: {
-        comprendre: persistedState.messages,
+      conversations: { general: persistedState.messages,
       },
       messages: undefined,
     };
@@ -150,7 +149,7 @@ The following entities are **not modified** by this feature:
 ```
 User sends message
   → addMessage({ role: "user", ... }) appends to state.messages
-  → sendChatMessage(mode, state.messages, ...) sends full history to API
+  → sendChatMessage(context, state.messages, ...) sends full history to API
   → API streams response
   → updateLastAssistantMessage(chunk) updates last item in state.messages
 ```
@@ -158,9 +157,9 @@ User sends message
 ### Assistant Message Flow (AFTER)
 ```
 User sends message
-  → key = getConversationKey()  // e.g., "parler:david-belliard"
+  → key = getConversationKey()  // e.g., "candidate:david-belliard"
   → addMessage({ role: "user", ... }) appends to state.conversations[key]
-  → sendChatMessage(mode, getCurrentMessages(), ...) sends conversation-specific history
+  → sendChatMessage(context, getCurrentMessages(), ...) sends conversation-specific history
   → API streams response
   → updateLastAssistantMessage(chunk) updates last item in state.conversations[key]
 ```
@@ -177,14 +176,14 @@ User taps "Comparer" FAB on candidates page
   → Existing ComparisonView renders selected candidates
 ```
 
-### Navigation from Candidate Detail "Debattre" (UPDATED)
+### Navigation from Candidate Detail "assistant" (UPDATED)
 ```
-User taps "Debattre" on candidate/[id].tsx
-  → selectMode("parler")
+User taps "assistant" on candidate/[id].tsx
+  → selectMode("candidate")
   → selectCandidate(candidate.id)
   → router.push("/(tabs)/assistant")
-  → Assistant page reads mode="parler", selectedCandidateId=candidate.id
-  → key = "parler:${candidate.id}"
+  → Assistant page reads context="candidate", selectedCandidateId=candidate.id
+  → key = "candidate:${candidate.id}"
   → getCurrentMessages() returns conversations[key] || []
   → If empty: fresh conversation shown
   → If existing: previous messages displayed

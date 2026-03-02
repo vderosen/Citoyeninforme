@@ -34,7 +34,7 @@
 - **Purpose**: Shows the candidate comparison feature
 
 ### 4. Assistant Chat
-- Active conversation in "Comprendre" (Learn) mode
+- Active conversation in "Comprendre" (Learn) context
 - At least 2 message exchanges visible
 - Source citations visible in assistant response
 - **Purpose**: Shows the AI-powered neutral assistant
@@ -54,7 +54,7 @@
 - Ensure the status bar shows a reasonable time and full battery
 - Use realistic data (the bundled Paris 2026 dataset)
 - Do not include any personal data or real user conversations
-- Capture on both light and dark mode if supported
+- Capture on both light and dark context if supported
 - Actual screenshots will be taken by the app operator after production build
 
 ## App Store Preview Text (Optional)

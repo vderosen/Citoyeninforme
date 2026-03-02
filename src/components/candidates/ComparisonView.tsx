@@ -1,10 +1,11 @@
-import { View, Text, Image, ScrollView, Platform } from "react-native";
+import { View, Image, ScrollView, Platform } from "react-native";
 import { useTranslation } from "react-i18next";
 import type { Candidate, Position } from "../../data/schema";
 import { getCandidatePartyColor } from "../../utils/candidatePartyColor";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
 import { TrustBadge } from "../shared/TrustBadge";
 import { SourceReference } from "../shared/SourceReference";
+import { AppText as Text } from "../ui/AppText";
 
 interface ComparisonViewProps {
   candidates: Candidate[];
@@ -103,7 +104,7 @@ export function ComparisonView({
                     className="rounded-full px-2 py-0.5 self-start"
                     style={{ backgroundColor: partyColor + "1A" }}
                   >
-                    <Text className="font-body-medium text-xs" style={{ color: partyColor }} numberOfLines={1}>
+                    <Text className="font-body-medium text-xs" style={{ color: partyColor }} numberOfLines={1} maxFontSizeMultiplier={1.15}>
                       {candidate.party}
                     </Text>
                   </View>

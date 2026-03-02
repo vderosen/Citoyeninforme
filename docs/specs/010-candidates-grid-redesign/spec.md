@@ -49,7 +49,7 @@ As a voter, I want to tap on any candidate in the grid to see their detailed pro
 
 **Acceptance Scenarios**:
 
-1. **Given** the candidates grid is displayed (normal mode), **When** the user taps a candidate card, **Then** the app navigates to that candidate's detail page.
+1. **Given** the candidates grid is displayed (normal context), **When** the user taps a candidate card, **Then** the app navigates to that candidate's detail page.
 2. **Given** the user is viewing a candidate detail page, **When** they navigate back, **Then** they return to the candidates grid in the same state.
 
 ---
@@ -58,16 +58,16 @@ As a voter, I want to tap on any candidate in the grid to see their detailed pro
 
 As a voter, I want to select multiple candidates for comparison from the redesigned grid, so I can evaluate their programs side by side.
 
-**Why this priority**: Comparison mode is an existing feature that must continue to work with the new grid layout.
+**Why this priority**: Comparison context is an existing feature that must continue to work with the new grid layout.
 
-**Independent Test**: Can be tested by entering compare mode, selecting 2-4 candidates, and confirming comparison navigates to the comparison view.
+**Independent Test**: Can be tested by entering compare context, selecting 2-4 candidates, and confirming comparison navigates to the comparison view.
 
 **Acceptance Scenarios**:
 
-1. **Given** the candidates grid is displayed, **When** the user taps the "Compare" floating button, **Then** the grid enters compare mode with selection indicators on each card.
-2. **Given** compare mode is active, **When** the user taps a candidate card, **Then** the candidate is toggled selected/unselected with a visible indicator.
-3. **Given** compare mode is active and 2+ candidates are selected, **When** the user taps "Confirm", **Then** the app navigates to the comparison view with the selected candidates.
-4. **Given** compare mode is active, **When** the user taps "Cancel", **Then** compare mode exits and selection is cleared.
+1. **Given** the candidates grid is displayed, **When** the user taps the "Compare" floating button, **Then** the grid enters compare context with selection indicators on each card.
+2. **Given** compare context is active, **When** the user taps a candidate card, **Then** the candidate is toggled selected/unselected with a visible indicator.
+3. **Given** compare context is active and 2+ candidates are selected, **When** the user taps "Confirm", **Then** the app navigates to the comparison view with the selected candidates.
+4. **Given** compare context is active, **When** the user taps "Cancel", **Then** compare context exits and selection is cleared.
 
 ---
 
@@ -91,8 +91,8 @@ As a voter, I want to select multiple candidates for comparison from the redesig
 - **FR-007**: System MUST display all candidates (up to 9) on a single screen without requiring vertical scrolling on standard mobile devices (360x640px minimum).
 - **FR-008**: System MUST display a party color indicator on each candidate card (e.g., as a colored border ring around the avatar or an accent element).
 - **FR-009**: When the number of candidates does not fill the last row, remaining cards MUST be centered rather than left-aligned, to maintain visual balance.
-- **FR-010**: System MUST continue to support compare mode with visual selection indicators adapted to the new circular avatar layout.
-- **FR-011**: Tapping a candidate card in normal mode MUST navigate to the candidate's detail page.
+- **FR-010**: System MUST continue to support compare context with visual selection indicators adapted to the new circular avatar layout.
+- **FR-011**: Tapping a candidate card in normal context MUST navigate to the candidate's detail page.
 - **FR-012**: System MUST show a placeholder avatar when a candidate has no photo, at the same size as photo avatars.
 - **FR-013**: System MUST continue to apply a deterministic daily shuffle to the candidate display order (neutrality).
 
@@ -109,13 +109,13 @@ As a voter, I want to select multiple candidates for comparison from the redesig
 - **SC-002**: All candidate photos display at the same circular size with no distortion or uneven cropping.
 - **SC-003**: All candidates (up to 9) are visible on a single screen without scrolling on devices with 360px+ width and 640px+ height.
 - **SC-004**: Users can navigate to any candidate's detail page in a single tap from the grid.
-- **SC-005**: Compare mode selection and confirmation work correctly with the new layout.
+- **SC-005**: Compare context selection and confirmation work correctly with the new layout.
 - **SC-006**: The candidates page loads and renders the complete grid within 1 second of data being available.
 
 ## Assumptions
 
 - The current candidate count for Paris 2026 MVP is 7. The grid design supports up to 9 candidates in a 3-column layout without scrolling. If more than 9 candidates are added in the future, scrolling would become acceptable.
 - "Standard mobile device" is defined as 360px minimum width and 640px minimum height, covering 95%+ of active mobile devices.
-- The existing compare mode FAB button and confirmation bar will remain as-is; only the grid items and their layout change.
+- The existing compare context FAB button and confirmation bar will remain as-is; only the grid items and their layout change.
 - The daily shuffle mechanism is preserved unchanged; only the visual rendering of each item changes.
 - Party color display shifts from a horizontal bar at the top of the card to a ring/border around the circular avatar, maintaining the same visual identification function.

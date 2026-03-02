@@ -2,7 +2,7 @@
  * Debate Store Contracts
  *
  * Defines the state shape and actions added to the existing
- * assistant Zustand store for debate mode.
+ * assistant Zustand store for assistant personalization flow.
  *
  * These fields are NOT persisted (ephemeral per FR-012).
  */
@@ -55,7 +55,7 @@ export interface DebateActions {
 
   /**
    * Reset all debate state to defaults.
-   * Called when starting a new debate or leaving debate mode.
+   * Called when starting a new debate or leaving assistant personalization flow.
    */
   resetDebate: () => void;
 }

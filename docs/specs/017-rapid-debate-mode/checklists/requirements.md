@@ -1,4 +1,4 @@
-# Specification Quality Checklist: Rapid Debate Mode
+# Specification Quality Checklist: Rapid Debate Context
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-02-20

@@ -128,7 +128,7 @@ As a developer, I expect contract tests to verify real interactions with the pro
 **Acceptance Scenarios**:
 
 1. **Given** the contract test suite, **When** tests execute, **Then** they spin up an actual proxy instance and send real requests.
-2. **Given** the proxy is running in test mode, **When** a health check request is sent, **Then** the test validates the actual response.
+2. **Given** the proxy is running in test context, **When** a health check request is sent, **Then** the test validates the actual response.
 
 ---
 
@@ -136,7 +136,7 @@ As a developer, I expect contract tests to verify real interactions with the pro
 
 - What happens if the Sentry DSN environment variable is missing at runtime? Crash reporting should silently disable without errors.
 - What happens if storage keys have changed since the last version? The deletion function should handle missing keys gracefully.
-- What happens if the proxy is deployed in production mode without any environment variables? It should fail safely and log clear errors.
+- What happens if the proxy is deployed in production context without any environment variables? It should fail safely and log clear errors.
 - What happens if store rehydration takes unusually long (slow device)? Crashes during that window should either be queued or the initialization should block until rehydration completes.
 
 ## Requirements *(mandatory)*
@@ -173,5 +173,5 @@ As a developer, I expect contract tests to verify real interactions with the pro
 - The privacy-safe approach is preferred: disable PII and session replays rather than updating the UI copy to admit data collection. This is the legally conservative choice.
 - The known Lucide storage keys are: `app-state`, `survey-state`, `assistant-state`. If other Lucide keys exist, they should be added to the deletion list.
 - For crash reporting initialization timing, using the store's rehydration callback or adding the opt-in flag to the effect dependency array are both acceptable approaches.
-- The LLM proxy in development mode may optionally allow requests without a key if an explicit development mode flag is set, but the default (no env) behavior must be fail-closed.
+- The LLM proxy in development context may optionally allow requests without a key if an explicit development context flag is set, but the default (no env) behavior must be fail-closed.
 - Contract test improvements (P3) may be deferred if the higher-priority fixes are complex.

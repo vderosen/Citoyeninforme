@@ -36,7 +36,7 @@ No API signature changes.
   consent: { policyVersion, acceptedAt },
   survey: { status, answers, importanceWeights, profile },
   assistant: {
-    mode: string,
+    context: string,
     selectedCandidateId: string | null,
     conversations: Record<string, Array<{ id, role, content, timestamp }>>
   },

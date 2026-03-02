@@ -25,7 +25,7 @@ No new fields. Existing fields support all new features:
 
 | Field | New Usage |
 |-------|-----------|
-| `mode` | Empty state icon/title/description selection |
+| `context` | Empty state icon/title/description selection |
 | `selectedCandidateId` | Context-aware empty state prompts |
 | `conversations` | Conversation keying unchanged |
 | `isStreaming` | Typing indicator visibility, input disable state |
@@ -38,7 +38,7 @@ No changes. Existing structure supports all empty state prompt generation:
 | Field | Type | Used By |
 |-------|------|---------|
 | `type` | `"candidate" \| "theme" \| "survey_result"` | Context-specific prompt generation |
-| `candidateId` | `string \| null` | Candidate-specific prompts in parler mode |
+| `candidateId` | `string \| null` | Candidate-specific prompts in candidate context |
 | `themeId` | `string \| null` | Theme-specific prompts |
 | `promptText` | `string \| null` | Direct prompt text |
 

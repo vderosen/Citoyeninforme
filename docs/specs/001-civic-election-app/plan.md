@@ -5,7 +5,7 @@
 
 ## Summary
 
-Build a cross-platform mobile civic election app using React Native (Expo) that lets users explore candidate positions, complete a preference-matching survey, and interact with an LLM-powered chatbot in three modes (Learn, Candidate, Debate). The app is city-agnostic — all election data lives in a swappable dataset layer. The Paris 2026 municipal election is the first deployment. All user data stays on-device by default.
+Build a cross-platform mobile civic election app using React Native (Expo) that lets users explore candidate positions, complete a preference-matching survey, and interact with an LLM-powered chatbot in single chat (general, candidate, and comparison). The app is city-agnostic — all election data lives in a swappable dataset layer. The Paris 2026 municipal election is the first deployment. All user data stays on-device by default.
 
 ## Technical Context
 
@@ -17,7 +17,7 @@ Build a cross-platform mobile civic election app using React Native (Expo) that 
 **Project Type**: mobile
 **Performance Goals**: <100ms screen transitions, <2s app cold start, 60fps scrolling, <3s chatbot first-token response
 **Constraints**: Offline-capable for all non-chatbot features, <50MB app bundle, local-first data storage, WCAG 2.1 AA compliance
-**Scale/Scope**: ~10 candidates, ~8 themes, ~80 positions, ~20 survey questions, 3 chatbot modes, 2 pages + floating chatbot overlay
+**Scale/Scope**: ~10 candidates, ~8 themes, ~80 positions, ~20 survey questions, 3 assistant conversations, 2 pages + floating chatbot overlay
 
 ## Constitution Check
 
@@ -26,9 +26,9 @@ Build a cross-platform mobile civic election app using React Native (Expo) that 
 | Principle | Status | Evidence |
 |-----------|--------|----------|
 | I. Neutrality & Non-Prescription | PASS | Candidate ordering is alphabetical/randomized (FR-005). Survey algorithm is deterministic with no hidden weights (FR-009). Comparison views use equal visual weight (FR-004). |
-| II. Source-Grounded Truth | PASS | Every position includes source references (FR-002). Chatbot cites sources in all modes (FR-012, FR-013). Missing data is flagged explicitly (FR-016). |
+| II. Source-Grounded Truth | PASS | Every position includes source references (FR-002). Chatbot cites sources in all contexts (FR-012, FR-013). Missing data is flagged explicitly (FR-016). |
 | III. City-Agnostic Architecture | PASS | Election dataset is isolated in a structured data layer (FR-017, FR-018). Configuration (city, year, rules) externalized in dataset JSON. No Paris-specific code in app logic. |
-| IV. Critical Thinking Over Persuasion | PASS | Debate mode uses Socratic questioning only (FR-014). No candidate steering. Contradiction detection is logic-based, not editorial. |
+| IV. Critical Thinking Over Persuasion | PASS | Debate context uses Socratic questioning only (FR-014). No candidate steering. Contradiction detection is logic-based, not editorial. |
 | V. Structured Data as Single Source of Truth | PASS | One election dataset per deployment feeds all features (FR-017). Dataset schema covers candidates, positions, themes, logistics. No shadow copies. |
 | VI. Simplicity & MVP Discipline | PASS | Two screens (Home, Learn) + floating chatbot overlay. Features prioritized P1–P5 and delivered incrementally. No speculative features. |
 | VII. Privacy & Trust | PASS | User profiles stored locally via MMKV (FR-015). No server-side persistence without consent. No third-party data sharing. Analytics (if added) will be aggregate/anonymized. |
@@ -66,7 +66,7 @@ src/
 │   ├── chatbot/             # Floating chatbot overlay
 │   │   ├── ChatbotFAB.tsx   # Floating action button
 │   │   ├── ChatbotPanel.tsx # Chat panel container
-│   │   ├── ModeSelector.tsx # Learn/Candidate/Debate mode picker
+│   │   ├── AssistantContextControls.tsx # Learn/Candidate/Debate context picker
 │   │   └── MessageBubble.tsx
 │   ├── candidates/          # Candidate display components
 │   │   ├── CandidateCard.tsx
@@ -94,11 +94,11 @@ src/
 │           └── logistics.json
 ├── services/
 │   ├── matching.ts          # Deterministic survey matching algorithm
-│   ├── chatbot.ts           # LLM API integration (all 3 modes)
-│   ├── prompts/             # System prompts per chatbot mode
-│   │   ├── learn-mode.ts
-│   │   ├── candidate-mode.ts
-│   │   └── debate-mode.ts
+│   ├── chatbot.ts           # LLM API integration (all single chat)
+│   ├── prompts/             # System prompts per chatbot context
+│   │   ├── learn-context.ts
+│   │   ├── candidate-context.ts
+│   │   └── debate-context.ts
 │   └── contradiction.ts    # Preference contradiction detection
 ├── stores/
 │   ├── survey.ts            # Zustand store: survey state + results

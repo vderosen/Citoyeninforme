@@ -5,7 +5,7 @@
 
 ## Summary
 
-Replace the existing single-screen scrollable onboarding with a 5-step horizontal pager. Each step presents one focused message (app purpose, neutrality principles, usage modes, trust contract, entry point selection). The final screen offers three branching CTAs routing to different tabs. Uses a horizontal FlatList with paging for swipe + button navigation, built entirely with existing dependencies (no new packages required).
+Replace the existing single-screen scrollable onboarding with a 5-step horizontal pager. Each step presents one focused message (app purpose, neutrality principles, usage contexts, trust contract, entry point selection). The final screen offers three branching CTAs routing to different tabs. Uses a horizontal FlatList with paging for swipe + button navigation, built entirely with existing dependencies (no new packages required).
 
 ## Technical Context
 
@@ -25,12 +25,12 @@ Replace the existing single-screen scrollable onboarding with a 5-step horizonta
 
 | Principle | Applicable? | Status | Notes |
 |-----------|-------------|--------|-------|
-| I. Neutrality & Non-Prescription | Yes | PASS | Screen 4 explicitly communicates "no voting instructions, no partisan scoring, no political targeting". The three entry points on screen 5 present all app modes equally — no mode is privileged in ordering. |
+| I. Neutrality & Non-Prescription | Yes | PASS | Screen 4 explicitly communicates "no voting instructions, no partisan scoring, no political targeting". The three entry points on screen 5 present all app contexts equally — no context is privileged in ordering. |
 | II. Source-Grounded Truth | No | N/A | Onboarding does not surface factual claims about candidates or elections. |
 | III. City-Agnostic Architecture | Yes | PASS | All onboarding text is externalized via i18n. No Paris-specific content is hardcoded — city name or election type could be injected via configuration. |
 | IV. Critical Thinking Over Persuasion | Marginal | PASS | Onboarding encourages exploration ("three ways to start") rather than steering toward a single path. The primary CTA on screen 5 is the survey (which surfaces user priorities) rather than a recommendation. |
 | V. Structured Data as Single Source of Truth | No | N/A | Onboarding does not consume the election dataset. |
-| VI. Simplicity & MVP Discipline | Yes | PASS | Replaces one screen with one screen (same route). Uses no new dependencies. 5 steps is the minimum to convey: purpose, trust, modes, contract, action. No new tabs or navigation structures added. |
+| VI. Simplicity & MVP Discipline | Yes | PASS | Replaces one screen with one screen (same route). Uses no new dependencies. 5 steps is the minimum to convey: purpose, trust, contexts, contract, action. No new tabs or navigation structures added. |
 | VII. Privacy & Trust | Yes | PASS | Only persists the existing `hasCompletedOnboarding` boolean. No new user data collected during onboarding. Screen 4 proactively communicates trust commitments. |
 
 **Gate result: PASS** — No violations. No complexity tracking entries needed.

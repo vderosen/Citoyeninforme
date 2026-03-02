@@ -37,9 +37,9 @@ This is a pure JS package — no native module linking or pod install needed.
 ### Empty State (FR-001 to FR-004)
 1. Open the app → navigate to the Assistant tab
 2. If there are existing messages, clear them via the new conversation button
-3. Verify each mode (Comprendre, Parler, Débattre) shows:
-   - Mode-specific icon (book, chat bubble, scale)
-   - Mode title and 1-2 line description
+3. Verify each context (Comprendre, Parler, assistant) shows:
+   - Context-specific icon (book, chat bubble, scale)
+   - Context title and 1-2 line description
    - 2-3 suggested prompt chips
 4. Tap a prompt chip → conversation should begin
 
@@ -50,10 +50,10 @@ This is a pure JS package — no native module linking or pod install needed.
 4. Verify a border/shadow separates the input from the chat
 5. During streaming: input and send button should be disabled
 
-### Mode Selector (FR-009 to FR-010)
-1. View the mode tabs
+### Context Selector (FR-009 to FR-010)
+1. View the context tabs
 2. Verify each tab has an icon + readable text label
-3. Switch between modes and verify active state highlighting
+3. Switch between contexts and verify active state highlighting
 
 ### Typing Indicator (FR-011 to FR-012)
 1. Send a message
@@ -102,9 +102,9 @@ Key files to modify:
 | `src/app/(tabs)/assistant.tsx` | Remove direct ContextPrompts/FeedbackAction, add toolbar row |
 | `src/components/assistant/ChatArea.tsx` | Controlled input, send icon, separator, scroll-to-bottom, empty state integration |
 | `src/components/assistant/MessageBubble.tsx` | New styling, avatar, timestamps, markdown rendering |
-| `src/components/assistant/ModeSelector.tsx` | Add icons, increase text size |
+| `src/components/assistant/AssistantContextControls.tsx` | Add icons, increase text size |
 | `src/components/assistant/ContextPrompts.tsx` | Outlined chips, arrow icon, flex-wrap layout |
-| `src/components/assistant/EmptyState.tsx` | **NEW** — mode icon, title, description, integrated prompts |
+| `src/components/assistant/EmptyState.tsx` | **NEW** — context icon, title, description, integrated prompts |
 | `src/components/assistant/TypingIndicator.tsx` | **NEW** — animated 3-dot bouncing indicator |
 | `src/components/assistant/ChatToolbar.tsx` | **NEW** — new conversation + feedback icon row |
 | `src/components/assistant/ScrollToBottomButton.tsx` | **NEW** — floating FAB with animated visibility |

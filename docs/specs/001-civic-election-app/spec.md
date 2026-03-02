@@ -30,7 +30,7 @@ A first-time visitor arrives at the app wanting to understand the upcoming Paris
 
 A user wants to understand where they stand politically relative to the candidates. They start the survey from the Home page CTA. First, a civic context mini-module teaches key facts about the election and local governance ("Did you know the mayor of Paris controls X but not Y?"). Then the user answers a deterministic questionnaire covering major policy themes. At the end, they receive: a preference profile across themes with importance weighting, a ranking of closest candidates with alignment scores, a justification explaining which themes/questions drove the match, and a tension/contradiction snapshot highlighting inconsistencies in their own stated preferences.
 
-**Why this priority**: The survey is the primary onboarding flow and the main interactive hook that personalizes the experience. It also feeds the Debate mode with user profile data.
+**Why this priority**: The survey is the primary onboarding flow and the main interactive hook that personalizes the experience. It also feeds the Debate context with user profile data.
 
 **Independent Test**: A user can complete the survey from start to finish, receive candidate matching results with justification, and review their own contradiction snapshot — all without the chatbot.
 
@@ -45,18 +45,18 @@ A user wants to understand where they stand politically relative to the candidat
 
 ---
 
-### User Story 3 - Use the Learn Mode Chatbot (Priority: P3)
+### User Story 3 - Use the Learn Context Chatbot (Priority: P3)
 
-A user has a question about a specific candidate's position on housing. They open the persistent chatbot from the floating entry point (available on any page), select "Learn Mode," and ask their question. The chatbot responds with information grounded in the election dataset, cites its sources, and distinguishes what is known from what is uncertain. The user then asks the chatbot to compare two candidates on housing. The chatbot presents both positions with equal weight and source references.
+A user has a question about a specific candidate's position on housing. They open the persistent chatbot from the floating entry point (available on any page), select "Learn Context," and ask their question. The chatbot responds with information grounded in the election dataset, cites its sources, and distinguishes what is known from what is uncertain. The user then asks the chatbot to compare two candidates on housing. The chatbot presents both positions with equal weight and source references.
 
-**Why this priority**: The chatbot in Learn mode is the conversational extension of the Learn page. It makes structured content searchable and comparable through natural language, significantly lowering the barrier to understanding political programs.
+**Why this priority**: The chatbot in Learn context is the conversational extension of the Learn page. It makes structured content searchable and comparable through natural language, significantly lowering the barrier to understanding political programs.
 
-**Independent Test**: A user can open the chatbot, select Learn mode, ask about candidate programs, request comparisons, and receive source-grounded answers — without having completed the survey.
+**Independent Test**: A user can open the chatbot, select Learn context, ask about candidate programs, request comparisons, and receive source-grounded answers — without having completed the survey.
 
 **Acceptance Scenarios**:
 
 1. **Given** a user is on any page, **When** they click the floating chatbot entry point, **Then** the chatbot panel opens in the bottom-right of the screen.
-2. **Given** the chatbot is open, **When** the user selects "Learn Mode," **Then** the chatbot operates as a neutral assistant grounded in the election dataset.
+2. **Given** the chatbot is open, **When** the user selects "Learn Context," **Then** the chatbot operates as a neutral assistant grounded in the election dataset.
 3. **Given** the user asks about a candidate's position, **When** the chatbot responds, **Then** the response references specific sources from the dataset and clearly states what is known vs. unknown.
 4. **Given** the user asks to compare candidates on a topic, **When** the chatbot responds, **Then** both candidates' positions are presented with equal space, weight, and source references.
 5. **Given** the user asks a question not covered by the dataset, **When** the chatbot responds, **Then** it explicitly states that the information is unavailable rather than fabricating an answer.
@@ -66,34 +66,34 @@ A user has a question about a specific candidate's position on housing. They ope
 
 ### User Story 4 - Interact with a Candidate Bot (Priority: P4)
 
-A user wants to "talk to" a specific candidate to understand their platform better. They open the chatbot, select "Candidate Mode," and choose a candidate. The bot responds strictly within that candidate's documented positions, explaining and defending only sourced propositions. It does not invent policies or speak for other candidates.
+A user wants to "talk to" a specific candidate to understand their platform better. They open the chatbot, select "Candidate Context," and choose a candidate. The bot responds strictly within that candidate's documented positions, explaining and defending only sourced propositions. It does not invent policies or speak for other candidates.
 
 **Why this priority**: Candidate bots make programs more engaging and accessible than static reading. However, they require a fully populated dataset and careful prompt engineering to maintain neutrality, making them a later priority.
 
-**Independent Test**: A user can select a candidate bot, ask questions about policies, and receive responses that are strictly sourced from that candidate's documented program — without needing the survey or debate mode.
+**Independent Test**: A user can select a candidate bot, ask questions about policies, and receive responses that are strictly sourced from that candidate's documented program — without needing the survey or assistant personalization flow.
 
 **Acceptance Scenarios**:
 
-1. **Given** the chatbot is open, **When** the user selects "Candidate Mode," **Then** they see a list of available candidates to choose from.
+1. **Given** the chatbot is open, **When** the user selects "Candidate Context," **Then** they see a list of available candidates to choose from.
 2. **Given** the user selects a candidate, **When** the bot responds to questions, **Then** it speaks only within that candidate's documented positions and cites specific sources.
 3. **Given** the user asks about a topic the candidate has not addressed, **When** the bot responds, **Then** it states that the candidate has no documented position on this topic rather than inventing one.
-4. **Given** the user asks the candidate bot to compare with another candidate, **When** the bot responds, **Then** it declines and suggests switching to Learn mode for comparisons.
+4. **Given** the user asks the candidate bot to compare with another candidate, **When** the bot responds, **Then** it declines and suggests switching to Learn context for comparisons.
 5. **Given** the candidate bot is active, **When** it speaks, **Then** it maintains a consistent conversational style appropriate to the candidate's public communication tone.
 
 ---
 
 ### User Story 5 - Engage in Socratic Debate (Priority: P5)
 
-A user who has completed the survey enters Debate Mode in the chatbot. The Socratic agent uses the user's preference profile to detect contradictions ("You prioritize lower taxes but also want expanded public transit — how would you fund the expansion?"). It highlights trade-offs, asks clarifying questions, and helps the user refine their views into a more coherent set of priorities. The agent never asserts what the "right" answer is.
+A user who has completed the survey enters Debate Context in the chatbot. The Socratic agent uses the user's preference profile to detect contradictions ("You prioritize lower taxes but also want expanded public transit — how would you fund the expansion?"). It highlights trade-offs, asks clarifying questions, and helps the user refine their views into a more coherent set of priorities. The agent never asserts what the "right" answer is.
 
-**Why this priority**: Debate mode is the most intellectually ambitious feature and the strongest differentiator. It depends on having survey data and a solid dataset, making it the final priority.
+**Why this priority**: Debate context is the most intellectually ambitious feature and the strongest differentiator. It depends on having survey data and a solid dataset, making it the final priority.
 
-**Independent Test**: A user who completed the survey can enter Debate mode, receive challenges to their reasoning based on their stated preferences, and refine their position — without needing the Learn page or candidate bots.
+**Independent Test**: A user who completed the survey can enter Debate context, receive challenges to their reasoning based on their stated preferences, and refine their position — without needing the Learn page or candidate-focused assistant responses.
 
 **Acceptance Scenarios**:
 
-1. **Given** the user selects "Debate Mode," **When** they have completed the survey, **Then** the Socratic agent loads their preference profile and begins the interaction.
-2. **Given** the user selects "Debate Mode," **When** they have NOT completed the survey, **Then** the system prompts them to complete the survey first or offers a general debate without personalization.
+1. **Given** the user selects "Debate Context," **When** they have completed the survey, **Then** the Socratic agent loads their preference profile and begins the interaction.
+2. **Given** the user selects "Debate Context," **When** they have NOT completed the survey, **Then** the system prompts them to complete the survey first or offers a general debate without personalization.
 3. **Given** the Socratic agent detects a contradiction in the user's preferences, **When** it responds, **Then** it asks a clarifying question rather than asserting what the user should believe.
 4. **Given** the agent highlights a trade-off, **When** presenting it, **Then** it explains the constraint (e.g., budget limits, jurisdictional scope) with source references and asks the user how they would resolve it.
 5. **Given** the user refines a position during debate, **When** the conversation continues, **Then** the agent acknowledges the update and adjusts subsequent challenges accordingly.
@@ -123,10 +123,10 @@ A user who has completed the survey enters Debate Mode in the chatbot. The Socra
 - **FR-008**: The survey MUST produce: a user preference profile with theme importance, a candidate ranking by alignment, a justification for the match, and a tension/contradiction snapshot.
 - **FR-009**: The survey matching algorithm MUST be deterministic — identical inputs MUST produce identical outputs.
 - **FR-010**: The system MUST provide a persistent chatbot accessible via a floating entry point from any page.
-- **FR-011**: The chatbot MUST support Learn Mode (neutral assistant), Candidate Mode (per-candidate bot), and Debate Mode (Socratic agent).
-- **FR-012**: In Learn Mode, the chatbot MUST ground all responses in the election dataset and cite sources.
-- **FR-013**: In Candidate Mode, the chatbot MUST speak strictly within the selected candidate's documented positions and MUST NOT invent policies.
-- **FR-014**: In Debate Mode, the chatbot MUST use the user's survey results (when available) to detect contradictions, highlight trade-offs, and ask Socratic questions without prescribing outcomes.
+- **FR-011**: The chatbot MUST support Learn Context (neutral assistant), Candidate Context (per-candidate bot), and Debate Context (Socratic agent).
+- **FR-012**: In Learn Context, the chatbot MUST ground all responses in the election dataset and cite sources.
+- **FR-013**: In Candidate Context, the chatbot MUST speak strictly within the selected candidate's documented positions and MUST NOT invent policies.
+- **FR-014**: In Debate Context, the chatbot MUST use the user's survey results (when available) to detect contradictions, highlight trade-offs, and ask Socratic questions without prescribing outcomes.
 - **FR-015**: The system MUST store survey results and preference profiles locally on the user's device by default.
 - **FR-016**: The system MUST clearly signal when information is missing, uncertain, or unavailable rather than fabricating content.
 - **FR-017**: All application features MUST derive their content from a single, curated election dataset per deployment.
@@ -155,7 +155,7 @@ A user who has completed the survey enters Debate Mode in the chatbot. The Socra
 - **SC-004**: The chatbot provides a source-cited answer to 90% of questions that are covered by the election dataset.
 - **SC-005**: The chatbot correctly responds "information unavailable" (rather than fabricating) for 95% of questions not covered by the dataset.
 - **SC-006**: Users who complete the survey report that the candidate matching justification is "understandable" at a rate of 80% or higher.
-- **SC-007**: The Debate mode Socratic agent successfully identifies at least one contradiction or trade-off for 70% of completed survey profiles.
+- **SC-007**: The Debate context Socratic agent successfully identifies at least one contradiction or trade-off for 70% of completed survey profiles.
 - **SC-008**: Deploying the app to a new election (different city) requires zero changes to application code — only dataset and configuration changes.
 - **SC-009**: The application meets WCAG 2.1 AA compliance for all user-facing interfaces.
 - **SC-010**: 90% of users can complete core tasks (browse candidates, complete survey, use chatbot) on their first visit without external help.

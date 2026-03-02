@@ -1,6 +1,7 @@
-import { ScrollView, Pressable, Text } from "react-native";
+import { ScrollView, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import type { Theme } from "../../data/schema";
+import { AppText as Text } from "../ui/AppText";
 
 interface Props {
   themes: Theme[];
@@ -26,7 +27,8 @@ export function ThemeFilter({ themes, selectedThemeId, onSelectTheme }: Props) {
         className={`px-4 py-2 rounded-full ${
           selectedThemeId === null ? "bg-civic-navy" : "bg-warm-gray"
         }`}
-        style={{ minHeight: 40, justifyContent: "center" }}
+        style={{ minHeight: 44, justifyContent: "center" }}
+        hitSlop={8}
       >
         <Text
           className={`font-body-medium text-sm ${
@@ -45,7 +47,8 @@ export function ThemeFilter({ themes, selectedThemeId, onSelectTheme }: Props) {
           className={`px-4 py-2 rounded-full ${
             selectedThemeId === theme.id ? "bg-civic-navy" : "bg-warm-gray"
           }`}
-          style={{ minHeight: 40, justifyContent: "center" }}
+          style={{ minHeight: 44, justifyContent: "center" }}
+          hitSlop={8}
         >
           <Text
             className={`font-body-medium text-sm ${

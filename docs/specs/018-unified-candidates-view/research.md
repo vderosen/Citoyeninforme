@@ -33,7 +33,7 @@
 **Rationale**: The spec requires "transitions between states MUST be visually smooth, not jarring" (FR-012). `LayoutAnimation` is the simplest approach — it automatically animates layout changes without explicit animation values. It's already available in React Native (no additional dependency). `react-native-reanimated` is available too, but `LayoutAnimation` is simpler for conditional rendering transitions.
 
 **Alternatives considered**:
-- `react-native-reanimated` entering/exiting animations: More control but requires wrapping each view mode in `Animated.View`. Overkill for conditional content swapping.
+- `react-native-reanimated` entering/exiting animations: More control but requires wrapping each view context in `Animated.View`. Overkill for conditional content swapping.
 - Opacity fade with `Animated.Value`: Manual animation management. More code for marginal visual improvement.
 - No animation: Would violate FR-012.
 
@@ -63,9 +63,9 @@
 
 **Rationale**: The component already includes a `ThemeTabBar` internally (manages its own `activeThemeId` state). For single-candidate display in the unified view, we simply render `<CandidateProfileCard>` below the avatar bar. The component handles theme switching internally. No prop changes needed.
 
-**Consideration**: The profile card has its own `ThemeTabBar` while the comparison mode also needs a `ThemeTabBar`. In the unified view, when switching from 1→2 candidates, the theme bar "moves" from inside the profile card to an external position above the comparison columns. This is acceptable as a visual transition — the user's mental model is "I'm now comparing, so the view changed."
+**Consideration**: The profile card has its own `ThemeTabBar` while the comparison context also needs a `ThemeTabBar`. In the unified view, when switching from 1→2 candidates, the theme bar "moves" from inside the profile card to an external position above the comparison columns. This is acceptable as a visual transition — the user's mental model is "I'm now comparing, so the view changed."
 
-**Alternative approach rejected**: Extract `ThemeTabBar` from `CandidateProfileCard` and make it external for both modes. This would require significant refactoring of `CandidateProfileCard` for minimal benefit, and other features using the profile card would break.
+**Alternative approach rejected**: Extract `ThemeTabBar` from `CandidateProfileCard` and make it external for both contexts. This would require significant refactoring of `CandidateProfileCard` for minimal benefit, and other features using the profile card would break.
 
 ## R6: Translation Keys for Empty State
 
@@ -88,10 +88,10 @@
 - Grep for `CandidateCardItem` imports — likely only `CandidateGallery.tsx`
 - Confirm no test files reference these components
 
-## R8: Debate Button in Comparison Mode
+## R8: Debate Button in Comparison Context
 
-**Decision**: Hide debate button in comparison mode (FR-009 acceptance scenario 2).
+**Decision**: Hide debate button in comparison context (FR-009 acceptance scenario 2).
 
-**Rationale**: The spec states "no debate button is shown (debate is single-candidate only)." The debate feature requires a single candidate context — comparing multiple candidates and debating makes no sense in the current debate model. The `CandidateProfileCard` component includes the debate button, so it's naturally hidden when the view switches from profile to comparison.
+**Rationale**: The spec states "no debate button is shown (debate is single-candidate only)." The debate feature requires a single candidate context — comparing multiple candidates and debating makes no sense in the current assistant personalization flowl. The `CandidateProfileCard` component includes the debate button, so it's naturally hidden when the view switches from profile to comparison.
 
-No additional code needed — the button only exists in `CandidateProfileCard`, which only renders in single-candidate mode.
+No additional code needed — the button only exists in `CandidateProfileCard`, which only renders in single-candidate context.

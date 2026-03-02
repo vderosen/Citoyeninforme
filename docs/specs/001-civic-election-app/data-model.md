@@ -133,7 +133,7 @@ interface Candidate {
   name: string;                  // Full display name
   party: string;                 // Party or list name
   bio: string;                   // Short biography (2-3 sentences)
-  communicationStyle: string;    // Describes tone for Candidate Mode chatbot
+  communicationStyle: string;    // Describes tone for Candidate Context chatbot
   programSourceUrl: string;      // URL to official program document
   photoUrl?: string;             // Optional candidate photo
 }
@@ -143,7 +143,7 @@ interface Candidate {
 - `id` must be unique within an election
 - `name` must not be empty
 - `programSourceUrl` must be a valid URL
-- `communicationStyle` is used by the Candidate Mode system prompt (Principle I: no editorial bias in style description)
+- `communicationStyle` is used by the Candidate Context system prompt (Principle I: no editorial bias in style description)
 
 ---
 
@@ -407,10 +407,10 @@ NOT_STARTED → CIVIC_CONTEXT → QUESTIONNAIRE → COMPUTING → RESULTS_READY
                                                     (profile persisted)
 ```
 
-### Chatbot Mode State
+### Chatbot Context State
 
 ```text
-CLOSED → OPEN (mode selection) → LEARN_MODE
+CLOSED → OPEN (context selection) → LEARN_MODE
                                 → CANDIDATE_MODE (candidate selection) → ACTIVE
                                 → DEBATE_MODE (requires survey completion) → ACTIVE
 ```

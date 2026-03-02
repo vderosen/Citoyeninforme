@@ -53,16 +53,16 @@ The unified candidates screen manages ephemeral state via React `useState`. No Z
 | State Variable | Type | Initial Value | Description |
 |---------------|------|---------------|-------------|
 | selectedIds | string[] | [] | Currently selected candidate IDs (0-4) |
-| activeThemeId | string | themes[0]?.id ?? "" | Active theme for comparison mode |
+| activeThemeId | string | themes[0]?.id ?? "" | Active theme for comparison context |
 
 ### Derived State (computed, not stored)
 
 | Derived Value | Expression | Description |
 |--------------|------------|-------------|
-| viewMode | `selectedIds.length === 0 ? "empty" : selectedIds.length === 1 ? "profile" : "comparison"` | Current display mode |
+| viewMode | `selectedIds.length === 0 ? "empty" : selectedIds.length === 1 ? "profile" : "comparison"` | Current display context |
 | shuffledCandidates | `deterministicShuffle(candidates, dailySeed())` | Daily-randomized candidate order for avatar bar |
-| selectedCandidate | `getCandidateById(selectedIds[0])` | Single candidate (profile mode only) |
-| selectedPositions | `getPositionsForCandidate(selectedIds[0])` | Positions for profile mode |
+| selectedCandidate | `getCandidateById(selectedIds[0])` | Single candidate (profile context only) |
+| selectedPositions | `getPositionsForCandidate(selectedIds[0])` | Positions for profile context |
 | maxReached | `selectedIds.length >= 4` | Whether selection limit is reached |
 
 ### State Transitions
@@ -105,7 +105,7 @@ UnifiedCandidatesScreen (candidates.tsx)
 │       └── FeedbackAction       [REUSED — flag modal]
 │
 └── if viewMode === "comparison":
-    ├── ThemeTabBar              [REUSED — external, for comparison mode]
+    ├── ThemeTabBar              [REUSED — external, for comparison context]
     └── ComparisonView           [REUSED — side-by-side columns]
 ```
 
@@ -117,15 +117,15 @@ ElectionStore
   ├── candidates ──→ deterministicShuffle() ──→ CandidateAvatarBar.candidates
   ├── themes ──→ CandidateProfileCard.themes / ThemeTabBar.themes
   ├── positions ──→ CandidateProfileCard.positions / ComparisonView.positions
-  ├── getCandidateById() ──→ resolve selectedIds[0] for profile mode
-  └── getPositionsForCandidate() ──→ resolve positions for profile mode
+  ├── getCandidateById() ──→ resolve selectedIds[0] for profile context
+  └── getPositionsForCandidate() ──→ resolve positions for profile context
 
 Local State
   │
   ├── selectedIds ──→ CandidateAvatarBar.selectedIds
   │                   ComparisonView.selectedCandidateIds
   │
-  └── activeThemeId ──→ ThemeTabBar.activeThemeId (comparison mode only)
+  └── activeThemeId ──→ ThemeTabBar.activeThemeId (comparison context only)
                         ComparisonView.activeThemeId
 
 Callbacks

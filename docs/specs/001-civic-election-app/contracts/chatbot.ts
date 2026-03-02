@@ -7,7 +7,7 @@
  * Contract boundary: mobile app → LLM proxy → OpenAI GPT API
  */
 
-// === Chatbot Modes ===
+// === Chatbot Contexts ===
 
 export type ChatbotMode = "learn" | "candidate" | "debate";
 
@@ -17,8 +17,8 @@ export type ChatbotStatus = "closed" | "mode_selection" | "active";
 
 export interface ChatbotState {
   status: ChatbotStatus;
-  mode?: ChatbotMode;
-  selectedCandidateId?: string; // Set when mode is "candidate"
+  context?: ChatbotMode;
+  selectedCandidateId?: string; // Set when context is "candidate"
   messages: ChatMessage[];
   isStreaming: boolean;
   preloadedContext?: string; // Set when user clicks "Ask about this in chat"
@@ -47,11 +47,11 @@ export interface CitedSource {
  * The proxy adds the API key and forwards to OpenAI.
  */
 export interface ChatRequest {
-  mode: ChatbotMode;
-  candidateId?: string; // Required when mode is "candidate"
+  context: ChatbotMode;
+  candidateId?: string; // Required when context is "candidate"
   messages: ChatRequestMessage[];
   electionContext: ElectionContext;
-  userProfile?: UserProfileSummary; // Included when mode is "debate" and survey is completed
+  userProfile?: UserProfileSummary; // Included when context is "debate" and survey is completed
 }
 
 export interface ChatRequestMessage {
@@ -91,7 +91,7 @@ export interface CandidateSummary {
 }
 
 /**
- * Simplified user profile sent to Debate mode.
+ * Simplified user profile sent to Debate context.
  * Only includes scores and contradictions — NOT raw survey answers.
  */
 export interface UserProfileSummary {

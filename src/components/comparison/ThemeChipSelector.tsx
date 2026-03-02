@@ -1,6 +1,7 @@
-import { Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import type { Theme } from "../../data/schema";
 import { PressableScale } from "../ui/PressableScale";
+import { AppText as Text } from "../ui/AppText";
 
 interface ThemeChipSelectorProps {
   themes: Theme[];
@@ -36,6 +37,7 @@ export function ThemeChipSelector({
               isSelected ? "bg-civic-navy" : "bg-warm-gray"
             }`}
             style={{ minHeight: 44 }}
+            ensureMinTouchTarget
           >
             <Text
               className={`font-body-medium text-sm ${

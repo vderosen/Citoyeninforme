@@ -12,7 +12,7 @@ All routes use Expo Router file-based routing. Routes map 1:1 to files in `src/a
 | Route | File | Tab Label | Tab Position | Description |
 |-------|------|-----------|-------------|-------------|
 | `/` | `(tabs)/index.tsx` | Accueil | Left | Home screen with hero, shortcuts, cards, theme feed |
-| `/assistant` | `(tabs)/assistant.tsx` | Assistant | Center | Chat UI with mode selector |
+| `/assistant` | `(tabs)/assistant.tsx` | Assistant | Center | Chat UI with assistant context controls |
 | `/candidates` | `(tabs)/candidates.tsx` | Candidats | Right | Candidate gallery with theme filter |
 
 ### Stack Routes (pushed above tabs)
@@ -42,7 +42,7 @@ assistantStore.setPreloadedContext({
   themeId: string | null,
   promptText: string          // e.g., "Que propose Alice Dupont sur le transport ?"
 })
-assistantStore.setMode("comprendre")
+assistantStore.clearCandidate()
 ```
 
 **Navigation**: `router.push("/(tabs)/assistant")`
@@ -61,13 +61,13 @@ assistantStore.setMode("comprendre")
 
 ---
 
-### "Debattre" → Assistant (Debate Mode)
+### "assistant" → Assistant (Debate Context)
 
-**Trigger**: User taps "Debattre" from a candidate profile.
+**Trigger**: User taps "assistant" from a candidate profile.
 
 **Before navigation**:
 ```
-assistantStore.setMode("debattre")
+assistantStore.selectCandidate("<candidate-id>")
 assistantStore.setPreloadedContext({
   type: "candidate",
   candidateId: string,

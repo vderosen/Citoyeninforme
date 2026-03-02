@@ -34,11 +34,11 @@
 - 64x64px avatars (~120px cards): Too small for recognizable photos. Candidate identification suffers.
 - Responsive avatar sizing: Over-engineering for a known range of 7-9 candidates. Fixed size ensures uniformity (FR-002, FR-005).
 
-## R-004: Compare mode indicator placement on circular avatars
+## R-004: Compare context indicator placement on circular avatars
 
 **Decision**: Use a checkmark badge positioned at the bottom-right of the circular avatar (overlapping the avatar edge), plus a colored ring around the avatar when selected.
 
-**Rationale**: The current compare mode uses a checkmark icon at the top-right corner of the rectangular card. With circular avatars, the most natural placement is a badge on the avatar itself. A ring (border) change provides a clear visual state change, and the badge icon confirms the selection. This is a standard pattern in contact/avatar selection UIs.
+**Rationale**: The current compare context uses a checkmark icon at the top-right corner of the rectangular card. With circular avatars, the most natural placement is a badge on the avatar itself. A ring (border) change provides a clear visual state change, and the badge icon confirms the selection. This is a standard pattern in contact/avatar selection UIs.
 
 **Alternatives considered**:
 - Overlay on the entire card: Obscures the candidate info, reduces readability.

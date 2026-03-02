@@ -26,19 +26,19 @@ As a user opening the app, I want to see a clean, focused home page with only th
 
 ### User Story 2 - Isolated Assistant Conversations (Priority: P2)
 
-As a user interacting with the assistant, I want each mode (Comprendre, Parler avec un candidat, Debattre) to maintain its own independent conversation history — and within "Parler avec un candidat", each candidate to have their own conversation — so that switching modes or candidates never mixes or loses my messages.
+As a user interacting with the assistant, I want each context (Comprendre, assistant avec contexte candidat, assistant) to maintain its own independent conversation history — and within "assistant avec contexte candidat", each candidate to have their own conversation — so that switching contexts or candidates never mixes or loses my messages.
 
 **Why this priority**: The current shared message history is the most confusing usability issue in the app. Messages from different contexts blending together makes the assistant unreliable. This is the most complex change but also the most impactful for user trust and engagement.
 
-**Independent Test**: Can be tested by starting a conversation in "Comprendre" mode, switching to "Parler" with Candidate A, typing messages, switching to Candidate B, typing different messages, then going back to each previous context and verifying all message histories are intact and separate.
+**Independent Test**: Can be tested by starting a conversation in "Comprendre" context, switching to "Parler" with Candidate A, typing messages, switching to Candidate B, typing different messages, then going back to each previous context and verifying all message histories are intact and separate.
 
 **Acceptance Scenarios**:
 
-1. **Given** the user is in "Comprendre" mode and has sent messages, **When** they switch to "Parler avec un candidat" mode, **Then** the Comprendre conversation messages are preserved and the Parler mode shows either an empty conversation or a previously started conversation for the selected candidate.
-2. **Given** the user is in "Parler" mode with Candidate A and has sent messages, **When** they switch to Candidate B, **Then** Candidate A's conversation is preserved and Candidate B shows their own independent conversation.
+1. **Given** the user is in "Comprendre" context and has sent messages, **When** they switch to "assistant avec contexte candidat" context, **Then** the Comprendre conversation messages are preserved and the assistant avec contexte candidat shows either an empty conversation or a previously started conversation for the selected candidate.
+2. **Given** the user is in "assistant avec contexte candidat" with Candidate A and has sent messages, **When** they switch to Candidate B, **Then** Candidate A's conversation is preserved and Candidate B shows their own independent conversation.
 3. **Given** the user switches back to Candidate A after talking to Candidate B, **When** the conversation loads, **Then** all previous messages with Candidate A are displayed exactly as they were.
-4. **Given** the user is in "Debattre" mode, **When** they have a conversation, **Then** this conversation is independent from all "Comprendre" and "Parler" conversations.
-5. **Given** the user closes and reopens the app, **When** they return to a previously used mode/candidate, **Then** the conversation history is still present.
+4. **Given** the user is in "assistant" context, **When** they have a conversation, **Then** this conversation is independent from all "Comprendre" and "Parler" conversations.
+5. **Given** the user closes and reopens the app, **When** they return to a previously used context/candidate, **Then** the conversation history is still present.
 
 ---
 
@@ -55,26 +55,26 @@ As a user browsing candidates, I want to see a clean, uniform grid of candidate 
 1. **Given** the user navigates to the candidates tab, **When** the page loads, **Then** all candidate cards are displayed in a grid with uniform dimensions (same height).
 2. **Given** the candidates page is displayed, **When** the user looks for a theme filter toolbar, **Then** no such toolbar is visible.
 3. **Given** each candidate card, **When** displayed, **Then** it shows the candidate's photo, name, and political party.
-4. **Given** the candidates page is displayed, **When** the user taps the "Comparer" button, **Then** the page enters comparison selection mode where cards become selectable.
-5. **Given** compare mode is active, **When** the user taps on candidate cards, **Then** selected cards show a visual selection indicator (toggle on/off).
-6. **Given** compare mode is active and the user has selected 2 or more candidates, **When** they confirm their selection, **Then** the app navigates to the comparison page with those candidates.
-7. **Given** compare mode is active and the user has selected fewer than 2 candidates, **When** they try to confirm, **Then** the confirm action is disabled or a message indicates at least 2 candidates are required.
+4. **Given** the candidates page is displayed, **When** the user taps the "Comparer" button, **Then** the page enters comparison selection context where cards become selectable.
+5. **Given** compare context is active, **When** the user taps on candidate cards, **Then** selected cards show a visual selection indicator (toggle on/off).
+6. **Given** compare context is active and the user has selected 2 or more candidates, **When** they confirm their selection, **Then** the app navigates to the comparison page with those candidates.
+7. **Given** compare context is active and the user has selected fewer than 2 candidates, **When** they try to confirm, **Then** the confirm action is disabled or a message indicates at least 2 candidates are required.
 
 ---
 
 ### User Story 4 - Streamlined Candidate Detail Page (Priority: P4)
 
-As a user viewing a candidate's detail page, I want to see their full profile (photo, name, party, biography, positions by theme with sources) with a single clear call to action — "Debattre" — which opens or resumes my isolated conversation with that candidate.
+As a user viewing a candidate's detail page, I want to see their full profile (photo, name, party, biography, positions by theme with sources) with a single clear call to action — "assistant" — which opens or resumes my isolated conversation with that candidate.
 
 **Why this priority**: Depends on P2 (conversation isolation) and P3 (compare moved to gallery). Simplifying the CTA to one action reduces decision paralysis and aligns the page's purpose with its primary use case: learning about a candidate then engaging in debate.
 
-**Independent Test**: Can be tested by navigating to any candidate's detail page and verifying full content is displayed with exactly one "Debattre" button and no "Comparer" or "Poser une question" buttons.
+**Independent Test**: Can be tested by navigating to any candidate's detail page and verifying full content is displayed with exactly one "assistant" button and no "Comparer" or "Poser une question" buttons.
 
 **Acceptance Scenarios**:
 
 1. **Given** the user taps a candidate card from the gallery, **When** the detail page loads, **Then** the candidate's photo, name, party, biography, and thematic positions with sources are all displayed.
-2. **Given** the candidate detail page is displayed, **When** the user looks for action buttons, **Then** only a "Debattre" button is visible — no "Comparer" or "Poser une question" buttons.
-3. **Given** the user taps "Debattre" on a candidate detail page, **When** the assistant opens, **Then** it navigates to the "Parler avec un candidat" mode with that candidate selected, showing their isolated conversation (new or resumed).
+2. **Given** the candidate detail page is displayed, **When** the user looks for action buttons, **Then** only a "assistant" button is visible — no "Comparer" or "Poser une question" buttons.
+3. **Given** the user taps "assistant" on a candidate detail page, **When** the assistant opens, **Then** it navigates to the "assistant avec contexte candidat" context with that candidate selected, showing their isolated conversation (new or resumed).
 
 ---
 
@@ -95,10 +95,10 @@ As a user, I should not see a FR/EN language toggle that does not work, so that 
 
 ### Edge Cases
 
-- What happens when a user activates compare mode but then navigates away from the candidates page? Compare selection state should be reset.
-- What happens when there are no candidates loaded yet (empty state)? The candidates page should display an appropriate empty/loading state, and compare mode should be unavailable.
-- What happens when the user navigates to "Debattre" from the candidate detail page but the assistant is in a different mode? The app should switch to "Parler avec un candidat" mode and select the correct candidate automatically.
-- What happens when the user has never spoken with a candidate and taps "Debattre"? A new, empty conversation should be created for that candidate.
+- What happens when a user activates compare context but then navigates away from the candidates page? Compare selection state should be reset.
+- What happens when there are no candidates loaded yet (empty state)? The candidates page should display an appropriate empty/loading state, and compare context should be unavailable.
+- What happens when the user navigates to "assistant" from the candidate detail page but the assistant is in a different context? The app should switch to "assistant avec contexte candidat" context and select the correct candidate automatically.
+- What happens when the user has never spoken with a candidate and taps "assistant"? A new, empty conversation should be created for that candidate.
 - What happens on screen sizes where 3 home page elements still require scrolling? The layout should gracefully stack elements with appropriate spacing.
 - What happens if the user selects more candidates for comparison than the comparison page can reasonably display? A maximum selection limit should be enforced (assumed: maximum 4 candidates for comparison).
 
@@ -119,34 +119,34 @@ As a user, I should not see a FR/EN language toggle that does not work, so that 
 
 **Assistant Conversation Isolation**
 
-- **FR-006**: Each assistant mode (Comprendre, Parler avec un candidat, Debattre) MUST maintain its own independent message history that does not mix with other modes.
-- **FR-007**: "Parler avec un candidat" mode MUST maintain a separate conversation per candidate, so that each candidate has their own isolated message thread.
-- **FR-008**: Switching between modes or between candidates within "Parler" mode MUST NOT erase, merge, or alter messages from any other conversation.
-- **FR-009**: Users MUST be able to resume any previously started conversation by returning to the same mode and candidate.
+- **FR-006**: Each assistant context (Comprendre, assistant avec contexte candidat, assistant) MUST maintain its own independent message history that does not mix with other contexts.
+- **FR-007**: "assistant avec contexte candidat" context MUST maintain a separate conversation per candidate, so that each candidate has their own isolated message thread.
+- **FR-008**: Switching between contexts or between candidates within "assistant avec contexte candidat" MUST NOT erase, merge, or alter messages from any other conversation.
+- **FR-009**: Users MUST be able to resume any previously started conversation by returning to the same context and candidate.
 - **FR-010**: Conversation histories MUST persist across app sessions (survive app close and reopen).
-- **FR-011**: Mode selector buttons MUST be clearly labeled and visually intuitive, allowing the user to understand the three modes at a glance.
+- **FR-011**: Context selector buttons MUST be clearly labeled and visually intuitive, allowing the user to understand the single chat at a glance.
 
 **Candidates Gallery Redesign**
 
 - **FR-012**: Candidates page MUST NOT display a theme filter toolbar.
 - **FR-013**: All candidate cards MUST have uniform dimensions with a fixed height, displaying the candidate's photo, name, and political party.
 - **FR-014**: Candidates page MUST provide a "Comparer" entry point (button) accessible directly from the page without navigating elsewhere.
-- **FR-015**: When compare mode is activated, candidate cards MUST become selectable with a visible toggle indicator.
+- **FR-015**: When compare context is activated, candidate cards MUST become selectable with a visible toggle indicator.
 - **FR-016**: Users MUST be able to select between 2 and 4 candidates for comparison.
 - **FR-017**: Once a valid selection is made (2-4 candidates), users MUST be able to navigate to the comparison page with those candidates.
-- **FR-018**: Compare mode MUST be cancellable, allowing the user to exit without navigating to comparison.
+- **FR-018**: Compare context MUST be cancellable, allowing the user to exit without navigating to comparison.
 
 **Candidate Detail Page Simplification**
 
 - **FR-019**: Candidate detail page MUST display complete candidate information: photo, name, party, biography, and positions by theme with sources.
-- **FR-020**: Candidate detail page MUST display exactly one action button: "Debattre".
-- **FR-021**: "Debattre" button MUST navigate to the assistant in "Parler avec un candidat" mode with the current candidate pre-selected, opening or resuming the isolated conversation.
+- **FR-020**: Candidate detail page MUST display exactly one action button: "assistant".
+- **FR-021**: "assistant" button MUST navigate to the assistant in "assistant avec contexte candidat" context with the current candidate pre-selected, opening or resuming the isolated conversation.
 - **FR-022**: Candidate detail page MUST NOT display "Comparer" or "Poser une question" action buttons.
 
 ### Key Entities
 
-- **Conversation**: An independent message thread identified by a mode and optionally a candidate. Contains an ordered list of messages, each with a sender (user or assistant), content, and timestamp.
-- **Candidate Card (Gallery View)**: A uniform visual representation of a candidate showing photo, name, and party. Supports a selected/unselected state for compare mode.
+- **Conversation**: An independent message thread identified by a context and optionally a candidate. Contains an ordered list of messages, each with a sender (user or assistant), content, and timestamp.
+- **Candidate Card (Gallery View)**: A uniform visual representation of a candidate showing photo, name, and party. Supports a selected/unselected state for compare context.
 - **Compare Selection**: A transient state on the candidates page tracking which candidates the user has toggled for comparison (minimum 2, maximum 4).
 
 ### Assumptions
@@ -156,14 +156,14 @@ As a user, I should not see a FR/EN language toggle that does not work, so that 
 - The comparison page already exists and functions correctly; only the entry point changes (from detail page to gallery page).
 - Maximum 4 candidates can be compared at once, matching common UX patterns for side-by-side comparison readability.
 - Conversation persistence uses the same local storage mechanism as other app data (no server-side storage).
-- The existing assistant streaming/chat functionality remains unchanged; only the conversation state management and mode switching are refactored.
+- The existing assistant streaming/chat functionality remains unchanged; only the conversation state management and context switching are refactored.
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
 - **SC-001**: Home page displays exactly 3 content elements with no additional clutter; users can reach the survey in one tap from the home page.
-- **SC-002**: 100% of conversations are isolated — switching modes or candidates and returning never causes message loss or cross-contamination.
+- **SC-002**: 100% of conversations are isolated — switching contexts or candidates and returning never causes message loss or cross-contamination.
 - **SC-003**: All candidate cards on the gallery page are rendered at the same height, with no visual size inconsistency.
 - **SC-004**: Users can select candidates and launch a comparison entirely from the candidates page in 3 taps or fewer (tap Compare, tap 2+ candidates, tap Confirm).
 - **SC-005**: Candidate detail page displays exactly 1 action button; tapping it correctly opens or resumes the corresponding isolated conversation.

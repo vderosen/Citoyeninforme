@@ -74,6 +74,6 @@
 - [ ] Each candidate profile shows correct positions
 - [ ] Comparison view works for any 2 candidates
 - [ ] Survey flow completes successfully
-- [ ] Swipe mode works with all 18 statement cards
+- [ ] Swipe context works with all 18 statement cards
 - [ ] No TypeScript compilation errors (`npx tsc --noEmit`)
 - [ ] No console warnings about missing data or broken references

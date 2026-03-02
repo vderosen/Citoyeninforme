@@ -25,10 +25,22 @@ module.exports = {
         }
     },
     devices: {
+        simulatorSmall: {
+            type: 'ios.simulator',
+            device: {
+                type: 'iPhone SE (2nd generation)'
+            }
+        },
         simulator: {
             type: 'ios.simulator',
             device: {
                 type: 'iPhone 16'
+            }
+        },
+        simulatorLarge: {
+            type: 'ios.simulator',
+            device: {
+                type: 'iPhone 16 Pro Max'
             }
         },
         attached: {
@@ -45,8 +57,16 @@ module.exports = {
         }
     },
     configurations: {
+        'ios.sim.debug.small': {
+            device: 'simulatorSmall',
+            app: 'ios.debug'
+        },
         'ios.sim.debug': {
             device: 'simulator',
+            app: 'ios.debug'
+        },
+        'ios.sim.debug.large': {
+            device: 'simulatorLarge',
             app: 'ios.debug'
         },
         'android.att.debug': {

@@ -39,20 +39,20 @@
 
 ## Phase 3: User Story 2 — Isolated Assistant Conversations (Priority: P2)
 
-**Goal**: Refactor the assistant store from a flat `messages: ChatMessage[]` to a `conversations: Record<string, ChatMessage[]>` keyed by composite key (`mode` or `parler:${candidateId}`). Each mode/candidate gets its own independent conversation. Existing users' messages are migrated to the "comprendre" key.
+**Goal**: Refactor the assistant store from a flat `messages: ChatMessage[]` to a `conversations: Record<string, ChatMessage[]>` keyed by composite key (`context` or `candidate:${candidateId}`). Each context/candidate gets its own independent conversation. Existing users' messages are migrated to the "general" key.
 
-**Independent Test**: Send a message in "Comprendre" mode, switch to "Parler" with Candidate A, send a different message, switch to Candidate B, send another message, then switch back through each — all histories must be intact and separate. Close and reopen app — all conversations persist.
+**Independent Test**: Send a message in "Comprendre" context, switch to "Parler" with Candidate A, send a different message, switch to Candidate B, send another message, then switch back through each — all histories must be intact and separate. Close and reopen app — all conversations persist.
 
 ### Implementation for User Story 2
 
-- [X] T005 [US2] Refactor assistant store to conversation-keyed state — replace `messages: ChatMessage[]` with `conversations: Record<string, ChatMessage[]>`, add `getConversationKey()` and `getCurrentMessages()` selectors, update `addMessage()`, `updateLastAssistantMessage()`, `resetConversation()` to operate on current conversation key, add persist migration v0→v1 (move existing `messages` to `"comprendre"` key), update `partialize` in `src/stores/assistant.ts`
+- [X] T005 [US2] Refactor assistant store to conversation-keyed state — replace `messages: ChatMessage[]` with `conversations: Record<string, ChatMessage[]>`, add `getConversationKey()` and `getCurrentMessages()` selectors, update `addMessage()`, `updateLastAssistantMessage()`, `resetConversation()` to operate on current conversation key, add persist migration v0→v1 (move existing `messages` to `"general"` key), update `partialize` in `src/stores/assistant.ts`
 - [X] T006 [P] [US2] Update assistant page to use conversation-keyed API — replace `state.messages` reads with `getCurrentMessages()`, ensure `sendChatMessage()` passes conversation-specific history in `src/app/(tabs)/assistant.tsx`
 - [X] T007 [P] [US2] Update ChatArea to read from `getCurrentMessages()` instead of `state.messages` in `src/components/assistant/ChatArea.tsx`
-- [X] T008 [P] [US2] Redesign ModeSelector buttons for visual clarity — ensure three modes (Comprendre, Parler, Debattre) are clearly labeled and distinguishable at a glance in `src/components/assistant/ModeSelector.tsx`
+- [X] T008 [P] [US2] Redesign assistant context controls for visual clarity — ensure single chat (Comprendre, Parler, assistant) are clearly labeled and distinguishable at a glance in `src/components/assistant/AssistantContextControls.tsx`
 - [X] T009 [P] [US2] Update data export to iterate over all conversations in the record instead of flat messages array in `src/services/data-export.ts`
-- [X] T010 [P] [US2] Add conversation-related i18n labels (if any new strings are needed for mode descriptions or empty conversation states) in `src/i18n/locales/fr/assistant.json`
+- [X] T010 [P] [US2] Add conversation-related i18n labels (if any new strings are needed for context descriptions or empty conversation states) in `src/i18n/locales/fr/assistant.json`
 
-**Checkpoint**: Conversations are fully isolated by mode and candidate. Switching modes/candidates preserves all histories. Persist migration works for existing users. Data export captures all conversations.
+**Checkpoint**: Conversations are fully isolated by context and candidate. Switching contexts/candidates preserves all histories. Persist migration works for existing users. Data export captures all conversations.
 
 ---
 
@@ -60,31 +60,31 @@
 
 **Goal**: Remove the ThemeFilter toolbar, render all candidate cards at uniform height (photo + name + party only), and add an inline compare selection flow with a FAB button, selectable cards, and a bottom confirmation bar navigating to the existing comparison page.
 
-**Independent Test**: Open candidates tab — no theme filter, all cards same height. Tap "Comparer" FAB — cards become selectable. Select 2+ candidates, tap confirm — navigates to comparison page. Cancel compare mode — selection resets.
+**Independent Test**: Open candidates tab — no theme filter, all cards same height. Tap "Comparer" FAB — cards become selectable. Select 2+ candidates, tap confirm — navigates to comparison page. Cancel compare context — selection resets.
 
 ### Implementation for User Story 3
 
-- [X] T011 [US3] Modify CandidateGallery for uniform cards and selectable compare mode — remove `positionSnippet` rendering for natural uniform height, add `compareMode` and `selectedForCompare` props with selection toggle callback, add visual selection indicator (checkbox/overlay) on cards in `src/components/candidates/CandidateGallery.tsx`
-- [X] T012 [US3] Add compare mode to candidates page — remove ThemeFilter import and JSX, add local `compareMode` and `selectedForCompare` state, add "Comparer" FAB button, add bottom confirmation bar showing selection count and "Voir la comparaison" button (enabled when 2+ selected, max 4), add cancel button, navigate to `/comparison` with `selected` param on confirm in `src/app/(tabs)/candidates.tsx`
-- [X] T013 [P] [US3] Add compare mode i18n labels (Comparer, Voir la comparaison, cancel, selection count) in `src/i18n/locales/fr/candidates.json`
+- [X] T011 [US3] Modify CandidateGallery for uniform cards and selectable compare context — remove `positionSnippet` rendering for natural uniform height, add `compareMode` and `selectedForCompare` props with selection toggle callback, add visual selection indicator (checkbox/overlay) on cards in `src/components/candidates/CandidateGallery.tsx`
+- [X] T012 [US3] Add compare context to candidates page — remove ThemeFilter import and JSX, add local `compareMode` and `selectedForCompare` state, add "Comparer" FAB button, add bottom confirmation bar showing selection count and "Voir la comparaison" button (enabled when 2+ selected, max 4), add cancel button, navigate to `/comparison` with `selected` param on confirm in `src/app/(tabs)/candidates.tsx`
+- [X] T013 [P] [US3] Add compare context i18n labels (Comparer, Voir la comparaison, cancel, selection count) in `src/i18n/locales/fr/candidates.json`
 
-**Checkpoint**: No theme filter visible. All cards uniform height. Compare mode works end-to-end: FAB → select 2-4 candidates → confirm → comparison page. State resets on cancel or navigation away.
+**Checkpoint**: No theme filter visible. All cards uniform height. Compare context works end-to-end: FAB → select 2-4 candidates → confirm → comparison page. State resets on cancel or navigation away.
 
 ---
 
 ## Phase 5: User Story 4 — Streamlined Candidate Detail (Priority: P4)
 
-**Goal**: Remove "Comparer" and "Poser une question" action buttons from the candidate detail page. Keep only the "Debattre" button which navigates to the assistant in "Parler" mode with the candidate pre-selected, opening or resuming their isolated conversation.
+**Goal**: Remove "Comparer" and "Poser une question" action buttons from the candidate detail page. Keep only the "assistant" button which navigates to the assistant in "assistant avec contexte candidat" with the candidate pre-selected, opening or resuming their isolated conversation.
 
-**Independent Test**: Open any candidate detail page — only "Debattre" button visible. Tap it — navigates to assistant in "Parler" mode with that candidate, showing their isolated conversation (new or resumed).
+**Independent Test**: Open any candidate detail page — only "assistant" button visible. Tap it — navigates to assistant in "assistant avec contexte candidat" with that candidate, showing their isolated conversation (new or resumed).
 
-**Dependencies**: Best tested after US2 (conversation isolation) is complete, so that "Debattre" correctly opens an isolated conversation. However, the code change (removing buttons) is independent and can be implemented in parallel.
+**Dependencies**: Best tested after US2 (conversation isolation) is complete, so that "assistant" correctly opens an isolated conversation. However, the code change (removing buttons) is independent and can be implemented in parallel.
 
 ### Implementation for User Story 4
 
-- [X] T014 [US4] Remove "Comparer" and "Poser une question" action buttons, keep only "Debattre" CTA — check both `src/app/candidate/[id].tsx` and `src/components/candidates/CandidateProfileCard.tsx` for button rendering, remove the extra buttons and any associated handlers/imports
+- [X] T014 [US4] Remove "Comparer" and "Poser une question" action buttons, keep only "assistant" CTA — check both `src/app/candidate/[id].tsx` and `src/components/candidates/CandidateProfileCard.tsx` for button rendering, remove the extra buttons and any associated handlers/imports
 
-**Checkpoint**: Candidate detail page displays full content (photo, name, party, bio, positions with sources) with exactly one "Debattre" button. No "Comparer" or "Poser une question" visible.
+**Checkpoint**: Candidate detail page displays full content (photo, name, party, bio, positions with sources) with exactly one "assistant" button. No "Comparer" or "Poser une question" visible.
 
 ---
 
@@ -121,16 +121,16 @@
 - **US1 (Phase 2)**: No dependencies on other stories — can start after Phase 1
 - **US2 (Phase 3)**: No dependencies on other stories — can start after Phase 1
 - **US3 (Phase 4)**: No dependencies on other stories — can start after Phase 1
-- **US4 (Phase 5)**: Code-independent but best validated after US2 (conversation isolation makes "Debattre" fully functional)
+- **US4 (Phase 5)**: Code-independent but best validated after US2 (conversation isolation makes "assistant" fully functional)
 - **US5 (Phase 6)**: No dependencies on other stories — can start after Phase 1
 - **Polish (Phase 7)**: Depends on all user stories being complete
 
 ### User Story Dependencies
 
 - **US1 (P1)**: Fully independent. Touches `index.tsx`, `PrimaryShortcuts.tsx`, `home.json` — no overlap with other stories.
-- **US2 (P2)**: Fully independent. Touches `assistant.ts`, `assistant.tsx`, `ChatArea.tsx`, `ModeSelector.tsx`, `data-export.ts`, `assistant.json`.
+- **US2 (P2)**: Fully independent. Touches `assistant.ts`, `assistant.tsx`, `ChatArea.tsx`, `AssistantContextControls.tsx`, `data-export.ts`, `assistant.json`.
 - **US3 (P3)**: Fully independent. Touches `candidates.tsx`, `CandidateGallery.tsx`, `candidates.json`.
-- **US4 (P4)**: Touches `candidate/[id].tsx` and/or `CandidateProfileCard.tsx`. Code changes are independent, but the full "Debattre" flow relies on US2's conversation isolation.
+- **US4 (P4)**: Touches `candidate/[id].tsx` and/or `CandidateProfileCard.tsx`. Code changes are independent, but the full "assistant" flow relies on US2's conversation isolation.
 - **US5 (P5)**: Fully independent. Touches `_layout.tsx` and `LanguageSwitcher.tsx`.
 
 ### Within Each User Story
@@ -168,7 +168,7 @@ Task: "Refactor assistant store to conversation-keyed state in src/stores/assist
 # Step 2: All consumers in parallel after store is ready
 Task: "Update assistant page in src/app/(tabs)/assistant.tsx"
 Task: "Update ChatArea in src/components/assistant/ChatArea.tsx"
-Task: "Redesign ModeSelector in src/components/assistant/ModeSelector.tsx"
+Task: "Redesign AssistantContextControls in src/components/assistant/AssistantContextControls.tsx"
 Task: "Update data export in src/services/data-export.ts"
 Task: "Update i18n assistant.json"
 ```

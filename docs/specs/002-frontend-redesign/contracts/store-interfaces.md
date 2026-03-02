@@ -30,10 +30,10 @@ interface AppState {
 ## AssistantStore
 
 **File**: `src/stores/assistant.ts`
-**Persistence**: MMKV via zustandStorage (messages, mode, selectedCandidateId)
+**Persistence**: MMKV via zustandStorage (messages, context, selectedCandidateId)
 
 ```typescript
-type AssistantMode = "comprendre" | "parler" | "debattre";
+type AssistantMode = "general" | "candidate" | "assistant";
 
 interface AssistantContext {
   type: "candidate" | "theme" | "survey_result";
@@ -44,14 +44,14 @@ interface AssistantContext {
 
 interface AssistantState {
   // State
-  mode: AssistantMode;
+  context: AssistantMode;
   selectedCandidateId: string | null;
   messages: ChatMessage[];
   isStreaming: boolean;
   preloadedContext: AssistantContext | null;
 
   // Actions
-  setMode: (mode: AssistantMode) => void;
+  setMode: (context: AssistantMode) => void;
   selectCandidate: (candidateId: string) => void;
   clearCandidate: () => void;
   addMessage: (message: ChatMessage) => void;
@@ -65,19 +65,19 @@ interface AssistantState {
 
 ### Behavior Contract
 
-- `setMode(mode)`: Changes assistant mode. If switching to "parler" and no candidate selected, does not auto-select (UI must prompt). Conversation history is preserved across mode switches.
-- `selectCandidate(id)`: Sets `selectedCandidateId`. Only meaningful in "parler" mode but can be set preemptively.
+- `setConversationContext(context)`: Changes assistant context. If switching to "candidate" and no candidate selected, does not auto-select (UI must prompt). Conversation history is preserved across context switches.
+- `selectCandidate(id)`: Sets `selectedCandidateId`. Only meaningful in "candidate" context but can be set preemptively.
 - `addMessage(msg)`: Appends message to `messages` array. Persisted to MMKV.
 - `updateLastAssistantMessage(content)`: Appends `content` to the last message with `role: "assistant"`. Used during SSE streaming. Only updates the in-memory state during streaming; persists on stream completion.
 - `setPreloadedContext(ctx)`: Sets context from deep link navigation. Not persisted (ephemeral).
 - `consumePreloadedContext()`: Returns current `preloadedContext` and sets it to `null`. Used by Assistant tab on focus to consume and display contextual starter prompts.
-- `resetConversation()`: Clears `messages`, resets `mode` to "comprendre", clears `selectedCandidateId`. Persisted.
+- `resetConversation()`: Clears `messages`, resets `context` to "general", clears `selectedCandidateId`. Persisted.
 
-### Mode Guardrails
+### Context Guardrails
 
-- In "comprendre" mode: Responses must include source references. No debate-style challenges.
-- In "parler" mode: `selectedCandidateId` must be non-null. Responses draw only from that candidate's positions.
-- In "debattre" mode: If survey results exist, they are included in the system prompt. If not, fallback to non-personalized debate.
+- In "general" context: Responses must include source references. No debate-style challenges.
+- In "candidate" context: `selectedCandidateId` must be non-null. Responses draw only from that candidate's positions.
+- In "assistant" context: If survey results exist, they are included in the system prompt. If not, fallback to non-personalized debate.
 
 ---
 
