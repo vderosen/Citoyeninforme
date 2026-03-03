@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { LogBox, View } from "react-native";
+import { LogBox, Pressable, Text, View } from "react-native";
+import * as Linking from "expo-linking";
 import { Stack, useRouter, useSegments, useNavigationContainerRef } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
@@ -29,6 +30,9 @@ import {
   updateCrashReportingConsent,
   navigationIntegration,
 } from "../services/crash-reporting";
+import { checkMandatoryUpdate } from "../services/mandatory-update";
+import { useTranslation } from "react-i18next";
+import { useNetworkStatus } from "../hooks/useNetworkStatus";
 import "../i18n";
 import "../../global.css";
 
@@ -64,7 +68,10 @@ function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
   const navigationRef = useNavigationContainerRef();
+  const { t } = useTranslation("common");
+  const { isConnected } = useNetworkStatus();
   const [initialRouteHandled, setInitialRouteHandled] = useState(false);
+  const [mandatoryUpdateUrl, setMandatoryUpdateUrl] = useState<string | null>(null);
 
   const reduceMotion = useReducedMotion();
 
@@ -102,6 +109,23 @@ function RootLayout() {
       navigationIntegration.registerNavigationContainer(navigationRef);
     }
   }, [navigationRef]);
+
+  useEffect(() => {
+    let canceled = false;
+
+    if (!isConnected) return undefined;
+
+    void checkMandatoryUpdate().then((result) => {
+      if (canceled) return;
+      if (result.isRequired && result.storeUrl) {
+        setMandatoryUpdateUrl(result.storeUrl);
+      }
+    });
+
+    return () => {
+      canceled = true;
+    };
+  }, [isConnected]);
 
   useEffect(() => {
     const globalErrorUtils = globalThis as GlobalWithErrorUtils;
@@ -181,6 +205,34 @@ function RootLayout() {
                   options={{ title: "Paramètres" }}
                 />
               </Stack>
+              {mandatoryUpdateUrl && (
+                <View
+                  className="absolute inset-0 bg-black/50 items-center justify-center px-6"
+                  pointerEvents="auto"
+                >
+                  <View className="w-full max-w-md rounded-2xl bg-warm-white p-5">
+                    <Text className="font-display-bold text-xl text-civic-navy mb-3">
+                      {t("updateRequiredTitle")}
+                    </Text>
+                    <Text className="font-body text-text-body mb-5">
+                      {t("updateRequiredMessage")}
+                    </Text>
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel={t("updateRequiredButton")}
+                      className="rounded-xl px-4 py-3 items-center"
+                      style={{ backgroundColor: "#E84855" }}
+                      onPress={() => {
+                        void Linking.openURL(mandatoryUpdateUrl);
+                      }}
+                    >
+                      <Text className="font-display-semibold text-white">
+                        {t("updateRequiredButton")}
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              )}
             </View>
             <StatusBar style="light" />
           </ErrorBoundary>

@@ -31,6 +31,9 @@
   "feedbackPlaceholder": "Décrivez le problème (optionnel)...",
   "feedbackSubmit": "Envoyer",
   "feedbackThanks": "Merci pour votre retour !",
+  "updateRequiredTitle": "Mise à jour requise",
+  "updateRequiredMessage": "Une version plus récente de Citoyen Informé est disponible. Pour continuer, mettez l'application à jour depuis le store.",
+  "updateRequiredButton": "Mettre à jour",
   "languageFr": "FR",
   "languageEn": "EN",
   "headers": {
