@@ -345,6 +345,11 @@ function detectQueryType(text, hasCandidate) {
     return "general";
 }
 
+function wantsDetailedOutput(text) {
+    const normalized = normalize(text);
+    return /\b(detail|detaill|complet|exhaustif|approfond|developpe|developper|tous les candidats|vue d'ensemble)\b/i.test(normalized);
+}
+
 // ---------------------------------------------------------------------------
 // Topic expansion map — enriches short queries for better embedding (instant)
 // ---------------------------------------------------------------------------
@@ -389,7 +394,7 @@ function expandQuery(text, candidateFilter) {
 // ---------------------------------------------------------------------------
 // LLM query analysis — only used for ambiguous queries (no candidate, vague)
 // ---------------------------------------------------------------------------
-const ANALYSIS_MODEL = "gemini-2.0-flash";
+const ANALYSIS_MODEL = "gemini-2.5-flash-lite";
 
 function needsLlmAnalysis(text, candidateFilter) {
     if (candidateFilter) return false;
@@ -436,6 +441,8 @@ Règles:
                         temperature: 0,
                         maxOutputTokens: 200,
                         responseMimeType: "application/json",
+                        // Avoid hidden "thinking" tokens consuming the whole budget.
+                        thinkingConfig: { thinkingBudget: 0 },
                     },
                 }),
             }
@@ -542,6 +549,40 @@ Ne recommande JAMAIS un candidat. Reste strictement neutre.
 Pour les comparaisons, présente les positions de chaque candidat avec un poids égal. Couvre tous les candidats présents dans les extraits.
 
 Sois clair et concis : 3 à 5 phrases par défaut. Développe si l'utilisateur le demande.
+
+N'écris JAMAIS de phrase inachevée. Chaque réponse doit se terminer par une
+ponctuation finale claire (., ! ou ?). Si un extrait est tronqué au milieu
+d'une phrase, reformule l'idée avec des phrases complètes.
+
+STYLE DE RÉPONSE (TRÈS IMPORTANT):
+
+Adapte la longueur à l'intention utilisateur :
+- Si la question est simple/précise: réponse courte (2 à 4 puces maximum, 120 mots max), puis propose « Voulez-vous plus de détails ? ».
+- Si la question est comparative: réponse plus exhaustive et structurée.
+- Si la question est vague/trop large: pose d'abord UNE seule question de clarification courte avant de détailler.
+
+RÈGLE DE PRIORITÉ:
+- N'utilise le mode exhaustif QUE si la demande est explicitement comparative (ou si l'utilisateur demande explicitement "détaillé", "complet", "exhaustif").
+- Si la demande n'est pas comparative, reste bref même si plusieurs candidats apparaissent dans les extraits.
+- Pour une demande non comparative, n'affiche pas plus de 2 candidats par défaut (sauf demande explicite de l'utilisateur).
+
+Pour les comparaisons, utilise impérativement cette structure lisible:
+1) « Position de [Candidat A] » (puces courtes)
+2) « Position de [Candidat B] » (puces courtes)
+3) « Différences clés » (puces)
+4) « Points communs » (puces, si applicable)
+
+Pour les demandes NON comparatives:
+- Ne produis PAS les sections « Position de... », « Différences clés », « Points communs ».
+- Fournis un aperçu rapide en 2 à 3 puces courtes, sans long paragraphe d'introduction.
+- Limite stricte: 90 mots maximum au total.
+- Chaque puce doit tenir sur une seule ligne courte.
+- Termine par une proposition de suivi: « Voulez-vous plus de détails ? ».
+
+FORMAT:
+- Privilégie les puces courtes plutôt que les gros blocs.
+- Aère avec des sauts de ligne.
+- Évite les longs paragraphes compacts.
 
 Pour les questions hors sujet (non liées aux élections municipales de Paris 2026), redirige poliment.
 
@@ -653,6 +694,12 @@ async function handleChat(req, res) {
                 parts: [{ text: m.content }],
             }));
 
+        const detailedRequested = wantsDetailedOutput(lastUserMsg.content);
+        const maxOutputTokens =
+            queryType === "comparison"
+                ? (detailedRequested ? 1600 : 1200)
+                : (detailedRequested ? 1200 : 900);
+
         // 7. Stream response via SSE
         setCorsHeaders(req, res);
         res.statusCode = 200;
@@ -670,7 +717,10 @@ async function handleChat(req, res) {
                 contents: geminiMessages,
                 generationConfig: {
                     temperature: 0.3,
-                    maxOutputTokens: queryType === "comparison" ? 1200 : 800,
+                    maxOutputTokens,
+                    // 2.5 models can spend most of the budget on thinking by default,
+                    // which causes truncated user-visible text (finishReason=MAX_TOKENS).
+                    thinkingConfig: { thinkingBudget: 0 },
                 },
             }),
         });
@@ -693,32 +743,139 @@ async function handleChat(req, res) {
         }
 
         const decoder = new TextDecoder();
-        let buffer = "";
+        let eventBuffer = "";
+
+        const streamStats = {
+            events: 0,
+            payloads: 0,
+            textChunks: 0,
+            textChars: 0,
+            parseErrors: 0,
+            finishReasons: {},
+        };
+        const loggedNonStopFinishReasons = new Set();
+
+        const forwardGeminiPayload = (payload, source = "joined") => {
+            if (!payload) return false;
+            const data = payload.trim();
+            if (!data || data === "[DONE]") return false;
+
+            let parsed;
+            try {
+                parsed = JSON.parse(data);
+            } catch {
+                streamStats.parseErrors += 1;
+                if (streamStats.parseErrors <= 3) {
+                    console.warn(
+                        `[rag-proxy] SSE parse error (${source}) sample="${data.slice(0, 160).replace(/\s+/g, " ")}"`
+                    );
+                }
+                return false;
+            }
+
+            streamStats.payloads += 1;
+
+            const candidate = parsed?.candidates?.[0];
+            const finishReason = candidate?.finishReason;
+            if (finishReason) {
+                streamStats.finishReasons[finishReason] = (streamStats.finishReasons[finishReason] || 0) + 1;
+                if (finishReason !== "STOP" && !loggedNonStopFinishReasons.has(finishReason)) {
+                    loggedNonStopFinishReasons.add(finishReason);
+                    console.warn(`[rag-proxy] Upstream finishReason=${finishReason}`);
+                }
+            }
+
+            if (parsed?.promptFeedback?.blockReason) {
+                console.warn(`[rag-proxy] Prompt blockReason=${parsed.promptFeedback.blockReason}`);
+            }
+
+            let delta = "";
+            const parts = candidate?.content?.parts;
+            if (Array.isArray(parts)) {
+                for (const part of parts) {
+                    if (typeof part?.text === "string" && part.text) {
+                        delta += part.text;
+                    }
+                }
+            }
+
+            if (delta) {
+                streamStats.textChunks += 1;
+                streamStats.textChars += delta.length;
+                sseWrite(res, { type: "text", content: delta });
+            }
+            return true;
+        };
+
+        const flushSseEvent = (eventText) => {
+            if (!eventText) return;
+            streamStats.events += 1;
+
+            // Per SSE spec, multiple `data:` lines in one event must be joined with '\n'.
+            // Some providers may also send multiple independent JSON payloads in one event,
+            // so we fallback to line-by-line parsing only if joined parsing fails.
+            const lines = eventText.split(/\r?\n/);
+            const dataLines = [];
+
+            for (const line of lines) {
+                if (line.startsWith("data:")) {
+                    dataLines.push(line.slice(5).trimStart());
+                    continue;
+                }
+
+                if (
+                    line === "" ||
+                    line.startsWith(":") ||
+                    line.startsWith("event:") ||
+                    line.startsWith("id:") ||
+                    line.startsWith("retry:")
+                ) {
+                    continue;
+                }
+
+                // Non-standard continuation line.
+                if (dataLines.length > 0) {
+                    dataLines[dataLines.length - 1] += `\n${line}`;
+                }
+            }
+
+            if (dataLines.length === 0) return;
+
+            const joinedPayload = dataLines.join("\n");
+            const parsedAsJoined = forwardGeminiPayload(joinedPayload, "joined");
+            if (parsedAsJoined || dataLines.length === 1) return;
+
+            for (const linePayload of dataLines) {
+                forwardGeminiPayload(linePayload, "line-fallback");
+            }
+        };
 
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
 
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split("\n");
-            buffer = lines.pop() || "";
+            eventBuffer += decoder.decode(value, { stream: true });
+            const events = eventBuffer.split(/\r?\n\r?\n/);
+            eventBuffer = events.pop() || "";
 
-            for (const rawLine of lines) {
-                const line = rawLine.trim();
-                if (!line.startsWith("data:")) continue;
-                const data = line.slice(5).trim();
-                if (!data) continue;
-                try {
-                    const parsed = JSON.parse(data);
-                    const delta = parsed?.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if (delta) {
-                        sseWrite(res, { type: "text", content: delta });
-                    }
-                } catch {
-                    // ignore malformed chunks
-                }
+            for (const eventText of events) {
+                flushSseEvent(eventText);
             }
         }
+
+        // Flush decoder tail + remaining partial event (if upstream ended without
+        // final blank-line delimiter).
+        eventBuffer += decoder.decode();
+        flushSseEvent(eventBuffer);
+
+        const finishSummary = Object.entries(streamStats.finishReasons)
+            .map(([reason, count]) => `${reason}:${count}`)
+            .join(",");
+        console.log(
+            `[rag-proxy] Stream summary events=${streamStats.events} payloads=${streamStats.payloads} ` +
+            `text_chunks=${streamStats.textChunks} text_chars=${streamStats.textChars} ` +
+            `parse_errors=${streamStats.parseErrors} finish_reasons=${finishSummary || "none"}`
+        );
 
         sseDone(res);
     } catch (err) {
