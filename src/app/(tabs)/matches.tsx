@@ -165,7 +165,7 @@ export default function MatchesScreen() {
             />
 
             <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingBottom: 32 }}>
-                <View className="flex-row justify-between items-center mt-2 mb-6">
+                <View className="flex-row justify-between items-start mt-2 mb-6">
                     <Text
                         className="font-display-bold text-2xl text-civic-navy"
                         accessibilityRole="header"
@@ -174,15 +174,20 @@ export default function MatchesScreen() {
                     </Text>
 
                     {profile.candidateRanking.length >= 3 && (
-                        <Pressable
-                            onPress={() => setIsShareModalVisible(true)}
-                            className="rounded-full w-10 h-10 items-center justify-center shadow-sm"
-                            style={{ backgroundColor: '#E84855' }}
-                            accessibilityRole="button"
-                            accessibilityLabel={t("shareResults")}
-                        >
-                            <Ionicons name="share-outline" size={20} color="#FFFFFF" />
-                        </Pressable>
+                        <View className="items-center">
+                            <Pressable
+                                onPress={() => setIsShareModalVisible(true)}
+                                className="rounded-full w-10 h-10 items-center justify-center shadow-sm"
+                                style={{ backgroundColor: "#E84855" }}
+                                accessibilityRole="button"
+                                accessibilityLabel={t("shareResults")}
+                            >
+                                <Ionicons name="share-outline" size={20} color="#FFFFFF" />
+                            </Pressable>
+                            <Text className="font-body text-xs mt-1" style={{ color: "#E84855" }}>
+                                {t("shareResultsHint")}
+                            </Text>
+                        </View>
                     )}
                 </View>
 
