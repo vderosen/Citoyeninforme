@@ -74,43 +74,15 @@ export default function MatchesScreen() {
         }, [answers, hasSeenResultsRatingPrompt, markResultsRatingPromptSeen, profile, t])
     );
 
-    if (!profile || profile.candidateRanking.length === 0) {
-        return (
-            <View className="flex-1 items-center justify-center bg-warm-white p-6">
-                <Text className="font-display-bold text-xl text-civic-navy mb-4 text-center">
-                    {t("noResultsTitle")}
-                </Text>
-                <Text className="font-body text-text-body text-center">
-                    {t("noResultsDescription")}
-                </Text>
-            </View>
-        );
-    }
-
-    const handleRetake = () => {
-        reset();
-        router.replace("/(tabs)/cards");
-    };
-
-    const handleCandidatePress = (candidateId: string) => {
-        // We will pass the candidateId downstream to show the score breakdown modal
-        // For now, we remain on this screen but open the modal
-        // Ideally handled via state, or a subroute modal.
-        router.push({
-            pathname: "/survey/candidate-breakdown",
-            params: { candidateId }
-        });
-    };
-
     const analytics = useMemo(
         () =>
             computeGlobalAnalytics(
                 answers,
                 statementCards,
                 candidates,
-                profile.candidateRanking
+                profile?.candidateRanking ?? []
             ),
-        [answers, statementCards, candidates, profile.candidateRanking]
+        [answers, statementCards, candidates, profile?.candidateRanking]
     );
 
     const totalSwipes = analytics.totalSwipes || 1;
@@ -152,6 +124,34 @@ export default function MatchesScreen() {
             : analytics.decisivenessScore >= 30
                 ? "💪"
                 : "🤔";
+
+    if (!profile || profile.candidateRanking.length === 0) {
+        return (
+            <View className="flex-1 items-center justify-center bg-warm-white p-6">
+                <Text className="font-display-bold text-xl text-civic-navy mb-4 text-center">
+                    {t("noResultsTitle")}
+                </Text>
+                <Text className="font-body text-text-body text-center">
+                    {t("noResultsDescription")}
+                </Text>
+            </View>
+        );
+    }
+
+    const handleRetake = () => {
+        reset();
+        router.replace("/(tabs)/cards");
+    };
+
+    const handleCandidatePress = (candidateId: string) => {
+        // We will pass the candidateId downstream to show the score breakdown modal
+        // For now, we remain on this screen but open the modal
+        // Ideally handled via state, or a subroute modal.
+        router.push({
+            pathname: "/survey/candidate-breakdown",
+            params: { candidateId }
+        });
+    };
 
     return (
         <View className="flex-1 bg-warm-white" style={{ paddingTop: insets.top }}>
