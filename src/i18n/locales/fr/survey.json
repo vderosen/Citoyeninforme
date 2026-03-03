@@ -70,5 +70,9 @@
   "myResults": "Mes résultats",
   "shareText": "Mon maire pour Paris d'après Citoyen Informé. Telecharge l'app pour tester: https://citoyeninforme.fr/download",
   "shareCardTitle": "Mon maire pour Paris",
-  "basedOnCards": "À PARTIR DE {{count}} VOTES"
+  "basedOnCards": "À PARTIR DE {{count}} VOTES",
+  "rateAppFallbackTitle": "Aider Citoyen Informé",
+  "rateAppFallbackMessage": "Si vous voulez aider Citoyen Informé, initiative citoyenne neutre et à but non lucratif, vous pouvez nous noter sur l'App Store.",
+  "rateAppFallbackPrimary": "Ouvrir le store",
+  "rateAppFallbackSecondary": "Plus tard"
 }

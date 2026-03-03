@@ -1,10 +1,11 @@
-import { View, Text, Pressable, ScrollView } from "react-native";
+import { Alert, View, Text, Pressable, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
 import { useSurveyStore } from "../../stores/survey";
+import { useAppStore } from "../../stores/app";
 import { AlignmentRanking } from "../../components/survey/AlignmentRanking";
 import { Podium } from "../../components/survey/Podium";
 import { FeedbackAction } from "../../components/shared/FeedbackAction";
@@ -12,6 +13,8 @@ import { ShareResultsModal } from "../../components/survey/ShareResultsModal";
 import { Ionicons } from "@expo/vector-icons";
 import { usePodiumCelebrationTrigger } from "../../hooks/usePodiumCelebrationTrigger";
 import { computeGlobalAnalytics } from "../../utils/computeSwipeAnalytics";
+import { isEligibleForResultsReviewPrompt } from "../../utils/review-prompt";
+import { openStoreListing, requestNativeStoreReview } from "../../services/store-review";
 
 export default function MatchesScreen() {
     const { t } = useTranslation("survey");
@@ -22,6 +25,8 @@ export default function MatchesScreen() {
     const answers = useSurveyStore((s) => s.answers);
     const reset = useSurveyStore((s) => s.reset);
     const markResultsTabVisited = useSurveyStore((s) => s.markResultsTabVisited);
+    const hasSeenResultsRatingPrompt = useAppStore((s) => s.hasSeenResultsRatingPrompt);
+    const markResultsRatingPromptSeen = useAppStore((s) => s.markResultsRatingPromptSeen);
     const triggerCelebration = usePodiumCelebrationTrigger(profile);
     const [isShareModalVisible, setIsShareModalVisible] = useState(false);
     const [isConvictionExpanded, setIsConvictionExpanded] = useState(false);
@@ -31,6 +36,42 @@ export default function MatchesScreen() {
         useCallback(() => {
             markResultsTabVisited();
         }, [markResultsTabVisited])
+    );
+
+    useFocusEffect(
+        useCallback(() => {
+            const shouldPromptForReview = isEligibleForResultsReviewPrompt({
+                answersCount: Object.keys(answers).length,
+                hasSeenResultsRatingPrompt,
+                profile,
+            });
+            if (!shouldPromptForReview) {
+                return;
+            }
+
+            const timer = setTimeout(() => {
+                markResultsRatingPromptSeen();
+                void (async () => {
+                    const nativePromptRequested = await requestNativeStoreReview();
+                    if (nativePromptRequested) return;
+
+                    Alert.alert(t("rateAppFallbackTitle"), t("rateAppFallbackMessage"), [
+                        {
+                            text: t("rateAppFallbackSecondary"),
+                            style: "cancel",
+                        },
+                        {
+                            text: t("rateAppFallbackPrimary"),
+                            onPress: () => {
+                                void openStoreListing();
+                            },
+                        },
+                    ]);
+                })();
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }, [answers, hasSeenResultsRatingPrompt, markResultsRatingPromptSeen, profile, t])
     );
 
     if (!profile || profile.candidateRanking.length === 0) {

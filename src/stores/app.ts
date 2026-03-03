@@ -9,6 +9,7 @@ interface AppState {
   consentTimestamp: string | null;
   hasSeenSwipeTutorial: boolean;
   crashReportingOptIn: boolean;
+  hasSeenResultsRatingPrompt: boolean;
 
   completeOnboarding: () => void;
   setLastActiveTab: (tab: string) => void;
@@ -16,6 +17,7 @@ interface AppState {
   revokePrivacyConsent: () => void;
   markSwipeTutorialSeen: () => void;
   setCrashReportingOptIn: (optIn: boolean) => void;
+  markResultsRatingPromptSeen: () => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -27,6 +29,7 @@ export const useAppStore = create<AppState>()(
       consentTimestamp: null,
       hasSeenSwipeTutorial: false,
       crashReportingOptIn: true,
+      hasSeenResultsRatingPrompt: false,
 
       completeOnboarding: () => set({ hasCompletedOnboarding: true }),
       setLastActiveTab: (tab) => set({ lastActiveTab: tab }),
@@ -42,6 +45,7 @@ export const useAppStore = create<AppState>()(
         }),
       markSwipeTutorialSeen: () => set({ hasSeenSwipeTutorial: true }),
       setCrashReportingOptIn: (optIn) => set({ crashReportingOptIn: optIn }),
+      markResultsRatingPromptSeen: () => set({ hasSeenResultsRatingPrompt: true }),
     }),
     {
       name: "app-state",
