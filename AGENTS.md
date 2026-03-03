@@ -6,6 +6,47 @@
 - Read `.specify/memory/constitution.md` for core principles (neutrality, privacy, source-grounded truth)
 - Run `npm test && npm run lint` before committing
 
+## Sub-Agent Strategy
+
+Multi-agent mode is active for this workspace. The assistant can use all configured sub-agents.
+
+### Source of Truth
+
+- Agent availability is defined in terminal config: `~/.codex/config.toml` under `[agents.<name>]`.
+- Each agent behavior profile is defined in `~/.codex/agents/<name>.toml`.
+- This repo file (`AGENTS.md`) defines routing policy: when to use each available agent for Citoyen Informé tasks.
+- If an agent is not present in config, do not call it.
+- If config and repo guidance differ: config controls availability, repo guidance controls usage strategy.
+
+### Available Sub-Agents
+
+- `scout` — fast, read-only codebase exploration and information retrieval
+- `tester` — write, improve, and audit tests
+- `refactorer` — improve structure without behavior changes
+- `worker_medium` — straightforward implementation tasks
+- `worker_high` — complex implementation and multi-file changes
+- `worker_xhigh` — highest-effort reasoning for architecture-level or ambiguous tasks
+- `mobile_debugger` — reproducible mobile UI/UX debugging through mobile-mcp (no source edits)
+
+### Routing Rules (When to Use Which)
+
+- Use `scout` first for discovery, impact analysis, and "where/how is this implemented?" questions.
+- Use `worker_medium` for focused edits in one area with clear requirements.
+- Use `worker_high` for cross-cutting changes, bug fixes with multiple root-cause candidates, or integration work.
+- Use `worker_xhigh` when requirements are ambiguous, tradeoffs are significant, or the change affects architecture.
+- Use `mobile_debugger` for simulator/device flow checks, visual regressions, and touch/navigation repro steps.
+- Use `tester` after implementation changes and for explicit requests around quality gates, regression safety, and edge cases.
+- Use `refactorer` only for no-behavior-change cleanups. Do not use it for feature work or bug-fix behavior changes.
+
+### Recommended Sequences by Task Type
+
+- Feature delivery: `scout` -> `worker_high` or `worker_xhigh` -> `tester`
+- Bug fix: `scout` -> `worker_high` -> `tester`
+- Test-only request: `scout` -> `tester`
+- Refactor-only request: `scout` -> `refactorer` -> `tester`
+- Small localized change: `scout` -> `worker_medium` -> `tester` (as needed)
+- Mobile UI bug triage: `scout` -> `mobile_debugger` -> `worker_high` -> `tester`
+
 ## Key Rules
 
 - **Branding:** App name is **Citoyen Informé** (not "Lucide")
