@@ -34,7 +34,7 @@ export function SwipeStack({
   const { width, height: windowHeight } = useWindowDimensions();
   const isTabletLayout = width >= 768;
   const isLargePhone = width >= 428;
-  const spacerFlex = isTabletLayout ? 0.2 : isLargePhone ? 0.08 : 0.05;
+  const spacerFlex = isTabletLayout ? 0.24 : isLargePhone ? 0.12 : 0.1;
   const undoSlotHeight = onUndo ? (isTabletLayout ? 40 : 36) : 0;
   const [isButtonAnimating, setIsButtonAnimating] = useState(false);
   const [stackHeight, setStackHeight] = useState(0);

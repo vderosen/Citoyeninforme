@@ -105,7 +105,7 @@ export default function CardsScreen() {
     }, [markQuestionnaireActive, startQuestionnaire, surveyStatus]);
 
     const isLast = currentIndex >= shuffledCards.length - 1;
-    const showProgressBar = currentIndex >= 11;
+    const showProgressBar = currentIndex >= 1;
     const theme = getCategoryTheme(selectedCard?.category || 'Autre');
     const resultsReminderThreshold = resultsReminderDismissCount === 0 ? 10 : 25;
     const canShowResultsReminder = useMemo(() => {
@@ -301,7 +301,7 @@ export default function CardsScreen() {
                 )}
             </View>
 
-            <View className="flex-1" style={{ paddingTop: 4 }}>
+            <View className="flex-1" style={{ paddingTop: 14 }}>
                 <SwipeStack
                     cards={shuffledCards}
                     currentIndex={currentIndex}

@@ -40,7 +40,7 @@
   "swipeStronglyAgree": "Vraiment d'accord",
   "swipeStronglyDisagree": "Vraiment pas d'accord",
   "swipeSkip": "Pas d'avis",
-  "swipeInstruction": "Glissez ou utilisez les boutons ci-dessous. Activez x2 pour doubler le poids d'une carte.",
+  "swipeInstruction": "Activez x2 pour doubler l'importance d'une carte.",
   "resultsReminderModalTitle": "Résultats en direct",
   "resultsReminderTitle": "Les résultats s'actualisent à chaque swipe.",
   "resultsReminderSubtitle": "Vous pouvez d'ores et déjà consulter votre classement.",

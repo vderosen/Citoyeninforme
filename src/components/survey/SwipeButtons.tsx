@@ -78,27 +78,15 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
   const o = disabled ? 0.5 : 1;
   const visual = getButtonVisualConfig(width);
 
-  const sharedButtonShadow = {
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.16,
-    shadowRadius: 8,
-    elevation: 2,
-  } as const;
-
   return (
     <View className="w-full px-2 pt-3 pb-2" style={{ opacity: o }}>
       <View
-        className="self-center bg-white"
+        className="self-center"
         style={{
           width: visual.rowWidth,
           borderRadius: visual.dockRadius,
           paddingHorizontal: visual.dockPaddingHorizontal,
           paddingVertical: visual.dockPaddingVertical,
-          shadowColor: "#1E2A44",
-          shadowOffset: { width: 0, height: 6 },
-          shadowOpacity: 0.08,
-          shadowRadius: 14,
-          elevation: 3,
         }}
       >
         <View className="flex-row items-start justify-between">
@@ -112,13 +100,11 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
               testID="btn-disagree"
               accessibilityRole="button"
               accessibilityLabel={t("swipeDisagree")}
-              className="border-2 border-red-300 rounded-full items-center justify-center"
+              className="rounded-full items-center justify-center border-2 border-red-300"
               style={{
                 width: visual.sideButtonSize,
                 height: visual.sideButtonSize,
                 backgroundColor: "#FFF1F2",
-                shadowColor: "#EF4444",
-                ...sharedButtonShadow,
               }}
               hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
               ensureMinTouchTarget
@@ -144,13 +130,10 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
               testID="btn-skip"
               accessibilityRole="button"
               accessibilityLabel={t("swipeSkip")}
-              className="rounded-full items-center justify-center"
+              className="items-center justify-center"
               style={{
                 width: visual.centerButtonSize,
                 height: visual.centerButtonSize,
-                backgroundColor: "#F8FAFC",
-                shadowColor: "#64748B",
-                ...sharedButtonShadow,
               }}
               hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
               ensureMinTouchTarget
@@ -178,13 +161,11 @@ export function SwipeButtons({ onButtonPress, disabled }: SwipeButtonsProps) {
               testID="btn-agree"
               accessibilityRole="button"
               accessibilityLabel={t("swipeAgree")}
-              className="border-2 border-green-300 rounded-full items-center justify-center"
+              className="rounded-full items-center justify-center border-2 border-green-300"
               style={{
                 width: visual.sideButtonSize,
                 height: visual.sideButtonSize,
                 backgroundColor: "#F0FDF4",
-                shadowColor: "#16A34A",
-                ...sharedButtonShadow,
               }}
               hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
               ensureMinTouchTarget
