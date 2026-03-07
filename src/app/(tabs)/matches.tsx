@@ -165,16 +165,18 @@ export default function MatchesScreen() {
             />
 
             <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingBottom: 32 }}>
-                <View className="flex-row justify-between items-start mt-2 mb-6">
+                <View className="relative items-center justify-center mt-2 mb-6" style={{ minHeight: 40 }}>
                     <Text
-                        className="font-display-bold text-2xl text-civic-navy"
+                        className="text-[22px] tracking-wide"
+                        style={{ fontFamily: "ArialRoundedMTBold" }}
                         accessibilityRole="header"
                     >
-                        {t("resultsTitle")}
+                        <Text style={{ color: "#1A202C" }}>Citoyen </Text>
+                        <Text style={{ color: "#60A5FA" }}>Informé</Text>
                     </Text>
 
                     {profile.candidateRanking.length >= 3 && (
-                        <View className="items-center">
+                        <View className="absolute right-0 top-0 items-center">
                             <Pressable
                                 onPress={() => setIsShareModalVisible(true)}
                                 className="rounded-full w-10 h-10 items-center justify-center shadow-sm"
@@ -184,9 +186,6 @@ export default function MatchesScreen() {
                             >
                                 <Ionicons name="share-outline" size={20} color="#FFFFFF" />
                             </Pressable>
-                            <Text className="font-body text-xs mt-1" style={{ color: "#E84855" }}>
-                                {t("shareResultsHint")}
-                            </Text>
                         </View>
                     )}
                 </View>
