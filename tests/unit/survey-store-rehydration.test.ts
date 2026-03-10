@@ -10,6 +10,10 @@ describe("survey store persist rehydration", () => {
         state: {
           status: "results_ready",
           currentQuestionIndex: 5,
+          questionOrder: [
+            "CARD_0010",
+            "CARD_0010 VS",
+          ],
           answers: {
             CARD_0010: "CARD_0010-agree",
             "CARD_0010 VS": "CARD_0010 VS-disagree",
@@ -58,9 +62,41 @@ describe("survey store persist rehydration", () => {
     });
     expect(state.status).toBe("questionnaire");
     expect(state.currentQuestionIndex).toBe(1);
+    expect(state.questionOrder).toEqual([
+      "CARD_0010",
+      "CARD_0010 VS",
+    ]);
     expect(state.profile).toBeNull();
     expect(state.datasetVersion).toBeNull();
     expect(state.hasSeenInitialResult).toBe(false);
     expect(state.hasVisitedResultsTab).toBe(false);
+  });
+
+  test("reset clears persisted question order", async () => {
+    const getItem = jest.fn(async () => null);
+    const setItem = jest.fn(async () => undefined);
+    const removeItem = jest.fn(async () => undefined);
+
+    jest.doMock("@react-native-async-storage/async-storage", () => ({
+      __esModule: true,
+      default: {
+        getItem,
+        setItem,
+        removeItem,
+      },
+    }));
+
+    let useSurveyStore: typeof import("../../src/stores/survey").useSurveyStore;
+    jest.isolateModules(() => {
+      ({ useSurveyStore } = require("../../src/stores/survey"));
+    });
+
+    await (useSurveyStore as any).persist.rehydrate();
+
+    useSurveyStore.getState().setQuestionOrder(["CARD_0001", "CARD_0002"]);
+    expect(useSurveyStore.getState().questionOrder).toEqual(["CARD_0001", "CARD_0002"]);
+
+    useSurveyStore.getState().reset();
+    expect(useSurveyStore.getState().questionOrder).toEqual([]);
   });
 });

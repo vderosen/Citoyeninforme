@@ -13,6 +13,11 @@ import { ProgressBar } from "../../components/survey/ProgressBar";
 
 import { balancedShuffle, dailySeed } from "../../utils/shuffle";
 import { getCategoryTheme } from "../../utils/categoryTheme";
+import {
+    areStringArraysEqual,
+    deriveEffectiveQuestionOrder,
+    findNextUnansweredIndex,
+} from "../../utils/questionOrder";
 import { buildAnswerId } from "../../utils/swipeAnswer";
 import type { SwipeDirection, StatementCard } from "../../data/schema";
 
@@ -33,6 +38,8 @@ export default function CardsScreen() {
     const shouldTrackFirstActionRef = useRef(false);
 
     const currentIndex = useSurveyStore((s) => s.currentQuestionIndex);
+    const questionOrder = useSurveyStore((s) => s.questionOrder);
+    const answers = useSurveyStore((s) => s.answers);
     const surveyStatus = useSurveyStore((s) => s.status);
     const resultsReminderDismissCount = useSurveyStore(
         (s) => s.resultsReminderDismissCount
@@ -49,6 +56,8 @@ export default function CardsScreen() {
     const markResultsTabVisited = useSurveyStore((s) => s.markResultsTabVisited);
     const answerQuestion = useSurveyStore((s) => s.answerQuestion);
     const nextQuestion = useSurveyStore((s) => s.nextQuestion);
+    const setCurrentQuestionIndex = useSurveyStore((s) => s.setCurrentQuestionIndex);
+    const setQuestionOrder = useSurveyStore((s) => s.setQuestionOrder);
     const clearAnswer = useSurveyStore((s) => s.clearAnswer);
 
     // Shuffle cards with candidate-balanced interleaving.
@@ -64,18 +73,37 @@ export default function CardsScreen() {
             })),
         [statementCards]
     );
-    const shuffledCardIds = useMemo(
+    const deterministicCardOrder = useMemo(
         () => balancedShuffle(cardsForShuffle, shuffleSeed).map((card) => card.id),
         [cardsForShuffle, shuffleSeed]
     );
+    const availableCardIds = useMemo(
+        () => statementCards.map((card) => card.id),
+        [statementCards]
+    );
+    const effectiveCardOrder = useMemo(
+        () =>
+            deriveEffectiveQuestionOrder({
+                persistedOrder: questionOrder,
+                deterministicOrder: deterministicCardOrder,
+                availableCardIds,
+            }),
+        [availableCardIds, deterministicCardOrder, questionOrder]
+    );
+
+    useEffect(() => {
+        if (areStringArraysEqual(questionOrder, effectiveCardOrder)) return;
+        setQuestionOrder(effectiveCardOrder);
+    }, [effectiveCardOrder, questionOrder, setQuestionOrder]);
+
     const shuffledCards = useMemo(
         () => {
             const byId = new Map(statementCards.map((card) => [card.id, card]));
-            return shuffledCardIds
+            return effectiveCardOrder
                 .map((cardId) => byId.get(cardId))
                 .filter((card): card is StatementCard => !!card);
         },
-        [shuffledCardIds, statementCards]
+        [effectiveCardOrder, statementCards]
     );
 
     // Track swiped cards for undo (current session only)
@@ -103,6 +131,17 @@ export default function CardsScreen() {
 
         markQuestionnaireActive();
     }, [markQuestionnaireActive, startQuestionnaire, surveyStatus]);
+
+    useEffect(() => {
+        const nextIndex = findNextUnansweredIndex({
+            cards: shuffledCards,
+            currentIndex,
+            answers,
+        });
+        if (nextIndex !== currentIndex) {
+            setCurrentQuestionIndex(nextIndex);
+        }
+    }, [answers, currentIndex, setCurrentQuestionIndex, shuffledCards]);
 
     const isLast = currentIndex >= shuffledCards.length - 1;
     const showProgressBar = currentIndex >= 1;

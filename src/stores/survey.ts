@@ -23,6 +23,7 @@ export interface UserProfile {
 interface SurveyState {
   status: SurveyStatus;
   currentQuestionIndex: number;
+  questionOrder: string[];
   answers: Record<string, string>;
   profile: UserProfile | null;
   datasetVersion: string | null;
@@ -34,6 +35,9 @@ interface SurveyState {
   startCivicContext: () => void;
   startQuestionnaire: () => void;
   markQuestionnaireActive: () => void;
+  setCurrentQuestionIndex: (index: number) => void;
+  setQuestionOrder: (questionOrder: string[]) => void;
+  clearQuestionOrder: () => void;
   answerQuestion: (questionId: string, optionId: string) => void;
   nextQuestion: () => void;
   previousQuestion: () => void;
@@ -54,6 +58,7 @@ export const useSurveyStore = create<SurveyState>()(
     (set, get) => ({
       status: "not_started",
       currentQuestionIndex: 0,
+      questionOrder: [],
       answers: {},
       profile: null,
       datasetVersion: null,
@@ -66,6 +71,15 @@ export const useSurveyStore = create<SurveyState>()(
       startQuestionnaire: () =>
         set({ status: "questionnaire", currentQuestionIndex: 0 }),
       markQuestionnaireActive: () => set({ status: "questionnaire" }),
+      setCurrentQuestionIndex: (index) =>
+        set({
+          currentQuestionIndex: Math.max(0, index),
+        }),
+      setQuestionOrder: (questionOrder) =>
+        set({
+          questionOrder: [...questionOrder],
+        }),
+      clearQuestionOrder: () => set({ questionOrder: [] }),
       answerQuestion: (questionId, optionId) =>
         set((state) => ({
           answers: { ...state.answers, [questionId]: optionId },
@@ -96,6 +110,7 @@ export const useSurveyStore = create<SurveyState>()(
         set({
           status: "not_started",
           currentQuestionIndex: 0,
+          questionOrder: [],
           answers: {},
           profile: null,
           datasetVersion: null,
