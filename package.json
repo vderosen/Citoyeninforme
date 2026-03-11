@@ -14,6 +14,8 @@
     "build:rag-index": "node --max-old-space-size=8192 scripts/build-rag-index.js",
     "chat:tunnel": "bash scripts/proxy-tunnel.sh",
     "data:review:paris-2026": "node scripts/generate-election-review-md.js paris-2026",
+    "data:review:candidates": "node scripts/generate-candidate-review-pack.js",
+    "data:review:candidates:excel": "node scripts/generate-candidate-review-excel.js",
     "test": "jest",
     "lint": "eslint . --ext .ts,.tsx"
   },

@@ -3,7 +3,14 @@ import jsxA11y from "eslint-plugin-jsx-a11y";
 
 export default [
   {
-    ignores: ["node_modules/", "dist/", "build/", ".expo/", "coverage/"],
+    ignores: [
+      "node_modules/",
+      "dist/",
+      "build/",
+      ".expo/",
+      "coverage/",
+      "video-demo/**",
+    ],
   },
   {
     files: ["**/*.{ts,tsx}"],
