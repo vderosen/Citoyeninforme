@@ -77,6 +77,18 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="carte"
+        options={{
+          headerShown: false,
+          title: t("headers.map"),
+          tabBarLabel: t("headers.map"),
+          tabBarAccessibilityLabel: t("headers.map"),
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name={focused ? "map" : "map-outline"} size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="assistant"
         options={{
           title: t("headers.assistant"),

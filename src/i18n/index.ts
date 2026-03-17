@@ -11,6 +11,7 @@ import comparison from "./locales/fr/comparison.json";
 import onboarding from "./locales/fr/onboarding.json";
 import settings from "./locales/fr/settings.json";
 import errors from "./locales/fr/errors.json";
+import map from "./locales/fr/map.json";
 
 const deviceLanguage = getLocales()[0]?.languageCode ?? "fr";
 
@@ -18,7 +19,7 @@ i18n.use(initReactI18next).init({
   lng: deviceLanguage.startsWith("fr") ? "fr" : "fr", // French-only for MVP
   fallbackLng: "fr",
   defaultNS: "common",
-  ns: ["common", "home", "survey", "assistant", "candidates", "comparison", "onboarding", "settings", "errors"],
+  ns: ["common", "home", "survey", "assistant", "candidates", "comparison", "onboarding", "settings", "errors", "map"],
   resources: {
     fr: {
       common,
@@ -30,6 +31,7 @@ i18n.use(initReactI18next).init({
       onboarding,
       settings,
       errors,
+      map,
     },
   },
   interpolation: {
