@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  Alert,
+  Animated,
   Image,
-  Linking,
   Modal,
   Pressable,
   ScrollView,
@@ -25,7 +26,9 @@ import {
   type PreviewSector,
   type PreviewSectorList,
 } from "../../data/elections/paris-2026/parisSecondRoundPreview";
+import { openExternalUrl } from "../../services/open-url";
 import { useElectionStore } from "../../stores/election";
+import { getCandidatePartyColor } from "../../utils/candidatePartyColor";
 import { getCandidateImageSource } from "../../utils/candidateImageSource";
 import type { Candidate } from "../../data/schema";
 
@@ -136,6 +139,22 @@ function formatPercent(pct: number): string {
   return pct.toFixed(2).replace(".", ",");
 }
 
+function getListAccentColor(list: PreviewSectorList): string {
+  const sponsorFigure = list.figures.find((figure) => !figure.isLead && figure.candidateId);
+  if (sponsorFigure?.candidateId) {
+    return getCandidatePartyColor(sponsorFigure.candidateId);
+  }
+
+  const leadFigureWithCandidate = list.figures.find(
+    (figure) => figure.isLead && figure.candidateId,
+  );
+  if (leadFigureWithCandidate?.candidateId) {
+    return getCandidatePartyColor(leadFigureWithCandidate.candidateId);
+  }
+
+  return TONE_STYLES[list.tone].accent;
+}
+
 function getInitials(name: string): string {
   const parts = name.split(/\s+/).filter(Boolean);
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
@@ -243,55 +262,91 @@ function FigureStack({
 
 function SectorListCard({
   list,
-  candidateMap,
+  index,
   onPress,
   t,
 }: {
   list: PreviewSectorList;
-  candidateMap: CandidateMap;
+  index: number;
   onPress: () => void;
   t: (key: string, options?: Record<string, unknown>) => string;
 }) {
-  const colors = TONE_STYLES[list.tone];
+  const accentColor = getListAccentColor(list);
   const leadFigure = list.figures[0];
+  const progressWidth = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    progressWidth.setValue(0);
+
+    const animation = Animated.timing(progressWidth, {
+      toValue: Math.min(Math.max(list.pct, 0), 100),
+      duration: 430,
+      delay: index * 45,
+      useNativeDriver: false,
+    });
+
+    animation.start();
+    return () => animation.stop();
+  }, [index, list.pct, progressWidth]);
+
+  const animatedWidth = progressWidth.interpolate({
+    inputRange: [0, 100],
+    outputRange: ["0%", "100%"],
+  });
 
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      className="rounded-[20px] bg-white overflow-hidden mb-3"
+      className="mb-3"
       style={{
-        width: "48.2%",
-        borderWidth: 1,
-        borderColor: "#DDE5EE",
-        shadowColor: "#0F172A",
-        shadowOpacity: 0.08,
-        shadowRadius: 10,
-        shadowOffset: { width: 0, height: 3 },
-        elevation: 3,
+        borderBottomWidth: 1,
+        borderBottomColor: "#E1E8F1",
+        paddingBottom: 11,
       }}
     >
-      <View style={{ height: 4.5, backgroundColor: colors.accent }} />
-      <View className="items-center px-2.5 pt-3 pb-3">
-        <FigureStack figures={list.figures} candidateMap={candidateMap} accentColor={colors.accent} />
-        <Text className="font-display-semibold text-[16px] text-civic-navy text-center mt-1" numberOfLines={2}>
-          {leadFigure.name}
-        </Text>
+      <View className="flex-row items-center justify-between">
         <Text
-          className="font-body-medium text-[12px] text-text-caption mt-1 text-center"
+          className="font-display-semibold text-[17px] text-civic-navy flex-1 pr-3"
           numberOfLines={1}
         >
-          {list.shortBlocLabel}
+          {leadFigure.name}
         </Text>
-        <Text className="font-display-bold text-[29px] mt-2" style={{ color: colors.accent }}>
+      </View>
+
+      <Text
+        className="font-body-medium text-[12px] text-text-caption mt-0.5"
+        numberOfLines={1}
+      >
+        {list.shortBlocLabel}
+      </Text>
+
+      <View className="flex-row items-center mt-2.5">
+        <View
+          className="flex-1 overflow-hidden"
+          style={{
+            height: 10,
+            borderRadius: 999,
+            backgroundColor: "#E6EDF5",
+          }}
+        >
+          <Animated.View
+            style={{
+              width: animatedWidth,
+              height: "100%",
+              backgroundColor: accentColor,
+              borderRadius: 999,
+            }}
+          />
+        </View>
+
+        <Text
+          className="font-display-bold text-[16px] ml-2.5"
+          style={{ color: accentColor }}
+          numberOfLines={1}
+        >
           {t("percentLabel", { pct: formatPercent(list.pct) })}
         </Text>
-        <View className="flex-row items-center mt-1.5">
-          <Text className="font-display-semibold text-[12px] text-civic-navy mr-1">
-            {t("listCardCta")}
-          </Text>
-          <Ionicons name="chevron-forward" size={14} color={colors.accent} />
-        </View>
       </View>
     </Pressable>
   );
@@ -314,8 +369,17 @@ function PreviewListModal({
 }) {
   if (!sector || !list) return null;
 
-  const colors = TONE_STYLES[list.tone];
+  const accentColor = getListAccentColor(list);
   const leadFigure = list.figures[0];
+  const handleOpenSource = async () => {
+    const opened = await openExternalUrl(sector.sourceUrl);
+    if (!opened) {
+      Alert.alert(
+        t("common:linkOpenErrorTitle"),
+        t("common:linkOpenErrorMessage")
+      );
+    }
+  };
 
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
@@ -347,7 +411,7 @@ function PreviewListModal({
                 {t("detailUnionTitle")}
               </Text>
               <View className="flex-row items-center mt-3">
-                <FigureStack figures={list.figures} candidateMap={candidateMap} accentColor={colors.accent} />
+                <FigureStack figures={list.figures} candidateMap={candidateMap} accentColor={accentColor} />
                 <View className="flex-1 ml-4">
                   <Text className="font-display-bold text-[22px] text-civic-navy">
                     {list.shortBlocLabel}
@@ -355,7 +419,7 @@ function PreviewListModal({
                   <Text className="font-display-semibold text-[14px] text-text-caption mt-1" numberOfLines={1}>
                     {leadFigure.name}
                   </Text>
-                  <Text className="font-display-bold text-[30px] mt-2" style={{ color: colors.accent }}>
+                  <Text className="font-display-bold text-[30px] mt-2" style={{ color: accentColor }}>
                     {t("percentLabel", { pct: formatPercent(list.pct) })}
                   </Text>
                 </View>
@@ -389,10 +453,10 @@ function PreviewListModal({
               </Text>
               <Pressable
                 onPress={() => {
-                  void Linking.openURL(sector.sourceUrl);
+                  void handleOpenSource();
                 }}
                 className="rounded-[16px] px-4 py-3 items-center"
-                style={{ backgroundColor: colors.accent }}
+                style={{ backgroundColor: accentColor }}
               >
                 <Text className="font-display-semibold text-white">
                   {t("detailSourceLink")}
@@ -597,19 +661,22 @@ function ParisMap({
 
 function SectorPanel({
   sector,
-  candidateMap,
   onClose,
   onOpenList,
   bottomInset,
   t,
 }: {
   sector: PreviewSector;
-  candidateMap: CandidateMap;
   onClose: () => void;
   onOpenList: (list: PreviewSectorList) => void;
   bottomInset: number;
   t: (key: string, options?: Record<string, unknown>) => string;
 }) {
+  const orderedLists = useMemo(
+    () => [...sector.lists].sort((a, b) => b.pct - a.pct),
+    [sector.lists],
+  );
+
   return (
     <View
       className="absolute inset-x-0"
@@ -619,7 +686,7 @@ function SectorPanel({
       <View
         className="rounded-t-[32px] rounded-b-[28px] bg-warm-white px-5 pt-4"
         style={{
-          maxHeight: 510,
+          maxHeight: 460,
           paddingBottom: bottomInset + 14,
           borderWidth: 1,
           borderColor: "#E8EDF4",
@@ -637,9 +704,11 @@ function SectorPanel({
             <Text className="font-display-bold text-[24px] text-civic-navy">
               {sector.label}
             </Text>
-            <Text className="font-body text-[13px] text-text-caption mt-1">
-              {sector.arrondissementLabel}
-            </Text>
+            {sector.id === "01" ? (
+              <Text className="font-body text-[13px] text-text-caption mt-1" numberOfLines={1}>
+                {sector.arrondissementLabel}
+              </Text>
+            ) : null}
           </View>
 
           <Pressable
@@ -654,12 +723,12 @@ function SectorPanel({
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View className="flex-row flex-wrap justify-between pb-1">
-            {sector.lists.map((list) => (
+          <View className="pb-1">
+            {orderedLists.map((list, index) => (
               <SectorListCard
-                key={list.id}
+                key={`${sector.id}-${list.id}`}
                 list={list}
-                candidateMap={candidateMap}
+                index={index}
                 onPress={() => onOpenList(list)}
                 t={t}
               />
@@ -776,7 +845,6 @@ export default function CarteScreen() {
           {selectedSector ? (
             <SectorPanel
               sector={selectedSector}
-              candidateMap={candidateMap}
               onClose={() => {
                 setSelectedSectorId(null);
                 setSelectedList(null);

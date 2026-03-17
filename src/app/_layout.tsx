@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { LogBox, Pressable, Text, View } from "react-native";
-import * as Linking from "expo-linking";
+import { Alert, LogBox, Pressable, Text, View } from "react-native";
 import { Stack, useRouter, useSegments, useNavigationContainerRef } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
@@ -31,8 +30,13 @@ import {
   navigationIntegration,
 } from "../services/crash-reporting";
 import { checkMandatoryUpdate } from "../services/mandatory-update";
+import {
+  FIRST_SURVEY_ROUND,
+  useSurveyStore,
+} from "../stores/survey";
 import { useTranslation } from "react-i18next";
 import { useNetworkStatus } from "../hooks/useNetworkStatus";
+import { openExternalUrl } from "../services/open-url";
 import "../i18n";
 import "../../global.css";
 
@@ -63,8 +67,12 @@ function toError(error: unknown): Error {
 function RootLayout() {
   const loadDataset = useElectionStore((s) => s.loadDataset);
   const isLoaded = useElectionStore((s) => s.isLoaded);
+  const candidates = useElectionStore((s) => s.candidates);
   const hasCompletedOnboarding = useAppStore((s) => s.hasCompletedOnboarding);
   const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
+  const ensureRoundCandidateSnapshot = useSurveyStore(
+    (s) => s.ensureRoundCandidateSnapshot
+  );
   const router = useRouter();
   const segments = useSegments();
   const navigationRef = useNavigationContainerRef();
@@ -97,6 +105,12 @@ function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [isLoaded, fontsLoaded]);
+
+  useEffect(() => {
+    if (!isLoaded || candidates.length === 0) return;
+
+    ensureRoundCandidateSnapshot(FIRST_SURVEY_ROUND, candidates);
+  }, [candidates, ensureRoundCandidateSnapshot, isLoaded]);
 
   useEffect(() => {
     void updateCrashReportingConsent(crashReportingOptIn).catch((error) => {
@@ -223,7 +237,15 @@ function RootLayout() {
                       className="rounded-xl px-4 py-3 items-center"
                       style={{ backgroundColor: "#E84855" }}
                       onPress={() => {
-                        void Linking.openURL(mandatoryUpdateUrl);
+                        void (async () => {
+                          const opened = await openExternalUrl(mandatoryUpdateUrl);
+                          if (!opened) {
+                            Alert.alert(
+                              t("linkOpenErrorTitle"),
+                              t("linkOpenErrorMessage")
+                            );
+                          }
+                        })();
                       }}
                     >
                       <Text className="font-display-semibold text-white">

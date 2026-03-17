@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { View, Text, Pressable, TextInput, Linking, Alert } from "react-native";
+import { View, Text, Pressable, TextInput, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { submitFeedback } from "../../services/feedback";
+import { openExternalUrl } from "../../services/open-url";
 
 const SUPPORT_EMAIL = "support@citoyeninforme.fr";
 
@@ -54,14 +55,12 @@ export function FeedbackAction({ screen, entityId, initiallyOpen = false, onDone
     );
 
     const mailto = `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
-    const canOpen = await Linking.canOpenURL(mailto);
+    const wasOpened = await openExternalUrl(mailto);
 
-    if (canOpen) {
-      await Linking.openURL(mailto);
-    } else {
+    if (!wasOpened) {
       Alert.alert(
-        "Pas d'application mail",
-        `Envoyez votre retour à ${SUPPORT_EMAIL}`
+        t("mailAppMissingTitle"),
+        t("mailAppMissingMessage", { email: SUPPORT_EMAIL })
       );
     }
 

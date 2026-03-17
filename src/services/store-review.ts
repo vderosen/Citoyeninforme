@@ -1,15 +1,14 @@
 import Constants from "expo-constants";
-import * as Linking from "expo-linking";
 import * as StoreReview from "expo-store-review";
 import { Platform } from "react-native";
+import { openExternalUrl } from "./open-url";
 
 const APP_STORE_REVIEW_URL = "https://apps.apple.com/app/id6759607258?action=write-review";
 const ANDROID_PACKAGE_NAME = "com.vderosen.citoyeninforme";
 
-export async function openStoreListing(): Promise<void> {
+export async function openStoreListing(): Promise<boolean> {
   if (Platform.OS === "ios") {
-    await Linking.openURL(APP_STORE_REVIEW_URL);
-    return;
+    return openExternalUrl(APP_STORE_REVIEW_URL);
   }
 
   if (Platform.OS === "android") {
@@ -17,9 +16,15 @@ export async function openStoreListing(): Promise<void> {
     const marketUrl = `market://details?id=${packageName}`;
     const webUrl = `https://play.google.com/store/apps/details?id=${packageName}`;
 
-    const canOpenMarket = await Linking.canOpenURL(marketUrl);
-    await Linking.openURL(canOpenMarket ? marketUrl : webUrl);
+    const openedMarketUrl = await openExternalUrl(marketUrl);
+    if (!openedMarketUrl) {
+      return openExternalUrl(webUrl);
+    }
+
+    return true;
   }
+
+  return false;
 }
 
 export async function requestNativeStoreReview(): Promise<boolean> {

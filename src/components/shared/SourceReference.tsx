@@ -1,6 +1,7 @@
-import { Pressable, Linking } from "react-native";
+import { Alert, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import type { SourceReference as SourceReferenceType } from "../../data/schema";
+import { openExternalUrl } from "../../services/open-url";
 import { AppText as Text } from "../ui/AppText";
 
 interface SourceReferenceProps {
@@ -11,14 +12,19 @@ interface SourceReferenceProps {
 export function SourceReference({ source, compact = false }: SourceReferenceProps) {
   const { t } = useTranslation("common");
 
-  const handlePress = () => {
-    Linking.openURL(source.url);
+  const handlePress = async () => {
+    const opened = await openExternalUrl(source.url);
+    if (!opened) {
+      Alert.alert(t("linkOpenErrorTitle"), t("linkOpenErrorMessage"));
+    }
   };
 
   if (compact) {
     return (
       <Pressable
-        onPress={handlePress}
+        onPress={() => {
+          void handlePress();
+        }}
         accessibilityRole="link"
         accessibilityLabel={`${t("source")}: ${source.title}`}
         hitSlop={8}
@@ -33,7 +39,9 @@ export function SourceReference({ source, compact = false }: SourceReferenceProp
 
   return (
     <Pressable
-      onPress={handlePress}
+      onPress={() => {
+        void handlePress();
+      }}
       accessibilityRole="link"
       accessibilityLabel={`${t("source")}: ${source.title}`}
       className="flex-row items-center py-1"

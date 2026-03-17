@@ -1,17 +1,29 @@
-import { View, Text, ScrollView, Alert, Pressable, Linking, Modal, Switch } from "react-native";
+import { View, Text, ScrollView, Alert, Pressable, Modal, Switch } from "react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import * as WebBrowser from "expo-web-browser";
 import Constants from "expo-constants";
 import { deleteAllUserData } from "../services/data-export";
+import { openExternalUrl } from "../services/open-url";
 import { useAppStore } from "../stores/app";
+import { useElectionStore } from "../stores/election";
+import { SourceReference } from "../components/shared/SourceReference";
+import type { SourceReference as SourceReferenceType } from "../data/schema";
 
 const PRIVACY_POLICY_URL =
   process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL ??
   "https://citoyeninforme.fr/politique-de-confidentialite";
+
+function showLinkOpenErrorAlert(
+  t: (key: string, options?: Record<string, unknown>) => string
+): void {
+  Alert.alert(
+    t("common:linkOpenErrorTitle"),
+    t("common:linkOpenErrorMessage")
+  );
+}
 
 /* ── Reusable settings primitives ── */
 
@@ -102,6 +114,24 @@ function SettingsRow({
 function AboutModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const { t } = useTranslation("settings");
   const appVersion = Constants.expoConfig?.version ?? "1.0.0";
+  const contactEmail = t("about.contactEmail");
+
+  const handleOpenLink = async (url: string) => {
+    const opened = await openExternalUrl(url);
+    if (!opened) {
+      showLinkOpenErrorAlert(t);
+    }
+  };
+
+  const handleOpenMail = async () => {
+    const opened = await openExternalUrl(`mailto:${contactEmail}`);
+    if (!opened) {
+      Alert.alert(
+        t("common:mailAppMissingTitle"),
+        t("common:mailAppMissingMessage", { email: contactEmail })
+      );
+    }
+  };
 
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose}>
@@ -113,7 +143,7 @@ function AboutModal({ visible, onClose }: { visible: boolean; onClose: () => voi
             onPress={onClose}
             className="w-8 h-8 rounded-full bg-warm-gray items-center justify-center"
             accessibilityRole="button"
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t("common:close")}
           >
             <Ionicons name="close" size={18} color="#1B2A4A" />
           </Pressable>
@@ -137,13 +167,29 @@ function AboutModal({ visible, onClose }: { visible: boolean; onClose: () => voi
                 {t("about.contactDescription")}
               </Text>
               <Pressable
-                onPress={() => Linking.openURL(`mailto:${t("about.contactEmail")}`)}
+                onPress={() => {
+                  void handleOpenMail();
+                }}
                 className="flex-row items-center gap-2"
                 accessibilityRole="link"
               >
                 <Ionicons name="mail-outline" size={16} color="#0A66C2" />
                 <Text className="font-body-medium text-sm text-blue-600 underline">
-                  {t("about.contactEmail")}
+                  {contactEmail}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  void handleOpenLink(
+                    "https://www.instagram.com/citoyen.informe?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D"
+                  );
+                }}
+                className="flex-row items-center gap-2 mt-3"
+                accessibilityRole="link"
+              >
+                <Ionicons name="logo-instagram" size={16} color="#E1306C" />
+                <Text className="font-body-medium text-sm text-blue-600 underline">
+                  {t("about.instagramFollow")}
                 </Text>
               </Pressable>
             </View>
@@ -155,7 +201,9 @@ function AboutModal({ visible, onClose }: { visible: boolean; onClose: () => voi
               {t("about.createdBy")}
             </Text>
             <Pressable
-              onPress={() => Linking.openURL("https://www.linkedin.com/in/vassiliderosen/")}
+              onPress={() => {
+                void handleOpenLink("https://www.linkedin.com/in/vassiliderosen/");
+              }}
               className="bg-warm-gray rounded-2xl p-4 flex-row items-center gap-3"
               accessibilityRole="link"
             >
@@ -218,7 +266,7 @@ function MethodologyModal({ visible, onClose }: { visible: boolean; onClose: () 
             onPress={onClose}
             className="w-8 h-8 rounded-full bg-warm-gray items-center justify-center"
             accessibilityRole="button"
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t("common:close")}
           >
             <Ionicons name="close" size={18} color="#1B2A4A" />
           </Pressable>
@@ -236,6 +284,61 @@ function MethodologyModal({ visible, onClose }: { visible: boolean; onClose: () 
   );
 }
 
+function OfficialSourcesModal({
+  visible,
+  onClose,
+  sources,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  sources: SourceReferenceType[];
+}) {
+  const { t } = useTranslation("settings");
+
+  return (
+    <Modal visible={visible} animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose}>
+      <SafeAreaView className="flex-1 bg-warm-white">
+        <View className="flex-row items-center justify-between px-4 pt-4 pb-2 border-b border-black/5">
+          <Text className="font-display-semibold text-lg text-civic-navy">
+            {t("officialSources.modalTitle")}
+          </Text>
+          <Pressable
+            onPress={onClose}
+            className="w-8 h-8 rounded-full bg-warm-gray items-center justify-center"
+            accessibilityRole="button"
+            accessibilityLabel={t("common:close")}
+          >
+            <Ionicons name="close" size={18} color="#1B2A4A" />
+          </Pressable>
+        </View>
+
+        <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingVertical: 24, gap: 20 }}>
+          <View className="bg-warm-gray rounded-2xl p-4">
+            <Text className="font-body text-sm text-text-body leading-relaxed">
+              {t("officialSources.nonOfficialDisclaimer")}
+            </Text>
+          </View>
+
+          <View className="bg-warm-gray rounded-2xl p-4">
+            <Text className="font-display-semibold text-sm text-civic-navy mb-2">
+              {t("officialSources.listTitle")}
+            </Text>
+            {sources.length > 0 ? (
+              sources.map((source, index) => (
+                <SourceReference key={`${source.url}-${index}`} source={source} />
+              ))
+            ) : (
+              <Text className="font-body text-sm text-text-caption">
+                {t("officialSources.empty")}
+              </Text>
+            )}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </Modal>
+  );
+}
+
 /* ── Screen ── */
 
 export default function SettingsScreen() {
@@ -243,11 +346,20 @@ export default function SettingsScreen() {
   const router = useRouter();
   const [aboutVisible, setAboutVisible] = useState(false);
   const [methodologyVisible, setMethodologyVisible] = useState(false);
+  const [officialSourcesVisible, setOfficialSourcesVisible] = useState(false);
   const crashReportingOptIn = useAppStore((s) => s.crashReportingOptIn);
   const setCrashReportingOptIn = useAppStore((s) => s.setCrashReportingOptIn);
+  const officialSources = useElectionStore((s) => s.logistics?.officialSources ?? []);
 
   const onCrashReportingToggle = async (optIn: boolean) => {
     setCrashReportingOptIn(optIn);
+  };
+
+  const handleOpenLink = async (url: string) => {
+    const opened = await openExternalUrl(url);
+    if (!opened) {
+      showLinkOpenErrorAlert(t);
+    }
   };
 
   const confirmDelete = () => {
@@ -284,7 +396,9 @@ export default function SettingsScreen() {
           <SettingsRow
             icon="shield-checkmark-outline"
             label={t("about.privacy")}
-            onPress={() => WebBrowser.openBrowserAsync(PRIVACY_POLICY_URL)}
+            onPress={() => {
+              void handleOpenLink(PRIVACY_POLICY_URL);
+            }}
           />
           <SettingsRow
             icon="bug-outline"
@@ -303,7 +417,11 @@ export default function SettingsScreen() {
           <SettingsRow
             icon="document-text-outline"
             label={t("about.terms")}
-            onPress={() => WebBrowser.openBrowserAsync("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")}
+            onPress={() => {
+              void handleOpenLink(
+                "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+              );
+            }}
             last
           />
         </SettingsGroup>
@@ -313,14 +431,25 @@ export default function SettingsScreen() {
           <SettingsRow
             icon="bulb-outline"
             label={t("methodology.buttonLabel")}
-            description="Sources, équité et IA"
+            description={t("methodology.buttonDescription")}
             onPress={() => setMethodologyVisible(true)}
+          />
+          <SettingsRow
+            icon="link-outline"
+            label={t("officialSources.buttonLabel")}
+            description={t("officialSources.buttonDescription")}
+            onPress={() => setOfficialSourcesVisible(true)}
             last
           />
         </SettingsGroup>
 
         <AboutModal visible={aboutVisible} onClose={() => setAboutVisible(false)} />
         <MethodologyModal visible={methodologyVisible} onClose={() => setMethodologyVisible(false)} />
+        <OfficialSourcesModal
+          visible={officialSourcesVisible}
+          onClose={() => setOfficialSourcesVisible(false)}
+          sources={officialSources}
+        />
 
         {/* ── Zone dangereuse ── */}
         <View className="px-4 mt-4">
