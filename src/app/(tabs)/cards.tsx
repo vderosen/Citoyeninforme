@@ -3,13 +3,20 @@ import { View, Text, Modal, ScrollView, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useElectionStore } from "../../stores/election";
-import { useSurveyStore } from "../../stores/survey";
+import {
+    SECOND_SURVEY_ROUND,
+    useSurveyStore,
+} from "../../stores/survey";
 import { useAppStore } from "../../stores/app";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SwipeStack } from "../../components/survey/SwipeStack";
 import { SwipeTutorialOverlay } from "../../components/survey/SwipeTutorialOverlay";
 import { ResultsReminderOverlay } from "../../components/survey/ResultsReminderOverlay";
 import { ProgressBar } from "../../components/survey/ProgressBar";
+import {
+    getParisSecondRoundCandidates,
+    getParisSecondRoundStatementCards,
+} from "../../data/elections/paris-2026/secondRoundSurvey";
 
 import { balancedShuffle, dailySeed } from "../../utils/shuffle";
 import { getCategoryTheme } from "../../utils/categoryTheme";
@@ -28,6 +35,14 @@ export default function CardsScreen() {
     const election = useElectionStore((s) => s.election);
     const statementCards = useElectionStore((s) => s.statementCards);
     const candidates = useElectionStore((s) => s.candidates);
+    const secondRoundCards = useMemo(
+        () => getParisSecondRoundStatementCards(statementCards),
+        [statementCards]
+    );
+    const secondRoundCandidates = useMemo(
+        () => getParisSecondRoundCandidates(candidates),
+        [candidates]
+    );
 
     const hasSeenSwipeTutorial = useAppStore((s) => s.hasSeenSwipeTutorial);
     const markSwipeTutorialSeen = useAppStore((s) => s.markSwipeTutorialSeen);
@@ -37,15 +52,15 @@ export default function CardsScreen() {
     const swipeHintIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const shouldTrackFirstActionRef = useRef(false);
 
-    const currentIndex = useSurveyStore((s) => s.currentQuestionIndex);
-    const questionOrder = useSurveyStore((s) => s.questionOrder);
-    const answers = useSurveyStore((s) => s.answers);
-    const surveyStatus = useSurveyStore((s) => s.status);
-    const resultsReminderDismissCount = useSurveyStore(
-        (s) => s.resultsReminderDismissCount
-    );
-    const hasVisitedResultsTab = useSurveyStore((s) => s.hasVisitedResultsTab);
-    const hasSeenInitialResult = useSurveyStore((s) => s.hasSeenInitialResult);
+    const secondRoundState = useSurveyStore((s) => s.rounds[SECOND_SURVEY_ROUND]);
+    const currentIndex = secondRoundState.currentQuestionIndex;
+    const questionOrder = secondRoundState.questionOrder;
+    const answers = secondRoundState.answers;
+    const surveyStatus = secondRoundState.status;
+    const resultsReminderDismissCount =
+        secondRoundState.resultsReminderDismissCount;
+    const hasVisitedResultsTab = secondRoundState.hasVisitedResultsTab;
+    const hasSeenInitialResult = secondRoundState.hasSeenInitialResult;
     const startQuestionnaire = useSurveyStore((s) => s.startQuestionnaire);
     const markQuestionnaireActive = useSurveyStore(
         (s) => s.markQuestionnaireActive
@@ -65,21 +80,21 @@ export default function CardsScreen() {
     const [shuffleSeed] = useState(() => dailySeed());
     const cardsForShuffle = useMemo(
         () =>
-            statementCards.map((card) => ({
+            secondRoundCards.map((card) => ({
                 id: card.id,
                 candidateIds: Array.from(
                     new Set([...(card.candidateIds ?? []), ...(card.opposingCandidateIds ?? [])])
                 ),
             })),
-        [statementCards]
+        [secondRoundCards]
     );
     const deterministicCardOrder = useMemo(
         () => balancedShuffle(cardsForShuffle, shuffleSeed).map((card) => card.id),
         [cardsForShuffle, shuffleSeed]
     );
     const availableCardIds = useMemo(
-        () => statementCards.map((card) => card.id),
-        [statementCards]
+        () => secondRoundCards.map((card) => card.id),
+        [secondRoundCards]
     );
     const effectiveCardOrder = useMemo(
         () =>
@@ -93,17 +108,17 @@ export default function CardsScreen() {
 
     useEffect(() => {
         if (areStringArraysEqual(questionOrder, effectiveCardOrder)) return;
-        setQuestionOrder(effectiveCardOrder);
+        setQuestionOrder(effectiveCardOrder, SECOND_SURVEY_ROUND);
     }, [effectiveCardOrder, questionOrder, setQuestionOrder]);
 
     const shuffledCards = useMemo(
         () => {
-            const byId = new Map(statementCards.map((card) => [card.id, card]));
+            const byId = new Map(secondRoundCards.map((card) => [card.id, card]));
             return effectiveCardOrder
                 .map((cardId) => byId.get(cardId))
                 .filter((card): card is StatementCard => !!card);
         },
-        [effectiveCardOrder, statementCards]
+        [effectiveCardOrder, secondRoundCards]
     );
 
     // Track swiped cards for undo (current session only)
@@ -125,11 +140,11 @@ export default function CardsScreen() {
         if (surveyStatus === "questionnaire" || surveyStatus === "results_ready") return;
 
         if (surveyStatus === "not_started" || surveyStatus === "completed") {
-            startQuestionnaire();
+            startQuestionnaire(SECOND_SURVEY_ROUND);
             return;
         }
 
-        markQuestionnaireActive();
+        markQuestionnaireActive(SECOND_SURVEY_ROUND);
     }, [markQuestionnaireActive, startQuestionnaire, surveyStatus]);
 
     useEffect(() => {
@@ -139,7 +154,7 @@ export default function CardsScreen() {
             answers,
         });
         if (nextIndex !== currentIndex) {
-            setCurrentQuestionIndex(nextIndex);
+            setCurrentQuestionIndex(nextIndex, SECOND_SURVEY_ROUND);
         }
     }, [answers, currentIndex, setCurrentQuestionIndex, shuffledCards]);
 
@@ -179,12 +194,13 @@ export default function CardsScreen() {
         if (!election) return;
         useSurveyStore.getState().computeAndSetResults(
             shuffledCards,
-            candidates,
-            election.dataVersion ?? "unknown"
+            secondRoundCandidates,
+            election.dataVersion ?? "unknown",
+            SECOND_SURVEY_ROUND
         );
     }, [
-        candidates,
         election,
+        secondRoundCandidates,
         shuffledCards,
     ]);
 
@@ -206,7 +222,7 @@ export default function CardsScreen() {
         (cardId: string, direction: SwipeDirection, isX2Enabled: boolean) => {
             registerFirstCardAction();
             const optionId = buildAnswerId(cardId, direction, isX2Enabled);
-            answerQuestion(cardId, optionId);
+            answerQuestion(cardId, optionId, SECOND_SURVEY_ROUND);
 
             const card = shuffledCards.find((c) => c.id === cardId);
             if (card) {
@@ -217,10 +233,10 @@ export default function CardsScreen() {
             setTimeout(computeResults, 50);
 
             if (!isLast) {
-                nextQuestion();
+                nextQuestion(SECOND_SURVEY_ROUND);
             } else {
                 // Increment anyways so that the screen shows "finished" message
-                nextQuestion();
+                nextQuestion(SECOND_SURVEY_ROUND);
             }
         },
         [
@@ -249,7 +265,7 @@ export default function CardsScreen() {
         if (!previousCard) return;
 
         setSwipedCards((prev) => (prev.length > 0 ? prev.slice(0, -1) : prev));
-        clearAnswer(previousCard.id);
+        clearAnswer(previousCard.id, SECOND_SURVEY_ROUND);
 
         // recompute results
         setTimeout(computeResults, 50);
@@ -259,7 +275,7 @@ export default function CardsScreen() {
         registerFirstCardAction();
         setIsResultsReminderVisible(false);
         setLastResultsReminderSwipeCount(currentIndex);
-        markResultsTabVisited();
+        markResultsTabVisited(SECOND_SURVEY_ROUND);
         router.push("/(tabs)/matches");
     }, [currentIndex, markResultsTabVisited, registerFirstCardAction, router]);
 
@@ -267,7 +283,7 @@ export default function CardsScreen() {
         registerFirstCardAction();
         setIsResultsReminderVisible(false);
         setLastResultsReminderSwipeCount(currentIndex);
-        dismissResultsReminder();
+        dismissResultsReminder(SECOND_SURVEY_ROUND);
     }, [currentIndex, dismissResultsReminder, registerFirstCardAction]);
 
     const handleShowDescription = useCallback((cardId: string) => {
@@ -322,10 +338,13 @@ export default function CardsScreen() {
     return (
         <View className="flex-1 bg-warm-white" style={{ paddingTop: insets.top }}>
             {/* Header / App Logo */}
-            <View className="items-center justify-center py-4">
+            <View className="items-center justify-center py-4 relative">
                 <Text className="text-[22px] tracking-wide" style={{ fontFamily: 'ArialRoundedMTBold' }}>
                     <Text style={{ color: '#1A202C' }}>Citoyen </Text>
                     <Text style={{ color: '#60A5FA' }}>Informé</Text>
+                </Text>
+                <Text className="absolute right-5 font-display-medium text-xs text-text-caption">
+                    {t("survey:secondRoundShort")}
                 </Text>
             </View>
 

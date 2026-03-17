@@ -19,6 +19,11 @@ import { usePodiumCelebrationTrigger } from "../../hooks/usePodiumCelebrationTri
 import { computeGlobalAnalytics } from "../../utils/computeSwipeAnalytics";
 import { isEligibleForResultsReviewPrompt } from "../../utils/review-prompt";
 import { openStoreListing, requestNativeStoreReview } from "../../services/store-review";
+import {
+    filterParisSecondRoundCandidateRanking,
+    getParisSecondRoundCandidates,
+    getParisSecondRoundStatementCards,
+} from "../../data/elections/paris-2026/secondRoundSurvey";
 
 export default function MatchesScreen() {
     const { t } = useTranslation("survey");
@@ -36,16 +41,38 @@ export default function MatchesScreen() {
     );
     const [isConvictionExpanded, setIsConvictionExpanded] = useState(false);
     const [isRoundMenuVisible, setIsRoundMenuVisible] = useState(false);
+    const secondRoundCandidates = useMemo(
+        () => getParisSecondRoundCandidates(electionCandidates),
+        [electionCandidates]
+    );
+    const secondRoundCards = useMemo(
+        () => getParisSecondRoundStatementCards(statementCards),
+        [statementCards]
+    );
 
     const displayedRoundState = rounds[selectedRound];
     const secondRoundState = rounds[SECOND_SURVEY_ROUND];
     const profile = displayedRoundState.profile;
     const answers = displayedRoundState.answers;
-    const roundCandidates =
+    const baseRoundCandidates =
         displayedRoundState.candidatesSnapshot.length > 0
             ? displayedRoundState.candidatesSnapshot
-            : electionCandidates;
+            : selectedRound === SECOND_SURVEY_ROUND
+                ? secondRoundCandidates
+                : electionCandidates;
+    const roundCandidates =
+        selectedRound === SECOND_SURVEY_ROUND
+            ? getParisSecondRoundCandidates(baseRoundCandidates)
+            : baseRoundCandidates;
+    const roundCards =
+        selectedRound === SECOND_SURVEY_ROUND ? secondRoundCards : statementCards;
     const triggerCelebration = usePodiumCelebrationTrigger(profile, selectedRound);
+    const candidateRanking = useMemo(() => {
+        const ranking = profile?.candidateRanking ?? [];
+        return selectedRound === SECOND_SURVEY_ROUND
+            ? filterParisSecondRoundCandidateRanking(ranking)
+            : ranking;
+    }, [profile?.candidateRanking, selectedRound]);
 
     useFocusEffect(
         useCallback(() => {
@@ -110,11 +137,11 @@ export default function MatchesScreen() {
         () =>
             computeGlobalAnalytics(
                 answers,
-                statementCards,
+                roundCards,
                 roundCandidates,
-                profile?.candidateRanking ?? []
+                candidateRanking
             ),
-        [answers, profile?.candidateRanking, roundCandidates, statementCards]
+        [answers, candidateRanking, roundCandidates, roundCards]
     );
 
     const totalSwipes = analytics.totalSwipes || 1;
@@ -156,7 +183,6 @@ export default function MatchesScreen() {
             : analytics.decisivenessScore >= 30
                 ? "💪"
                 : "🤔";
-    const candidateRanking = profile?.candidateRanking ?? [];
     const hasRankingResults = candidateRanking.length > 0;
     const roundTitle =
         selectedRound === SECOND_SURVEY_ROUND
