@@ -38,11 +38,19 @@ const mockAppState = {
 };
 
 const mockSurveyState = {
-  status: "completed",
-  answers: { q1: "a1" },
-  importanceWeights: { theme1: 0.8 },
-  profile: null,
-  reset: jest.fn(),
+  rounds: {
+    first_round: {
+      status: "results_ready",
+      answers: { q1: "a1" },
+      profile: null,
+    },
+    second_round: {
+      status: "questionnaire",
+      answers: { q2: "a2" },
+      profile: null,
+    },
+  },
+  resetAll: jest.fn(),
 };
 
 const mockAssistantState = {
@@ -113,8 +121,8 @@ describe("data-export", () => {
     expect(parsed.exportedAt).toBeDefined();
     expect(parsed.appVersion).toBe("1.0.0");
     expect(parsed.consent.policyVersion).toBe("1.0");
-    expect(parsed.survey.status).toBe("completed");
-    expect(parsed.survey.answers).toEqual({ q1: "a1" });
+    expect(parsed.survey.rounds.first_round.answers).toEqual({ q1: "a1" });
+    expect(parsed.survey.rounds.second_round.status).toBe("questionnaire");
     expect(parsed.assistant.conversations.comprendre).toHaveLength(1);
     expect(parsed.preferences.hasCompletedOnboarding).toBe(true);
     expect(parsed.feedback).toEqual([]);
@@ -129,7 +137,7 @@ describe("data-export", () => {
   test("deleteAllUserData calls reset on all stores and clears AsyncStorage", async () => {
     await deleteAllUserData();
 
-    expect(mockSurveyState.reset).toHaveBeenCalled();
+    expect(mockSurveyState.resetAll).toHaveBeenCalled();
     expect(mockAssistantState.resetConversation).toHaveBeenCalled();
     expect(mockAppState.revokePrivacyConsent).toHaveBeenCalled();
     expect(AsyncStorage.multiRemove).toHaveBeenCalledWith([

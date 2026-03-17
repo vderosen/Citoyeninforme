@@ -93,6 +93,7 @@ export const useAssistantStore = create<AssistantState>()(
       resetConversation: () => {
         const key = get().getConversationKey();
         set((state) => ({
+          isStreaming: false,
           conversations: {
             ...state.conversations,
             [key]: [],

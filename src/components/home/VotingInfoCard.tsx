@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import type { ElectionLogistics, VotingMethod } from "../../data/schema";
 import { groupAndClassifyDates } from "../../utils/date-helpers";
+import { SourceReference } from "../shared/SourceReference";
 
 // --- Constants ---
 
@@ -175,6 +176,28 @@ export function VotingInfoCard({ logistics }: VotingInfoCardProps) {
               );
             })}
           </View>
+        </View>
+      )}
+
+      {/* Official Sources + non-government disclaimer */}
+      {logistics.officialSources.length > 0 && (
+        <View className="bg-white shadow-card rounded-xl p-4">
+          <View className="flex-row items-center gap-2 mb-2">
+            <Ionicons
+              name="shield-checkmark-outline"
+              size={18}
+              color="#1B2A4A"
+            />
+            <Text className="font-display-semibold text-sm text-civic-navy">
+              {t("officialSourcesTitle")}
+            </Text>
+          </View>
+          <Text className="font-body text-xs text-text-caption mb-2">
+            {t("nonOfficialDisclaimer")}
+          </Text>
+          {logistics.officialSources.map((source, index) => (
+            <SourceReference key={`${source.url}-${index}`} source={source} />
+          ))}
         </View>
       )}
     </View>

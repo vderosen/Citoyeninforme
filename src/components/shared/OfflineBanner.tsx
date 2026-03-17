@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, {
@@ -9,11 +10,37 @@ import { useTranslation } from "react-i18next";
 import { useNetworkStatus } from "../../hooks/useNetworkStatus";
 
 export function OfflineBanner() {
-  const { isConnected } = useNetworkStatus();
+  const { isConnected, isInternetReachable } = useNetworkStatus();
   const { t } = useTranslation("errors");
   const reduceMotion = useReducedMotion();
+  const [shouldShow, setShouldShow] = useState(false);
+  const showDelayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isConfirmedOffline = !isConnected && isInternetReachable === false;
 
-  if (isConnected) return null;
+  useEffect(() => {
+    if (!isConfirmedOffline) {
+      if (showDelayTimerRef.current) {
+        clearTimeout(showDelayTimerRef.current);
+        showDelayTimerRef.current = null;
+      }
+      setShouldShow(false);
+      return;
+    }
+
+    showDelayTimerRef.current = setTimeout(() => {
+      setShouldShow(true);
+      showDelayTimerRef.current = null;
+    }, 1000);
+
+    return () => {
+      if (showDelayTimerRef.current) {
+        clearTimeout(showDelayTimerRef.current);
+        showDelayTimerRef.current = null;
+      }
+    };
+  }, [isConfirmedOffline]);
+
+  if (!shouldShow) return null;
 
   return (
     <Animated.View

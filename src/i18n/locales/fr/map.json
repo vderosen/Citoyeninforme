@@ -1,6 +1,7 @@
 {
   "mapBrandTitle": "Citoyen Informé",
   "mapSubtitle": "Candidats par arrondissement",
+  "cityHallToggle": "Voir les résultats Mairie de Paris",
   "closePanel": "Fermer le secteur",
   "withFigureLabel": "Avec {{name}}",
   "listCardCta": "Détail",
@@ -21,6 +22,7 @@
   "percentLabel": "{{pct}} %",
   "chipLocal": "Locale",
   "chipParis": "Paris",
+  "electedBadge": "Élu",
   "officialSourceLabel": "Ministère de l'Intérieur",
   "candidateCount": "{{count}} figures dans la fiche",
   "detailSummaryLabel": "Lecture politique"

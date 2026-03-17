@@ -17,6 +17,7 @@ const API_BASE_URL =
   process.env.EXPO_PUBLIC_LLM_PROXY_URL ?? "http://localhost:3001";
 const API_KEY = process.env.EXPO_PUBLIC_LLM_PROXY_API_KEY ?? "";
 const FLUSH_INTERVAL_MS = 32;
+const REQUEST_TIMEOUT_MS = 20000;
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";
@@ -27,11 +28,17 @@ export function sendChatMessage(
   messages: ChatMessage[],
   options?: {
     candidateFilter?: string | null;
+    retryAttempt?: number;
   },
   onChunk?: (text: string) => void,
   onDone?: () => void,
   onError?: (error: string) => void
 ): void {
+  if (__DEV__) {
+    // Helps diagnose wrong proxy URL fallback (e.g. localhost in simulator/device).
+    console.log(`[chatbot] POST ${API_BASE_URL}/api/chat`);
+  }
+
   const chatMessages = messages.map((m) => ({
     role: m.role,
     content: m.role === "user" ? sanitizeUserInput(m.content) : m.content,
@@ -95,6 +102,7 @@ export function sendChatMessage(
   // -- XHR setup --
   const xhr = new XMLHttpRequest();
   xhr.open("POST", `${API_BASE_URL}/api/chat`);
+  xhr.timeout = REQUEST_TIMEOUT_MS;
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.setRequestHeader("ngrok-skip-browser-warning", "true");
   if (API_KEY) {
@@ -135,6 +143,29 @@ export function sendChatMessage(
     if (!errorSent) {
       onError?.("Network error");
     }
+  };
+
+  xhr.ontimeout = () => {
+    cleanup();
+    if (errorSent) return;
+
+    const retryAttempt = options?.retryAttempt ?? 0;
+    if (retryAttempt < 1) {
+      const fallbackMessages = messages.slice(-6);
+      sendChatMessage(
+        fallbackMessages,
+        {
+          candidateFilter: options?.candidateFilter ?? null,
+          retryAttempt: retryAttempt + 1,
+        },
+        onChunk,
+        onDone,
+        onError
+      );
+      return;
+    }
+
+    onError?.("Request timed out");
   };
 
   xhr.send(

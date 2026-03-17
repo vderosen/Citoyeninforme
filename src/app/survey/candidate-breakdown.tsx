@@ -2,7 +2,13 @@ import { View, Text, ScrollView, Pressable, Modal, Image } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useElectionStore } from '../../stores/election';
-import { useSurveyStore } from '../../stores/survey';
+import {
+    FIRST_SURVEY_ROUND,
+    DEFAULT_SURVEY_ROUND,
+    SECOND_SURVEY_ROUND,
+    type SurveyRoundId,
+    useSurveyStore,
+} from '../../stores/survey';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import React, { useState, useMemo } from 'react';
 import { getCategoryTheme } from '../../utils/categoryTheme';
@@ -10,12 +16,24 @@ import { getCandidatePartyLogo } from '../../utils/candidatePartyLogo';
 import { CandidateInfoModal } from '../../components/candidates/CandidateInfoModal';
 
 export default function CandidateBreakdownScreen() {
-    const { candidateId } = useLocalSearchParams<{ candidateId: string }>();
+    const { candidateId, roundId } = useLocalSearchParams<{
+        candidateId: string;
+        roundId?: SurveyRoundId;
+    }>();
     const router = useRouter();
     const { t } = useTranslation();
-    const candidate = useElectionStore(s => s.candidates.find(c => c.id === candidateId));
+    const selectedRound =
+        roundId === FIRST_SURVEY_ROUND || roundId === SECOND_SURVEY_ROUND
+            ? roundId
+            : DEFAULT_SURVEY_ROUND;
+    const roundState = useSurveyStore(s => s.rounds[selectedRound]);
+    const fallbackCandidates = useElectionStore(s => s.candidates);
+    const roundCandidates = roundState.candidatesSnapshot.length > 0
+        ? roundState.candidatesSnapshot
+        : fallbackCandidates;
+    const candidate = roundCandidates.find(c => c.id === candidateId);
     const statementCards = useElectionStore(s => s.statementCards);
-    const profile = useSurveyStore(s => s.profile);
+    const profile = roundState.profile;
 
     const match = profile?.candidateRanking.find(r => r.candidateId === candidateId);
 
@@ -205,4 +223,3 @@ export default function CandidateBreakdownScreen() {
         </View>
     );
 }
-

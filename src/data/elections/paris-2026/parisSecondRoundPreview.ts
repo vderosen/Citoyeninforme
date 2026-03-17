@@ -1,3 +1,5 @@
+import { ARRONDISSEMENT_LEADER_PHOTOS } from "./arrondissementLeaderPhotos";
+
 type RawSectorResult = {
   id: string;
   officialLabel: string;
@@ -28,6 +30,7 @@ export interface PreviewFigure {
   shortPartyLabel: string;
   partyLabel: string;
   candidateId?: string;
+  photoUrl?: string;
   isLead?: boolean;
 }
 
@@ -858,7 +861,10 @@ function toTitleCase(value: string): string {
 }
 
 function stripHonorific(value: string): string {
-  return value.replace(/^M(?:me)?\.\s+/i, "").trim();
+  return value
+    .replace(/^(?:m(?:me|lle)?|madame|monsieur)\.?\s+/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function toDisplayName(rawName: string): string {
@@ -883,6 +889,10 @@ function normalizeText(value: string): string {
 
 function inferLeadCandidateId(displayName: string): CitywideCandidateId | undefined {
   return DIRECT_CANDIDATE_MATCH[displayName];
+}
+
+function getLeaderPhotoUrl(displayName: string): string | undefined {
+  return ARRONDISSEMENT_LEADER_PHOTOS[displayName];
 }
 
 function inferSponsorCandidateId(
@@ -930,7 +940,7 @@ function inferBlocLabels(
   }
   if (nuance === "LUG") {
     return {
-      shortBlocLabel: "Gauche + écolos",
+      shortBlocLabel: "Union gauche-écolos (PS)",
       blocLabel: "Union de la gauche et des écologistes",
     };
   }
@@ -995,11 +1005,13 @@ function buildLeadBio(
   _qualificationStatus: PreviewQualificationStatus,
   blocLabel: string,
 ): string {
+  const blocLabelWithoutPrefix = blocLabel.replace(/^bloc\s+/i, "").trim();
+
   const knownBio = KNOWN_LEADER_BIOS[leadName];
   if (knownBio) {
-    return `${knownBio} Sur cette election, ${leadName} conduit une liste rattachee au bloc ${blocLabel} dans le ${sectorLabel}.`;
+    return `${knownBio} Sur cette election, ${leadName} conduit une liste rattachee au bloc ${blocLabelWithoutPrefix} dans le ${sectorLabel}.`;
   }
-  return `${leadName} est tete de liste dans le ${sectorLabel} pour les municipales 2026. Cette candidature est rattachee au bloc ${blocLabel}.`;
+  return `${leadName} est tete de liste dans le ${sectorLabel} pour les municipales 2026. Cette candidature est rattachee au bloc ${blocLabelWithoutPrefix}.`;
 }
 
 function buildSupportBio(name: string, sectorLabel: string): string {
@@ -1047,6 +1059,7 @@ function buildFigures(
     shortPartyLabel: blocLabel,
     partyLabel: blocLabel,
     candidateId: inferLeadCandidateId(leadName),
+    photoUrl: getLeaderPhotoUrl(leadName),
     isLead: true,
   };
 
@@ -1130,6 +1143,146 @@ export const PARIS_SECOND_ROUND_PREVIEW: PreviewSector[] = RAW_SECTOR_RESULTS.ma
   };
 });
 
+type CitywideAggregate = {
+  key: string;
+  listName: string;
+  leadName: string;
+  shortBlocLabel: string;
+  blocLabel: string;
+  tone: PreviewPoliticalTone;
+  sponsorCandidateId?: CitywideCandidateId;
+  votes: number;
+  strongestLocalVotes: number;
+};
+
+function parseVotes(votes: string): number {
+  const cleaned = votes.replace(/\s+/g, "");
+  const parsed = Number.parseInt(cleaned, 10);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function formatVotes(votes: number): string {
+  return votes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+const PARIS_CITY_HALL_PREVIEW: PreviewSector = (() => {
+  const aggregates = new Map<string, CitywideAggregate>();
+
+  for (const sector of RAW_SECTOR_RESULTS) {
+    for (const list of sector.lists) {
+      const labels = inferBlocLabels(list.listName, list.nuance);
+      const tone = inferTone(list.listName, list.nuance);
+      const sponsorCandidateId = inferSponsorCandidateId(list.listName, list.nuance);
+      const leadName = toDisplayName(list.leader);
+      const key = `${labels.shortBlocLabel}-${tone}`;
+      const votes = parseVotes(list.votes);
+      const current = aggregates.get(key);
+
+      if (!current) {
+        aggregates.set(key, {
+          key,
+          listName: list.listName,
+          leadName,
+          shortBlocLabel: labels.shortBlocLabel,
+          blocLabel: labels.blocLabel,
+          tone,
+          sponsorCandidateId,
+          votes,
+          strongestLocalVotes: votes,
+        });
+        continue;
+      }
+
+      current.votes += votes;
+      if (sponsorCandidateId && !current.sponsorCandidateId) {
+        current.sponsorCandidateId = sponsorCandidateId;
+      }
+      if (votes > current.strongestLocalVotes) {
+        current.leadName = leadName;
+        current.listName = list.listName;
+        current.strongestLocalVotes = votes;
+      }
+    }
+  }
+
+  const totalVotes = Array.from(aggregates.values()).reduce(
+    (sum, aggregate) => sum + aggregate.votes,
+    0,
+  );
+
+  const lists: PreviewSectorList[] = Array.from(aggregates.values())
+    .map((aggregate) => {
+      const pct = totalVotes > 0 ? (aggregate.votes / totalVotes) * 100 : 0;
+      const qualificationStatus: PreviewQualificationStatus = pct >= 10 ? "maintain" : "merge";
+      const leadName = aggregate.sponsorCandidateId
+        ? CITYWIDE_CANDIDATES[aggregate.sponsorCandidateId]
+        : aggregate.leadName;
+      const figures: PreviewFigure[] = [
+        {
+          id: `mairie-paris-${slugify(leadName)}`,
+          name: leadName,
+          role: "Tête de liste parisienne",
+          bio: buildLeadBio(
+            leadName,
+            "Mairie de Paris",
+            aggregate.listName,
+            qualificationStatus,
+            aggregate.blocLabel,
+          ),
+          shortPartyLabel: aggregate.blocLabel,
+          partyLabel: aggregate.blocLabel,
+          candidateId: aggregate.sponsorCandidateId,
+          photoUrl: getLeaderPhotoUrl(leadName),
+          isLead: true,
+        },
+      ];
+
+      return {
+        id: `mairie-paris-${slugify(aggregate.key)}`,
+        listName: aggregate.listName,
+        shortBlocLabel: aggregate.shortBlocLabel,
+        blocLabel: aggregate.blocLabel,
+        tone: aggregate.tone,
+        qualificationStatus,
+        qualificationNote: buildQualificationNote(qualificationStatus),
+        listSummary: buildListSummary(
+          leadName,
+          aggregate.blocLabel,
+          qualificationStatus,
+          aggregate.sponsorCandidateId,
+        ),
+        votes: formatVotes(aggregate.votes),
+        pct,
+        figures,
+        firstRoundContributions: [
+          {
+            label: "Agrégation des résultats d'arrondissements",
+            pct,
+            votes: formatVotes(aggregate.votes),
+            note: "Synthèse locale utilisée pour un aperçu de la dynamique parisienne.",
+          },
+        ],
+      };
+    })
+    .sort((left, right) => right.pct - left.pct)
+    .slice(0, 6);
+
+  return {
+    id: "mairie-paris",
+    mapLabel: "Mairie",
+    label: "Mairie de Paris",
+    arrondissementLabel: "Vue Paris (agrégée)",
+    officialLabel: "Synthèse parisienne",
+    sourceUrl:
+      "https://www.resultats-elections.interieur.gouv.fr/municipales2026/ensemble_geographique/11/75/75056/index.html",
+    lists,
+  };
+})();
+
 export function getPreviewSectorById(sectorId: string): PreviewSector | undefined {
   return PARIS_SECOND_ROUND_PREVIEW.find((sector) => sector.id === sectorId);
+}
+
+export function getParisCityHallPreview(): PreviewSector {
+  return PARIS_CITY_HALL_PREVIEW;
 }

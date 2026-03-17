@@ -24,9 +24,7 @@ export async function generateExport(): Promise<string> {
     },
 
     survey: {
-      status: surveyState.status,
-      answers: surveyState.answers,
-      profile: surveyState.profile,
+      rounds: surveyState.rounds,
     },
 
     assistant: {
@@ -88,7 +86,7 @@ export async function shareExport(fileUri: string): Promise<void> {
 }
 
 export async function deleteAllUserData(): Promise<void> {
-  useSurveyStore.getState().reset();
+  useSurveyStore.getState().resetAll();
   useAssistantStore.getState().resetConversation();
   clearFeedbackEntries();
 

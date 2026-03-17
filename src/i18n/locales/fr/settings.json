@@ -13,6 +13,7 @@
     "contactTitle": "Contact",
     "contactDescription": "Pour toute question ou signalement :",
     "contactEmail": "support@citoyeninforme.fr",
+    "instagramFollow": "Suivez-nous sur Instagram",
     "createdBy": "Application créée par",
     "creatorName": "Vassili de Rosen",
     "version": "Version",
@@ -25,6 +26,7 @@
   "methodology": {
     "groupTitle": "Notre approche",
     "buttonLabel": "Notre méthodologie",
+    "buttonDescription": "Sources, équité et IA",
     "title": "Comment on a construit l'app",
     "sourcesTitle": "📄  Sources vérifiées",
     "sourcesBody": "Toutes les informations proviennent des documents de programme officiels publiés par les candidats eux-mêmes. Aucune interprétation journalistique, aucun éditorial : uniquement ce que les candidats ont écrit.",
@@ -38,6 +40,14 @@
     "aiBody": "L'assistant IA utilise un système de RAG (Retrieval-Augmented Generation) : il puise ses réponses directement dans les programmes politiques des candidats. Une couche d'intelligence artificielle vient ensuite formuler des réponses claires et sourcées, sans jamais inventer d'information.",
     "motivationTitle": "💡  Mot du créateur",
     "motivationBody": "« Je ne savais absolument pas pour qui voter pour le maire de Paris. En me penchant sur la question, je me suis rendu compte que je n'étais pas du tout informé des propositions réelles des candidats, et que je me faisais énormément influencer par ce qu'on croyait entendre ici et là. Et je me suis vite rendu compte que je n'étais pas le seul dans ce cas.\n\nJ'ai voulu lire les programmes, mais ce n'était pas simple. Alors j'ai décidé de créer cette application, inspirée d'Elyze (sortie en 2022 pour la présidentielle), pour permettre à chacun de s'informer de manière ludique et accessible.\n\nEt franchement, je me suis bien marré à la construire ! »\n\n— Vassili de Rosen"
+  },
+  "officialSources": {
+    "buttonLabel": "Sources officielles",
+    "buttonDescription": "Liens vers les sources publiques de la logistique électorale",
+    "modalTitle": "Sources officielles",
+    "nonOfficialDisclaimer": "Citoyen Informé est une application indépendante. Elle ne représente aucune entité gouvernementale ni organisme public.",
+    "listTitle": "Liens officiels utilisés",
+    "empty": "Aucune source officielle disponible."
   },
   "danger": {
     "delete": "Supprimer toutes mes données",

@@ -23,6 +23,7 @@ export default function AssistantScreen() {
   const { isConnected } = useNetworkStatus();
   const headerHeight = useHeaderHeight();
   const navigation = useNavigation();
+  const streamWatchdogRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const selectedCandidateId = useAssistantStore((s) => s.selectedCandidateId);
   const messages = useAssistantStore((s) => {
@@ -72,6 +73,15 @@ export default function AssistantScreen() {
 
   // --- Chat handler ---
 
+  useEffect(() => {
+    return () => {
+      if (streamWatchdogRef.current) {
+        clearTimeout(streamWatchdogRef.current);
+        streamWatchdogRef.current = null;
+      }
+    };
+  }, []);
+
   const handleSend = (text: string) => {
     if (isStreaming || !isConnected) return;
 
@@ -83,6 +93,20 @@ export default function AssistantScreen() {
     };
     addMessage(userMessage);
     setStreaming(true);
+
+    if (streamWatchdogRef.current) {
+      clearTimeout(streamWatchdogRef.current);
+    }
+    streamWatchdogRef.current = setTimeout(() => {
+      setStreaming(false);
+      addMessage({
+        id: createMessageId(),
+        role: "assistant",
+        content: "[Erreur: délai dépassé, merci de réessayer.]",
+        timestamp: new Date().toISOString(),
+      });
+      streamWatchdogRef.current = null;
+    }, 25000);
 
     let firstChunk = true;
     const assistantMessageId = createMessageId();
@@ -104,9 +128,17 @@ export default function AssistantScreen() {
         }
       },
       () => {
+        if (streamWatchdogRef.current) {
+          clearTimeout(streamWatchdogRef.current);
+          streamWatchdogRef.current = null;
+        }
         setStreaming(false);
       },
       (error) => {
+        if (streamWatchdogRef.current) {
+          clearTimeout(streamWatchdogRef.current);
+          streamWatchdogRef.current = null;
+        }
         if (firstChunk) {
           firstChunk = false;
           addMessage({

@@ -10,22 +10,25 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import Svg, { Path, Rect, Text as SvgText } from "react-native-svg";
 import { useTranslation } from "react-i18next";
 import { AppText as Text } from "../../components/ui/AppText";
 import {
   PARIS_MAP_AREAS,
+  PARIS_MAP_VIEWBOX,
   PARIS_SEINE_PATH,
 } from "../../data/elections/paris-2026/parisMapGeometry";
 import {
+  getParisCityHallPreview,
   getPreviewSectorById,
   type PreviewFigure,
   type PreviewPoliticalTone,
   type PreviewSector,
   type PreviewSectorList,
 } from "../../data/elections/paris-2026/parisSecondRoundPreview";
+import { ARRONDISSEMENT_LEADER_IMAGE_SOURCES } from "../../data/elections/paris-2026/arrondissementLeaderPhotoAssets";
 import { openExternalUrl } from "../../services/open-url";
 import { useElectionStore } from "../../stores/election";
 import { getCandidatePartyColor } from "../../utils/candidatePartyColor";
@@ -34,9 +37,9 @@ import type { Candidate } from "../../data/schema";
 
 type CandidateMap = Map<string, Candidate>;
 const TAB_BAR_OFFSET = 88;
-const MAP_VIEWBOX = "18 16 598 326";
+const MAP_VIEWBOX = `${PARIS_MAP_VIEWBOX.minX} ${PARIS_MAP_VIEWBOX.minY} ${PARIS_MAP_VIEWBOX.width} ${PARIS_MAP_VIEWBOX.height}`;
 
-const SCREEN_BACKGROUND = ["#FDFBF7", "#F4EEE3"] as const;
+const SCREEN_BACKGROUND = ["#FFFFFF", "#FFFFFF"] as const;
 const MAP_FILL = "#5B84AF";
 const MAP_PRESS_FILL = "#88AED3";
 const MAP_HINT_FILL = "#7FA8D1";
@@ -46,6 +49,10 @@ const MAP_SELECTED_STROKE = "#7F1E16";
 const MAP_WATER_COLOR = "#D4E2F3";
 const MAP_CANVAS = "#F5ECDF";
 const MAP_HORIZONTAL_OFFSET = -7;
+const CITY_HALL_ICON_BORDER = "#D9E4F1";
+const CITY_HALL_ICON_SIZE = 46;
+const CITY_HALL_ICON_TOP = 92;
+const CITY_HALL_ICON_RIGHT = 24;
 
 const PARIS_MAP_STROKES = PARIS_MAP_AREAS.filter((area) => area.showStroke);
 
@@ -88,9 +95,7 @@ function getPathCenter(path: string): { x: number; y: number } {
 const PARIS_MAP_LABELS = PARIS_MAP_SECTORS.map((sector) => {
   const center = getPathCenter(sector.path);
   const labelOverrides: Record<string, { x?: number; y?: number }> = {
-    "01": { x: 319, y: 166 },
-    "15": { x: 178, y: 236 },
-    "12": { x: 536, y: 275 },
+    "01": { x: center.x - 8, y: center.y - 28 },
   };
   const override = labelOverrides[sector.sectorId];
 
@@ -175,7 +180,10 @@ function FigureAvatar({
   secondary?: boolean;
 }) {
   const candidate = figure.candidateId ? candidateMap.get(figure.candidateId) : undefined;
-  const imageSource = candidate ? getCandidateImageSource(candidate) : null;
+  const candidateImageSource = candidate ? getCandidateImageSource(candidate) : null;
+  const leaderImageSource = ARRONDISSEMENT_LEADER_IMAGE_SOURCES[figure.name] ?? null;
+  const fallbackImageSource = figure.photoUrl ? { uri: figure.photoUrl } : null;
+  const imageSource = candidateImageSource ?? leaderImageSource ?? fallbackImageSource;
 
   return (
     <View
@@ -273,6 +281,7 @@ function SectorListCard({
 }) {
   const accentColor = getListAccentColor(list);
   const leadFigure = list.figures[0];
+  const isElected = list.pct >= 50;
   const progressWidth = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -305,13 +314,31 @@ function SectorListCard({
         paddingBottom: 11,
       }}
     >
-      <View className="flex-row items-center justify-between">
+      <View className="flex-row items-center">
         <Text
-          className="font-display-semibold text-[17px] text-civic-navy flex-1 pr-3"
+          className="font-display-semibold text-[17px] text-civic-navy"
           numberOfLines={1}
+          style={{ flexShrink: 1 }}
         >
           {leadFigure.name}
         </Text>
+        {isElected ? (
+          <View
+            className="rounded-full ml-2 px-2 py-0.5"
+            style={{
+              borderWidth: 1,
+              borderColor: "#1F8F5F",
+              backgroundColor: "#FFFFFF",
+            }}
+          >
+            <Text
+              className="font-display-semibold text-[10px]"
+              style={{ color: "#1F8F5F", letterSpacing: 0.3 }}
+            >
+              {t("electedBadge")}
+            </Text>
+          </View>
+        ) : null}
       </View>
 
       <Text
@@ -383,8 +410,14 @@ function PreviewListModal({
 
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
-      <View className="flex-1 bg-black/45 justify-end">
-        <View className="rounded-t-[32px] bg-warm-white px-5 pt-5 pb-8" style={{ maxHeight: "88%" }}>
+      <Pressable className="flex-1 bg-black/45 justify-end" onPress={onClose}>
+        <Pressable
+          className="rounded-t-[32px] bg-warm-white px-5 pt-5 pb-8"
+          style={{ maxHeight: "88%" }}
+          onPress={(event) => {
+            event.stopPropagation();
+          }}
+        >
           <View className="flex-row items-center justify-between mb-4">
             <View className="flex-1 pr-4">
               <Text className="font-display-bold text-[21px] text-civic-navy">
@@ -464,8 +497,8 @@ function PreviewListModal({
               </Pressable>
             </View>
           </ScrollView>
-        </View>
-      </View>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 }
@@ -474,10 +507,12 @@ function ParisMap({
   selectedSectorId,
   onSelectSector,
   screenFocused,
+  suspendHint = false,
 }: {
   selectedSectorId: string | null;
   onSelectSector: (sectorId: string) => void;
   screenFocused: boolean;
+  suspendHint?: boolean;
 }) {
   const [pressedSectorId, setPressedSectorId] = useState<string | null>(null);
   const [hintDismissed, setHintDismissed] = useState(false);
@@ -490,7 +525,7 @@ function ParisMap({
   }, [screenFocused]);
 
   useEffect(() => {
-    if (!screenFocused || selectedSectorId || hintDismissed) return;
+    if (!screenFocused || selectedSectorId || hintDismissed || suspendHint) return;
 
     let frame = 0;
     const totalFrames = 40;
@@ -500,10 +535,10 @@ function ParisMap({
     }, 50);
 
     return () => clearInterval(interval);
-  }, [hintDismissed, screenFocused, selectedSectorId]);
+  }, [hintDismissed, screenFocused, selectedSectorId, suspendHint]);
 
   const hintSectorId = "13";
-  const hintActive = screenFocused && !hintDismissed && !selectedSectorId;
+  const hintActive = screenFocused && !hintDismissed && !selectedSectorId && !suspendHint;
   const hintWave = Math.sin(hintProgress * Math.PI);
   const hintScale = 1 + 0.14 * hintWave;
   const hintDrop = 5.2 * hintWave;
@@ -528,7 +563,13 @@ function ParisMap({
       viewBox={MAP_VIEWBOX}
       preserveAspectRatio="xMidYMid meet"
     >
-      <Rect x={0} y={0} width={640} height={540} fill={MAP_CANVAS} />
+      <Rect
+        x={PARIS_MAP_VIEWBOX.minX}
+        y={PARIS_MAP_VIEWBOX.minY}
+        width={PARIS_MAP_VIEWBOX.width}
+        height={PARIS_MAP_VIEWBOX.height}
+        fill={MAP_CANVAS}
+      />
 
       {orderedSectors.map((sector) => {
         const isSelected = sector.sectorId === selectedSectorId;
@@ -645,7 +686,7 @@ function ParisMap({
           key={`label-${label.sectorId}`}
           x={label.x}
           y={label.y}
-          fontSize={16}
+          fontSize={label.sectorId === "01" ? 30 : 34}
           fontWeight="700"
           fill="#F8FCFF"
           textAnchor="middle"
@@ -746,6 +787,7 @@ export default function CarteScreen() {
   const insets = useSafeAreaInsets();
   const candidates = useElectionStore((state) => state.candidates);
   const [selectedSectorId, setSelectedSectorId] = useState<string | null>(null);
+  const [isCityHallSelected, setIsCityHallSelected] = useState(false);
   const [selectedList, setSelectedList] = useState<PreviewSectorList | null>(null);
 
   const candidateMap = useMemo(
@@ -753,10 +795,16 @@ export default function CarteScreen() {
     [candidates],
   );
 
-  const selectedSector = selectedSectorId ? getPreviewSectorById(selectedSectorId) ?? null : null;
+  const cityHallSector = useMemo(() => getParisCityHallPreview(), []);
+
+  const selectedSector = useMemo(() => {
+    if (selectedSectorId) return getPreviewSectorById(selectedSectorId) ?? null;
+    if (isCityHallSelected) return cityHallSector;
+    return null;
+  }, [cityHallSector, isCityHallSelected, selectedSectorId]);
 
   return (
-    <SafeAreaView className="flex-1 bg-warm-white" edges={["top"]}>
+    <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
       <LinearGradient colors={SCREEN_BACKGROUND} style={{ flex: 1 }}>
         <View className="flex-1">
           <View className="pt-2 pb-1 px-4 items-center">
@@ -797,25 +845,64 @@ export default function CarteScreen() {
               }}
             >
               <View
+                style={{
+                  position: "absolute",
+                  top: CITY_HALL_ICON_TOP,
+                  right: CITY_HALL_ICON_RIGHT,
+                  zIndex: 2,
+                }}
+              >
+                <Pressable
+                  onPress={() => {
+                    setSelectedList(null);
+                    setSelectedSectorId(null);
+                    setIsCityHallSelected((current) => !current);
+                  }}
+                  accessibilityRole="button"
+                  accessibilityLabel={t("cityHallToggle")}
+                  className="rounded-full items-center justify-center"
+                  style={{
+                    width: CITY_HALL_ICON_SIZE,
+                    height: CITY_HALL_ICON_SIZE,
+                    backgroundColor: MAP_FILL,
+                    borderWidth: 1,
+                    borderColor: CITY_HALL_ICON_BORDER,
+                    shadowColor: "#0F172A",
+                    shadowOpacity: 0.16,
+                    shadowRadius: 8,
+                    shadowOffset: { width: 0, height: 3 },
+                    elevation: 4,
+                    opacity: isCityHallSelected ? 0.92 : 1,
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name={isCityHallSelected ? "bank" : "bank-outline"}
+                    size={21}
+                    color="#F8FCFF"
+                  />
+                </Pressable>
+              </View>
+
+              <View
                 pointerEvents="none"
                 style={{
                   position: "absolute",
                   left: 20,
                   right: 20,
-                  bottom: 18,
+                  bottom: 34,
                   zIndex: 1,
                   alignItems: "center",
                 }}
               >
                 <Text
-                  className="font-display-bold text-center"
+                  className="text-center"
                   style={{
-                    fontSize: 28,
-                    lineHeight: 29,
-                    color: "#9E6C43",
-                    opacity: 0.58,
-                    textTransform: "uppercase",
-                    letterSpacing: 0.9,
+                    fontSize: 20,
+                    lineHeight: 22,
+                    color: "#1E2A44",
+                    opacity: 1,
+                    letterSpacing: 0.35,
+                    fontFamily: "ArialRoundedMTBold",
                   }}
                 >
                   {t("mapSubtitle")}
@@ -833,10 +920,12 @@ export default function CarteScreen() {
                 <ParisMap
                   selectedSectorId={selectedSectorId}
                   onSelectSector={(sectorId) => {
+                    setIsCityHallSelected(false);
                     setSelectedSectorId(sectorId);
                     setSelectedList(null);
                   }}
                   screenFocused={isFocused}
+                  suspendHint={isCityHallSelected}
                 />
               </View>
             </View>
@@ -848,6 +937,7 @@ export default function CarteScreen() {
               onClose={() => {
                 setSelectedSectorId(null);
                 setSelectedList(null);
+                setIsCityHallSelected(false);
               }}
               onOpenList={setSelectedList}
               bottomInset={insets.bottom}

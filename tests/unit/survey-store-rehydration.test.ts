@@ -4,16 +4,13 @@ describe("survey store persist rehydration", () => {
     jest.clearAllMocks();
   });
 
-  test("runs persist migration and removes legacy VS answers during rehydration", async () => {
+  test("migrates legacy single-round state into first-round history", async () => {
     const storagePayload = {
       "survey-state": JSON.stringify({
         state: {
           status: "results_ready",
           currentQuestionIndex: 5,
-          questionOrder: [
-            "CARD_0010",
-            "CARD_0010 VS",
-          ],
+          questionOrder: ["CARD_0010", "CARD_0010 VS"],
           answers: {
             CARD_0010: "CARD_0010-agree",
             "CARD_0010 VS": "CARD_0010 VS-disagree",
@@ -36,7 +33,10 @@ describe("survey store persist rehydration", () => {
       }),
     };
 
-    const getItem = jest.fn(async (key: string) => storagePayload[key as keyof typeof storagePayload] ?? null);
+    const getItem = jest.fn(
+      async (key: string) =>
+        storagePayload[key as keyof typeof storagePayload] ?? null
+    );
     const setItem = jest.fn(async () => undefined);
     const removeItem = jest.fn(async () => undefined);
 
@@ -49,30 +49,42 @@ describe("survey store persist rehydration", () => {
       },
     }));
 
-    let useSurveyStore: typeof import("../../src/stores/survey").useSurveyStore;
+    let useSurveyStore!: typeof import("../../src/stores/survey").useSurveyStore;
+    let FIRST_SURVEY_ROUND!: typeof import("../../src/stores/survey").FIRST_SURVEY_ROUND;
+    let SECOND_SURVEY_ROUND!: typeof import("../../src/stores/survey").SECOND_SURVEY_ROUND;
+
     jest.isolateModules(() => {
-      ({ useSurveyStore } = require("../../src/stores/survey"));
+      ({
+        FIRST_SURVEY_ROUND,
+        SECOND_SURVEY_ROUND,
+        useSurveyStore,
+      } = require("../../src/stores/survey"));
     });
 
     await (useSurveyStore as any).persist.rehydrate();
 
     const state = useSurveyStore.getState();
-    expect(state.answers).toEqual({
-      CARD_0010: "CARD_0010-agree",
+    expect(state.rounds[FIRST_SURVEY_ROUND]).toMatchObject({
+      answers: {
+        CARD_0010: "CARD_0010-agree",
+      },
+      status: "questionnaire",
+      currentQuestionIndex: 1,
+      questionOrder: ["CARD_0010", "CARD_0010 VS"],
+      profile: null,
+      datasetVersion: null,
+      hasSeenInitialResult: false,
+      hasVisitedResultsTab: false,
     });
-    expect(state.status).toBe("questionnaire");
-    expect(state.currentQuestionIndex).toBe(1);
-    expect(state.questionOrder).toEqual([
-      "CARD_0010",
-      "CARD_0010 VS",
-    ]);
-    expect(state.profile).toBeNull();
-    expect(state.datasetVersion).toBeNull();
-    expect(state.hasSeenInitialResult).toBe(false);
-    expect(state.hasVisitedResultsTab).toBe(false);
+    expect(state.rounds[SECOND_SURVEY_ROUND]).toMatchObject({
+      answers: {},
+      questionOrder: [],
+      profile: null,
+      status: "not_started",
+    });
   });
 
-  test("reset clears persisted question order", async () => {
+  test("reset clears the default second-round question order only", async () => {
     const getItem = jest.fn(async () => null);
     const setItem = jest.fn(async () => undefined);
     const removeItem = jest.fn(async () => undefined);
@@ -86,17 +98,37 @@ describe("survey store persist rehydration", () => {
       },
     }));
 
-    let useSurveyStore: typeof import("../../src/stores/survey").useSurveyStore;
+    let useSurveyStore!: typeof import("../../src/stores/survey").useSurveyStore;
+    let FIRST_SURVEY_ROUND!: typeof import("../../src/stores/survey").FIRST_SURVEY_ROUND;
+
     jest.isolateModules(() => {
-      ({ useSurveyStore } = require("../../src/stores/survey"));
+      ({
+        FIRST_SURVEY_ROUND,
+        useSurveyStore,
+      } = require("../../src/stores/survey"));
     });
 
     await (useSurveyStore as any).persist.rehydrate();
 
     useSurveyStore.getState().setQuestionOrder(["CARD_0001", "CARD_0002"]);
-    expect(useSurveyStore.getState().questionOrder).toEqual(["CARD_0001", "CARD_0002"]);
+    useSurveyStore
+      .getState()
+      .setQuestionOrder(["LEGACY_CARD"], FIRST_SURVEY_ROUND);
+
+    expect(
+      useSurveyStore.getState().rounds.first_round.questionOrder
+    ).toEqual(["LEGACY_CARD"]);
+    expect(
+      useSurveyStore.getState().rounds.second_round.questionOrder
+    ).toEqual(["CARD_0001", "CARD_0002"]);
 
     useSurveyStore.getState().reset();
-    expect(useSurveyStore.getState().questionOrder).toEqual([]);
+
+    expect(
+      useSurveyStore.getState().rounds.second_round.questionOrder
+    ).toEqual([]);
+    expect(
+      useSurveyStore.getState().rounds.first_round.questionOrder
+    ).toEqual(["LEGACY_CARD"]);
   });
 });
