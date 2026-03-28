@@ -1,4 +1,4 @@
-# Citoyen Informé (formerly Lucide v2)
+# Citoyen Informé
 
 Citoyen Informé is a civic election app built with Expo + React Native.  
 Its goal is to help citizens understand candidates and programs with neutral, source-backed information, not voting recommendations.
@@ -26,6 +26,13 @@ This repository currently ships with the Paris 2026 municipal election dataset (
 - Sources first: claims should be linked to references.
 - Local-first user data: survey/chat/preferences are persisted on device.
 - Deterministic matching: same answers => same ranking.
+
+## Open-source governance
+
+- License: `LICENSE`
+- Contribution guide: `CONTRIBUTING.md`
+- Code of conduct: `CODE_OF_CONDUCT.md`
+- Security reporting policy: `SECURITY.md`
 
 ## Tech stack
 
@@ -75,18 +82,26 @@ cp .env.example .env
 
 At minimum, set:
 
-- `OPENAI_API_KEY`
+- `GEMINI_API_KEY`
 - `EXPO_PUBLIC_LLM_PROXY_URL` (usually `http://localhost:3001` for local dev)
 
 Recommended for proxy auth:
 
 - `LLM_PROXY_API_KEY`
 - `EXPO_PUBLIC_LLM_PROXY_API_KEY`
+- `LLM_PROXY_ALLOWED_ORIGINS` (for browser playground/tests)
+
+Optional hardening flags:
+
+- `LLM_PROXY_TRUST_X_FORWARDED_FOR` (set to `true` only behind a trusted reverse proxy)
+- `LLM_PROXY_ENABLE_PLAYGROUND` (defaults to `false`)
+- `LLM_PROXY_ENABLE_DEBUG_ENDPOINT` (defaults to `false`)
 
 Optional:
 
 - `EXPO_PUBLIC_SENTRY_DSN` (runtime crash reporting DSN)
 - `EXPO_PUBLIC_PRIVACY_POLICY_URL`
+- `EXPO_PUBLIC_ENABLE_SENTRY_VISUAL_ATTACHMENTS` (defaults to `false`)
 - Crash reporting is disabled by default and only enabled after explicit opt-in in Settings.
 
 Required for EAS builds with Sentry source-map/release integration (set as EAS secrets):
@@ -106,6 +121,12 @@ Privacy stance:
 
 ```bash
 npm run chat:proxy
+```
+
+To use local debug tooling (`/playground` and `/api/debug`), run:
+
+```bash
+npm run chat:proxy:devtools
 ```
 
 Health check:
@@ -134,6 +155,7 @@ For iOS Simulator visual testing via MCP, see `.agents/workflows/launch-simulato
 
 - `npm start` - start Expo
 - `npm run chat:proxy` - run local chat proxy
+- `npm run chat:proxy:devtools` - run local chat proxy with playground/debug endpoints enabled
 - `npm test` - run test suite
 - `npm run lint` - run ESLint
 - `npm run data:review:paris-2026` - generate markdown review of the bundled dataset

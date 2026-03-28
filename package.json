@@ -1,5 +1,5 @@
 {
-  "name": "lucide",
+  "name": "citoyen-informe",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -9,10 +9,12 @@
     "web": "expo start --web",
     "postinstall": "node scripts/patch-safe-area-warning.js",
     "chat:proxy": "node --max-old-space-size=2048 scripts/rag-proxy.js",
+    "chat:proxy:devtools": "LLM_PROXY_ENABLE_PLAYGROUND=true LLM_PROXY_ENABLE_DEBUG_ENDPOINT=true node --max-old-space-size=2048 scripts/rag-proxy.js",
     "chat:playground": "open http://localhost:3001/playground",
-    "chat:proxy:v1": "node scripts/llm-proxy.js",
     "build:rag-index": "node --max-old-space-size=8192 scripts/build-rag-index.js",
     "chat:tunnel": "bash scripts/proxy-tunnel.sh",
+    "data:fetch:municipales:paris": "node scripts/fetch-municipales-paris-db.js",
+    "data:build:maire-top6-arrondissements": "node scripts/build-paris-maire-arrondissements-json.js",
     "data:review:paris-2026": "node scripts/generate-election-review-md.js paris-2026",
     "data:review:candidates": "node scripts/generate-candidate-review-pack.js",
     "data:review:candidates:excel": "node scripts/generate-candidate-review-excel.js",
@@ -62,7 +64,6 @@
     "react-native": "0.81.5",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-localize": "^3.4.1",
-    "react-native-markdown-display": "^7.0.2",
     "react-native-reanimated": "~4.1.1",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
@@ -70,7 +71,6 @@
     "react-native-view-shot": "4.0.3",
     "react-native-web": "~0.21.0",
     "react-native-worklets": "0.5.1",
-    "xlsx": "^0.18.5",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -86,6 +86,7 @@
     "jest": "^29.7.0",
     "jest-circus": "^30.2.0",
     "jest-expo": "~54.0.0",
+    "exceljs": "^4.4.0",
     "react-test-renderer": "19.1.0",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.9.2"

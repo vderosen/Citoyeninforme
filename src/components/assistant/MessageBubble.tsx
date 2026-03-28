@@ -1,8 +1,6 @@
 import { View, Text } from "react-native";
-import Markdown, { type RenderRules } from "react-native-markdown-display";
 import type { ChatMessage } from "../../stores/assistant";
 import { TrustBadge } from "../shared/TrustBadge";
-import { markdownStyles } from "./markdownStyles";
 
 interface Props {
   message: ChatMessage;
@@ -14,68 +12,16 @@ const ASSISTANT_BUBBLE_COLOR = "#FFFFFF"; // Solid white for legibility
 const BUBBLE_R = 24;
 const POINTED_CORNER_R = 6;
 
-const selectableMarkdownRules: RenderRules = {
-  text: (node: any, _children: any, _parent: any, styles: any, inheritedStyles: any = {}) => (
-    <Text key={node.key} selectable style={[inheritedStyles, styles.text]}>
-      {node.content}
-    </Text>
-  ),
-  textgroup: (node: any, children: any, _parent: any, styles: any) => (
-    <Text key={node.key} selectable style={styles.textgroup}>
-      {children}
-    </Text>
-  ),
-  strong: (node: any, children: any, _parent: any, styles: any) => (
-    <Text key={node.key} selectable style={styles.strong}>
-      {children}
-    </Text>
-  ),
-  em: (node: any, children: any, _parent: any, styles: any) => (
-    <Text key={node.key} selectable style={styles.em}>
-      {children}
-    </Text>
-  ),
-  s: (node: any, children: any, _parent: any, styles: any) => (
-    <Text key={node.key} selectable style={styles.s}>
-      {children}
-    </Text>
-  ),
-  code_inline: (node: any, _children: any, _parent: any, styles: any, inheritedStyles: any = {}) => (
-    <Text key={node.key} selectable style={[inheritedStyles, styles.code_inline]}>
-      {node.content}
-    </Text>
-  ),
-  code_block: (node: any, _children: any, _parent: any, styles: any, inheritedStyles: any = {}) => (
-    <Text key={node.key} selectable style={[inheritedStyles, styles.code_block]}>
-      {node.content}
-    </Text>
-  ),
-  fence: (node: any, _children: any, _parent: any, styles: any, inheritedStyles: any = {}) => (
-    <Text key={node.key} selectable style={[inheritedStyles, styles.fence]}>
-      {node.content}
-    </Text>
-  ),
-  inline: (node: any, children: any, _parent: any, styles: any) => (
-    <Text key={node.key} selectable style={styles.inline}>
-      {children}
-    </Text>
-  ),
-  span: (node: any, children: any, _parent: any, styles: any) => (
-    <Text key={node.key} selectable style={styles.span}>
-      {children}
-    </Text>
-  ),
-  hardbreak: (node: any, _children: any, _parent: any, styles: any) => (
-    <Text key={node.key} selectable style={styles.hardbreak}>
-      {"\n"}
-    </Text>
-  ),
-  softbreak: (node: any, _children: any, _parent: any, styles: any) => (
-    <Text key={node.key} selectable style={styles.softbreak}>
-      {"\n"}
-    </Text>
-  ),
-};
+function simplifyMarkdown(content: string): string {
+  return content
+    .replace(/```([\s\S]*?)```/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/_(.*?)_/g, "$1")
+    .replace(/~~(.*?)~~/g, "$1");
+}
 
 function BubbleShape({
   side,
@@ -122,21 +68,14 @@ function BubbleShape({
 }
 
 function AssistantContent({ content, isStreaming }: { content: string; isStreaming?: boolean }) {
-  const displayContent = isStreaming ? content + " ▋" : content;
+  const normalized = simplifyMarkdown(content);
+  const displayContent = isStreaming ? normalized + " ▋" : normalized;
 
-  try {
-    return (
-      <Markdown style={markdownStyles} rules={selectableMarkdownRules}>
-        {displayContent}
-      </Markdown>
-    );
-  } catch {
-    return (
-      <Text selectable className="font-body text-base text-text-body">
-        {displayContent}
-      </Text>
-    );
-  }
+  return (
+    <Text selectable className="font-body text-base text-text-body">
+      {displayContent}
+    </Text>
+  );
 }
 
 export function MessageBubble({ message, isStreaming }: Props) {

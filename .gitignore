@@ -44,3 +44,6 @@ screenshots/results-share-hint-sim.png
 
 # Local remotion/video workspace
 video-demo/
+
+# Windows alternate data streams accidentally copied into git
+*:Zone.Identifier

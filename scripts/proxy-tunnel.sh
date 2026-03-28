@@ -2,7 +2,7 @@
 # ──────────────────────────────────────────────────────────
 # proxy-tunnel.sh
 #
-# Starts the LLM proxy + an ngrok tunnel, then updates .env
+# Starts the RAG proxy + an ngrok tunnel, then updates .env
 # with the public URL so Expo on mobile can reach the proxy.
 #
 # Usage:  npm run chat:tunnel
@@ -38,15 +38,15 @@ trap cleanup SIGINT SIGTERM
 # Save original URL
 ORIGINAL_URL=$(grep '^EXPO_PUBLIC_LLM_PROXY_URL=' "$ENV_FILE" | cut -d= -f2-)
 
-# 1) Start the LLM proxy
-echo -e "${YELLOW}Starting LLM proxy on port $PROXY_PORT...${NC}"
-node "$SCRIPT_DIR/llm-proxy.js" &
+# 1) Start the RAG proxy
+echo -e "${YELLOW}Starting RAG proxy on port $PROXY_PORT...${NC}"
+node "$SCRIPT_DIR/rag-proxy.js" &
 PROXY_PID=$!
 sleep 1
 
 # Check proxy started OK
 if ! kill -0 "$PROXY_PID" 2>/dev/null; then
-  echo -e "${RED}Proxy failed to start. Check OPENAI_API_KEY in .env${NC}"
+  echo -e "${RED}Proxy failed to start. Check GEMINI_API_KEY in .env${NC}"
   exit 1
 fi
 echo -e "${GREEN}Proxy running (PID $PROXY_PID)${NC}"

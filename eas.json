@@ -42,7 +42,7 @@
   "submit": {
     "production": {
       "ios": {
-        "appleId": "vassderosenpro@gmail.com",
+        "appleId": "your-apple-id@example.com",
         "ascAppId": "6759607258"
       }
     }
