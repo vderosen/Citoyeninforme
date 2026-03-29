@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const XLSX = require("xlsx");
+const ExcelJS = require("exceljs");
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 const CANDIDATES_FILE = path.join(
@@ -150,15 +150,22 @@ function candidateRelation(card, candidateId) {
 }
 
 function appendSheet(workbook, name, rows, colWidths) {
-  const worksheet = XLSX.utils.json_to_sheet(rows);
-  if (colWidths && colWidths.length > 0) {
-    worksheet["!cols"] = colWidths.map((wch) => ({ wch }));
+  const worksheet = workbook.addWorksheet(name);
+  const headers = rows.length > 0 ? Object.keys(rows[0]) : [];
+
+  worksheet.columns = headers.map((header, index) => ({
+    header,
+    key: header,
+    width: colWidths?.[index],
+  }));
+
+  for (const row of rows) {
+    worksheet.addRow(row);
   }
-  XLSX.utils.book_append_sheet(workbook, worksheet, name);
 }
 
-function createCandidateWorkbook(candidate, cards, generatedDate, outputFilePath) {
-  const workbook = XLSX.utils.book_new();
+async function createCandidateWorkbook(candidate, cards, generatedDate, outputFilePath) {
+  const workbook = new ExcelJS.Workbook();
 
   const relatedCards = cards
     .map((card) => ({
@@ -233,7 +240,7 @@ function createCandidateWorkbook(candidate, cards, generatedDate, outputFilePath
     [8, 14, 12, 14, 8, 50, 90, 40, 55, 45]
   );
 
-  XLSX.writeFile(workbook, outputFilePath);
+  await workbook.xlsx.writeFile(outputFilePath);
 
   return {
     candidateId: candidate.id,
@@ -245,7 +252,7 @@ function createCandidateWorkbook(candidate, cards, generatedDate, outputFilePath
   };
 }
 
-function main() {
+async function main() {
   const candidatesData = readJson(CANDIDATES_FILE);
   const proposals = readJson(PROPOSALS_FILE);
   const candidates = candidatesData.candidates || [];
@@ -264,7 +271,7 @@ function main() {
     const prefix = String(i + 1).padStart(2, "0");
     const fileName = `${prefix}-${slugify(candidate.name)}.xlsx`;
     const outputFilePath = path.join(OUTPUT_DIR, fileName);
-    const summary = createCandidateWorkbook(
+    const summary = await createCandidateWorkbook(
       candidate,
       cards,
       generatedDate,
@@ -273,7 +280,7 @@ function main() {
     summaries.push(summary);
   }
 
-  const indexWorkbook = XLSX.utils.book_new();
+  const indexWorkbook = new ExcelJS.Workbook();
   const indexRows = summaries.map((item) => ({
     Candidat: item.candidateName,
     Fichier: item.fileName,
@@ -282,14 +289,15 @@ function main() {
     Cartes_opposition: item.oppositionCount,
     Genere_le: generatedDate,
   }));
-  const indexSheet = XLSX.utils.json_to_sheet(indexRows);
-  indexSheet["!cols"] = [28, 36, 14, 16, 18, 12].map((wch) => ({ wch }));
-  XLSX.utils.book_append_sheet(indexWorkbook, indexSheet, "Index");
-  XLSX.writeFile(indexWorkbook, path.join(OUTPUT_DIR, "README.xlsx"));
+  appendSheet(indexWorkbook, "Index", indexRows, [28, 36, 14, 16, 18, 12]);
+  await indexWorkbook.xlsx.writeFile(path.join(OUTPUT_DIR, "README.xlsx"));
 
   console.log(`Excels generes dans: ${OUTPUT_DIR}`);
   console.log(`Nombre de candidats: ${candidates.length}`);
   console.log(`Nombre total de cartes (runtime): ${cards.length}`);
 }
 
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

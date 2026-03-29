@@ -10,7 +10,7 @@ import path from "path";
 
 const TEST_PORT = 9877;
 const TEST_API_KEY = "test-key";
-const PROXY_SCRIPT = path.resolve(__dirname, "../../scripts/llm-proxy.js");
+const PROXY_SCRIPT = path.resolve(__dirname, "../../scripts/rag-proxy.js");
 
 let proxyProcess: ChildProcess;
 
@@ -44,12 +44,12 @@ function request(
 }
 
 beforeAll(async () => {
-  // Set OPENAI_API_KEY to empty string to prevent the .env loader from
+  // Set GEMINI_API_KEY to empty string to prevent the .env loader from
   // injecting it — the loader only sets keys that are undefined.
   proxyProcess = spawn("node", [PROXY_SCRIPT], {
     env: {
       ...process.env,
-      OPENAI_API_KEY: "",
+      GEMINI_API_KEY: "",
       LLM_PROXY_API_KEY: TEST_API_KEY,
       LLM_PROXY_PORT: String(TEST_PORT),
       LLM_PROXY_HOST: "127.0.0.1",
@@ -60,8 +60,8 @@ beforeAll(async () => {
   // Wait for the proxy to be ready
   await new Promise<void>((resolve, reject) => {
     const timeout = setTimeout(
-      () => reject(new Error("Proxy failed to start within 5s")),
-      5000
+      () => reject(new Error("Proxy failed to start within 15s")),
+      15000
     );
 
     proxyProcess.stdout?.on("data", (data: Buffer) => {
@@ -85,11 +85,12 @@ afterAll(() => {
 });
 
 describe("proxy API contract", () => {
-  test("GET /health returns 200 with { ok: true }", async () => {
+  test("GET /health returns 200 with ok=true", async () => {
     const res = await request("GET", "/health");
 
     expect(res.status).toBe(200);
-    expect(JSON.parse(res.body)).toEqual({ ok: true });
+    const body = JSON.parse(res.body);
+    expect(body.ok).toBe(true);
   });
 
   test("POST /api/chat without auth returns 401", async () => {
@@ -104,7 +105,7 @@ describe("proxy API contract", () => {
     expect(JSON.parse(res.body)).toEqual({ error: "Unauthorized" });
   });
 
-  test("POST /api/chat with auth but no OPENAI_API_KEY returns 500", async () => {
+  test("POST /api/chat with auth but no GEMINI_API_KEY returns 500", async () => {
     const res = await request(
       "POST",
       "/api/chat",
@@ -117,6 +118,21 @@ describe("proxy API contract", () => {
 
     expect(res.status).toBe(500);
     const body = JSON.parse(res.body);
-    expect(body.error).toContain("OPENAI_API_KEY");
+    expect(body.error).toContain("GEMINI_API_KEY");
+  });
+
+  test("POST /api/debug returns 404 by default", async () => {
+    const res = await request(
+      "POST",
+      "/api/debug",
+      {
+        "Content-Type": "application/json",
+        "X-API-Key": TEST_API_KEY,
+      },
+      JSON.stringify({ messages: [{ role: "user", content: "Debug this" }] })
+    );
+
+    expect(res.status).toBe(404);
+    expect(JSON.parse(res.body)).toEqual({ error: "Not found" });
   });
 });

@@ -7,6 +7,8 @@ type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string
 
 const SENTRY_DSN = process.env.EXPO_PUBLIC_SENTRY_DSN?.trim() ?? "";
 const MAX_CONTEXT_STRING_LENGTH = 200;
+const ENABLE_SENTRY_VISUAL_ATTACHMENTS =
+  (process.env.EXPO_PUBLIC_ENABLE_SENTRY_VISUAL_ATTACHMENTS ?? "").trim().toLowerCase() === "true";
 
 export const navigationIntegration = Sentry.reactNavigationIntegration({
   enableTimeToInitialDisplay: !isRunningInExpoGo(),
@@ -113,8 +115,8 @@ function initializeSdkIfNeeded(): void {
     release,
     dist,
     tracesSampleRate: __DEV__ ? 1.0 : 0.1,
-    attachScreenshot: true,
-    attachViewHierarchy: true,
+    attachScreenshot: ENABLE_SENTRY_VISUAL_ATTACHMENTS,
+    attachViewHierarchy: ENABLE_SENTRY_VISUAL_ATTACHMENTS,
     enableNativeFramesTracking: !isRunningInExpoGo(),
     enableAppHangTracking: true,
     enableWatchdogTerminationTracking: true,
