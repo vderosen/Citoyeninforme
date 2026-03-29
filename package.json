@@ -38,7 +38,7 @@
     "@react-native-aria/utils": "^0.2.12",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-community/netinfo": "11.4.1",
-    "@react-navigation/native": "^7.1.8",
+    "@react-navigation/native": "^7.2.2",
     "@sentry/react-native": "~7.2.0",
     "expo": "~54.0.33",
     "expo-constants": "~18.0.13",
