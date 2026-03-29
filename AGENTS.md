@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-- Read `Context.md` for architecture, tech stack, and project conventions
+- Read `docs/internal/project-context.md` for architecture, tech stack, and project conventions
 - Read `.specify/memory/constitution.md` for core principles (neutrality, privacy, source-grounded truth)
 - Run `npm test && npm run lint` before committing
 

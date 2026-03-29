@@ -36,11 +36,11 @@ docs/revue-candidats-paris-2026/
 # Campaign/support scratch docs
 docs/qr-tracking-links.md
 
-# Ad-hoc screenshot artifacts
-screenshots/disclaimer-sources-home-ios.png
-screenshots/disclaimer-sources-settings-modal-ios.png
-screenshots/results-share-hint-after-restart.png
-screenshots/results-share-hint-sim.png
+# Local screenshot and media scratch files
+screenshot*.png
+screenshots/
+logo\ Political\ partie/
+docs/assets/
 
 # Local remotion/video workspace
 video-demo/
