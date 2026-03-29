@@ -1,13 +1,14 @@
 # Citoyen Informé
 
-**Mobile app with 10 000+ downloads**
+**Mobile app with 10 000+ downloads.**
+
 The goal was to help people understand and get interested in politics for the Mayor election in Paris
 
 The core experience is based on a swipe system: users go through concrete proposals from candidates and progressively discover which programs align most with their views.
 
 To go further, the app also includes an AI assistant trained on the full set of candidate programs, allowing users to ask questions and explore positions in a more flexible way.
 
-Citoyen Informé was mentioned in national press: https://www.lesechos.fr/start-up/impact/municipales-2026-weward-happn-citoyen-informe-les-applications-qui-tentent-de-mobiliser-les-jeunes-2220759
+**Citoyen Informé** was mentioned in national press: https://www.lesechos.fr/start-up/impact/municipales-2026-weward-happn-citoyen-informe-les-applications-qui-tentent-de-mobiliser-les-jeunes-2220759
 
 Link to download (IOS and playstore): https://www.citoyeninforme.fr/
 
