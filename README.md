@@ -59,9 +59,10 @@ src/
 
 scripts/               Data pipeline and local proxy scripts
 docs/
+  README.md            Docs index (what is active vs archived)
   specs/               Functional and technical specifications
-  assets/              Legacy design assets
-  legacy/              Archive of old data versions and silos
+  internal/            Deep technical context for maintainers/agents
+  archive/             Historical material kept for reference
 tests/                 Unit and contract tests
 e2e/                   Detox end-to-end tests
 ```
@@ -208,8 +209,6 @@ eas submit --platform android
 4. Trigger the same exception and verify an issue appears in Sentry with environment/release tags.
 
 ## Specs index
-
-All product and implementation context is documented in `specs/`:
 
 All product and implementation context is documented in `docs/specs/`:
 
